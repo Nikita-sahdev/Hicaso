@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --color-brand-primary: #4f46e5;
+  --color-brand-indigo: #4338ca;
+  --color-brand-royal: #4a3aff;
+  --color-brand-accent: #00d2c4;
+  --color-brand-teal: #14b8a6;
+  --color-brand-emerald: #10b981;
+  --color-brand-dark: #0f172a;
+  --color-brand-muted: #475569;
+  --color-brand-light: #f8fafc;
+  
+  --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.01);
+  --shadow-premium-hover: 0 20px 40px -12px rgba(79, 70, 229, 0.08), 0 1px 3px rgba(0, 0, 0, 0.01);
+  --shadow-card: 0 10px 35px -15px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 20px 50px -15px rgba(79, 70, 229, 0.12);
+  
+  --radius-custom-xl: 20px;
+  --radius-custom-2xl: 24px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Reset & Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: #ffffff;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Selection */
+::selection {
+  background: rgba(79, 70, 229, 0.2);
+  color: #4f46e5;
 }

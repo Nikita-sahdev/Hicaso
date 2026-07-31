@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3.5rem;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+.left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.badge {
+  margin-bottom: 1.25rem;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-brand-dark);
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    font-size: 2.75rem;
+  }
+}
+
+.gradient {
+  background: linear-gradient(135deg, var(--color-brand-royal) 0%, var(--color-brand-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  color: var(--color-brand-muted);
+  line-height: 1.6;
+  margin-top: 1rem;
+  max-width: 600px;
+}

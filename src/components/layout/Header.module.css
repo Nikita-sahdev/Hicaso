@@ -1,0 +1,141 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+  height: 5.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  border-color: rgba(226, 232, 240, 0.6);
+  height: 4.5rem;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 2.25rem;
+}
+
+@media (min-width: 1024px) {
+  .desktopNav {
+    display: flex;
+  }
+}
+
+.navLink {
+  font-family: var(--font-sans);
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: var(--color-brand-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.navLink:hover {
+  color: var(--color-brand-primary);
+}
+
+.activeLink {
+  color: var(--color-brand-primary);
+  font-weight: 600;
+}
+
+.ctaWrapper {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ctaWrapper {
+    display: block;
+  }
+}
+
+.headerButton {
+  padding: 0.6rem 1.4rem !important;
+  font-size: 0.9rem !important;
+}
+
+.mobileToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-brand-dark);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .mobileToggle {
+    display: none;
+  }
+}
+
+/* Mobile Nav */
+.mobileNavOverlay {
+  position: fixed;
+  top: 5.5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ffffff;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.header.scrolled + .mobileNavOverlay {
+  top: 4.5rem;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobileNavLink {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-brand-muted);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.4);
+}
+
+.mobileNavLink:hover {
+  color: var(--color-brand-primary);
+}
+
+.activeMobileLink {
+  color: var(--color-brand-primary);
+  font-weight: 600;
+}
+
+.mobileCta {
+  margin-top: 1.5rem;
+  width: 100%;
+}
