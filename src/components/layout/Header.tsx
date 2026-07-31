@@ -6,11 +6,13 @@ import Container from "../ui/Container";
 import Logo from "../ui/Logo";
 import Button from "../ui/Button";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 export const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,13 +27,18 @@ export const Header: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { label: "Home", href: "/", active: true },
+    { label: "Home", href: "/" },
     { label: "Services", href: "/services" },
     { label: "About Us", href: "/about" },
     { label: "Our Work", href: "/work" },
     { label: "Careers", href: "/careers" },
     { label: "Contact Us", href: "/contact" },
   ];
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname?.startsWith(href);
+  };
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
@@ -44,7 +51,7 @@ export const Header: React.FC = () => {
             <Link
               key={link.label}
               href={link.href}
-              className={`${styles.navLink} ${link.active ? styles.activeLink : ""}`}
+              className={`${styles.navLink} ${isActive(link.href) ? styles.activeLink : ""}`}
             >
               {link.label}
             </Link>
@@ -75,7 +82,7 @@ export const Header: React.FC = () => {
               <Link
                 key={link.label}
                 href={link.href}
-                className={`${styles.mobileNavLink} ${link.active ? styles.activeMobileLink : ""}`}
+                className={`${styles.mobileNavLink} ${isActive(link.href) ? styles.activeMobileLink : ""}`}
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}

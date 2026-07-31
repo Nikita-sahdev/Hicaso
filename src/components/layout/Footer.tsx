@@ -57,15 +57,15 @@ export const Footer: React.FC = () => {
             <ul className={styles.contactList}>
               <li>
                 <Mail size={16} className={styles.contactIcon} />
-                <a href="mailto:hello@hicasollp.com">hello@hicasollp.com</a>
+                <a href="mailto:hello@hicaso.com">hello@hicaso.com</a>
               </li>
               <li>
                 <Phone size={16} className={styles.contactIcon} />
-                <a href="tel:+911234567890">+91 12345 67890</a>
+                <a href="tel:+917009137936">+91 70091 37936</a>
               </li>
               <li>
                 <MapPin size={16} className={styles.contactIcon} />
-                <span>Ahmedabad, India</span>
+                <span>2646, Sector 52, Lig Housing Board, Sector 36 (Chandigarh)</span>
               </li>
             </ul>
             <div className={styles.socialsRow}>
