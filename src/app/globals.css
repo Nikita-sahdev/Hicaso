@@ -23,24 +23,6 @@
   --radius-card: 8px;
   --shadow-xl: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
 
-  /* LEGACY — old pages still read these; removed in Task 8 */
-  --font-heading: var(--font-sans);
-  --color-brand-primary: #4f46e5;
-  --color-brand-indigo: #4338ca;
-  --color-brand-royal: #4a3aff;
-  --color-brand-accent: #00d2c4;
-  --color-brand-teal: #14b8a6;
-  --color-brand-emerald: #10b981;
-  --color-brand-dark: #0f172a;
-  --color-brand-muted: #475569;
-  --color-brand-light: #f8fafc;
-  --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.01);
-  --shadow-premium-hover: 0 20px 40px -12px rgba(79, 70, 229, 0.08), 0 1px 3px rgba(0, 0, 0, 0.01);
-  --shadow-card: 0 10px 35px -15px rgba(0, 0, 0, 0.08);
-  --shadow-card-hover: 0 20px 50px -15px rgba(79, 70, 229, 0.12);
-  --radius-custom-xl: 20px;
-  --radius-custom-2xl: 24px;
-  /* END LEGACY */
 }
 
 html {
