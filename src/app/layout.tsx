@@ -3,6 +3,7 @@ import { Inter, Bricolage_Grotesque, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { products } from "@/data/products";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,14 +21,13 @@ const bricolage = Bricolage_Grotesque({
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["600"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Hicaso — a product studio",
-  description:
-    "Hicaso is a product studio. We build, launch and run independent software products, including AppKavo and BillMinute.",
+  description: `Hicaso is a product studio. We build, launch and run independent software products, including ${products.map((p) => p.name).join(" and ")}.`,
 };
 
 export default function RootLayout({

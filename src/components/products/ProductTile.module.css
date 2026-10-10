@@ -22,6 +22,10 @@
   color: var(--p-accent);
 }
 
+.tile:focus-visible {
+  outline-offset: -6px;
+}
+
 .tile:hover .more {
   text-decoration: underline;
 }

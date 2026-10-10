@@ -20,21 +20,25 @@ export const Header: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const productsRef = useRef<HTMLDivElement>(null);
+  const productsButtonRef = useRef<HTMLButtonElement>(null);
 
   // Products menu: close on Escape or a click outside it.
   useEffect(() => {
     if (!productsOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setProductsOpen(false);
+      if (e.key === "Escape") {
+        setProductsOpen(false);
+        productsButtonRef.current?.focus();
+      }
     };
-    const onPointer = (e: MouseEvent) => {
+    const onPointer = (e: PointerEvent) => {
       if (!productsRef.current?.contains(e.target as Node)) setProductsOpen(false);
     };
     document.addEventListener("keydown", onKey);
-    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("pointerdown", onPointer);
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("pointerdown", onPointer);
     };
   }, [productsOpen]);
 
@@ -52,8 +56,13 @@ export const Header: React.FC = () => {
         <Logo />
 
         <nav className={styles.desktopNav} aria-label="Main">
-          <div className={styles.products} ref={productsRef}>
+          <div className={styles.products} ref={productsRef}
+          onBlur={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setProductsOpen(false);
+          }}
+        >
             <button
+              ref={productsButtonRef}
               type="button"
               className={linkClass("/products")}
               aria-expanded={productsOpen}
