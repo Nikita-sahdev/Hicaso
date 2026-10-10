@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Bricolage_Grotesque, Poppins } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,15 +8,24 @@ const inter = Inter({
   display: "swap",
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+// Product fonts: used only inside product-themed surfaces.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
   display: "swap",
 });
 
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Hicaso LLP | Innovative Solutions. Real Impact.",
-  description: "Hicaso LLP is a forward-thinking technology and consulting partner helping businesses transform ideas into powerful digital solutions.",
+  title: "Hicaso — a product studio",
+  description:
+    "Hicaso is a product studio. We build, launch and run independent software products, including AppKavo and BillMinute.",
 };
 
 export default function RootLayout({
@@ -27,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${outfit.variable} h-full antialiased`}
+      className={`${inter.variable} ${bricolage.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

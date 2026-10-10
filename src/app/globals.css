@@ -1,9 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* DESIGN.md tokens */
+  --color-apple-blue: #0071e3;
+  --color-link-blue: #0066cc;
+  --color-signal-blue: #2997ff;
+  --color-carbon: #1d1d1f;
+  --color-frost: #f5f5f7;
+  --color-ice: #f4f8fb;
+  --color-smoke: #333333;
+  --color-graphite: #474747;
+  --color-ash: #707070;
+  --color-mist: #858585;
+  --color-onyx: #000000;
+  --color-pebble: #e2e2e5;
+  --color-hairline: #d2d2d7;
 
+  /* SF Pro on Apple devices, Inter (DESIGN.md substitute) elsewhere */
+  --font-sans: -apple-system, BlinkMacSystemFont, var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-pill: 980px;
+  --radius-card: 8px;
+  --shadow-xl: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+
+  /* LEGACY — old pages still read these; removed in Task 8 */
+  --font-heading: var(--font-sans);
   --color-brand-primary: #4f46e5;
   --color-brand-indigo: #4338ca;
   --color-brand-royal: #4a3aff;
@@ -13,23 +34,15 @@
   --color-brand-dark: #0f172a;
   --color-brand-muted: #475569;
   --color-brand-light: #f8fafc;
-  
   --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.01);
   --shadow-premium-hover: 0 20px 40px -12px rgba(79, 70, 229, 0.08), 0 1px 3px rgba(0, 0, 0, 0.01);
   --shadow-card: 0 10px 35px -15px rgba(0, 0, 0, 0.08);
   --shadow-card-hover: 0 20px 50px -15px rgba(79, 70, 229, 0.12);
-  
   --radius-custom-xl: 20px;
   --radius-custom-2xl: 24px;
+  /* END LEGACY */
 }
 
-:root {
-  --foreground-rgb: 15, 23, 42;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
-}
-
-/* Reset & Smooth Scroll */
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -37,32 +50,81 @@ html {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: #ffffff;
+  background: var(--color-frost);
+  color: var(--color-carbon);
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.272px;
+  overflow-wrap: break-word;
 }
 
-/* Scrollbar Styles */
-::-webkit-scrollbar {
-  width: 10px;
+:focus-visible {
+  outline: 2px solid var(--focus-ring, var(--color-apple-blue));
+  outline-offset: 2px;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* Selection */
 ::selection {
-  background: rgba(79, 70, 229, 0.2);
-  color: #4f46e5;
+  background: rgba(0, 113, 227, 0.2);
+}
+
+/* Type scale from DESIGN.md; mobile sizes below 734px */
+@layer components {
+  .t-display {
+    font-size: 40px;
+    line-height: 1.14;
+    font-weight: 600;
+    letter-spacing: 0.44px;
+  }
+  .t-subhead {
+    font-size: 21px;
+    line-height: 1.24;
+    font-weight: 300;
+    letter-spacing: -0.105px;
+  }
+  .t-heading {
+    font-size: 28px;
+    line-height: 1.18;
+    font-weight: 600;
+    letter-spacing: 0.196px;
+  }
+  .t-heading-sm {
+    font-size: 24px;
+    line-height: 1.18;
+    font-weight: 600;
+    letter-spacing: -0.264px;
+  }
+  .t-subheading {
+    font-size: 21px;
+    line-height: 1.24;
+    font-weight: 600;
+    letter-spacing: -0.105px;
+  }
+  .t-caption {
+    font-size: 12px;
+    line-height: 1.33;
+    letter-spacing: -0.264px;
+  }
+
+  @media (min-width: 734px) {
+    .t-display {
+      font-size: 56px;
+      line-height: 1.07;
+      letter-spacing: 0.616px;
+    }
+    .t-subhead {
+      font-size: 26px;
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+    .t-heading {
+      font-size: 40px;
+      line-height: 1.14;
+      letter-spacing: 0.44px;
+    }
+    .t-heading-sm {
+      font-size: 28px;
+      letter-spacing: 0.196px;
+    }
+  }
 }
