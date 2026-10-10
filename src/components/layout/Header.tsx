@@ -1,102 +1,126 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronDown, Menu, X } from "lucide-react";
 import styles from "./Header.module.css";
 import Container from "../ui/Container";
 import Logo from "../ui/Logo";
-import Button from "../ui/Button";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { products } from "@/data/products";
+
+const links = [
+  { label: "About", href: "/about" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact", href: "/contact" },
+];
 
 export const Header: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [productsOpen, setProductsOpen] = useState(false);
+  const productsRef = useRef<HTMLDivElement>(null);
 
+  // Products menu: close on Escape or a click outside it.
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+    if (!productsOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setProductsOpen(false);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const onPointer = (e: MouseEvent) => {
+      if (!productsRef.current?.contains(e.target as Node)) setProductsOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onPointer);
+    };
+  }, [productsOpen]);
 
-  const navLinks = [
-    { label: "Home", href: "/" },
-    { label: "Services", href: "/services" },
-    { label: "About Us", href: "/about" },
-    { label: "Our Work", href: "/work" },
-    { label: "Careers", href: "/careers" },
-    { label: "Contact Us", href: "/contact" },
-  ];
-
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname?.startsWith(href);
+  const close = () => {
+    setMobileOpen(false);
+    setProductsOpen(false);
   };
 
+  const linkClass = (href: string) =>
+    `${styles.link} ${pathname.startsWith(href) ? styles.active : ""}`;
+
   return (
-    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
-      <Container className={styles.container}>
+    <header className={styles.header}>
+      <Container wide className={styles.bar}>
         <Logo />
 
-        {/* Desktop Nav */}
-        <nav className={styles.desktopNav}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className={`${styles.navLink} ${isActive(link.href) ? styles.activeLink : ""}`}
+        <nav className={styles.desktopNav} aria-label="Main">
+          <div className={styles.products} ref={productsRef}>
+            <button
+              type="button"
+              className={linkClass("/products")}
+              aria-expanded={productsOpen}
+              aria-controls="products-menu"
+              onClick={() => setProductsOpen((open) => !open)}
             >
-              {link.label}
+              Products <ChevronDown size={12} aria-hidden="true" />
+            </button>
+            {productsOpen && (
+              <div id="products-menu" className={styles.menu}>
+                {products.map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/products/${p.slug}`}
+                    className={styles.menuItem}
+                    onClick={close}
+                  >
+                    <span className={styles.menuName}>{p.name}</span>
+                    <span className={styles.menuTagline}>{p.tagline}</span>
+                  </Link>
+                ))}
+                <Link href="/products" className={styles.menuAll} onClick={close}>
+                  All products
+                </Link>
+              </div>
+            )}
+          </div>
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className={linkClass(l.href)}>
+              {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className={styles.ctaWrapper}>
-          <Button variant="primary" className={styles.headerButton}>
-            Get in Touch
-          </Button>
-        </div>
-
-        {/* Mobile Toggle */}
         <button
-          className={styles.mobileToggle}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
+          type="button"
+          className={styles.toggle}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setMobileOpen((open) => !open)}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </Container>
 
-      {/* Mobile Nav Overlay */}
-      {isOpen && (
-        <div className={styles.mobileNavOverlay}>
-          <nav className={styles.mobileNav}>
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className={`${styles.mobileNavLink} ${isActive(link.href) ? styles.activeMobileLink : ""}`}
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Button
-              variant="primary"
-              className={styles.mobileCta}
-              onClick={() => setIsOpen(false)}
+      {mobileOpen && (
+        <nav id="mobile-menu" className={styles.mobileNav} aria-label="Mobile">
+          <Link href="/products" className={styles.mobileLink} onClick={close}>
+            Products
+          </Link>
+          {products.map((p) => (
+            <Link
+              key={p.slug}
+              href={`/products/${p.slug}`}
+              className={styles.mobileSubLink}
+              onClick={close}
             >
-              Get in Touch
-            </Button>
-          </nav>
-        </div>
+              {p.name}
+            </Link>
+          ))}
+          {links.map((l) => (
+            <Link key={l.href} href={l.href} className={styles.mobileLink} onClick={close}>
+              {l.label}
+            </Link>
+          ))}
+        </nav>
       )}
     </header>
   );

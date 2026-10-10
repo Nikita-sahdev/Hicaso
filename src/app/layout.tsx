@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Bricolage_Grotesque, Poppins } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -38,7 +40,11 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${bricolage.variable} ${poppins.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        <main className="flex-grow">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }

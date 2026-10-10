@@ -2,8 +2,6 @@
 
 import React from "react";
 import styles from "./about.module.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import SectionHeading from "@/components/common/SectionHeading";
@@ -38,8 +36,7 @@ export default function AboutPage() {
 
   return (
     <div className={styles.pageWrapper}>
-      <Header />
-      <main className="flex-grow">
+      <div>
         {/* Page Hero */}
         <section className={styles.hero}>
           <Container>
@@ -93,8 +90,7 @@ export default function AboutPage() {
         </section>
 
         <CTA />
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 }

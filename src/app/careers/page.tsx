@@ -2,8 +2,6 @@
 
 import React from "react";
 import styles from "./careers.module.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import SectionHeading from "@/components/common/SectionHeading";
@@ -65,8 +63,7 @@ export default function CareersPage() {
 
   return (
     <div className={styles.pageWrapper}>
-      <Header />
-      <main className="flex-grow">
+      <div>
         {/* Page Hero */}
         <section className={styles.hero}>
           <Container>
@@ -167,8 +164,7 @@ export default function CareersPage() {
         </section>
 
         <CTA />
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 }

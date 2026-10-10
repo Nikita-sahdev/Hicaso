@@ -2,8 +2,6 @@
 
 import React from "react";
 import styles from "../privacy/legal.module.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import { motion } from "framer-motion";
@@ -11,8 +9,7 @@ import { motion } from "framer-motion";
 export default function TermsConditionsPage() {
   return (
     <div className={styles.pageWrapper}>
-      <Header />
-      <main className="flex-grow">
+      <div>
         {/* Hero */}
         <section className={styles.hero}>
           <Container>
@@ -77,8 +74,7 @@ export default function TermsConditionsPage() {
             </motion.div>
           </Container>
         </section>
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 }

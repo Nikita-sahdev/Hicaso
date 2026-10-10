@@ -1,141 +1,140 @@
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  transition: all 0.3s ease;
-  height: 5.5rem;
-  display: flex;
-  align-items: center;
+  z-index: 50;
+  background: rgba(245, 245, 247, 0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--color-hairline);
 }
 
-.scrolled {
-  background-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  border-color: rgba(226, 232, 240, 0.6);
-  height: 4.5rem;
-}
-
-.container {
+.bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
+  height: 48px;
 }
 
 .desktopNav {
   display: none;
   align-items: center;
-  gap: 2.25rem;
+  gap: 32px;
 }
 
-@media (min-width: 1024px) {
-  .desktopNav {
-    display: flex;
-  }
-}
-
-.navLink {
-  font-family: var(--font-sans);
-  font-size: 0.925rem;
-  font-weight: 500;
-  color: var(--color-brand-muted);
+.link {
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: -0.12px;
+  color: var(--color-carbon);
+  opacity: 0.8;
   text-decoration: none;
-  transition: color 0.3s ease;
+}
+
+.link:hover,
+.active {
+  opacity: 1;
+}
+
+.products {
   position: relative;
-  padding: 0.25rem 0;
 }
 
-.navLink:hover {
-  color: var(--color-brand-primary);
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: -12px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-card);
 }
 
-.activeLink {
-  color: var(--color-brand-primary);
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: var(--radius-card);
+  color: var(--color-carbon);
+  text-decoration: none;
+}
+
+.menuItem:hover {
+  background: var(--color-frost);
+}
+
+.menuName {
+  font-size: 14px;
   font-weight: 600;
 }
 
-.ctaWrapper {
-  display: none;
+.menuTagline {
+  font-size: 12px;
+  line-height: 1.33;
+  color: var(--color-graphite);
 }
 
-@media (min-width: 1024px) {
-  .ctaWrapper {
-    display: block;
-  }
+.menuAll {
+  margin-top: 4px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--color-hairline);
+  font-size: 12px;
+  color: var(--color-link-blue);
+  text-decoration: none;
 }
 
-.headerButton {
-  padding: 0.6rem 1.4rem !important;
-  font-size: 0.9rem !important;
+.menuAll:hover {
+  text-decoration: underline;
 }
 
-.mobileToggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.toggle {
+  display: inline-flex;
+  padding: 8px;
   background: none;
-  border: none;
-  color: var(--color-brand-dark);
+  border: 0;
+  color: var(--color-carbon);
   cursor: pointer;
-  padding: 0.5rem;
-}
-
-@media (min-width: 1024px) {
-  .mobileToggle {
-    display: none;
-  }
-}
-
-/* Mobile Nav */
-.mobileNavOverlay {
-  position: fixed;
-  top: 5.5rem;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ffffff;
-  z-index: 99;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  border-top: 1px solid rgba(226, 232, 240, 0.8);
-}
-
-.header.scrolled + .mobileNavOverlay {
-  top: 4.5rem;
 }
 
 .mobileNav {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  padding: 8px 16px 24px;
+  border-top: 1px solid var(--color-hairline);
+  background: var(--color-frost);
 }
 
-.mobileNavLink {
-  font-family: var(--font-sans);
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: var(--color-brand-muted);
-  text-decoration: none;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.4);
-}
-
-.mobileNavLink:hover {
-  color: var(--color-brand-primary);
-}
-
-.activeMobileLink {
-  color: var(--color-brand-primary);
+.mobileLink {
+  padding: 12px 0;
+  font-size: 21px;
   font-weight: 600;
+  color: var(--color-carbon);
+  text-decoration: none;
 }
 
-.mobileCta {
-  margin-top: 1.5rem;
-  width: 100%;
+.mobileSubLink {
+  padding: 8px 0 8px 16px;
+  font-size: 17px;
+  color: var(--color-graphite);
+  text-decoration: none;
+}
+
+@media (min-width: 734px) {
+  .desktopNav {
+    display: flex;
+  }
+  .toggle,
+  .mobileNav {
+    display: none;
+  }
 }

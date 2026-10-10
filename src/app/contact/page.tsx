@@ -2,8 +2,6 @@
 
 import React, { useState } from "react";
 import styles from "./contact.module.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import Container from "@/components/ui/Container";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
@@ -26,8 +24,7 @@ export default function ContactPage() {
 
   return (
     <div className={styles.pageWrapper}>
-      <Header />
-      <main className="flex-grow">
+      <div>
         {/* Page Hero */}
         <section className={styles.hero}>
           <Container>
@@ -165,8 +162,7 @@ export default function ContactPage() {
             </div>
           </Container>
         </section>
-      </main>
-      <Footer />
+      </div>
     </div>
   );
 }
