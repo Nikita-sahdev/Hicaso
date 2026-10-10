@@ -1,0 +1,86 @@
+.hero {
+  padding: 96px 0 48px;
+  text-align: center;
+}
+
+.hero p {
+  max-width: 680px;
+  margin: 16px auto 0;
+}
+
+.section {
+  padding: 48px 0 96px;
+}
+
+/* Label/value list (About facts, Contact details) */
+.facts {
+  max-width: 692px;
+  margin: 24px auto 0;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.facts > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.facts dt {
+  font-size: 14px;
+  color: var(--color-graphite);
+}
+
+/* Long-form text (Careers, Privacy, Terms) */
+.prose {
+  max-width: 692px;
+  margin: 0 auto;
+}
+
+.prose h2 {
+  margin: 40px 0 12px;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.prose p,
+.prose li {
+  color: var(--color-smoke);
+}
+
+.prose p + p {
+  margin-top: 12px;
+}
+
+.prose ul {
+  margin-top: 12px;
+  padding-left: 24px;
+  list-style: disc;
+}
+
+.prose li + li {
+  margin-top: 8px;
+}
+
+.facts a,
+.prose a {
+  color: var(--color-link-blue);
+  text-decoration: none;
+}
+
+.facts a:hover,
+.prose a:hover {
+  text-decoration: underline;
+}
+
+.heading {
+  max-width: 692px;
+  margin: 0 auto;
+}
+
+@media (min-width: 734px) {
+  .facts > div {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+}
