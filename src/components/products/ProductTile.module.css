@@ -1,0 +1,27 @@
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 260px;
+  padding: 40px 32px;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-card);
+  text-decoration: none;
+}
+
+.name {
+  font-family: var(--p-font);
+}
+
+.tagline {
+  opacity: 0.85;
+}
+
+.more {
+  margin-top: auto;
+  color: var(--p-accent);
+}
+
+.tile:hover .more {
+  text-decoration: underline;
+}

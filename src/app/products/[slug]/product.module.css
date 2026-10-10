@@ -1,0 +1,56 @@
+.hero,
+.closing {
+  padding: 96px 0;
+  text-align: center;
+}
+
+.name {
+  font-family: var(--p-font);
+}
+
+.tagline {
+  max-width: 680px;
+  margin: 12px auto 0;
+}
+
+.audience {
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.details {
+  padding: 80px 0;
+  background: var(--color-frost);
+}
+
+.description {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px 40px;
+  margin-top: 56px;
+}
+
+.highlightBody {
+  margin-top: 6px;
+  color: var(--color-graphite);
+}
+
+@media (min-width: 734px) {
+  .highlights {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
