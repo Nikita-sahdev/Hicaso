@@ -1,103 +1,13 @@
-.ctaSection {
-  background-color: #ffffff;
-  padding: 6rem 0;
-}
-
-.card {
-  background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(99, 102, 241, 0.05) 50%, rgba(0, 210, 196, 0.05) 100%);
-  border: 1px solid rgba(79, 70, 229, 0.12);
-  border-radius: var(--radius-custom-2xl);
-  padding: 3rem 2.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 30px -10 rgba(79, 70, 229, 0.08);
-}
-
-@media (min-width: 768px) {
-  .card {
-    flex-direction: row;
-    padding: 3.5rem 4rem;
-  }
-}
-
-.textCol {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.cta {
+  padding: 80px 0;
   text-align: center;
+  background: var(--color-ice);
 }
 
-@media (min-width: 768px) {
-  .textCol {
-    align-items: flex-start;
-    text-align: left;
-  }
-}
-
-.title {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--color-brand-dark);
-  line-height: 1.2;
-}
-
-@media (min-width: 1024px) {
-  .title {
-    font-size: 2.2rem;
-  }
-}
-
-.subtitle {
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  color: var(--color-brand-muted);
-  margin-top: 0.5rem;
-  font-weight: 500;
-}
-
-.illustrationCol {
+.actions {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-}
-
-.paperplane {
-  width: 120px;
-  height: auto;
-  animation: hoverPlane 4s ease-in-out infinite;
-}
-
-@keyframes hoverPlane {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(3deg);
-  }
-}
-
-.actionCol {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.ctaButton {
-  background-color: transparent !important;
-  border-color: var(--color-brand-primary) !important;
-  color: var(--color-brand-primary) !important;
-  font-size: 0.95rem !important;
-  padding: 0.8rem 2rem !important;
-}
-
-.ctaButton:hover {
-  background-color: var(--color-brand-primary) !important;
-  color: #ffffff !important;
+  gap: 12px;
+  margin-top: 28px;
 }
