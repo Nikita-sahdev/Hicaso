@@ -1,60 +1,78 @@
-# Apple — Style Reference
-> white room with a single blue switch.
+# Hicaso — Style Reference
+> deep navy with electric blue. Blue sparks on a near-black navy floor, with massive blocky display type announcing every move.
 
 **Theme:** light
 
-Source measurements are normalized; roles and recommendations are interpreted. Font summary lists are independent, not paired by position. HTML examples are reconstructions, not source components.
+Adapted from the Wise style reference, with Wise's forest-green and lime palette recolored to Hicaso blue (the `#0071e3` / `#2997ff` blues of the previous Apple-style system and of the Hicaso logo's dot). Source measurements are normalized; roles and recommendations are interpreted. Font summary lists are independent, not paired by position. HTML examples are reconstructions, not source components.
 
-Apple's design language is a study in restraint: near-white canvas, generous breathing room, and one vivid blue accent that makes every action feel deliberate. Typography is the primary voice — SF Pro set with negative tracking that tightens as size grows, giving headlines architectural clarity without weight. The product IS the design: large product photography and lifestyle imagery dominate, while chrome recedes into thin borders, ghost navigation, and hairline rules. Sections alternate on a light gray canvas with full-bleed color washes for promotional blocks, creating rhythm through scale shifts rather than decoration.
+Hicaso speaks in a confident, slightly loud voice: a deep navy (#0a2540) carries most of the surface area — text, nav, dark sections, icons — while a single electric blue (#0071e3) acts as functional punctuation on CTAs, active tabs, and key highlights. The display type is almost aggressive: a black-weight sans at 900, tightly tracked, shouted across the hero in 100px+ block letters. The rest of the system stays restrained on a near-white canvas with soft gray surfaces (#e8ebf0). Components are pill-shaped by default — buttons, nav segments, thumbnails, image masks — with gentle 10px radii reserved for cards and inputs. Color rarely gradients; instead, the blue–navy pairing inverts cleanly when sections go dark (Sky Blue #2997ff carries the accent on navy), creating rhythm without decoration.
 
 ## Tokens — Colors
 
 | Name | Value | Token | Role |
 |------|-------|-------|------|
-| Apple Blue | `#0071e3` | `--color-apple-blue` | Filled action buttons, selected states — the only chromatic interactive color, used sparingly so each appearance carries weight |
-| Link Blue | `#0066cc` | `--color-link-blue` | Outlined action borders, inline links — deeper saturation than Apple Blue, used where a filled pill would be too loud |
-| Signal Blue | `#2997ff` | `--color-signal-blue` | Decorative borders, image outlines, icon strokes — the lightest blue in the system, used for atmospheric emphasis rather than interaction |
-| Carbon | `#1d1d1f` | `--color-carbon` | Primary text, heading borders, nav rules, card borders — the dominant ink color, near-black with a whisper of warmth |
-| Frost | `#f5f5f7` | `--color-frost` | Page canvas, body backgrounds, footer surface — the signature Apple light gray, slightly cooler than pure white |
-| Ice | `#f4f8fb` | `--color-ice` | Elevated surface washes, subtle fills, button text on dark backgrounds — barely-blue tint that lifts a section without declaring it |
-| Smoke | `#333333` | `--color-smoke` | Secondary text, nav fills, button borders — the workhorse neutral for borders and icons that need more presence than mid-gray |
-| Graphite | `#474747` | `--color-graphite` | Nav text, nav borders, link borders — sits between Carbon and Smoke for tertiary hierarchy |
-| Ash | `#707070` | `--color-ash` | Footer text, list borders, nav borders, muted body text — the mid-gray for content that should be present but quiet |
-| Mist | `#858585` | `--color-mist` | Body borders, icon strokes, button borders — the lightest functional gray, for hairline rules on light surfaces |
-| Onyx | `#000000` | `--color-onyx` | Heading borders, nav borders, dark image backgrounds — true black for maximum contrast in promotional and heading contexts |
-| Pebble | `#e2e2e5` | `--color-pebble` | Button background fills, disabled surfaces — the only near-white surface that is deliberately grayer than the canvas |
+| Navy Ink | `#0a2540` | `--color-navy-ink` | Dominant brand dark — nav text, dark section backgrounds, primary copy on light surfaces, icon strokes, filled navigation pills. This is the brand's gravity: wherever you need weight or authority, you reach for Navy Ink |
+| Electric Blue | `#0071e3` | `--color-electric-blue` | The single accent — primary CTA fill (with Paper text), active tabs, selected states, the logo's dot. One electric-blue element per visible section is usually enough |
+| Sky Blue | `#2997ff` | `--color-sky-blue` | Electric Blue's partner on dark surfaces — headlines, links and highlights on Navy Ink, where `#0071e3` is too dark to read (3.3:1). Sky Blue on Navy Ink is 5.2:1 |
+| Deep Sea | `#0b3d91` | `--color-deep-sea` | Secondary dark blue for card surfaces, supporting iconography, and tonal depth on dark sections where Navy Ink is too heavy |
+| Ice Mist | `#e6f0fd` | `--color-ice-mist` | Pale blue wash for soft highlight surfaces, tinted card backgrounds, nav hover states. A whisper of the brand blue for low-emphasis containers |
+| Signal Blue | `#0b4c72` | `--color-signal-blue` | Muted steel-blue supporting accent for decorative details and low-frequency emphasis |
+| Alarm Red | `#cb272f` | `--color-alarm-red` | Red supporting accent for decorative details and low-frequency emphasis. Use as a supporting accent, not as a status color |
+| Charcoal | `#454745` | `--color-charcoal` | Primary text, body copy, dense UI — slightly warm black that feels softer than pure #000 against white |
+| Obsidian | `#0d0f14` | `--color-obsidian` | Display headlines, high-contrast headings, pure-black moments in nav and hero. Slightly blue-tinted black, not neutral gray |
+| Pebble | `#868685` | `--color-pebble` | Muted secondary text, placeholder copy, icon strokes, input borders. The mid-gray that recedes |
+| Slate | `#6a6c6a` | `--color-slate` | Supporting body text, helper labels, subdued iconography. One step darker than Pebble for slightly more emphasis |
+| Fog | `#e8ebf0` | `--color-fog` | Card surfaces, section dividers, subtle panel backgrounds on the white canvas. Blue-tinted off-white, not pure neutral |
+| Paper | `#ffffff` | `--color-paper` | Page canvas, inverted card surfaces, button text on Electric Blue fill |
 
 ## Tokens — Typography
 
-### SF Pro Display — Display headlines and large feature text — sizes 40px+ use the display cut for tighter aperture and stronger negative tracking; 700 reserved for promotional lockups, 400 for editorial product names · `--font-sf-pro-display`
-- **Substitute:** Inter, system-ui
-- **Weights:** 400, 600, 700
-- **Sizes:** 21px, 28px, 40px, 56px
-- **Line height:** 1.07, 1.10, 1.14, 1.19
-- **Letter spacing:** -0.005em at 21px, 0.007em at 28px, 0.011em at 40px+
-- **OpenType features:** `"numr"`
-- **Role:** Display headlines and large feature text — sizes 40px+ use the display cut for tighter aperture and stronger negative tracking; 700 reserved for promotional lockups, 400 for editorial product names
+### Inter — Body, UI, labels, and sub-headings across the entire product. The 700 weight handles mid-tier headings (36–45px), 500–600 for subheadings and labels, 400 for body and captions. Inter does the quiet work while the display face shouts. · `--font-inter`
+- **Substitute:** Inter (native Google Fonts)
+- **Weights:** 400,500,600,700
+- **Sizes:** 12px, 14px, 16px, 18px, 20px, 22px, 25px, 36px, 45px, 61px, 300px
+- **Line height:** 0.72, 1.00, 1.10, 1.25, 1.30, 1.40, 1.43, 1.44, 1.50, 1.55, 1.63, 1.71, 1.86, 2.17
+- **Letter spacing:** -0.030em at 105px, -0.015em at 61px, -0.011em at 36px, -0.009em at 25px, -0.007em at 18px, -0.006em at 16px, -0.005em at 14px, -0.003em at 12px
+- **OpenType features:** `"calt"`
+- **Role:** Body, UI, labels, and sub-headings across the entire product. The 700 weight handles mid-tier headings (36–45px), 500–600 for subheadings and labels, 400 for body and captions. Inter does the quiet work while the display face shouts.
 
-### SF Pro Text — Body, navigation, buttons, subheads — the working typeface; 400 for body copy, 300 for subheads and refined labels, 600 for nav items and button text; negative tracking tightens proportionally with size (-0.022em at 12px down to -0.01em at 44px) · `--font-sf-pro-text`
-- **Substitute:** Inter, system-ui
-- **Weights:** 300, 400, 600
-- **Sizes:** 12px, 14px, 17px, 18px, 24px, 26px, 34px, 44px
-- **Line height:** 1.18, 1.24, 1.29, 1.33, 1.47, 1.50, 2.12, 2.41
-- **Letter spacing:** -0.022em at 12px, -0.016em at 17px, -0.011em at 24px, -0.01em at 44px
-- **Role:** Body, navigation, buttons, subheads — the working typeface; 400 for body copy, 300 for subheads and refined labels, 600 for nav items and button text; negative tracking tightens proportionally with size (-0.022em at 12px down to -0.01em at 44px)
+### Display (Wise Sans in the source) — Display headlines — the brand's signature shout. Ultra-heavy weight 900 at 89–105px with tight -0.03em tracking makes every headline a block-letter announcement. Used sparingly: hero, section openers, campaign moments. · `--font-display`
+- **Substitute:** Inter Black (900) with -0.04em tracking (Wise Sans is proprietary to Wise and is not used)
+- **Weights:** 900
+- **Sizes:** 40px, 52px, 59px, 89px, 105px, 300px
+- **Line height:** 0.85, 1.50
+- **Letter spacing:** -0.0020em
+- **OpenType features:** `"calt"`
+- **Role:** Display headlines — the brand's signature shout. Ultra-heavy weight 900 at 89–105px with tight -0.03em tracking makes every headline a block-letter announcement. Used sparingly: hero, section openers, campaign moments.
+
+### monospace — monospace — detected in extracted data but not described by AI · `--font-monospace`
+- **Weights:** 400
+- **Sizes:** 300px
+- **Line height:** 
+- **OpenType features:** `"calt"`
+- **Role:** monospace — detected in extracted data but not described by AI
+
+### sans-serif — sans-serif — detected in extracted data but not described by AI · `--font-sans-serif`
+- **Weights:** 400
+- **Sizes:** 300px
+- **Line height:** 
+- **OpenType features:** `"calt"`
+- **Role:** sans-serif — detected in extracted data but not described by AI
 
 ### Type Scale
 
 | Role | Family | Weight | Size | Line Height | Letter Spacing | Token |
 |------|--------|--------|------|-------------|----------------|-------|
-| caption | — | — | 12px | 1.33 | -0.264px | `--text-caption` |
-| body-sm | — | — | 14px | 1.29 | -0.224px | `--text-body-sm` |
-| body | — | — | 17px | 1.47 | -0.272px | `--text-body` |
-| subheading | — | — | 21px | 1.24 | -0.105px | `--text-subheading` |
-| heading-sm | — | — | 28px | 1.18 | 0.196px | `--text-heading-sm` |
-| heading | — | — | 40px | 1.14 | 0.44px | `--text-heading` |
-| heading-lg | — | — | 44px | 1.18 | -0.44px | `--text-heading-lg` |
-| display | — | — | 56px | 1.07 | 0.616px | `--text-display` |
+| micro | — | — | 12px | 1.63 | -0.036px | `--text-micro` |
+| caption | — | — | 14px | 1.55 | -0.07px | `--text-caption` |
+| body-sm | — | — | 16px | 1.5 | -0.096px | `--text-body-sm` |
+| body | — | — | 18px | 1.5 | -0.126px | `--text-body` |
+| body-lg | — | — | 25px | 1.3 | -0.225px | `--text-body-lg` |
+| subheading | — | — | 36px | 1.25 | -0.396px | `--text-subheading` |
+| heading-sm | — | — | 45px | 1.1 | -0.495px | `--text-heading-sm` |
+| heading | — | — | 61px | 1.1 | -0.915px | `--text-heading` |
+| heading-lg | — | — | 89px | 0.85 | -2.67px | `--text-heading-lg` |
+| display | — | — | 105px | 0.85 | -3.15px | `--text-display` |
 
 ## Tokens — Spacing & Shapes
 
@@ -72,157 +90,186 @@ Apple's design language is a study in restraint: near-white canvas, generous bre
 | 16 | 16px | `--spacing-16` |
 | 20 | 20px | `--spacing-20` |
 | 24 | 24px | `--spacing-24` |
+| 28 | 28px | `--spacing-28` |
+| 32 | 32px | `--spacing-32` |
 | 40 | 40px | `--spacing-40` |
+| 44 | 44px | `--spacing-44` |
 | 48 | 48px | `--spacing-48` |
 | 56 | 56px | `--spacing-56` |
+| 64 | 64px | `--spacing-64` |
+| 100 | 100px | `--spacing-100` |
+| 124 | 124px | `--spacing-124` |
 
 ### Border Radius
 
 | Element | Value |
 |---------|-------|
-| tags | 980px |
-| cards | 8px |
-| images | 8px |
-| inputs | 8px |
-| buttons | 980px |
+| tags | 9999px |
+| cards | 10px |
+| inputs | 10px |
+| buttons | 9999px |
+| imageMasks | 1000px |
+| largeCards | 28px |
+| navSegments | 9999px |
 
 ### Shadows
 
 | Name | Value | Token |
 |------|-------|-------|
-| xl | `rgba(0, 0, 0, 0.22) 3px 5px 30px 0px` | `--shadow-xl` |
+| subtle | `rgba(13, 15, 20, 0.12) 0px 0px 0px 1px` | `--shadow-subtle` |
+| subtle-2 | `rgb(134, 134, 133) 0px 0px 0px 1px inset` | `--shadow-subtle-2` |
+| xl | `rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px` | `--shadow-xl` |
+| lg | `rgba(0, 0, 0, 0.08) 0px 6px 20px 0px` | `--shadow-lg` |
 
 ### Layout
 
-- **Page max-width:** 1440px
-- **Section gap:** 64px
+- **Page max-width:** 1200px
+- **Section gap:** 64-80px
 - **Card padding:** 24px
-- **Element gap:** 12px
+- **Element gap:** 8-12px
 
 ## Components
 
-### Filled Pill Button
-**Role:** Primary action — Buy, Learn more, Shop
+### Primary CTA Pill Button
+**Role:** The signature action element — filled electric-blue pill that signals "do this next."
 
-980px border-radius, #0071e3 background, white (#f4f8fb) text at 17px weight 400, padding 11px 15px, no border, no shadow. The single filled interactive element in the system.
+Fully rounded (9999px radius) button with Electric Blue (#0071e3) fill and Paper (#ffffff) text (4.7:1). Padding 11px vertical, 24px horizontal. Inter weight 500 at 16px. No border, no shadow — the fill does all the work. On Navy Ink sections, the fill may switch to Sky Blue (#2997ff) with Navy Ink text.
 
 ### Outlined Pill Button
-**Role:** Secondary action — pair with filled primary
+**Role:** Secondary action in the nav and inline CTAs.
 
-980px border-radius, 1px solid #0066cc border, #0066cc text at 17px weight 400, transparent fill, padding 11px 15px. Used as the second action next to a filled blue button.
+White fill, 1px Navy Ink border, 9999px radius. Same padding as primary. Used for "Sign up" in the header and non-primary calls to action where the blue would compete with a primary action nearby.
 
-### Ghost Link
-**Role:** Tertiary action or inline text link
+### Text Link Button
+**Role:** Inline secondary action with low visual weight.
 
-No background, no border, #0066cc text at inherit size, underline on hover only. Weight 400, same family as body.
+Underlined Navy Ink text at 16px Inter weight 500, no background, no border. Pairs with the primary CTA when two adjacent actions are needed (e.g. "Explore products" + "About the studio").
 
-### Global Nav Bar
-**Role:** Top-level site navigation
+### Top Navigation Bar
+**Role:** Persistent header with brand, section switcher, and account access.
 
-Full-width, #1d1d1f or white background, 8px vertical padding, horizontal links at 12px weight 400 in #1d1d1f or #f5f5f7. Apple logo on left, product categories centered, search and bag icons on right. 1px hairline bottom border in #1d1d1f or #333.
+White background, 64px height. Logo left, three-segment pill nav with 9999px radius and Navy Ink text, right cluster with secondary links and an outlined pill.
 
-### Sticky Mini-Nav
-**Role:** Product page sub-navigation that pins below global nav
+### Segmented Tab Control
+**Role:** In-page section switcher — single active state in electric blue.
 
-White background, product name in 21px weight 600 + colored wordmark, action links at 14px weight 400. 1px bottom border in #d2d2d7.
+Pill container (9999px radius) holding multiple text labels. Active tab: Electric Blue fill with Paper text. Inactive tabs: transparent with Charcoal text. ~40px height, 12px horizontal padding per segment.
 
-### Product Hero Section
-**Role:** Full-bleed product showcase
+### Display Headline
+**Role:** The brand's voice — used in hero and major section openers.
 
-#f5f5f7 background, centered product name at 56px weight 600 in #1d1d1f, tagline at 26px weight 300, two action buttons centered below. Large product render fills the section with generous bottom padding.
+Display face weight 900 at 89–105px, line-height 0.85, letter-spacing -3.15px. Obsidian (#0d0f14) or Navy Ink on light, Sky Blue (#2997ff) or Paper on dark sections. Set as block text, often in ALL CAPS for hero moments.
 
-### Feature Banner
-**Role:** Full-bleed promotional or service content
+### Feature Row
+**Role:** Three-column trust signal block — icon + heading + supporting line.
 
-Full-width photographic or color-washed background, overlay text and CTA. Can be dark with white text, or a pastel wash with dark text. No card surface — the image IS the surface.
+Single-column-on-mobile, three-column-on-desktop. Icon (24px, Charcoal stroke) at top, heading in Inter 700 at 18px, body in Inter 400 at 16px Slate. Generous 24px vertical gap between icon and heading.
 
-### Service Card Grid
-**Role:** Multi-service promotional row (Apple TV+, Fitness+, Music, Arcade)
+### Grid Item (thumbnail + label)
+**Role:** Circular thumbnail + name link in a 5-column grid.
 
-Horizontal scroll or grid of cards, each full-bleed photographic background, 8px radius, white text overlay. Card title 24-28px weight 600, genre label in 12-14px, pill action button (Listen now, Play now, Watch now) at bottom.
+Circular thumbnail (1000px radius, ~56px diameter), 12px gap to the name in Inter 500 at 16px Navy Ink. Name is a text link with no underline at rest, underline on hover. Items sit in a generous grid with ~32px row gap.
 
-### Typography-Only CTA Block
-**Role:** Compact product call-out within a section
+### Dark Section Card
+**Role:** Inverted surface for emphasis — used for a key CTA block.
 
-Centered stack: product name at 40-56px weight 600, one-line descriptor at 21px weight 300, optional italic product variant (e.g. 'iPad air') at 28px in #2997ff. Two pill buttons below, generous vertical breathing room.
+Navy Ink (#0a2540) background, 28px radius, 40px padding. Sky Blue (#2997ff) text for headline, Paper for body. May contain an inset white card (10px radius, 16px padding) for an interactive selector.
 
-### Footer
-**Role:** Site-wide legal and link directory
+### Selector Pill
+**Role:** Interactive picker with a "Change" action.
 
-#f5f5f7 or #1d1d1f background, multi-column link grid at 12px weight 400 in #707070 or #f5f5f7, 1px hairline dividers in #333 or #d2d2d7, fine print at 12px. No card surfaces — flat, typographic, structural.
+White pill inside a dark section card. Left: circular thumbnail (24px) + name in Charcoal Inter 500. Right: outlined "Change" button in Navy Ink. 9999px radius, 8px vertical padding.
 
-### Form Input
-**Role:** Search, email capture, configuration inputs
+### Input Field
+**Role:** Form input — used for amounts, emails, references.
 
-8px radius, 1px border in #d2d2d7 or #707070, 14-17px text, #f5f5f7 fill. Focus ring in #0071e3 at 2px.
+10px radius, 1px Pebble (#868685) border, 12px vertical and 16px horizontal padding. Inter 400 at 16px. Focus state: Navy Ink border, no glow ring.
+
+### Floating Badge
+**Role:** Persistent app-download or contact prompt.
+
+Navy Ink (#0a2540) rounded square (16px radius), fixed bottom-right, 120px wide. Content in Paper at top, label in Sky Blue Inter 500 at 12px below.
+
+### Badge / Tag
+**Role:** Small status labels and category tags.
+
+9999px radius, 8px vertical and 12px horizontal padding. Ice Mist (#e6f0fd) background with Navy Ink text, or Navy Ink background with Sky Blue text. Inter 500 at 12px.
 
 ## Do's and Don'ts
 
 ### Do
-- Use #0071e3 only for filled action buttons and selected/active states — one color, one job.
-- Pair every filled blue button with an outlined blue secondary action, never stack two filled buttons.
-- Set body text at 17px with -0.016em letter-spacing — the negative tracking is what makes Apple type feel precise, not the size alone.
-- Let product photography fill the full viewport width — never constrain hero images to a max-width container.
-- Use 980px border-radius for every interactive button, tag, and pill — the fully rounded shape is non-negotiable.
-- Set section backgrounds to full-bleed #f5f5f7 or a single product color wash — never use card containers inside a section.
-- Weight 300 for subheads and editorial descriptors creates the signature Apple whisper-voice — 400 is for body, 600 is for nav.
+- Set display headlines at weight 900 with letter-spacing -3.15px at 105px; the extreme heaviness is the brand's signature — don't soften it to 700.
+- Use Electric Blue (#0071e3) for primary action fills and active states; one electric-blue element per visible viewport section is usually enough.
+- Default to 9999px radius for all buttons, tags, and nav segments — pill shapes are foundational, not decorative.
+- Use Navy Ink (#0a2540) for text and dark surfaces, not pure black; the blue-tinted near-black is deeper and more on-brand.
+- Apply tight negative letter-spacing at large sizes (-0.030em at 100px+ down to -0.003em at 12px); headings should feel compact, not airy.
+- Pair a filled primary CTA with an underlined text link as the secondary action — never two filled buttons side by side.
+- Invert section backgrounds from white to Navy Ink to create rhythm; Sky Blue text on navy is the system's built-in emphasis.
 
 ### Don't
-- Never use #0071e3 for text, borders, or decoration — it is exclusively a button fill color.
-- Never add drop shadows to cards, buttons, or nav — the system uses hairline borders and surface shifts, not elevation.
-- Never set headlines at 700 weight for product names — 600 is the maximum; 700 only appears in editorial lockups or promotional art.
-- Never use a card or panel inside a #f5f5f7 section — the canvas itself is the surface; containers break the spatial logic.
-- Never constrain the main content to a narrow column — Apple pages breathe at 100% width with internal max-widths only for text-heavy blocks.
-- Never use radius below 980px for buttons or above 8px for cards/images — these are the only two radius values in the system.
-- Never mix the three blues in one interactive element — #0071e3 is fill, #0066cc is outlined action, #2997ff is decorative.
+- Don't use Charcoal (#454745) for display headlines — reserve Obsidian (#0d0f14) or Navy Ink for maximum contrast at large sizes.
+- Don't introduce gradients, drop shadows beyond hairline borders, or decorative blurs — the system is flat by design.
+- Don't use Electric Blue (#0071e3) as text on Navy Ink; at 3.3:1 it is too faint. Use Sky Blue (#2997ff) on dark surfaces instead.
+- Don't use Sky Blue (#2997ff) as text on white; at 3.0:1 it fails body-text contrast. It is for dark surfaces and large accents only.
+- Don't use sharp corners (0–4px radius) on buttons, tags, or nav elements; pills are the default shape language.
+- Don't set display headlines in Inter regular weights — weight 900 is the only acceptable voice for 60px+ type.
+- Don't stack multiple electric-blue elements close together; space them so the accent reads as a single punctuation mark.
+- Don't use #000000 for body text; Charcoal (#454745) at 18px on white is the baseline that keeps the page from feeling harsh.
 
 ## Surfaces
 
 | Level | Name | Value | Purpose |
 |-------|------|-------|---------|
-| 0 | Canvas | `#f5f5f7` | Page background, section default |
-| 1 | Elevated Wash | `#f4f8fb` | Light blue-tinted section background for featured products |
-| 2 | Pebble | `#e2e2e5` | Button fills, disabled states, surface differentiation |
+| 0 | Paper | `#ffffff` | Page canvas — the default background for all content sections |
+| 1 | Fog | `#e8ebf0` | Card surfaces, soft panels, and section backgrounds on the white canvas |
+| 2 | Ice Mist | `#e6f0fd` | Tinted highlight surfaces — pale blue wash for accent containers and hover states |
+| 3 | Electric Blue | `#0071e3` | Active surface — selected tabs, primary CTA fill, emphasis zones |
+| 4 | Navy Ink | `#0a2540` | Inverted surface — dark section backgrounds, nav, high-contrast blocks |
+
+## Elevation
+
+- **Cards:** `rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px`
+- **Elevated panels:** `rgba(0, 0, 0, 0.08) 0px 6px 20px 0px`
+- **Input/button focus:** `rgb(134, 134, 133) 0px 0px 0px 1px inset`
+- **Icon containers:** `rgba(13, 15, 20, 0.12) 0px 0px 0px 1px`
 
 ## Imagery
 
-Photography is the dominant visual language. Product shots are rendered on pure white or soft gray backgrounds with no environmental context — the device IS the hero, isolated and lit. Lifestyle photography appears in feature banners at full-bleed width, often with subjects cropped tightly. Color washes (pastel blue, pink, green) serve as section backgrounds for product highlights, not as decoration. Iconography is minimal and line-based, weight 1-2px, in the same gray scale as text. No illustrations, no abstract graphics, no 3D renders beyond the product photography itself.
+In the source system, painted 3D-style illustrations of a single recurring object (a globe with gold coins) establish the brand's visual world — tactile, slightly surreal, rendered with soft gradients and warm light. Photography is minimal; when used, it's high-key and lifestyle-casual. Circular thumbnails in a 5-column grid act as the icon system. No abstract graphics, no stock patterns. For Hicaso, the equivalent is one recurring, warm object that signals the studio's reach, plus each product's own screenshots.
 
 ## Layout
 
-Full-bleed page model with no fixed max-width container — sections stretch edge-to-edge while text blocks center internally at roughly 980px. Navigation is a single sticky global bar with a secondary product-specific sub-nav that appears on scroll. Hero pattern is always centered: large product name, one-line tagline, two pill buttons, then the product render filling the remaining viewport. Sections stack vertically with generous vertical rhythm (64px+ between sections), alternating between #f5f5f7 and color-wash backgrounds. The lower page is a single horizontal row of full-bleed service cards (Apple TV+, Fitness+, Music, Arcade), each a photographic tile with overlaid text and a pill action. No sidebars, no multi-column content layouts, no asymmetric compositions — everything is centered, stacked, and symmetrical.
+Max-width 1200px centered container, with hero and dark sections going full-bleed. Hero pattern: centered massive display headline over white space, with a large illustration breaking the lower edge of the viewport. Section rhythm alternates white → light blue band (Ice Mist) → dark Navy Ink section, creating a natural color cadence. Content arrangement is predominantly centered stacks in the hero, then 2-column text+visual or 3-column feature rows in supporting sections. A 5-column grid handles directories. Navigation is a single sticky top bar with a segmented pill switcher. A badge may float fixed in the bottom-right corner across all scroll positions.
 
 ## Agent Prompt Guide
 
-**Quick Color Reference**
-- text: #1d1d1f
-- background: #f5f5f7
-- border: #d2d2d7 / #333333
-- accent: #2997ff (decorative only)
-- primary action: #0071e3 (filled action)
-- outlined action border: #0066cc
+Quick Color Reference
+- text: #454745 (Charcoal) for body, #0d0f14 (Obsidian) for display
+- background: #ffffff (Paper) canvas, #e8ebf0 (Fog) cards
+- border: #868685 (Pebble) for hairlines, #0a2540 (Navy Ink) for emphasis
+- accent: #0071e3 (Electric Blue) for active states and highlights; #2997ff (Sky Blue) on dark surfaces
+- primary action: #0071e3 (Electric Blue) fill with #ffffff text
+- dark surface: #0a2540 (Navy Ink) for inverted sections
 
-**3-5 Example Component Prompts**
-1. Create a product hero section: #f5f5f7 full-bleed background. Headline 'iPhone' at 56px SF Pro Display weight 600, #1d1d1f, letter-spacing 0.616px. Tagline 'Meet the latest iPhone lineup.' at 26px SF Pro Text weight 300, #1d1d1f. Two pill buttons centered below: filled #0071e3 with white text 'Learn more' (980px radius, 11px 15px padding), and outlined #0066cc with 1px border and #0066cc text 'Shop iPhone' (same radius and padding). Product render fills the lower portion.
+Example Component Prompts
 
-2. Create a service card tile: full-bleed photographic background, 8px radius. Title 'Fitness+' at 28px weight 600 white, genre label at 12px weight 400 white with 70% opacity. Pill button at bottom: 980px radius, #0071e3 background, white text 'Watch now' at 14px weight 400, 8px 15px padding.
+1. Primary CTA pill: #0071e3 fill, #ffffff text, Inter 500 at 16px, 11px 24px padding, 9999px radius, no border or shadow. Pair with an underlined Navy Ink text link as the secondary action.
 
-3. Create a global nav bar: full-width, #1d1d1f background, 8px vertical padding. Apple logo SVG on left at 14px height. Nav links centered: Store, Mac, iPad, iPhone, Watch, Vision, AirPods, TV & Home, Entertainment, Accessories, Support — all 12px weight 400, #f5f5f7 color, 1px #333333 bottom border on the bar. Search icon and bag icon on right.
+2. Feature row (3-column): icon at 24px stroke #454745, 24px gap to heading at 18px Inter 700 in #0d0f14, 8px gap to body at 16px Inter 400 in #6a6c6a. Column gap 32px, centered max-width 1200px.
 
-4. Create a typographic CTA block: centered, 64px vertical padding. Product name 'iPad' at 40px SF Pro Display weight 600 #1d1d1f, followed by 'air' inline at 28px weight 400 italic #2997ff. Subtitle 'Now supercharged by M4.' at 21px weight 300 #1d1d1f. Two pill buttons below: filled #0071e3 'Learn more' and outlined #0066cc 'Buy' (both 980px radius, 11px 15px padding).
+3. Grid item: circular thumbnail at 56px diameter (1000px radius), 12px vertical gap to name in Inter 500 at 16px #0a2540. Arranged in a 5-column grid with 32px row gap and 24px column gap. Hover state: underline appears on the name.
 
-5. Create a footer block: #f5f5f7 background, four-column link grid. Each link 12px weight 400 #707070, 10px vertical gap. Column headers at 12px weight 600 #1d1d1f. 1px #d2d2d7 hairline divider above fine print. Fine print at 12px weight 400 #707070.
+4. Dark section card: Navy Ink (#0a2540) background, 28px radius, 40px padding. Headline in Sky Blue (#2997ff) at 36px Inter 700. Body text in #ffffff at 16px Inter 400. May contain an inset white card (10px radius) for a selector: circular thumbnail + name in Charcoal + outlined "Change" button.
 
-## Elevation Philosophy
-
-This system intentionally avoids elevation as a visual tool. Instead of shadows, hierarchy is built through surface color shifts (#f5f5f7 canvas, #f4f8fb elevated wash, #e2e2e5 filled surfaces) and 1px hairline borders in #d2d2d7 or #333333. The only shadow present is a subtle rgba(0,0,0,0.22) 3px 5px 30px on product images to ground them against the white canvas — never on cards, buttons, or panels. Flatness is the signature; depth comes from scale and photography, not from CSS shadows.
+5. Outlined nav button: white fill, 1px solid #0a2540 border, 9999px radius, 8px 16px padding, Inter 500 at 16px in #0a2540. Used in the top-right nav cluster for secondary actions.
 
 ## Similar Brands
 
-- **Bang & Olufsen** — Same product-as-hero isolation photography on white canvas, same generous whitespace, same whisper-thin typography for product names
-- **Teenage Engineering** — Same near-monochrome product pages with generous spacing, though TE adds more personality through type and color accents
-- **Nothing (tech)** — Similar minimal product showcase layout, though Nothing uses more dot-matrix texture and dark surfaces
-- **Dyson** — Same centered product hero with large render, minimal copy, and paired pill action buttons on a light gray canvas
+- **Wise** — The source of this system's structure: deep brand color as dominant surface and text, one bright accent, pill shapes, 900-weight display type.
+- **Revolut** — Same dual-brand color strategy — deep brand color as dominant surface and text, one bright accent for CTAs and highlights, with pill-shaped buttons and large confident headlines.
+- **Monzo** — Bright single-accent color system on a neutral canvas, pill-shaped interactive elements, friendly rounded geometry, and display type that speaks directly to the user.
+- **Cash App** — High-contrast near-black text on white with a single vivid brand accent, oversized bold headlines as the primary brand expression, minimal decoration.
+- **N26** — Flat surfaces, hairline borders instead of shadows, generous white space, and a single saturated accent color driving all interactive emphasis.
 
 ## Quick Start
 
@@ -231,54 +278,64 @@ This system intentionally avoids elevation as a visual tool. Instead of shadows,
 ```css
 :root {
   /* Colors */
-  --color-apple-blue: #0071e3;
-  --color-link-blue: #0066cc;
-  --color-signal-blue: #2997ff;
-  --color-carbon: #1d1d1f;
-  --color-frost: #f5f5f7;
-  --color-ice: #f4f8fb;
-  --color-smoke: #333333;
-  --color-graphite: #474747;
-  --color-ash: #707070;
-  --color-mist: #858585;
-  --color-onyx: #000000;
-  --color-pebble: #e2e2e5;
+  --color-navy-ink: #0a2540;
+  --color-electric-blue: #0071e3;
+  --color-sky-blue: #2997ff;
+  --color-deep-sea: #0b3d91;
+  --color-ice-mist: #e6f0fd;
+  --color-signal-blue: #0b4c72;
+  --color-alarm-red: #cb272f;
+  --color-charcoal: #454745;
+  --color-obsidian: #0d0f14;
+  --color-pebble: #868685;
+  --color-slate: #6a6c6a;
+  --color-fog: #e8ebf0;
+  --color-paper: #ffffff;
 
   /* Typography — Font Families */
-  --font-sf-pro-display: 'SF Pro Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sf-pro-text: 'SF Pro Text', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* set at weight 900 */
+  --font-monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans-serif: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Typography — Scale */
-  --text-caption: 12px;
-  --leading-caption: 1.33;
-  --tracking-caption: -0.264px;
-  --text-body-sm: 14px;
-  --leading-body-sm: 1.29;
-  --tracking-body-sm: -0.224px;
-  --text-body: 17px;
-  --leading-body: 1.47;
-  --tracking-body: -0.272px;
-  --text-subheading: 21px;
-  --leading-subheading: 1.24;
-  --tracking-subheading: -0.105px;
-  --text-heading-sm: 28px;
-  --leading-heading-sm: 1.18;
-  --tracking-heading-sm: 0.196px;
-  --text-heading: 40px;
-  --leading-heading: 1.14;
-  --tracking-heading: 0.44px;
-  --text-heading-lg: 44px;
-  --leading-heading-lg: 1.18;
-  --tracking-heading-lg: -0.44px;
-  --text-display: 56px;
-  --leading-display: 1.07;
-  --tracking-display: 0.616px;
+  --text-micro: 12px;
+  --leading-micro: 1.63;
+  --tracking-micro: -0.036px;
+  --text-caption: 14px;
+  --leading-caption: 1.55;
+  --tracking-caption: -0.07px;
+  --text-body-sm: 16px;
+  --leading-body-sm: 1.5;
+  --tracking-body-sm: -0.096px;
+  --text-body: 18px;
+  --leading-body: 1.5;
+  --tracking-body: -0.126px;
+  --text-body-lg: 25px;
+  --leading-body-lg: 1.3;
+  --tracking-body-lg: -0.225px;
+  --text-subheading: 36px;
+  --leading-subheading: 1.25;
+  --tracking-subheading: -0.396px;
+  --text-heading-sm: 45px;
+  --leading-heading-sm: 1.1;
+  --tracking-heading-sm: -0.495px;
+  --text-heading: 61px;
+  --leading-heading: 1.1;
+  --tracking-heading: -0.915px;
+  --text-heading-lg: 89px;
+  --leading-heading-lg: 0.85;
+  --tracking-heading-lg: -2.67px;
+  --text-display: 105px;
+  --leading-display: 0.85;
+  --tracking-display: -3.15px;
 
   /* Typography — Weights */
-  --font-weight-light: 300;
   --font-weight-regular: 400;
+  --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+  --font-weight-black: 900;
 
   /* Spacing */
   --spacing-unit: 4px;
@@ -288,36 +345,54 @@ This system intentionally avoids elevation as a visual tool. Instead of shadows,
   --spacing-16: 16px;
   --spacing-20: 20px;
   --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
   --spacing-40: 40px;
+  --spacing-44: 44px;
   --spacing-48: 48px;
   --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-100: 100px;
+  --spacing-124: 124px;
 
   /* Layout */
-  --page-max-width: 1440px;
-  --section-gap: 64px;
+  --page-max-width: 1200px;
+  --section-gap: 64px; /* 64–80px */
   --card-padding: 24px;
-  --element-gap: 12px;
+  --element-gap: 8px; /* 8–12px */
 
   /* Border Radius */
-  --radius-lg: 8px;
-  --radius-lg-2: 11px;
-  --radius-full: 980px;
-  --radius-full-2: 999px;
+  --radius-sm: 2px;
+  --radius-lg: 10px;
+  --radius-2xl: 16px;
+  --radius-2xl-2: 18.7693px;
+  --radius-3xl: 28.1539px;
+  --radius-3xl-2: 32px;
+  --radius-3xl-3: 37.5385px;
+  --radius-full: 1000px;
+  --radius-full-2: 9999px;
 
   /* Named Radii */
-  --radius-tags: 980px;
-  --radius-cards: 8px;
-  --radius-images: 8px;
-  --radius-inputs: 8px;
-  --radius-buttons: 980px;
+  --radius-tags: 9999px;
+  --radius-cards: 10px;
+  --radius-inputs: 10px;
+  --radius-buttons: 9999px;
+  --radius-imagemasks: 1000px;
+  --radius-largecards: 28px;
+  --radius-navsegments: 9999px;
 
   /* Shadows */
-  --shadow-xl: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+  --shadow-subtle: rgba(13, 15, 20, 0.12) 0px 0px 0px 1px;
+  --shadow-subtle-2: rgb(134, 134, 133) 0px 0px 0px 1px inset;
+  --shadow-xl: rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px;
+  --shadow-lg: rgba(0, 0, 0, 0.08) 0px 6px 20px 0px;
 
   /* Surfaces */
-  --surface-canvas: #f5f5f7;
-  --surface-elevated-wash: #f4f8fb;
-  --surface-pebble: #e2e2e5;
+  --surface-paper: #ffffff;
+  --surface-fog: #e8ebf0;
+  --surface-ice-mist: #e6f0fd;
+  --surface-electric-blue: #0071e3;
+  --surface-navy-ink: #0a2540;
 }
 ```
 
@@ -326,48 +401,57 @@ This system intentionally avoids elevation as a visual tool. Instead of shadows,
 ```css
 @theme {
   /* Colors */
-  --color-apple-blue: #0071e3;
-  --color-link-blue: #0066cc;
-  --color-signal-blue: #2997ff;
-  --color-carbon: #1d1d1f;
-  --color-frost: #f5f5f7;
-  --color-ice: #f4f8fb;
-  --color-smoke: #333333;
-  --color-graphite: #474747;
-  --color-ash: #707070;
-  --color-mist: #858585;
-  --color-onyx: #000000;
-  --color-pebble: #e2e2e5;
+  --color-navy-ink: #0a2540;
+  --color-electric-blue: #0071e3;
+  --color-sky-blue: #2997ff;
+  --color-deep-sea: #0b3d91;
+  --color-ice-mist: #e6f0fd;
+  --color-signal-blue: #0b4c72;
+  --color-alarm-red: #cb272f;
+  --color-charcoal: #454745;
+  --color-obsidian: #0d0f14;
+  --color-pebble: #868685;
+  --color-slate: #6a6c6a;
+  --color-fog: #e8ebf0;
+  --color-paper: #ffffff;
 
   /* Typography */
-  --font-sf-pro-display: 'SF Pro Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sf-pro-text: 'SF Pro Text', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans-serif: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Typography — Scale */
-  --text-caption: 12px;
-  --leading-caption: 1.33;
-  --tracking-caption: -0.264px;
-  --text-body-sm: 14px;
-  --leading-body-sm: 1.29;
-  --tracking-body-sm: -0.224px;
-  --text-body: 17px;
-  --leading-body: 1.47;
-  --tracking-body: -0.272px;
-  --text-subheading: 21px;
-  --leading-subheading: 1.24;
-  --tracking-subheading: -0.105px;
-  --text-heading-sm: 28px;
-  --leading-heading-sm: 1.18;
-  --tracking-heading-sm: 0.196px;
-  --text-heading: 40px;
-  --leading-heading: 1.14;
-  --tracking-heading: 0.44px;
-  --text-heading-lg: 44px;
-  --leading-heading-lg: 1.18;
-  --tracking-heading-lg: -0.44px;
-  --text-display: 56px;
-  --leading-display: 1.07;
-  --tracking-display: 0.616px;
+  --text-micro: 12px;
+  --leading-micro: 1.63;
+  --tracking-micro: -0.036px;
+  --text-caption: 14px;
+  --leading-caption: 1.55;
+  --tracking-caption: -0.07px;
+  --text-body-sm: 16px;
+  --leading-body-sm: 1.5;
+  --tracking-body-sm: -0.096px;
+  --text-body: 18px;
+  --leading-body: 1.5;
+  --tracking-body: -0.126px;
+  --text-body-lg: 25px;
+  --leading-body-lg: 1.3;
+  --tracking-body-lg: -0.225px;
+  --text-subheading: 36px;
+  --leading-subheading: 1.25;
+  --tracking-subheading: -0.396px;
+  --text-heading-sm: 45px;
+  --leading-heading-sm: 1.1;
+  --tracking-heading-sm: -0.495px;
+  --text-heading: 61px;
+  --leading-heading: 1.1;
+  --tracking-heading: -0.915px;
+  --text-heading-lg: 89px;
+  --leading-heading-lg: 0.85;
+  --tracking-heading-lg: -2.67px;
+  --text-display: 105px;
+  --leading-display: 0.85;
+  --tracking-display: -3.15px;
 
   /* Spacing */
   --spacing-4: 4px;
@@ -376,17 +460,31 @@ This system intentionally avoids elevation as a visual tool. Instead of shadows,
   --spacing-16: 16px;
   --spacing-20: 20px;
   --spacing-24: 24px;
+  --spacing-28: 28px;
+  --spacing-32: 32px;
   --spacing-40: 40px;
+  --spacing-44: 44px;
   --spacing-48: 48px;
   --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-100: 100px;
+  --spacing-124: 124px;
 
   /* Border Radius */
-  --radius-lg: 8px;
-  --radius-lg-2: 11px;
-  --radius-full: 980px;
-  --radius-full-2: 999px;
+  --radius-sm: 2px;
+  --radius-lg: 10px;
+  --radius-2xl: 16px;
+  --radius-2xl-2: 18.7693px;
+  --radius-3xl: 28.1539px;
+  --radius-3xl-2: 32px;
+  --radius-3xl-3: 37.5385px;
+  --radius-full: 1000px;
+  --radius-full-2: 9999px;
 
   /* Shadows */
-  --shadow-xl: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+  --shadow-subtle: rgba(13, 15, 20, 0.12) 0px 0px 0px 1px;
+  --shadow-subtle-2: rgb(134, 134, 133) 0px 0px 0px 1px inset;
+  --shadow-xl: rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px;
+  --shadow-lg: rgba(0, 0, 0, 0.08) 0px 6px 20px 0px;
 }
 ```
