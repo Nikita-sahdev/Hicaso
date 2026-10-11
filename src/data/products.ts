@@ -46,6 +46,7 @@ export const products: Product[] = [
     privacyUrl: "https://appkavo.com/privacy",
     status: "live",
     theme: { bg: "#0a0a0c", fg: "#f4f4f5", accent: "#fb8c2e", onAccent: "#0a0a0c", font: "bricolage" },
+    screenshot: { src: "/images/products/appkavo.jpg", width: 1080, height: 810 },
   },
   {
     slug: "billminute",

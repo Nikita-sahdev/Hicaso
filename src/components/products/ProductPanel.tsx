@@ -31,7 +31,7 @@ export const ProductPanel: React.FC<ProductPanelProps> = ({ product }) => {
           src={product.screenshot.src}
           width={product.screenshot.width}
           height={product.screenshot.height}
-          alt={`${product.name} app screen`}
+          alt={`${product.name} screenshot`}
           sizes="(min-width: 900px) 560px, 100vw"
           className={styles.shot}
         />
