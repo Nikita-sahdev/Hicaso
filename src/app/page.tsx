@@ -1,16 +1,13 @@
 import Hero from "@/components/home/Hero";
-import CTA from "@/components/home/CTA";
+import Products from "@/components/home/Products";
 import Principles from "@/components/common/Principles";
-import ProductPanel from "@/components/products/ProductPanel";
-import { products } from "@/data/products";
+import CTA from "@/components/home/CTA";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      {products.map((p) => (
-        <ProductPanel key={p.slug} product={p} />
-      ))}
+      <Products />
       <Principles />
       <CTA />
     </>

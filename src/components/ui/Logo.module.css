@@ -1,7 +1,7 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  color: var(--color-carbon);
+  color: var(--color-navy-ink);
   text-decoration: none;
 }
 
@@ -14,5 +14,5 @@
 }
 
 .dot {
-  fill: var(--color-apple-blue);
+  fill: var(--color-electric-blue);
 }

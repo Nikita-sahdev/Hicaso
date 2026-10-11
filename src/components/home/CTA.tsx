@@ -5,14 +5,16 @@ import LinkButton from "../ui/LinkButton";
 
 export const CTA: React.FC = () => {
   return (
-    <section className={styles.cta}>
-      <Container>
-        <h2 className="t-heading">Build the next one with us.</h2>
-        <div className={styles.actions}>
-          <LinkButton href="/careers">See careers</LinkButton>
-          <LinkButton href="/contact" variant="outlined">
-            Contact us
-          </LinkButton>
+    <section className={styles.section}>
+      <Container wide>
+        <div className={styles.card}>
+          <h2 className={`t-display ${styles.title}`}>Build the next one with us.</h2>
+          <div className={styles.actions}>
+            <LinkButton href="/careers">See careers</LinkButton>
+            <LinkButton href="/contact" variant="text">
+              Contact us
+            </LinkButton>
+          </div>
         </div>
       </Container>
     </section>

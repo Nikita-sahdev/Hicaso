@@ -7,13 +7,16 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import styles from "./Header.module.css";
 import Container from "../ui/Container";
 import Logo from "../ui/Logo";
+import LinkButton from "../ui/LinkButton";
 import { products } from "@/data/products";
 
 const links = [
   { label: "About", href: "/about" },
   { label: "Careers", href: "/careers" },
-  { label: "Contact", href: "/contact" },
 ];
+
+// Desktop shows Contact as the outlined pill; the mobile list includes it as a link.
+const mobileLinks = [...links, { label: "Contact", href: "/contact" }];
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
@@ -56,11 +59,13 @@ export const Header: React.FC = () => {
         <Logo />
 
         <nav className={styles.desktopNav} aria-label="Main">
-          <div className={styles.products} ref={productsRef}
-          onBlur={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setProductsOpen(false);
-          }}
-        >
+          <div
+            className={styles.products}
+            ref={productsRef}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setProductsOpen(false);
+            }}
+          >
             <button
               ref={productsButtonRef}
               type="button"
@@ -72,7 +77,8 @@ export const Header: React.FC = () => {
               Products <ChevronDown size={12} aria-hidden="true" />
             </button>
             {productsOpen && (
-              <div id="products-menu" className={styles.menu}>
+              // preventDefault keeps focus in the wrapper so Safari's blur can't close the menu before a click lands
+              <div id="products-menu" className={styles.menu} onMouseDown={(e) => e.preventDefault()}>
                 {products.map((p) => (
                   <Link
                     key={p.slug}
@@ -96,6 +102,12 @@ export const Header: React.FC = () => {
             </Link>
           ))}
         </nav>
+
+        <div className={styles.cta}>
+          <LinkButton href="/contact" variant="outlined">
+            Contact us
+          </LinkButton>
+        </div>
 
         <button
           type="button"
@@ -124,7 +136,7 @@ export const Header: React.FC = () => {
               {p.name}
             </Link>
           ))}
-          {links.map((l) => (
+          {mobileLinks.map((l) => (
             <Link key={l.href} href={l.href} className={styles.mobileLink} onClick={close}>
               {l.label}
             </Link>

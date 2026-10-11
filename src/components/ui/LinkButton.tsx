@@ -4,11 +4,11 @@ import styles from "./LinkButton.module.css";
 
 interface LinkButtonProps {
   href: string;
-  variant?: "filled" | "outlined";
+  variant?: "filled" | "outlined" | "text";
   children: React.ReactNode;
 }
 
-// Pill-shaped link. Internal paths use next/link; http(s) opens in a new tab.
+// Pill-shaped link (or underlined text link). Internal paths use next/link; http(s) opens in a new tab.
 export const LinkButton: React.FC<LinkButtonProps> = ({ href, variant = "filled", children }) => {
   const className = `${styles.button} ${styles[variant]}`;
 

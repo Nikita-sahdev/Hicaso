@@ -18,6 +18,8 @@ export function themeStyle({ theme }: Product): CSSProperties {
     "--btn-fill": theme.accent,
     "--btn-on-fill": theme.onAccent,
     "--btn-line": theme.accent,
+    "--btn-text": theme.fg,
+    "--heading-color": theme.fg,
     "--focus-ring": theme.accent,
     background: theme.bg,
     color: theme.fg,

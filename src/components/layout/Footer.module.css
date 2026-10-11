@@ -1,10 +1,10 @@
 .footer {
-  padding: 40px 0 24px;
-  background: var(--color-frost);
+  padding: 56px 0 32px;
+  background: var(--color-fog);
   border-top: 1px solid var(--color-hairline);
-  font-size: 12px;
-  line-height: 1.33;
-  letter-spacing: -0.12px;
+  font-size: 14px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
 }
 
 .columns {
@@ -15,20 +15,20 @@
 
 .heading {
   margin-bottom: 10px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-carbon);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-navy-ink);
 }
 
 .list {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  color: var(--color-graphite);
+  color: var(--color-charcoal);
 }
 
 .list a {
-  color: var(--color-graphite);
+  color: var(--color-charcoal);
   text-decoration: none;
 }
 
@@ -40,7 +40,7 @@
   margin-top: 32px;
   padding-top: 16px;
   border-top: 1px solid var(--color-hairline);
-  color: var(--color-graphite);
+  color: var(--color-charcoal);
 }
 
 @media (min-width: 734px) {

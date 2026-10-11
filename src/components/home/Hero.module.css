@@ -1,18 +1,31 @@
 .hero {
-  padding: 96px 0 80px;
+  padding: 72px 0 80px;
   text-align: center;
-  background: var(--color-frost);
+  background: var(--color-paper);
+}
+
+/* Hero shouts: all caps, up to 105px, scaling with the viewport so the longest word fits at 320px */
+.title {
+  font-size: clamp(40px, 11vw, 105px);
+  text-transform: uppercase;
 }
 
 .subtitle {
-  max-width: 680px;
-  margin: 16px auto 0;
+  max-width: 720px;
+  margin: 28px auto 0;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
-  margin-top: 32px;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 36px;
+}
+
+@media (min-width: 734px) {
+  .hero {
+    padding: 112px 0 124px;
+  }
 }
