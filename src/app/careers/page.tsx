@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import styles from "@/styles/page.module.css";
 import Container from "@/components/ui/Container";
+import LinkButton from "@/components/ui/LinkButton";
 
 export const metadata: Metadata = {
   title: "Careers — Hicaso",
@@ -22,12 +23,14 @@ export default function CareersPage() {
 
       <section className={styles.section}>
         <Container>
-          <div className={styles.prose}>
+          <div className={`${styles.card} ${styles.tinted} ${styles.prose}`}>
             <h2>Open roles</h2>
-            <p>
-              No open roles right now. Send your work to{" "}
-              <a href="mailto:hello@hicaso.com?subject=Working%20at%20Hicaso">hello@hicaso.com</a>.
-            </p>
+            <p>No open roles right now. We still want to see your work.</p>
+            <div className={styles.actions}>
+              <LinkButton href="mailto:hello@hicaso.com?subject=Working%20at%20Hicaso">
+                Send your work
+              </LinkButton>
+            </div>
           </div>
         </Container>
       </section>

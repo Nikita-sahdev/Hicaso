@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import styles from "./products.module.css";
 import Container from "@/components/ui/Container";
-import ProductTile from "@/components/products/ProductTile";
+import ProductPanel from "@/components/products/ProductPanel";
 import { products } from "@/data/products";
 
 export const metadata: Metadata = {
@@ -11,18 +11,25 @@ export const metadata: Metadata = {
 
 export default function ProductsPage() {
   return (
-    <section className={styles.page}>
-      <Container wide>
-        <div className={styles.intro}>
-          <h1 className="t-display">Products.</h1>
+    <>
+      <section className={styles.intro}>
+        <Container>
+          <h1 className={`t-display ${styles.title}`}>Products.</h1>
           <p className="t-subhead">Built and run by Hicaso.</p>
-        </div>
-        <div className={styles.grid}>
-          {products.map((p) => (
-            <ProductTile key={p.slug} product={p} />
-          ))}
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+      <section className={styles.list} aria-labelledby="all-products">
+        <Container wide>
+          <h2 id="all-products" className="sr-only">
+            All products
+          </h2>
+          <div className={styles.grid}>
+            {products.map((p) => (
+              <ProductPanel key={p.slug} product={p} />
+            ))}
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }

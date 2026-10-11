@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import styles from "@/styles/page.module.css";
 import Container from "@/components/ui/Container";
+import LinkButton from "@/components/ui/LinkButton";
 
 export const metadata: Metadata = {
   title: "Contact — Hicaso",
@@ -14,12 +15,18 @@ export default function ContactPage() {
         <Container>
           <h1 className="t-display">Contact</h1>
           <p className="t-subhead">Questions about Hicaso or one of our products? Write to us.</p>
+          <div className={styles.actions}>
+            <LinkButton href="mailto:hello@hicaso.com">Email us</LinkButton>
+            <LinkButton href="tel:+917009137936" variant="text">
+              Call +91 70091 37936
+            </LinkButton>
+          </div>
         </Container>
       </section>
 
       <section className={styles.section}>
         <Container>
-          <dl className={styles.facts}>
+          <dl className={`${styles.card} ${styles.facts}`}>
             <div>
               <dt>Email</dt>
               <dd>

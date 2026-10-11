@@ -21,12 +21,6 @@
   --shadow-lg: rgba(0, 0, 0, 0.08) 0px 6px 20px 0px;
   --shadow-xl: rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px;
 
-  /* LEGACY ALIASES — pages not yet restyled still read these; remove when they are */
-  --color-frost: var(--color-fog);
-  --color-graphite: var(--color-charcoal);
-  --color-smoke: var(--color-charcoal);
-  --color-link-blue: var(--color-electric-blue);
-  /* END LEGACY */
 }
 
 html {

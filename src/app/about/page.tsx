@@ -28,7 +28,7 @@ export default function AboutPage() {
       <section className={styles.section}>
         <Container>
           <h2 className={`t-heading-sm ${styles.heading}`}>The company</h2>
-          <dl className={styles.facts}>
+          <dl className={`${styles.card} ${styles.facts}`}>
             <div>
               <dt>Legal name</dt>
               <dd>Hicaso LLP</dd>

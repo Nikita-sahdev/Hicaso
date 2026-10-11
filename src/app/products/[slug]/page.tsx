@@ -35,7 +35,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           <p className={styles.audience}>{product.audience}</p>
           <div className={styles.actions}>
             <LinkButton href={product.url}>Visit {domain}</LinkButton>
-            <LinkButton href="/products" variant="outlined">
+            <LinkButton href="/products" variant="text">
               All products
             </LinkButton>
           </div>
@@ -47,7 +47,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
           <p className={`t-subhead ${styles.description}`}>{product.description}</p>
           <ul className={styles.highlights}>
             {product.highlights.map((h) => (
-              <li key={h.title}>
+              <li key={h.title} className={styles.highlight}>
                 <h2 className="t-subheading">{h.title}</h2>
                 <p className={styles.highlightBody}>{h.body}</p>
               </li>
@@ -56,11 +56,13 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
         </Container>
       </section>
 
-      <section className={styles.closing} style={themeStyle(product)}>
-        <Container>
-          <h2 className={`t-heading ${styles.name}`}>Ready to try {product.name}?</h2>
-          <div className={styles.actions}>
-            <LinkButton href={product.url}>Visit {domain}</LinkButton>
+      <section className={styles.closingSection}>
+        <Container wide>
+          <div className={styles.closing} style={themeStyle(product)}>
+            <h2 className={`t-heading ${styles.name}`}>Ready to try {product.name}?</h2>
+            <div className={styles.actions}>
+              <LinkButton href={product.url}>Visit {domain}</LinkButton>
+            </div>
           </div>
         </Container>
       </section>

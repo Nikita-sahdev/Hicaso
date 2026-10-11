@@ -8,7 +8,7 @@ export default function NotFound() {
       <Container>
         <h1 className="t-display">Page not found.</h1>
         <p className="t-subhead">The page you&apos;re looking for doesn&apos;t exist or has moved.</p>
-        <div style={{ marginTop: 32 }}>
+        <div className={styles.actions}>
           <LinkButton href="/products">Explore products</LinkButton>
         </div>
       </Container>
