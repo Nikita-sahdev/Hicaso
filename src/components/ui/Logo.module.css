@@ -1,19 +1,18 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   color: var(--color-carbon);
   text-decoration: none;
 }
 
-.mark {
-  width: 22px;
+/* aspect ratio 3.68 : 1 from the outlined wordmark */
+.wordmark {
+  display: block;
   height: 22px;
-  flex-shrink: 0;
+  width: auto;
+  aspect-ratio: 3.68;
 }
 
-.name {
-  font-size: 19px;
-  font-weight: 600;
-  letter-spacing: -0.2px;
+.dot {
+  fill: var(--color-apple-blue);
 }
