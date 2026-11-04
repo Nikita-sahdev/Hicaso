@@ -9,7 +9,7 @@ export const ClosingCTA: React.FC<{ title?: string; href?: string }> = ({
   href = "/contact",
 }) => (
   <section className={styles.section}>
-    <Container wide>
+    <Container>
       <div className={styles.panel}>
         <Eyebrow onDark>START A PROJECT</Eyebrow>
         <h2 className={`t-heading ${styles.title}`}>{title}</h2>

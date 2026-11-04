@@ -23,7 +23,7 @@ export async function generateMetadata({
 }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const service = getService((await params).slug);
   if (!service) return {};
-  return { title: `${service.name} — Hicaso`, description: service.tagline };
+  return { title: `${service.name} — Hicaso`, description: service.description };
 }
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
@@ -49,7 +49,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
       <section className={page.section}>
         <Container>
-          <h2 className="t-heading">What we build</h2>
+          <h2 className={`t-heading ${page.sectionTitle}`}>What we build</h2>
           <div className={styles.grid}>
             {service.offerings.map((o) => (
               <div key={o.title} className={styles.offering}>
@@ -63,7 +63,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
       <section className={page.section}>
         <Container>
-          <h2 className="t-heading">Technologies</h2>
+          <h2 className={`t-heading ${page.sectionTitle}`}>Technologies</h2>
           <StackGrid groups={service.stack} />
         </Container>
       </section>

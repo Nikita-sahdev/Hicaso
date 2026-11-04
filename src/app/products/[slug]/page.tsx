@@ -57,7 +57,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       </section>
 
       <section className={styles.closingSection}>
-        <Container wide>
+        <Container>
           <div className={styles.closing} style={themeStyle(product)}>
             <h2 className={`t-heading ${styles.name}`}>Ready to try {product.name}?</h2>
             <div className={styles.actions}>

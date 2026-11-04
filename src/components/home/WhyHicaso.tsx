@@ -13,7 +13,7 @@ const items = [
 
 export const WhyHicaso: React.FC = () => (
   <section className={styles.section} aria-labelledby="why-title">
-    <Container wide>
+    <Container>
       <Eyebrow>WHY HICASO</Eyebrow>
       <h2 id="why-title" className={`t-heading ${styles.title}`}>
         Why teams work with us

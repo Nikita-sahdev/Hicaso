@@ -3,7 +3,11 @@
   text-align: left;
 }
 
-.hero p {
+.hero h1 {
+  margin-top: 12px;
+}
+
+.hero h1 + p {
   max-width: 720px;
   margin: 24px 0 0;
 }
@@ -24,7 +28,7 @@
 /* Large soft card (Oat) */
 .card {
   max-width: 760px;
-  margin: 0 auto;
+  margin: 0;
   padding: 32px 24px;
   border-radius: var(--radius-media);
   background: var(--color-oat);
@@ -36,7 +40,12 @@
 
 .heading {
   max-width: 760px;
-  margin: 0 auto 20px;
+  margin: 0 0 20px;
+}
+
+/* Section title: 12px under an eyebrow, 40px above the content */
+.sectionTitle {
+  margin: 12px 0 40px;
 }
 
 /* Label/value list (About facts, Contact details), usually inside .card */
@@ -70,7 +79,7 @@
 /* Long-form text (Careers, Privacy, Terms) */
 .prose {
   max-width: 720px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .prose h2 {

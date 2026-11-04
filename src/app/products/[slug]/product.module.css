@@ -69,6 +69,10 @@
   text-align: center;
 }
 
+.closing .actions {
+  justify-content: center;
+}
+
 @media (min-width: 734px) {
   .hero {
     padding: 120px 0;

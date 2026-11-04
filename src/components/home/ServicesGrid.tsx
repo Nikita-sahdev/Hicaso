@@ -7,7 +7,7 @@ import { services } from "@/data/services";
 
 export const ServicesGrid: React.FC = () => (
   <section className={styles.section} aria-labelledby="services-title">
-    <Container wide>
+    <Container>
       <Eyebrow>SERVICES</Eyebrow>
       <h2 id="services-title" className={`t-heading ${styles.title}`}>
         What we build for clients
@@ -19,7 +19,7 @@ export const ServicesGrid: React.FC = () => (
             <h3 className="t-heading-sm">{s.name}</h3>
             <p className="t-subhead">{s.tagline}</p>
             <LinkButton href={`/services/${s.slug}`} variant="text">
-              Explore
+              Explore {s.name}
             </LinkButton>
           </article>
         ))}

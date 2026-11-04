@@ -12,7 +12,7 @@ const steps = [
 
 export const HowWeWork: React.FC = () => (
   <section className={styles.section} aria-labelledby="how-title">
-    <Container wide>
+    <Container>
       <Eyebrow>HOW WE WORK</Eyebrow>
       <h2 id="how-title" className={`t-heading ${styles.title}`}>
         From first call to launch

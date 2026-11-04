@@ -21,7 +21,7 @@ export default function ProductsPage() {
         </Container>
       </section>
       <section className={styles.list} aria-labelledby="all-products">
-        <Container wide>
+        <Container>
           <h2 id="all-products" className="sr-only">
             All products
           </h2>

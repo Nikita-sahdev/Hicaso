@@ -70,7 +70,7 @@ export const Header: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <Container wide className={styles.bar}>
+      <Container className={styles.bar}>
         <Logo />
 
         <nav className={styles.desktopNav} aria-label="Main">

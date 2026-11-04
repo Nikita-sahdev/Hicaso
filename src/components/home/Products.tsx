@@ -8,7 +8,7 @@ import { products } from "@/data/products";
 export const Products: React.FC = () => {
   return (
     <section className={styles.section} aria-labelledby="products-title">
-      <Container wide>
+      <Container>
         <div className={styles.head}>
           <Eyebrow>PRODUCT STUDIO</Eyebrow>
           <h2 id="products-title" className={`t-heading ${styles.title}`}>

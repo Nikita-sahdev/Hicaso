@@ -42,7 +42,7 @@ const columns = [
 export const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
-      <Container wide>
+      <Container>
         <div className={styles.top}>
           <h2 className="t-heading-sm">Have a project in mind?</h2>
           <LinkButton href="/contact" variant="filled">

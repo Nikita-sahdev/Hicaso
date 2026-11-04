@@ -5,7 +5,7 @@ import LinkButton from "../ui/LinkButton";
 
 export const Hero: React.FC = () => (
   <section className={styles.hero}>
-    <Container wide>
+    <Container>
       <div className={styles.grid}>
         <h1 className={`t-display ${styles.title}`}>
           We build AI, mobile and web software — and ship our own products.
