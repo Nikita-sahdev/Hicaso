@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test src/data/products.test.ts"
+    "test": "node --test src/data/products.test.ts src/data/services.test.ts"
   },
   "dependencies": {
     "lucide-react": "^0.400.0",
