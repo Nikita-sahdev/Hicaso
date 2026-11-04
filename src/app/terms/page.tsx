@@ -28,6 +28,10 @@ export default function TermsConditionsPage() {
               access the website. Each Hicaso product is governed by its own terms of service,
               published on that product&apos;s website.
             </p>
+            <p>
+              Software we build for clients is governed by the agreement signed with each client,
+              which takes precedence over these terms for that work.
+            </p>
 
             <h2>2. Intellectual Property</h2>
             <p>

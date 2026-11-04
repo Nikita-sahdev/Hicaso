@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import styles from "./products.module.css";
+import Eyebrow from "@/components/common/Eyebrow";
 import Container from "@/components/ui/Container";
 import ProductPanel from "@/components/products/ProductPanel";
 import { products } from "@/data/products";
@@ -14,7 +15,8 @@ export default function ProductsPage() {
     <>
       <section className={styles.intro}>
         <Container>
-          <h1 className={`t-display ${styles.title}`}>Products.</h1>
+          <Eyebrow>PRODUCT STUDIO</Eyebrow>
+          <h1 className="t-display">Products.</h1>
           <p className="t-subhead">Built and run by Hicaso.</p>
         </Container>
       </section>

@@ -1,6 +1,6 @@
 .hero {
   padding: 88px 0;
-  text-align: center;
+  text-align: left;
 }
 
 .name {
@@ -9,7 +9,7 @@
 
 .tagline {
   max-width: 720px;
-  margin: 24px auto 0;
+  margin: 24px 0 0;
 }
 
 .audience {
@@ -21,7 +21,7 @@
 .actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 12px 20px;
   margin-top: 32px;

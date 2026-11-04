@@ -1,14 +1,13 @@
 .intro {
   padding: 72px 0 56px;
-  text-align: center;
+  text-align: left;
 }
 
-.title {
-  font-size: clamp(40px, 11vw, 105px);
-  text-transform: uppercase;
+.intro .t-display {
+  margin-top: 12px;
 }
 
-.intro p {
+.intro .t-subhead {
   margin-top: 24px;
 }
 

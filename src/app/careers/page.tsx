@@ -5,7 +5,7 @@ import LinkButton from "@/components/ui/LinkButton";
 
 export const metadata: Metadata = {
   title: "Careers — Hicaso",
-  description: "Work at Hicaso, a product studio that builds and runs its own software products.",
+  description: "Work at Hicaso, a small team that builds software for clients worldwide and runs its own products.",
 };
 
 export default function CareersPage() {
@@ -15,8 +15,8 @@ export default function CareersPage() {
         <Container>
           <h1 className="t-display">Careers</h1>
           <p className="t-subhead">
-            We&apos;re a small team that builds, ships and runs its own products. We work
-            remotely, own what we make, and keep the bar high.
+            We&apos;re a small team that builds software for clients worldwide and runs our own
+            products. We work remotely, own what we make, and keep the bar high.
           </p>
         </Container>
       </section>

@@ -39,6 +39,15 @@ export default function PrivacyPolicyPage() {
                 </li>
               ))}
             </ul>
+            <p>
+              Software we build for clients is governed by the agreement signed with each client,
+              which takes precedence over these terms for that work.
+            </p>
+            <p>
+              The project enquiry form on our contact page does not send your details to our
+              servers. It opens your own email app with a message addressed to hello@hicaso.com,
+              and nothing is sent until you send that email.
+            </p>
 
             <h2>2. Information We Collect</h2>
             <p>We collect information that you voluntarily provide when you contact us directly:</p>
