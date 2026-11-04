@@ -1,17 +1,17 @@
 .hero {
   padding: 72px 0 40px;
-  text-align: center;
+  text-align: left;
 }
 
 .hero p {
   max-width: 720px;
-  margin: 24px auto 0;
+  margin: 24px 0 0;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 12px 20px;
   margin-top: 32px;
@@ -21,17 +21,13 @@
   padding: 24px 0 96px;
 }
 
-/* Large soft card (Fog, or Ice Mist with .tinted) */
+/* Large soft card (Oat) */
 .card {
   max-width: 760px;
   margin: 0 auto;
   padding: 32px 24px;
-  border-radius: var(--radius-large-card);
-  background: var(--color-fog);
-}
-
-.tinted {
-  background: var(--color-ice-mist);
+  border-radius: var(--radius-media);
+  background: var(--color-oat);
 }
 
 .card .actions {
@@ -49,7 +45,7 @@
   grid-template-columns: minmax(0, 1fr);
   gap: 4px;
   padding: 16px 0;
-  border-bottom: 1px solid var(--color-hairline);
+  border-bottom: 1px solid var(--color-outline);
 }
 
 .facts > div:first-child {
@@ -64,11 +60,11 @@
 .facts dt {
   font-size: 14px;
   font-weight: 500;
-  color: var(--color-slate);
+  color: var(--color-graphite);
 }
 
 .facts dd {
-  color: var(--color-navy-ink);
+  color: var(--color-ink);
 }
 
 /* Long-form text (Careers, Privacy, Terms) */
@@ -106,8 +102,9 @@
 .facts dd a,
 .prose p a,
 .prose li a {
-  color: var(--color-electric-blue);
+  color: var(--color-ink);
   text-decoration: underline;
+  text-decoration-color: var(--color-copper);
   text-underline-offset: 3px;
 }
 

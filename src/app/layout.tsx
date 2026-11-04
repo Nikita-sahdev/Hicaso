@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Bricolage_Grotesque, Poppins } from "next/font/google";
+import { Inter, IBM_Plex_Mono, Bricolage_Grotesque, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -8,6 +8,13 @@ import { products } from "@/data/products";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -26,8 +33,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Hicaso — a product studio",
-  description: `Hicaso is a product studio. We build, launch and run independent software products, including ${products.map((p) => p.name).join(" and ")}.`,
+  title: "Hicaso — software development and product studio",
+  description: `Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and ships its own products, including ${products.map((p) => p.name).join(" and ")}.`,
 };
 
 export default function RootLayout({
@@ -38,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${bricolage.variable} ${poppins.variable} h-full antialiased`}
+      className={`${inter.variable} ${plexMono.variable} ${bricolage.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Header />

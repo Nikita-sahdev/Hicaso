@@ -3,16 +3,16 @@
   background: var(--color-paper);
 }
 
-/* Dark section card: Sky Blue carries the accent on navy (Electric Blue is too dark here) */
+/* Dark section card: Copper carries the accent on Espresso */
 .card {
-  --heading-color: var(--color-sky-blue);
-  --btn-fill: var(--color-sky-blue);
-  --btn-on-fill: var(--color-navy-ink);
+  --heading-color: var(--color-paper);
+  --btn-fill: var(--color-copper);
+  --btn-on-fill: var(--color-espresso);
   --btn-text: var(--color-paper);
-  --focus-ring: var(--color-sky-blue);
+  --focus-ring: var(--color-copper);
   padding: 56px 24px;
-  border-radius: var(--radius-large-card);
-  background: var(--color-navy-ink);
+  border-radius: var(--radius-media);
+  background: var(--color-espresso);
   text-align: center;
 }
 

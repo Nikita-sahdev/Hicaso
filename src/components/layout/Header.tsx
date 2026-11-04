@@ -104,7 +104,7 @@ export const Header: React.FC = () => {
         </nav>
 
         <div className={styles.cta}>
-          <LinkButton href="/contact" variant="outlined">
+          <LinkButton href="/contact" variant="filled">
             Contact us
           </LinkButton>
         </div>

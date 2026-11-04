@@ -4,7 +4,7 @@ import styles from "./LinkButton.module.css";
 
 interface LinkButtonProps {
   href: string;
-  variant?: "filled" | "outlined" | "text";
+  variant?: "filled" | "light" | "onDark" | "text";
   children: React.ReactNode;
 }
 

@@ -23,7 +23,7 @@ export default function CareersPage() {
 
       <section className={styles.section}>
         <Container>
-          <div className={`${styles.card} ${styles.tinted} ${styles.prose}`}>
+          <div className={`${styles.card} ${styles.prose}`}>
             <h2>Open roles</h2>
             <p>No open roles right now. We still want to see your work.</p>
             <div className={styles.actions}>
