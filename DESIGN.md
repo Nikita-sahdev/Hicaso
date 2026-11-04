@@ -1,84 +1,97 @@
-# Hicaso — Style Reference
-> deep navy with electric blue. Blue sparks on a near-black navy floor, with massive blocky display type announcing every move.
+# Mollie — Style Reference
+> cashmere counter, dark ledger. Keep broad white editorial space around black type, then anchor product moments in warm cream, espresso-brown, and tactile real-world payment photography.
 
 **Theme:** light
 
-Adapted from the Wise style reference, with Wise's forest-green and lime palette recolored to Hicaso blue (the `#0071e3` / `#2997ff` blues of the previous Apple-style system and of the Hicaso logo's dot). Source measurements are normalized; roles and recommendations are interpreted. Font summary lists are independent, not paired by position. HTML examples are reconstructions, not source components.
+Source measurements are normalized; roles and recommendations are interpreted. Font summary lists are independent, not paired by position. HTML examples are reconstructions, not source components.
 
-Hicaso speaks in a confident, slightly loud voice: a deep navy (#0a2540) carries most of the surface area — text, nav, dark sections, icons — while a single electric blue (#0071e3) acts as functional punctuation on CTAs, active tabs, and key highlights. The display type is almost aggressive: a black-weight sans at 900, tightly tracked, shouted across the hero in 100px+ block letters. The rest of the system stays restrained on a near-white canvas with soft gray surfaces (#e8ebf0). Components are pill-shaped by default — buttons, nav segments, thumbnails, image masks — with gentle 10px radii reserved for cards and inputs. Color rarely gradients; instead, the blue–navy pairing inverts cleanly when sections go dark (Sky Blue #2997ff carries the accent on navy), creating rhythm without decoration.
+Mollie is a white-canvas payments site built around oversized, tightly tracked black typography and photographic proof points. The page alternates quiet editorial space with contained product and customer imagery; warm cream cards, dark espresso product panels, and a restrained burnt-orange link accent interrupt the monochrome foundation. Inter’s low-weight display scale keeps large statements open and direct, while IBM Plex Mono uppercase labels provide a compact operational layer above products, media, and categories.
 
 ## Tokens — Colors
 
 | Name | Value | Token | Role |
 |------|-------|-------|------|
-| Navy Ink | `#0a2540` | `--color-navy-ink` | Dominant brand dark — nav text, dark section backgrounds, primary copy on light surfaces, icon strokes, filled navigation pills. This is the brand's gravity: wherever you need weight or authority, you reach for Navy Ink |
-| Electric Blue | `#0071e3` | `--color-electric-blue` | The single accent — primary CTA fill (with Paper text), active tabs, selected states, the logo's dot. One electric-blue element per visible section is usually enough |
-| Sky Blue | `#2997ff` | `--color-sky-blue` | Electric Blue's partner on dark surfaces — headlines, links and highlights on Navy Ink, where `#0071e3` is too dark to read (3.3:1). Sky Blue on Navy Ink is 5.2:1 |
-| Deep Sea | `#0b3d91` | `--color-deep-sea` | Secondary dark blue for card surfaces, supporting iconography, and tonal depth on dark sections where Navy Ink is too heavy |
-| Ice Mist | `#e6f0fd` | `--color-ice-mist` | Pale blue wash for soft highlight surfaces, tinted card backgrounds, nav hover states. A whisper of the brand blue for low-emphasis containers |
-| Signal Blue | `#0b4c72` | `--color-signal-blue` | Muted steel-blue supporting accent for decorative details and low-frequency emphasis |
-| Alarm Red | `#cb272f` | `--color-alarm-red` | Red supporting accent for decorative details and low-frequency emphasis. Use as a supporting accent, not as a status color |
-| Charcoal | `#454745` | `--color-charcoal` | Primary text, body copy, dense UI — slightly warm black that feels softer than pure #000 against white |
-| Obsidian | `#0d0f14` | `--color-obsidian` | Display headlines, high-contrast headings, pure-black moments in nav and hero. Slightly blue-tinted black, not neutral gray |
-| Pebble | `#868685` | `--color-pebble` | Muted secondary text, placeholder copy, icon strokes, input borders. The mid-gray that recedes |
-| Slate | `#6a6c6a` | `--color-slate` | Supporting body text, helper labels, subdued iconography. One step darker than Pebble for slightly more emphasis |
-| Fog | `#e8ebf0` | `--color-fog` | Card surfaces, section dividers, subtle panel backgrounds on the white canvas. Blue-tinted off-white, not pure neutral |
-| Paper | `#ffffff` | `--color-paper` | Page canvas, inverted card surfaces, button text on Electric Blue fill |
+| Paper | `#ffffff` | `--color-paper` | Page backgrounds, navigation, text-on-dark, and light button surfaces |
+| Ink | `#000000` | `--color-ink` | Display headings, navigation, body copy, icons, dark media panels, and hairline graphic details |
+| Near Black | `#111111` | `--color-near-black` | Secondary dark text and headings where pure Ink is not used |
+| Quiet Graphite | `#595959` | `--color-quiet-graphite` | Supporting body copy, explanatory text, and subdued interface labels |
+| Soft Gray | `#919191` | `--color-soft-gray` | Muted metadata, inactive supporting text, and low-emphasis labels |
+| Oat Surface | `#f7f4f1` | `--color-oat-surface` | Feature-card surfaces, pale pill buttons, understated separators, and surface outlines |
+| Ledger Brown | `#3b281d` | `--color-ledger-brown` | Filled pill buttons and dark navigation controls — the brown-black fill keeps conversion controls tactile rather than corporate-blue |
+| Espresso Panel | `#211006` | `--color-espresso-panel` | Dark product-demo surfaces, data-led card backgrounds, and high-contrast visual blocks |
+| Copper Link | `#e07122` | `--color-copper-link` | Inline product-card links and compact interface highlights — a warm cue that reads as commerce material rather than a universal brand wash |
+| Terracotta Disc | `#d66733` | `--color-terracotta-disc` | Large circular decorative card accents and isolated graphic moments |
+| Active Green | `#1e681d` | `--color-active-green` | Green text accent for links, tags, and emphasized short phrases. Use as a supporting accent, not as a status color |
+| Active Green Surface | `#288a26` | `--color-active-green-surface` | Green text accent for links, tags, and emphasized short phrases. Use as a supporting accent, not as a status color |
+| Pending Ochre | `#8b6900` | `--color-pending-ochre` | Yellow text accent for links, tags, and emphasized short phrases. Use as a supporting accent, not as a status color |
+| Expiry Red | `#99001c` | `--color-expiry-red` | Red text accent for links, tags, and emphasized short phrases. Use as a supporting accent, not as a status color |
+| Harbor Depth Gradient | `linear-gradient(45deg, #060b0e 0%, #254764 100%)` | `--color-harbor-depth-gradient` | Dark atmospheric product-media backdrop |
 
 ## Tokens — Typography
 
-### Inter — Body, UI, labels, and sub-headings across the entire product. The 700 weight handles mid-tier headings (36–45px), 500–600 for subheadings and labels, 400 for body and captions. Inter does the quiet work while the display face shouts. · `--font-inter`
-- **Substitute:** Inter (native Google Fonts)
-- **Weights:** 400,500,600,700
-- **Sizes:** 12px, 14px, 16px, 18px, 20px, 22px, 25px, 36px, 45px, 61px, 300px
-- **Line height:** 0.72, 1.00, 1.10, 1.25, 1.30, 1.40, 1.43, 1.44, 1.50, 1.55, 1.63, 1.71, 1.86, 2.17
-- **Letter spacing:** -0.030em at 105px, -0.015em at 61px, -0.011em at 36px, -0.009em at 25px, -0.007em at 18px, -0.006em at 16px, -0.005em at 14px, -0.003em at 12px
-- **OpenType features:** `"calt"`
-- **Role:** Body, UI, labels, and sub-headings across the entire product. The 700 weight handles mid-tier headings (36–45px), 500–600 for subheadings and labels, 400 for body and captions. Inter does the quiet work while the display face shouts.
-
-### Display (Wise Sans in the source) — Display headlines — the brand's signature shout. Ultra-heavy weight 900 at 89–105px with tight -0.03em tracking makes every headline a block-letter announcement. Used sparingly: hero, section openers, campaign moments. · `--font-display`
-- **Substitute:** Inter Black (900) with -0.04em tracking (Wise Sans is proprietary to Wise and is not used)
-- **Weights:** 900
-- **Sizes:** 40px, 52px, 59px, 89px, 105px, 300px
-- **Line height:** 0.85, 1.50
-- **Letter spacing:** -0.0020em
-- **OpenType features:** `"calt"`
-- **Role:** Display headlines — the brand's signature shout. Ultra-heavy weight 900 at 89–105px with tight -0.03em tracking makes every headline a block-letter announcement. Used sparingly: hero, section openers, campaign moments.
-
-### monospace — monospace — detected in extracted data but not described by AI · `--font-monospace`
-- **Weights:** 400
-- **Sizes:** 300px
-- **Line height:** 
-- **OpenType features:** `"calt"`
-- **Role:** monospace — detected in extracted data but not described by AI
-
 ### sans-serif — sans-serif — detected in extracted data but not described by AI · `--font-sans-serif`
 - **Weights:** 400
-- **Sizes:** 300px
-- **Line height:** 
-- **OpenType features:** `"calt"`
+- **Sizes:** 12px
+- **Line height:** 1.2
 - **Role:** sans-serif — detected in extracted data but not described by AI
+
+### Inter Variable — Primary display and interface family. The 82px weight-400 display treatment is deliberately light for its scale; its tight tracking makes large claims feel typeset rather than loud. · `--font-inter-variable`
+- **Substitute:** Inter
+- **Weights:** 400, 500, 600, 700
+- **Sizes:** 12px, 14px, 16px, 18px, 22px, 32px, 36px, 56px, 82px
+- **Line height:** 1.00, 1.10, 1.20, 1.30
+- **Letter spacing:** -2.4px at 82px; otherwise -0.46px to -0.14px on display and interface sizes, with occasional +0.14px labels
+- **OpenType features:** `"cv02", "cv03", "cv04", "cv08", "cv10", "cv12", "cv13", "dlig", "ss03"`
+- **Role:** Primary display and interface family. The 82px weight-400 display treatment is deliberately light for its scale; its tight tracking makes large claims feel typeset rather than loud.
+
+### Inter — Navigation, body copy, buttons, links, card content, and secondary headings. Medium-weight 14px navigation uses notably tight tracking, so menus read as small typeset labels rather than utility chrome. · `--font-inter`
+- **Substitute:** Arial, Helvetica Neue, sans-serif
+- **Weights:** 400, 500, 600
+- **Sizes:** 9px, 11px, 12px, 13px, 14px, 15px, 16px, 17px, 18px, 20px, 22px, 96px
+- **Line height:** 1.20, 1.30, 1.40
+- **Letter spacing:** -4.8px at 96px; -0.55px at 14px; -0.40px at 16px; -0.40px at 18px
+- **Role:** Navigation, body copy, buttons, links, card content, and secondary headings. Medium-weight 14px navigation uses notably tight tracking, so menus read as small typeset labels rather than utility chrome.
+
+### IBM Plex Mono — Uppercase eyebrow labels, category labels, and product-media captions. The monospaced labels create a compact payment-infrastructure register against the soft editorial display type. · `--font-ibm-plex-mono`
+- **Substitute:** IBM Plex Mono, SFMono-Regular, Consolas, monospace
+- **Weights:** 400, 500
+- **Sizes:** 11px, 13px
+- **Line height:** 1.00, 1.30
+- **Letter spacing:** +0.11px at 11px and +0.39px at 13px
+- **Role:** Uppercase eyebrow labels, category labels, and product-media captions. The monospaced labels create a compact payment-infrastructure register against the soft editorial display type.
+
+### Adamina — Customer quotation copy; the restrained serif separates testimonial voice from product-interface text. · `--font-adamina`
+- **Substitute:** Georgia, serif
+- **Weights:** 400
+- **Sizes:** 16px
+- **Line height:** 1.30
+- **Letter spacing:** -0.10px at 16px
+- **Role:** Customer quotation copy; the restrained serif separates testimonial voice from product-interface text.
+
+### Inter Tight — Inter Tight — detected in extracted data but not described by AI · `--font-inter-tight`
+- **Weights:** 400
+- **Sizes:** 9px
+- **Line height:** 
+- **Letter spacing:** 0.039em
+- **Role:** Inter Tight — detected in extracted data but not described by AI
 
 ### Type Scale
 
 | Role | Family | Weight | Size | Line Height | Letter Spacing | Token |
 |------|--------|--------|------|-------------|----------------|-------|
-| micro | — | — | 12px | 1.63 | -0.036px | `--text-micro` |
-| caption | — | — | 14px | 1.55 | -0.07px | `--text-caption` |
-| body-sm | — | — | 16px | 1.5 | -0.096px | `--text-body-sm` |
-| body | — | — | 18px | 1.5 | -0.126px | `--text-body` |
-| body-lg | — | — | 25px | 1.3 | -0.225px | `--text-body-lg` |
-| subheading | — | — | 36px | 1.25 | -0.396px | `--text-subheading` |
-| heading-sm | — | — | 45px | 1.1 | -0.495px | `--text-heading-sm` |
-| heading | — | — | 61px | 1.1 | -0.915px | `--text-heading` |
-| heading-lg | — | — | 89px | 0.85 | -2.67px | `--text-heading-lg` |
-| display | — | — | 105px | 0.85 | -3.15px | `--text-display` |
+| media-label | IBM Plex Mono | 400 | 11px | 1 | 0.11px | `--text-media-label` |
+| body | Inter | 400 | 13px | 1.3 | -0.325px | `--text-body` |
+| eyebrow | IBM Plex Mono | 500 | 13px | 1.3 | 0px | `--text-eyebrow` |
+| nav | Inter | 500 | 14px | 1.3 | -0.322px | `--text-nav` |
+| testimonial | Adamina | 400 | 16px | 1.3 | -0.096px | `--text-testimonial` |
+| section-heading | Inter | 600 | 18px | 1.4 | -0.396px | `--text-section-heading` |
+| display | Inter Variable | 400 | 82px | 1 | -2.378px | `--text-display` |
 
 ## Tokens — Spacing & Shapes
 
 **Base unit:** 4px
 
-**Density:** comfortable
+**Density:** compact
 
 ### Spacing Scale
 
@@ -90,186 +103,183 @@ Hicaso speaks in a confident, slightly loud voice: a deep navy (#0a2540) carries
 | 16 | 16px | `--spacing-16` |
 | 20 | 20px | `--spacing-20` |
 | 24 | 24px | `--spacing-24` |
-| 28 | 28px | `--spacing-28` |
 | 32 | 32px | `--spacing-32` |
+| 36 | 36px | `--spacing-36` |
 | 40 | 40px | `--spacing-40` |
-| 44 | 44px | `--spacing-44` |
-| 48 | 48px | `--spacing-48` |
 | 56 | 56px | `--spacing-56` |
-| 64 | 64px | `--spacing-64` |
+| 60 | 60px | `--spacing-60` |
+| 80 | 80px | `--spacing-80` |
 | 100 | 100px | `--spacing-100` |
-| 124 | 124px | `--spacing-124` |
+| 120 | 120px | `--spacing-120` |
 
 ### Border Radius
 
 | Element | Value |
 |---------|-------|
-| tags | 9999px |
-| cards | 10px |
-| inputs | 10px |
+| cards | 16px |
+| links | 32px |
+| media | 24px |
+| pills | 9999px |
+| badges | 9999px |
+| images | 16px |
 | buttons | 9999px |
-| imageMasks | 1000px |
-| largeCards | 28px |
-| navSegments | 9999px |
+| iconControls | 28px |
 
 ### Shadows
 
 | Name | Value | Token |
 |------|-------|-------|
-| subtle | `rgba(13, 15, 20, 0.12) 0px 0px 0px 1px` | `--shadow-subtle` |
-| subtle-2 | `rgb(134, 134, 133) 0px 0px 0px 1px inset` | `--shadow-subtle-2` |
-| xl | `rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px` | `--shadow-xl` |
-| lg | `rgba(0, 0, 0, 0.08) 0px 6px 20px 0px` | `--shadow-lg` |
+| subtle | `rgb(245, 242, 240) 0px 0px 0px 1px` | `--shadow-subtle` |
+| subtle-2 | `rgba(255, 255, 255, 0.17) 0px 1px 0px 0px inset, rgba(255...` | `--shadow-subtle-2` |
+| subtle-3 | `rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset` | `--shadow-subtle-3` |
+| subtle-4 | `rgba(255, 255, 255, 0.17) 0px 1px 0px 0px inset, rgba(255...` | `--shadow-subtle-4` |
 
 ### Layout
 
-- **Page max-width:** 1200px
-- **Section gap:** 64-80px
-- **Card padding:** 24px
-- **Element gap:** 8-12px
+- **Section gap:** 32px
+- **Card padding:** 40px
+- **Element gap:** 10px
 
 ## Components
 
-### Primary CTA Pill Button
-**Role:** The signature action element — filled electric-blue pill that signals "do this next."
+### Public Navigation Bar
+**Role:** Top-level site navigation
 
-Fully rounded (9999px radius) button with Electric Blue (#0071e3) fill and Paper (#ffffff) text (4.7:1). Padding 11px vertical, 24px horizontal. Inter weight 500 at 16px. No border, no shadow — the fill does all the work. On Navy Ink sections, the fill may switch to Sky Blue (#2997ff) with Navy Ink text.
+A 54px-high Paper bar with the wordmark at left, 14px/500 Inter navigation links at 18.2px line-height and -0.32px tracking, and a Ledger Brown 9999px sign-up pill at right.
 
-### Outlined Pill Button
-**Role:** Secondary action in the nav and inline CTAs.
+### Display Hero
+**Role:** Primary landing-page introduction
 
-White fill, 1px Navy Ink border, 9999px radius. Same padding as primary. Used for "Sign up" in the header and non-primary calls to action where the blue would compete with a primary action nearby.
+Use an Ink Inter Variable display at 82px/400 with 82px line-height and -2.4px tracking. Pair it with a 16px/400 supporting paragraph at 20.8px line-height and -0.4px tracking; place the content above a wide 16px-radius photo or payment demonstration.
 
-### Text Link Button
-**Role:** Inline secondary action with low visual weight.
+### Monospace Eyebrow
+**Role:** Section and product category label
 
-Underlined Navy Ink text at 16px Inter weight 500, no background, no border. Pairs with the primary CTA when two adjacent actions are needed (e.g. "Explore products" + "About the studio").
+IBM Plex Mono 13px/500 uppercase text at 16.9px line-height; use Ink on light surfaces. Smaller media labels use IBM Plex Mono 11px/400, uppercase, 11px line-height, and +0.11px tracking in Paper.
 
-### Top Navigation Bar
-**Role:** Persistent header with brand, section switcher, and account access.
+### Ledger Brown Pill Button
+**Role:** Filled public conversion control
 
-White background, 64px height. Logo left, three-segment pill nav with 9999px radius and Navy Ink text, right cluster with secondary links and an outlined pill.
+Ledger Brown #3b281d background, Paper label, 9999px radius, and 16px 24px padding. Set the label in Inter 16px/500 with 19.2px line-height and -0.2px tracking; retain the subtle inset top highlight of rgba(255, 255, 255, 0.08) 0 1px 0.
 
-### Segmented Tab Control
-**Role:** In-page section switcher — single active state in electric blue.
+### Oat Surface Pill Button
+**Role:** Secondary public conversion control
 
-Pill container (9999px radius) holding multiple text labels. Active tab: Electric Blue fill with Paper text. Inactive tabs: transparent with Charcoal text. ~40px height, 12px horizontal padding per segment.
+Oat Surface #f7f4f1 background with Ink text, 9999px radius, and 16px 24px padding. Use Inter 16px/500 at 19.2px line-height and -0.2px tracking.
 
-### Display Headline
-**Role:** The brand's voice — used in hero and major section openers.
+### Product Category Cell
+**Role:** Payment capability navigation
 
-Display face weight 900 at 89–105px, line-height 0.85, letter-spacing -3.15px. Obsidian (#0d0f14) or Navy Ink on light, Sky Blue (#2997ff) or Paper on dark sections. Set as block text, often in ALL CAPS for hero moments.
+A Paper grid cell with a fine #f7f4f1 separator and 22px padding on all sides. Pair a small monochrome line icon with compact Ink text; assemble as two rows of five equal cells inside a lightly rounded 16px outer frame.
 
-### Feature Row
-**Role:** Three-column trust signal block — icon + heading + supporting line.
+### Cream Product Feature Card
+**Role:** Product pathway teaser
 
-Single-column-on-mobile, three-column-on-desktop. Icon (24px, Charcoal stroke) at top, heading in Inter 700 at 18px, body in Inter 400 at 16px Slate. Generous 24px vertical gap between icon and heading.
+Use Oat Surface #f7f4f1, 16px radius, no shadow, and 40px top padding. Lead with an IBM Plex Mono uppercase category label, then an Ink product title and a Copper Link #e07122 inline link; reserve the lower card area for product imagery.
 
-### Grid Item (thumbnail + label)
-**Role:** Circular thumbnail + name link in a 5-column grid.
+### Espresso Product Demo Card
+**Role:** Product-interface showcase
 
-Circular thumbnail (1000px radius, ~56px diameter), 12px gap to the name in Inter 500 at 16px Navy Ink. Name is a text link with no underline at rest, underline on hover. Items sit in a generous grid with ~32px row gap.
+Use Espresso Panel #211006 with a 16px radius and no shadow. Set interface chrome, transactional data, and small controls in Paper; treat the dark panel as a contained demo surface, not a page-wide dark theme.
 
-### Dark Section Card
-**Role:** Inverted surface for emphasis — used for a key CTA block.
+### Hero Media Frame
+**Role:** Payment photography and media carousel
 
-Navy Ink (#0a2540) background, 28px radius, 40px padding. Sky Blue (#2997ff) text for headline, Paper for body. May contain an inset white card (10px radius, 16px padding) for an interactive selector.
+Use natural-color payment photography in a contained 16px-radius frame. Overlay small Paper or translucent dark controls without adding external drop shadows; dark media can carry IBM Plex Mono 11px uppercase labels.
 
-### Selector Pill
-**Role:** Interactive picker with a "Change" action.
+### Payment Approval Toast
+**Role:** In-media transactional confirmation
 
-White pill inside a dark section card. Left: circular thumbnail (24px) + name in Charcoal Inter 500. Right: outlined "Change" button in Navy Ink. 9999px radius, 8px vertical padding.
+Place a compact rounded dark overlay over imagery with a small outlined approval icon and Paper text. Keep it visually secondary to the photo and use the same dark espresso family as product-demo surfaces.
 
-### Input Field
-**Role:** Form input — used for amounts, emails, references.
+### Customer Story Carousel Card
+**Role:** Customer proof and testimonial module
 
-10px radius, 1px Pebble (#868685) border, 12px vertical and 16px horizontal padding. Inter 400 at 16px. Focus state: Navy Ink border, no glow ring.
+Pair a contained 16px-radius customer photo with a centered brand mark and an Adamina 16px/400 testimonial at 20.8px line-height. Use isolated circular arrow controls with 28px radius over media.
 
-### Floating Badge
-**Role:** Persistent app-download or contact prompt.
+### Status Label
+**Role:** Embedded product-state indicator
 
-Navy Ink (#0a2540) rounded square (16px radius), fixed bottom-right, 120px wide. Content in Paper at top, label in Sky Blue Inter 500 at 12px below.
+Use Active Green #1e681d for active states, Pending Ochre #8b6900 for setup or forthcoming states, and Expiry Red #99001c for expired states. Keep labels compact and pair status text with an optional Active Green Surface #288a26 dot.
 
-### Badge / Tag
-**Role:** Small status labels and category tags.
+### Terracotta Graphic Disc
+**Role:** Decorative card graphic
 
-9999px radius, 8px vertical and 12px horizontal padding. Ice Mist (#e6f0fd) background with Navy Ink text, or Navy Ink background with Sky Blue text. Inter 500 at 12px.
+Use a #d66733 circular surface with a 50% radius and no shadow. Restrict it to large isolated visual punctuation within cards or illustrations.
 
 ## Do's and Don'ts
 
 ### Do
-- Set display headlines at weight 900 with letter-spacing -3.15px at 105px; the extreme heaviness is the brand's signature — don't soften it to 700.
-- Use Electric Blue (#0071e3) for primary action fills and active states; one electric-blue element per visible viewport section is usually enough.
-- Default to 9999px radius for all buttons, tags, and nav segments — pill shapes are foundational, not decorative.
-- Use Navy Ink (#0a2540) for text and dark surfaces, not pure black; the blue-tinted near-black is deeper and more on-brand.
-- Apply tight negative letter-spacing at large sizes (-0.030em at 100px+ down to -0.003em at 12px); headings should feel compact, not airy.
-- Pair a filled primary CTA with an underlined text link as the secondary action — never two filled buttons side by side.
-- Invert section backgrounds from white to Navy Ink to create rhythm; Sky Blue text on navy is the system's built-in emphasis.
+- Use Paper #ffffff as the dominant canvas and reserve Oat Surface #f7f4f1 for contained cards and secondary pill controls.
+- Set display headlines in Inter Variable 82px/400, 82px line-height, and -2.4px tracking.
+- Use IBM Plex Mono uppercase labels at 13px/500 with 16.9px line-height above product and media content.
+- Use Ledger Brown #3b281d only for filled public pill buttons with 9999px radius and 16px 24px padding.
+- Give product cards and media frames a 16px radius; use 24px only for larger image and media treatments.
+- Use Copper Link #e07122 for inline product-card links and small commerce-oriented highlights.
+- Keep the default page rhythm on the 4px base unit, using 10px element gaps and 32px section gaps.
 
 ### Don't
-- Don't use Charcoal (#454745) for display headlines — reserve Obsidian (#0d0f14) or Navy Ink for maximum contrast at large sizes.
-- Don't introduce gradients, drop shadows beyond hairline borders, or decorative blurs — the system is flat by design.
-- Don't use Electric Blue (#0071e3) as text on Navy Ink; at 3.3:1 it is too faint. Use Sky Blue (#2997ff) on dark surfaces instead.
-- Don't use Sky Blue (#2997ff) as text on white; at 3.0:1 it fails body-text contrast. It is for dark surfaces and large accents only.
-- Don't use sharp corners (0–4px radius) on buttons, tags, or nav elements; pills are the default shape language.
-- Don't set display headlines in Inter regular weights — weight 900 is the only acceptable voice for 60px+ type.
-- Don't stack multiple electric-blue elements close together; space them so the accent reads as a single punctuation mark.
-- Don't use #000000 for body text; Charcoal (#454745) at 18px on white is the baseline that keeps the page from feeling harsh.
+- Do not use blue #0040ff or browser-default #0000ee as a brand or button color.
+- Do not turn the Ledger Brown #3b281d filled treatment into a square button; public conversion controls use 9999px radius.
+- Do not use heavy outer drop shadows on cards; cards use no shadow and rely on Oat Surface #f7f4f1, borders, and rounded media.
+- Do not use bold 600-700 weights for the 82px display role; retain Inter Variable 400.
+- Do not replace IBM Plex Mono uppercase labels with Inter body text.
+- Do not apply Terracotta Disc #d66733 as a broad page background or universal action color.
+- Do not use status colors outside compact payment and account-state contexts.
 
 ## Surfaces
 
 | Level | Name | Value | Purpose |
 |-------|------|-------|---------|
-| 0 | Paper | `#ffffff` | Page canvas — the default background for all content sections |
-| 1 | Fog | `#e8ebf0` | Card surfaces, soft panels, and section backgrounds on the white canvas |
-| 2 | Ice Mist | `#e6f0fd` | Tinted highlight surfaces — pale blue wash for accent containers and hover states |
-| 3 | Electric Blue | `#0071e3` | Active surface — selected tabs, primary CTA fill, emphasis zones |
-| 4 | Navy Ink | `#0a2540` | Inverted surface — dark section backgrounds, nav, high-contrast blocks |
+| 0 | Paper | `#ffffff` | Primary page canvas, header, grid cells, and light content fields. |
+| 1 | Oat Surface | `#f7f4f1` | Feature cards, pale controls, thin surface outlines, and soft sectional contrast. |
+| 2 | Ledger Brown | `#3b281d` | Filled public controls and compact dark navigation affordances. |
+| 3 | Espresso Panel | `#211006` | Contained product demonstrations and dark transactional media. |
 
 ## Elevation
 
-- **Cards:** `rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px`
-- **Elevated panels:** `rgba(0, 0, 0, 0.08) 0px 6px 20px 0px`
-- **Input/button focus:** `rgb(134, 134, 133) 0px 0px 0px 1px inset`
-- **Icon containers:** `rgba(13, 15, 20, 0.12) 0px 0px 0px 1px`
+Avoid floating-card elevation. Light surfaces separate through Oat Surface fills, 16px corners, and occasional 1px #f5f2f0 outlines; dark buttons use a faint inset white highlight rather than a cast shadow.
 
 ## Imagery
 
-In the source system, painted 3D-style illustrations of a single recurring object (a globe with gold coins) establish the brand's visual world — tactile, slightly surreal, rendered with soft gradients and warm light. Photography is minimal; when used, it's high-key and lifestyle-casual. Circular thumbnails in a 5-column grid act as the icon system. No abstract graphics, no stock patterns. For Hicaso, the equivalent is one recurring, warm object that signals the studio's reach, plus each product's own screenshots.
+Photography is central and product-adjacent: hands using phones, countertop terminals, retail environments, and customer scenes are shown as warm, natural-color crops rather than stock-office portraits. Images are wide, contained, and softly rounded at 16px, with occasional dark translucent payment overlays or circular arrow controls placed directly on the image. The page is text-led between media moments, while customer logos and sparse monochrome line icons provide the non-photographic visual layer. Dark product demonstrations use realistic interface fragments, data, and device screens as explanatory content rather than abstract fintech decoration.
 
 ## Layout
 
-Max-width 1200px centered container, with hero and dark sections going full-bleed. Hero pattern: centered massive display headline over white space, with a large illustration breaking the lower edge of the viewport. Section rhythm alternates white → light blue band (Ice Mist) → dark Navy Ink section, creating a natural color cadence. Content arrangement is predominantly centered stacks in the hero, then 2-column text+visual or 3-column feature rows in supporting sections. A 5-column grid handles directories. Navigation is a single sticky top bar with a segmented pill switcher. A badge may float fixed in the bottom-right corner across all scroll positions.
+The page is a white, full-bleed editorial composition with a fixed-height top navigation bar and generous unruled white space around the opening message. The hero uses a wide text composition: an oversized left-aligned headline, a narrower explanatory and conversion block to the right, then a broad contained payment photograph with 16px corners. Product content moves through a dark horizontal media selector, a centered customer-logo strip, and a two-row five-column payment-capability grid before splitting into paired cream feature cards. Customer stories use a wide three-panel horizontal carousel with image-first cards and centered quote text below, followed by large dark product-media sections; the footer returns to a dense multi-link structure.
 
 ## Agent Prompt Guide
 
-Quick Color Reference
-- text: #454745 (Charcoal) for body, #0d0f14 (Obsidian) for display
-- background: #ffffff (Paper) canvas, #e8ebf0 (Fog) cards
-- border: #868685 (Pebble) for hairlines, #0a2540 (Navy Ink) for emphasis
-- accent: #0071e3 (Electric Blue) for active states and highlights; #2997ff (Sky Blue) on dark surfaces
-- primary action: #0071e3 (Electric Blue) fill with #ffffff text
-- dark surface: #0a2540 (Navy Ink) for inverted sections
+Quick Color Reference:
+- Paper: #ffffff — Page backgrounds, navigation, text-on-dark, and light button surfaces
+- Ink: #000000 — Display headings, navigation, body copy, icons, dark media panels, and hairline graphic details
+- Near Black: #111111 — Secondary dark text and headings where pure Ink is not used
+- Quiet Graphite: #595959 — Supporting body copy, explanatory text, and subdued interface labels
+- Soft Gray: #919191 — Muted metadata, inactive supporting text, and low-emphasis labels
+- Oat Surface: #f7f4f1 — Feature-card surfaces, pale pill buttons, understated separators, and surface outlines
+- Ledger Brown: #3b281d — Filled pill buttons and dark navigation controls — the brown-black fill keeps conversion controls tactile rather than corporate-blue
+- Espresso Panel: #211006 — Dark product-demo surfaces, data-led card backgrounds, and high-contrast visual blocks
+- Copper Link: #e07122 — Inline product-card links and compact interface highlights — a warm cue that reads as commerce material rather than a universal brand wash
+- Terracotta Disc: #d66733 — Large circular decorative card accents and isolated graphic moments
+- Active Green: #1e681d — Green text accent for links, tags, and emphasized short phrases. Use as a supporting accent, not as a status color
+- Active Green Surface: #288a26 — Green text accent for links, tags, and emphasized short phrases. Use as a supporting accent, not as a status color
+- Pending Ochre: #8b6900 — Yellow text accent for links, tags, and emphasized short phrases. Use as a supporting accent, not as a status color
+- Expiry Red: #99001c — Red text accent for links, tags, and emphasized short phrases. Use as a supporting accent, not as a status color
+- Harbor Depth Gradient: linear-gradient(45deg, #060b0e 0%, #254764 100%) — Dark atmospheric product-media backdrop
 
-Example Component Prompts
-
-1. Primary CTA pill: #0071e3 fill, #ffffff text, Inter 500 at 16px, 11px 24px padding, 9999px radius, no border or shadow. Pair with an underlined Navy Ink text link as the secondary action.
-
-2. Feature row (3-column): icon at 24px stroke #454745, 24px gap to heading at 18px Inter 700 in #0d0f14, 8px gap to body at 16px Inter 400 in #6a6c6a. Column gap 32px, centered max-width 1200px.
-
-3. Grid item: circular thumbnail at 56px diameter (1000px radius), 12px vertical gap to name in Inter 500 at 16px #0a2540. Arranged in a 5-column grid with 32px row gap and 24px column gap. Hover state: underline appears on the name.
-
-4. Dark section card: Navy Ink (#0a2540) background, 28px radius, 40px padding. Headline in Sky Blue (#2997ff) at 36px Inter 700. Body text in #ffffff at 16px Inter 400. May contain an inset white card (10px radius) for a selector: circular thumbnail + name in Charcoal + outlined "Change" button.
-
-5. Outlined nav button: white fill, 1px solid #0a2540 border, 9999px radius, 8px 16px padding, Inter 500 at 16px in #0a2540. Used in the top-right nav cluster for secondary actions.
+Create a white hero with an Ink display headline in Inter Variable 82px/400, 82px line-height, -2.4px tracking; set the supporting copy in Quiet Graphite Inter 16px/400 at 20.8px line-height, then add Ledger Brown and Oat Surface pill buttons.
+Create a 54px Paper public navigation bar using Ink Inter 14px/500 at 18.2px line-height and -0.32px tracking, with one Ledger Brown 9999px sign-up pill.
+Create a pair of Oat Surface product cards with 16px corners and 40px top padding; use an Ink IBM Plex Mono 13px/500 uppercase eyebrow, an Ink heading, a Copper Link inline link, and product imagery anchored at the card bottom.
+Create a contained Espresso Panel product demo with 16px corners, Paper transactional text, IBM Plex Mono 11px/400 uppercase labels, and small positive-state text in Active Green.
+Create a customer-story carousel card with a 16px-radius natural-light retail photograph, a centered monochrome customer logo, and an Adamina 16px/400 testimonial at 20.8px line-height.
 
 ## Similar Brands
 
-- **Wise** — The source of this system's structure: deep brand color as dominant surface and text, one bright accent, pill shapes, 900-weight display type.
-- **Revolut** — Same dual-brand color strategy — deep brand color as dominant surface and text, one bright accent for CTAs and highlights, with pill-shaped buttons and large confident headlines.
-- **Monzo** — Bright single-accent color system on a neutral canvas, pill-shaped interactive elements, friendly rounded geometry, and display type that speaks directly to the user.
-- **Cash App** — High-contrast near-black text on white with a single vivid brand accent, oversized bold headlines as the primary brand expression, minimal decoration.
-- **N26** — Flat surfaces, hairline borders instead of shadows, generous white space, and a single saturated accent color driving all interactive emphasis.
+- **Adyen** — Payments-platform composition built from expansive editorial white space, real-world commerce photography, and contained product-interface demonstrations.
+- **Wise** — Uses large direct sans-serif statements on a light canvas with restrained color punctuating operational financial content.
+- **Klarna** — Shares oversized low-weight display typography, broad image-led sections, and rounded pill conversion controls.
+- **Square** — Uses tactile merchant and point-of-sale photography as the proof layer around payment-product content.
+- **Monzo** — Combines approachable consumer-facing financial product imagery with compact status-led interface details.
 
 ## Quick Start
 
@@ -278,64 +288,59 @@ Example Component Prompts
 ```css
 :root {
   /* Colors */
-  --color-navy-ink: #0a2540;
-  --color-electric-blue: #0071e3;
-  --color-sky-blue: #2997ff;
-  --color-deep-sea: #0b3d91;
-  --color-ice-mist: #e6f0fd;
-  --color-signal-blue: #0b4c72;
-  --color-alarm-red: #cb272f;
-  --color-charcoal: #454745;
-  --color-obsidian: #0d0f14;
-  --color-pebble: #868685;
-  --color-slate: #6a6c6a;
-  --color-fog: #e8ebf0;
   --color-paper: #ffffff;
+  --color-ink: #000000;
+  --color-near-black: #111111;
+  --color-quiet-graphite: #595959;
+  --color-soft-gray: #919191;
+  --color-oat-surface: #f7f4f1;
+  --color-ledger-brown: #3b281d;
+  --color-espresso-panel: #211006;
+  --color-copper-link: #e07122;
+  --color-terracotta-disc: #d66733;
+  --color-active-green: #1e681d;
+  --color-active-green-surface: #288a26;
+  --color-pending-ochre: #8b6900;
+  --color-expiry-red: #99001c;
+  --color-harbor-depth-gradient: #060b0e;
+  --gradient-harbor-depth-gradient: linear-gradient(45deg, #060b0e 0%, #254764 100%);
 
   /* Typography — Font Families */
+  --font-sans-serif: 'sans-serif', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter-variable: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* set at weight 900 */
-  --font-monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-sans-serif: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-adamina: 'Adamina', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter-tight: 'Inter Tight', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Typography — Scale */
-  --text-micro: 12px;
-  --leading-micro: 1.63;
-  --tracking-micro: -0.036px;
-  --text-caption: 14px;
-  --leading-caption: 1.55;
-  --tracking-caption: -0.07px;
-  --text-body-sm: 16px;
-  --leading-body-sm: 1.5;
-  --tracking-body-sm: -0.096px;
-  --text-body: 18px;
-  --leading-body: 1.5;
-  --tracking-body: -0.126px;
-  --text-body-lg: 25px;
-  --leading-body-lg: 1.3;
-  --tracking-body-lg: -0.225px;
-  --text-subheading: 36px;
-  --leading-subheading: 1.25;
-  --tracking-subheading: -0.396px;
-  --text-heading-sm: 45px;
-  --leading-heading-sm: 1.1;
-  --tracking-heading-sm: -0.495px;
-  --text-heading: 61px;
-  --leading-heading: 1.1;
-  --tracking-heading: -0.915px;
-  --text-heading-lg: 89px;
-  --leading-heading-lg: 0.85;
-  --tracking-heading-lg: -2.67px;
-  --text-display: 105px;
-  --leading-display: 0.85;
-  --tracking-display: -3.15px;
+  --text-media-label: 11px;
+  --leading-media-label: 1;
+  --tracking-media-label: 0.11px;
+  --text-body: 13px;
+  --leading-body: 1.3;
+  --tracking-body: -0.325px;
+  --text-eyebrow: 13px;
+  --leading-eyebrow: 1.3;
+  --tracking-eyebrow: 0px;
+  --text-nav: 14px;
+  --leading-nav: 1.3;
+  --tracking-nav: -0.322px;
+  --text-testimonial: 16px;
+  --leading-testimonial: 1.3;
+  --tracking-testimonial: -0.096px;
+  --text-section-heading: 18px;
+  --leading-section-heading: 1.4;
+  --tracking-section-heading: -0.396px;
+  --text-display: 82px;
+  --leading-display: 1;
+  --tracking-display: -2.378px;
 
   /* Typography — Weights */
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  --font-weight-black: 900;
 
   /* Spacing */
   --spacing-unit: 4px;
@@ -345,54 +350,58 @@ Example Component Prompts
   --spacing-16: 16px;
   --spacing-20: 20px;
   --spacing-24: 24px;
-  --spacing-28: 28px;
   --spacing-32: 32px;
+  --spacing-36: 36px;
   --spacing-40: 40px;
-  --spacing-44: 44px;
-  --spacing-48: 48px;
   --spacing-56: 56px;
-  --spacing-64: 64px;
+  --spacing-60: 60px;
+  --spacing-80: 80px;
   --spacing-100: 100px;
-  --spacing-124: 124px;
+  --spacing-120: 120px;
 
   /* Layout */
-  --page-max-width: 1200px;
-  --section-gap: 64px; /* 64–80px */
-  --card-padding: 24px;
-  --element-gap: 8px; /* 8–12px */
+  --section-gap: 32px;
+  --card-padding: 40px;
+  --element-gap: 10px;
 
   /* Border Radius */
-  --radius-sm: 2px;
-  --radius-lg: 10px;
+  --radius-sm: 2.86px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --radius-2xl: 16px;
-  --radius-2xl-2: 18.7693px;
-  --radius-3xl: 28.1539px;
-  --radius-3xl-2: 32px;
-  --radius-3xl-3: 37.5385px;
-  --radius-full: 1000px;
-  --radius-full-2: 9999px;
+  --radius-2xl-2: 20px;
+  --radius-3xl: 24px;
+  --radius-3xl-2: 28px;
+  --radius-3xl-3: 32px;
+  --radius-3xl-4: 35.34px;
+  --radius-full: 55px;
+  --radius-full-2: 110px;
+  --radius-full-3: 140px;
+  --radius-full-4: 3532.93px;
+  --radius-full-5: 3562.86px;
+  --radius-full-6: 9999px;
 
   /* Named Radii */
-  --radius-tags: 9999px;
-  --radius-cards: 10px;
-  --radius-inputs: 10px;
+  --radius-cards: 16px;
+  --radius-links: 32px;
+  --radius-media: 24px;
+  --radius-pills: 9999px;
+  --radius-badges: 9999px;
+  --radius-images: 16px;
   --radius-buttons: 9999px;
-  --radius-imagemasks: 1000px;
-  --radius-largecards: 28px;
-  --radius-navsegments: 9999px;
+  --radius-iconcontrols: 28px;
 
   /* Shadows */
-  --shadow-subtle: rgba(13, 15, 20, 0.12) 0px 0px 0px 1px;
-  --shadow-subtle-2: rgb(134, 134, 133) 0px 0px 0px 1px inset;
-  --shadow-xl: rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px;
-  --shadow-lg: rgba(0, 0, 0, 0.08) 0px 6px 20px 0px;
+  --shadow-subtle: rgb(245, 242, 240) 0px 0px 0px 1px;
+  --shadow-subtle-2: rgba(255, 255, 255, 0.17) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.18) 0px -1px 0px 0px inset, rgba(255, 255, 255, 0.13) -1px 0px 0px 0px inset, rgba(255, 255, 255, 0.13) 1px 0px 0px 0px inset;
+  --shadow-subtle-3: rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset;
+  --shadow-subtle-4: rgba(255, 255, 255, 0.17) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.18) 0px -1px 0px 0px inset, rgba(255, 255, 255, 0.13) 1px 0px 0px 0px inset, rgba(255, 255, 255, 0.13) -1px 0px 0px 0px inset;
 
   /* Surfaces */
   --surface-paper: #ffffff;
-  --surface-fog: #e8ebf0;
-  --surface-ice-mist: #e6f0fd;
-  --surface-electric-blue: #0071e3;
-  --surface-navy-ink: #0a2540;
+  --surface-oat-surface: #f7f4f1;
+  --surface-ledger-brown: #3b281d;
+  --surface-espresso-panel: #211006;
 }
 ```
 
@@ -401,57 +410,52 @@ Example Component Prompts
 ```css
 @theme {
   /* Colors */
-  --color-navy-ink: #0a2540;
-  --color-electric-blue: #0071e3;
-  --color-sky-blue: #2997ff;
-  --color-deep-sea: #0b3d91;
-  --color-ice-mist: #e6f0fd;
-  --color-signal-blue: #0b4c72;
-  --color-alarm-red: #cb272f;
-  --color-charcoal: #454745;
-  --color-obsidian: #0d0f14;
-  --color-pebble: #868685;
-  --color-slate: #6a6c6a;
-  --color-fog: #e8ebf0;
   --color-paper: #ffffff;
+  --color-ink: #000000;
+  --color-near-black: #111111;
+  --color-quiet-graphite: #595959;
+  --color-soft-gray: #919191;
+  --color-oat-surface: #f7f4f1;
+  --color-ledger-brown: #3b281d;
+  --color-espresso-panel: #211006;
+  --color-copper-link: #e07122;
+  --color-terracotta-disc: #d66733;
+  --color-active-green: #1e681d;
+  --color-active-green-surface: #288a26;
+  --color-pending-ochre: #8b6900;
+  --color-expiry-red: #99001c;
+  --color-harbor-depth-gradient: #060b0e;
 
   /* Typography */
+  --font-sans-serif: 'sans-serif', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter-variable: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-monospace: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-sans-serif: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-adamina: 'Adamina', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter-tight: 'Inter Tight', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Typography — Scale */
-  --text-micro: 12px;
-  --leading-micro: 1.63;
-  --tracking-micro: -0.036px;
-  --text-caption: 14px;
-  --leading-caption: 1.55;
-  --tracking-caption: -0.07px;
-  --text-body-sm: 16px;
-  --leading-body-sm: 1.5;
-  --tracking-body-sm: -0.096px;
-  --text-body: 18px;
-  --leading-body: 1.5;
-  --tracking-body: -0.126px;
-  --text-body-lg: 25px;
-  --leading-body-lg: 1.3;
-  --tracking-body-lg: -0.225px;
-  --text-subheading: 36px;
-  --leading-subheading: 1.25;
-  --tracking-subheading: -0.396px;
-  --text-heading-sm: 45px;
-  --leading-heading-sm: 1.1;
-  --tracking-heading-sm: -0.495px;
-  --text-heading: 61px;
-  --leading-heading: 1.1;
-  --tracking-heading: -0.915px;
-  --text-heading-lg: 89px;
-  --leading-heading-lg: 0.85;
-  --tracking-heading-lg: -2.67px;
-  --text-display: 105px;
-  --leading-display: 0.85;
-  --tracking-display: -3.15px;
+  --text-media-label: 11px;
+  --leading-media-label: 1;
+  --tracking-media-label: 0.11px;
+  --text-body: 13px;
+  --leading-body: 1.3;
+  --tracking-body: -0.325px;
+  --text-eyebrow: 13px;
+  --leading-eyebrow: 1.3;
+  --tracking-eyebrow: 0px;
+  --text-nav: 14px;
+  --leading-nav: 1.3;
+  --tracking-nav: -0.322px;
+  --text-testimonial: 16px;
+  --leading-testimonial: 1.3;
+  --tracking-testimonial: -0.096px;
+  --text-section-heading: 18px;
+  --leading-section-heading: 1.4;
+  --tracking-section-heading: -0.396px;
+  --text-display: 82px;
+  --leading-display: 1;
+  --tracking-display: -2.378px;
 
   /* Spacing */
   --spacing-4: 4px;
@@ -460,31 +464,36 @@ Example Component Prompts
   --spacing-16: 16px;
   --spacing-20: 20px;
   --spacing-24: 24px;
-  --spacing-28: 28px;
   --spacing-32: 32px;
+  --spacing-36: 36px;
   --spacing-40: 40px;
-  --spacing-44: 44px;
-  --spacing-48: 48px;
   --spacing-56: 56px;
-  --spacing-64: 64px;
+  --spacing-60: 60px;
+  --spacing-80: 80px;
   --spacing-100: 100px;
-  --spacing-124: 124px;
+  --spacing-120: 120px;
 
   /* Border Radius */
-  --radius-sm: 2px;
-  --radius-lg: 10px;
+  --radius-sm: 2.86px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --radius-2xl: 16px;
-  --radius-2xl-2: 18.7693px;
-  --radius-3xl: 28.1539px;
-  --radius-3xl-2: 32px;
-  --radius-3xl-3: 37.5385px;
-  --radius-full: 1000px;
-  --radius-full-2: 9999px;
+  --radius-2xl-2: 20px;
+  --radius-3xl: 24px;
+  --radius-3xl-2: 28px;
+  --radius-3xl-3: 32px;
+  --radius-3xl-4: 35.34px;
+  --radius-full: 55px;
+  --radius-full-2: 110px;
+  --radius-full-3: 140px;
+  --radius-full-4: 3532.93px;
+  --radius-full-5: 3562.86px;
+  --radius-full-6: 9999px;
 
   /* Shadows */
-  --shadow-subtle: rgba(13, 15, 20, 0.12) 0px 0px 0px 1px;
-  --shadow-subtle-2: rgb(134, 134, 133) 0px 0px 0px 1px inset;
-  --shadow-xl: rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px;
-  --shadow-lg: rgba(0, 0, 0, 0.08) 0px 6px 20px 0px;
+  --shadow-subtle: rgb(245, 242, 240) 0px 0px 0px 1px;
+  --shadow-subtle-2: rgba(255, 255, 255, 0.17) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.18) 0px -1px 0px 0px inset, rgba(255, 255, 255, 0.13) -1px 0px 0px 0px inset, rgba(255, 255, 255, 0.13) 1px 0px 0px 0px inset;
+  --shadow-subtle-3: rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset;
+  --shadow-subtle-4: rgba(255, 255, 255, 0.17) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.18) 0px -1px 0px 0px inset, rgba(255, 255, 255, 0.13) 1px 0px 0px 0px inset, rgba(255, 255, 255, 0.13) -1px 0px 0px 0px inset;
 }
 ```
