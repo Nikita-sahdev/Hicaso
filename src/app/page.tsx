@@ -1,7 +1,7 @@
 import Hero from "@/components/home/Hero";
 import Products from "@/components/home/Products";
 import Principles from "@/components/common/Principles";
-import CTA from "@/components/home/CTA";
+import ClosingCTA from "@/components/common/ClosingCTA";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <Hero />
       <Products />
       <Principles />
-      <CTA />
+      <ClosingCTA />
     </>
   );
 }
