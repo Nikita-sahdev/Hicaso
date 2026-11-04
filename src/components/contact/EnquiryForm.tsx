@@ -29,7 +29,13 @@ export default function EnquiryForm({ services, initialService }: Props) {
   }
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
+    <form
+      className={styles.form}
+      onSubmit={onSubmit}
+      action="mailto:hello@hicaso.com"
+      method="post"
+      encType="text/plain"
+    >
       <div className={styles.field}>
         <label htmlFor="enq-name">Name</label>
         <input id="enq-name" name="name" required autoComplete="name" />
@@ -85,11 +91,10 @@ export default function EnquiryForm({ services, initialService }: Props) {
           Send enquiry
         </button>
       </div>
-      {sent && (
-        <p role="status" className={styles.note}>
-          Your email app should open with the message ready. If it didn&apos;t, email hello@hicaso.com directly.
-        </p>
-      )}
+      <p role="status" className={styles.note}>
+        {sent &&
+          "Your email app should open with the message ready. If it didn't, email hello@hicaso.com directly."}
+      </p>
     </form>
   );
 }

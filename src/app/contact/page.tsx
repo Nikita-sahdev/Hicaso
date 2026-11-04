@@ -30,6 +30,7 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
         <Container>
           <div className={layout.grid}>
             <EnquiryForm
+              key={initialService}
               services={services.map(({ slug, name }) => ({ slug, name }))}
               initialService={initialService}
             />
