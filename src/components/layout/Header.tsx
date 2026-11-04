@@ -9,33 +9,47 @@ import Container from "../ui/Container";
 import Logo from "../ui/Logo";
 import LinkButton from "../ui/LinkButton";
 import { products } from "@/data/products";
+import { services } from "@/data/services";
+
+type MenuName = "services" | "products";
 
 const links = [
   { label: "About", href: "/about" },
   { label: "Careers", href: "/careers" },
 ];
 
-// Desktop shows Contact as the outlined pill; the mobile list includes it as a link.
+// Desktop shows Contact as the filled pill; the mobile list includes it as a link.
 const mobileLinks = [...links, { label: "Contact", href: "/contact" }];
+
+const menus: {
+  name: MenuName;
+  label: string;
+  base: string;
+  allLabel: string;
+  items: { slug: string; name: string; eyebrow?: string; tagline: string }[];
+}[] = [
+  { name: "services", label: "Services", base: "/services", allLabel: "All services", items: services },
+  { name: "products", label: "Products", base: "/products", allLabel: "All products", items: products },
+];
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
-  const productsRef = useRef<HTMLDivElement>(null);
-  const productsButtonRef = useRef<HTMLButtonElement>(null);
+  const [openMenu, setOpenMenu] = useState<MenuName | null>(null);
+  const wrapperRefs = useRef<Record<MenuName, HTMLDivElement | null>>({ services: null, products: null });
+  const buttonRefs = useRef<Record<MenuName, HTMLButtonElement | null>>({ services: null, products: null });
 
-  // Products menu: close on Escape or a click outside it.
+  // Open menu: close on Escape (refocus its button) or a pointer-down outside it.
   useEffect(() => {
-    if (!productsOpen) return;
+    if (!openMenu) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setProductsOpen(false);
-        productsButtonRef.current?.focus();
+        setOpenMenu(null);
+        buttonRefs.current[openMenu]?.focus();
       }
     };
     const onPointer = (e: PointerEvent) => {
-      if (!productsRef.current?.contains(e.target as Node)) setProductsOpen(false);
+      if (!wrapperRefs.current[openMenu]?.contains(e.target as Node)) setOpenMenu(null);
     };
     document.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onPointer);
@@ -43,11 +57,12 @@ export const Header: React.FC = () => {
       document.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onPointer);
     };
-  }, [productsOpen]);
+  }, [openMenu]);
 
+  // Route changes close menus via `close` on every link click.
   const close = () => {
     setMobileOpen(false);
-    setProductsOpen(false);
+    setOpenMenu(null);
   };
 
   const linkClass = (href: string) =>
@@ -59,43 +74,51 @@ export const Header: React.FC = () => {
         <Logo />
 
         <nav className={styles.desktopNav} aria-label="Main">
-          <div
-            className={styles.products}
-            ref={productsRef}
-            onBlur={(e) => {
-              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setProductsOpen(false);
-            }}
-          >
-            <button
-              ref={productsButtonRef}
-              type="button"
-              className={linkClass("/products")}
-              aria-expanded={productsOpen}
-              aria-controls="products-menu"
-              onClick={() => setProductsOpen((open) => !open)}
+          {menus.map((m) => (
+            <div
+              key={m.name}
+              className={`${styles.menuWrap} ${m.name === "products" ? styles.alignRight : ""}`}
+              ref={(el) => {
+                wrapperRefs.current[m.name] = el;
+              }}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setOpenMenu(null);
+              }}
             >
-              Products <ChevronDown size={12} aria-hidden="true" />
-            </button>
-            {productsOpen && (
-              // preventDefault keeps focus in the wrapper so Safari's blur can't close the menu before a click lands
-              <div id="products-menu" className={styles.menu} onMouseDown={(e) => e.preventDefault()}>
-                {products.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/products/${p.slug}`}
-                    className={styles.menuItem}
-                    onClick={close}
-                  >
-                    <span className={styles.menuName}>{p.name}</span>
-                    <span className={styles.menuTagline}>{p.tagline}</span>
+              <button
+                ref={(el) => {
+                  buttonRefs.current[m.name] = el;
+                }}
+                type="button"
+                className={linkClass(m.base)}
+                aria-expanded={openMenu === m.name}
+                aria-controls={`${m.name}-menu`}
+                onClick={() => setOpenMenu((cur) => (cur === m.name ? null : m.name))}
+              >
+                {m.label} <ChevronDown size={12} aria-hidden="true" />
+              </button>
+              {openMenu === m.name && (
+                // preventDefault keeps focus in the wrapper so Safari's blur can't close the menu before a click lands
+                <div id={`${m.name}-menu`} className={styles.menu} onMouseDown={(e) => e.preventDefault()}>
+                  {m.items.map((item) => (
+                    <Link
+                      key={item.slug}
+                      href={`${m.base}/${item.slug}`}
+                      className={styles.menuItem}
+                      onClick={close}
+                    >
+                      {item.eyebrow && <span className={`t-eyebrow ${styles.menuEyebrow}`}>{item.eyebrow}</span>}
+                      <span className={styles.menuName}>{item.name}</span>
+                      <span className={styles.menuTagline}>{item.tagline}</span>
+                    </Link>
+                  ))}
+                  <Link href={m.base} className={styles.menuAll} onClick={close}>
+                    {m.allLabel}
                   </Link>
-                ))}
-                <Link href="/products" className={styles.menuAll} onClick={close}>
-                  All products
-                </Link>
-              </div>
-            )}
-          </div>
+                </div>
+              )}
+            </div>
+          ))}
           {links.map((l) => (
             <Link key={l.href} href={l.href} className={linkClass(l.href)}>
               {l.label}
@@ -105,7 +128,7 @@ export const Header: React.FC = () => {
 
         <div className={styles.cta}>
           <LinkButton href="/contact" variant="filled">
-            Contact us
+            Start a project
           </LinkButton>
         </div>
 
@@ -123,18 +146,22 @@ export const Header: React.FC = () => {
 
       {mobileOpen && (
         <nav id="mobile-menu" className={styles.mobileNav} aria-label="Mobile">
-          <Link href="/products" className={styles.mobileLink} onClick={close}>
-            Products
-          </Link>
-          {products.map((p) => (
-            <Link
-              key={p.slug}
-              href={`/products/${p.slug}`}
-              className={styles.mobileSubLink}
-              onClick={close}
-            >
-              {p.name}
-            </Link>
+          {menus.map((m) => (
+            <React.Fragment key={m.name}>
+              <Link href={m.base} className={styles.mobileLink} onClick={close}>
+                {m.label}
+              </Link>
+              {m.items.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`${m.base}/${item.slug}`}
+                  className={styles.mobileSubLink}
+                  onClick={close}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </React.Fragment>
           ))}
           {mobileLinks.map((l) => (
             <Link key={l.href} href={l.href} className={styles.mobileLink} onClick={close}>
