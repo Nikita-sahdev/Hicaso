@@ -31,7 +31,7 @@ export const services: Service[] = [
       "We add generative AI to your product or build new ones around it. That covers retrieval over your own data, assistants, and the evaluation and guardrails that keep outputs useful. The team that builds our products builds yours.",
     offerings: [
       { title: "LLM-powered features in existing apps", body: "We add summaries, search, drafting or classification to the product you already run." },
-      { title: "RAG over your documents and data", body: "Answers grounded in your own files and databases, with sources the user can check." },
+      { title: "RAG over your documents and data", body: "Answers drawn from your own files and databases." },
       { title: "Chat assistants and copilots", body: "Assistants that sit inside your product and help users get the task done." },
       { title: "Content and document generation", body: "Structured drafts, reports and messages generated from your data and templates." },
       { title: "Model evaluation and guardrails", body: "Test sets and checks that measure output quality and keep the model inside its limits." },
@@ -82,7 +82,7 @@ export const services: Service[] = [
       { title: "Native Android apps", body: "Android apps written in Kotlin." },
       { title: "Native iOS apps", body: "iOS apps written in Swift and SwiftUI." },
       { title: "Cross-platform apps with Flutter", body: "One Flutter codebase that runs on Android and iOS." },
-      { title: "Cross-platform apps with React Native", body: "One React Native codebase for both platforms, close to a web team's skills." },
+      { title: "Cross-platform apps with React Native", body: "One React Native codebase for both platforms." },
       { title: "App Store and Google Play release", body: "We prepare and submit the app to both stores." },
     ],
     stack: [
@@ -104,8 +104,8 @@ export const services: Service[] = [
       "We build web apps and SaaS products, marketing sites, APIs and online stores. We also maintain and upgrade existing PHP applications. You see working software in weekly demos.",
     offerings: [
       { title: "Web apps and SaaS products", body: "Full web applications, from the interface to the database." },
-      { title: "Marketing sites and CMS", body: "Fast public sites your team can edit without a developer." },
-      { title: "APIs and backends", body: "Backend services and APIs that your web and mobile clients can rely on." },
+      { title: "Marketing sites and CMS", body: "Public sites and a CMS your team can update." },
+      { title: "APIs and backends", body: "Backend services and APIs for your web and mobile clients." },
       { title: "E-commerce", body: "Online stores and checkout flows built around how you sell." },
       { title: "Maintenance and upgrades of existing PHP apps", body: "We keep existing PHP applications running and move them to current versions." },
     ],
