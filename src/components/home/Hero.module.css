@@ -1,31 +1,42 @@
 .hero {
-  padding: 72px 0 80px;
-  text-align: center;
+  padding: 64px 0;
   background: var(--color-paper);
 }
 
-/* Hero shouts: all caps, up to 105px, scaling with the viewport so the longest word fits at 320px */
-.title {
-  font-size: clamp(40px, 11vw, 105px);
-  text-transform: uppercase;
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
 }
 
-.subtitle {
-  max-width: 720px;
-  margin: 28px auto 0;
+.title {
+  font-size: clamp(36px, 9vw, 72px);
+  overflow-wrap: break-word;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 28px;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 12px 20px;
-  margin-top: 36px;
+  gap: 12px;
 }
 
-@media (min-width: 734px) {
+@media (min-width: 900px) {
   .hero {
-    padding: 112px 0 124px;
+    padding: 112px 0;
+  }
+  .grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: end;
+  }
+  .title {
+    font-size: clamp(56px, 5.6vw, 88px);
   }
 }

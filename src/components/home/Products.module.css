@@ -1,11 +1,16 @@
 .section {
-  padding: 80px 0;
+  padding: 64px 0;
   background: var(--color-oat);
 }
 
-.title {
-  margin-bottom: 40px;
+.head {
+  max-width: 720px;
+  margin: 0 auto 40px;
   text-align: center;
+}
+
+.title {
+  margin: 12px 0 16px;
 }
 
 .grid {
@@ -15,6 +20,9 @@
 }
 
 @media (min-width: 900px) {
+  .section {
+    padding: 96px 0;
+  }
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
