@@ -3,11 +3,11 @@
   text-align: left;
 }
 
-.intro .t-display {
+.intro h1 {
   margin-top: 12px;
 }
 
-.intro .t-subhead {
+.intro h1 + p {
   margin-top: 24px;
 }
 

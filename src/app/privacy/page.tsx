@@ -41,7 +41,7 @@ export default function PrivacyPolicyPage() {
             </ul>
             <p>
               Software we build for clients is governed by the agreement signed with each client,
-              which takes precedence over these terms for that work.
+              which takes precedence over this policy for that work.
             </p>
             <p>
               The project enquiry form on our contact page does not send your details to our
