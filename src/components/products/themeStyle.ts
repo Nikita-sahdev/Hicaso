@@ -20,6 +20,7 @@ export function themeStyle({ theme }: Product): CSSProperties {
     "--btn-text": theme.fg,
     "--btn-underline": theme.accent,
     "--heading-color": theme.fg,
+    "--subhead-color": theme.fg,
     "--focus-ring": theme.accent,
     background: theme.bg,
     color: theme.fg,
