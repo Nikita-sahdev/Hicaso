@@ -13,7 +13,7 @@ export default function TermsConditionsPage() {
       <section className={styles.hero}>
         <Container>
           <h1 className="t-display">Terms &amp; Conditions</h1>
-          <p className="t-subhead">Last updated: October 2026 · Hicaso LLP</p>
+          <p className="t-subhead">Last updated: November 2026 · Hicaso LLP</p>
         </Container>
       </section>
 

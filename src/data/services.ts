@@ -53,7 +53,7 @@ export const services: Service[] = [
     eyebrow: "AI",
     tagline: "Agents that use your tools and finish multi-step work.",
     description:
-      "We build AI agents that call your APIs and tools and carry a task through several steps. People stay in the loop where it matters, and we monitor agents so you can see what they did and why. The team that builds our products builds yours.",
+      "We build AI agents that call your APIs and tools and carry a task through several steps. People stay in the loop where it matters, and we add tracing so you can see what an agent did and why. The team that builds our products builds yours.",
     offerings: [
       { title: "AI agents that use your tools and APIs", body: "Agents that read from and act on the systems your team already works in." },
       { title: "Multi-step workflow automation", body: "Repeatable processes broken into steps an agent can run end to end." },
@@ -68,7 +68,7 @@ export const services: Service[] = [
     faqs: [
       ownCode,
       { q: "Can an agent act without approval?", a: "Only where you decide it can. We add approval steps for actions that need a person." },
-      { q: "How do we know what the agent did?", a: "We log each step and tool call so runs can be reviewed and evaluated." },
+      { q: "How do we know what the agent did?", a: "We can log each step and tool call so runs can be reviewed and evaluated." },
     ],
   },
   {
