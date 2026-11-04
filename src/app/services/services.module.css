@@ -1,0 +1,40 @@
+.list {
+  display: grid;
+  gap: 24px;
+}
+
+.card {
+  padding: 32px 24px;
+  border-radius: var(--radius-media);
+  background: var(--color-oat);
+}
+
+.card h2 {
+  margin-top: 12px;
+}
+
+.tagline {
+  margin-top: 12px;
+  max-width: 640px;
+}
+
+.offerings {
+  margin: 24px 0;
+  padding-left: 24px;
+  list-style: disc;
+}
+
+.offerings li + li {
+  margin-top: 6px;
+}
+
+@media (min-width: 734px) {
+  .card {
+    padding: 40px;
+  }
+
+  .offerings {
+    columns: 2;
+    column-gap: 40px;
+  }
+}
