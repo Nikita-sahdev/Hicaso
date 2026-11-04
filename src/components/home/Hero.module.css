@@ -10,7 +10,6 @@
 }
 
 .title {
-  font-size: clamp(36px, 9vw, 72px);
   overflow-wrap: break-word;
 }
 
@@ -32,11 +31,8 @@
     padding: 112px 0;
   }
   .grid {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
     gap: 64px;
     align-items: end;
-  }
-  .title {
-    font-size: clamp(56px, 5.6vw, 88px);
   }
 }
