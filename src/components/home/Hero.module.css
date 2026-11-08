@@ -1,6 +1,15 @@
 .hero {
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
   padding: 64px 0;
   background: var(--color-paper);
+  /* The hero alone fills the first screen under the 54px header */
+  min-height: calc(100svh - 54px);
+  display: flex;
+  align-items: center;
+}
+
+.hero > * {
+  flex: 1;
 }
 
 .grid {
@@ -9,15 +18,44 @@
   gap: 32px;
 }
 
+/* 38px on a phone so the 8-word h1 holds three lines; tight tracking carries it, not weight */
 .title {
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -1.1px;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
-.side {
+/* Word masks: padding keeps descenders inside the clip, the negative margin gives the line height back */
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+/* 8 words x 30ms = 210ms from first to last, inside the 240ms limit */
+.word {
+  display: inline-block;
+  animation: word-rise 700ms var(--ease-enter) calc(var(--i) * 30ms) backwards;
+}
+
+/* About 62 characters a line */
+.lead {
+  max-width: 31em;
+  text-wrap: pretty;
+}
+
+.orb {
+  height: 220px;
+}
+
+.content {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 28px;
+  gap: 24px;
 }
 
 .actions {
@@ -26,13 +64,57 @@
   gap: 12px;
 }
 
-@media (min-width: 900px) {
-  .hero {
-    padding: 112px 0;
+/* The lead, then each button, fade up 60ms apart as the last word is half way up */
+.lead,
+.actions > * {
+  animation: fade-up 520ms var(--ease-enter) var(--d, 560ms) backwards;
+}
+
+.actions > :nth-child(1) {
+  --d: 620ms;
+}
+
+.actions > :nth-child(2) {
+  --d: 680ms;
+}
+
+@keyframes word-rise {
+  from {
+    transform: translateY(110%);
   }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (min-width: 900px) {
   .grid {
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
     gap: 64px;
-    align-items: end;
+    align-items: center;
+  }
+  /* 56px (the h2 size) at 900 up to 72px at 1440 */
+  .title {
+    font-size: clamp(56px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -2.2px;
+  }
+  .content {
+    gap: 28px;
+  }
+  .orb {
+    height: 520px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word,
+  .lead,
+  .actions > * {
+    animation: none;
   }
 }

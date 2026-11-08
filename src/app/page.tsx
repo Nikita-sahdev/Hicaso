@@ -6,6 +6,7 @@ import HowWeWork from "@/components/common/HowWeWork";
 import WhyHicaso from "@/components/home/WhyHicaso";
 import FAQ from "@/components/common/FAQ";
 import ClosingCTA from "@/components/common/ClosingCTA";
+import { ClientStrip, Stats, CaseStudies, Testimonials } from "@/components/home/Proof";
 
 const faqs = [
   { q: "What does Hicaso do?", a: "We build generative AI, agentic AI, mobile and web software for clients, and we build and run our own products." },
@@ -19,11 +20,15 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <ClientStrip />
       <ServicesGrid />
+      <Stats />
       <StackSection />
+      <CaseStudies />
       <Products />
       <HowWeWork />
       <WhyHicaso />
+      <Testimonials />
       <FAQ items={faqs} />
       <ClosingCTA />
     </>

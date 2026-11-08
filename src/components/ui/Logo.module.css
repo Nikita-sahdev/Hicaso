@@ -11,8 +11,48 @@
   height: 22px;
   width: auto;
   aspect-ratio: 3.68;
+  overflow: visible; /* the dot starts above the viewBox */
 }
 
+.dot,
+.dotHop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+/* Load-in: the i-dot drops onto the stem and settles with a squash */
 .dot {
   fill: var(--color-logo-dot);
+  animation: dot-drop 0.9s cubic-bezier(0.3, 0, 0.2, 1) 0.15s both;
+}
+
+@keyframes dot-drop {
+  0% { transform: translateY(-160%); opacity: 0; }
+  40% { transform: translateY(0) scale(1.2, 0.8); opacity: 1; }
+  60% { transform: translateY(-35%) scale(0.92, 1.08); }
+  80% { transform: translateY(0) scale(1.06, 0.94); }
+  100% { transform: none; }
+}
+
+/* Hover/focus: a quarter-turn hop; a square at 90deg looks identical, so the end is seamless */
+.dotHop {
+  transform-origin: 50% 50%;
+}
+
+.logo:hover .dotHop,
+.logo:focus-visible .dotHop {
+  animation: dot-hop 0.55s cubic-bezier(0.3, 0, 0.2, 1);
+}
+
+@keyframes dot-hop {
+  50% { transform: translateY(-45%) rotate(45deg); }
+  100% { transform: rotate(90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .logo:hover .dotHop,
+  .logo:focus-visible .dotHop {
+    animation: none;
+  }
 }

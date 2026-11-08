@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono, Bricolage_Grotesque, Poppins } from "next/font/google";
+import { Inter, IBM_Plex_Mono, Adamina, Bricolage_Grotesque, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -15,6 +15,14 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
+  display: "swap",
+});
+
+// Testimonial quotes (DESIGN.md "Customer Story Carousel Card").
+const adamina = Adamina({
+  variable: "--font-adamina",
+  subsets: ["latin"],
+  weight: "400",
   display: "swap",
 });
 
@@ -45,7 +53,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plexMono.variable} ${bricolage.variable} ${poppins.variable} h-full antialiased`}
+      className={`${inter.variable} ${plexMono.variable} ${adamina.variable} ${bricolage.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Header />

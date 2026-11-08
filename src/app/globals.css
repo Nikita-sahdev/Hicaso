@@ -1,19 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  /* DESIGN.md tokens (Mollie-style system) */
+  /* Token names and roles follow DESIGN.md; values come from the Awesomic palette. */
   --color-paper: #ffffff;
-  --color-ink: #000000;
-  --color-near-black: #111111;
-  --color-graphite: #595959;
-  --color-soft-gray: #919191;
-  --color-oat: #f7f4f1;
-  --color-outline: #f5f2f0;
-  --color-ledger: #3b281d;
-  --color-espresso: #211006;
-  --color-copper: #e07122;
-  --color-terracotta: #d66733;
-  --color-active-green: #1e681d;
+  --color-ink: #09090b;
+  --color-graphite: #52525b;
+  --color-soft-gray: #71717a;
+  --color-oat: #f4f4f5;
+  --color-outline: #ececee;
+  --color-ledger: #09090b;
+  --color-espresso: #18181b;
+  --color-copper: #ff5a00;
   --color-logo-dot: #0071e3;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -54,7 +51,7 @@ h3 {
 }
 
 ::selection {
-  background: rgba(59, 40, 29, 0.15);
+  background: rgba(9, 9, 11, 0.15);
 }
 
 /* Type scale from DESIGN.md; mobile sizes below 734px */
