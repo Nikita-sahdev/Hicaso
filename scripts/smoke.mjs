@@ -176,6 +176,17 @@ const HERO_STATE = `(() => {
   };
 })()`;
 
+// Canvas motion (rAF, invisible to getAnimations): two clips of the art frame's top strip, where only the
+// Orb's ground shows (the window starts 64px down), 700ms apart. true when they are byte-identical.
+async function orbStill(c) {
+  const clip = await c.evaluate(`(() => { const b = document.querySelector("main .hero__art").getBoundingClientRect(); return { x: b.x, y: b.y + scrollY, width: b.width, height: 56, scale: 1 }; })()`);
+  const shot = async () => (await c.send("Page.captureScreenshot", { format: "png", clip, captureBeyondViewport: false })).data;
+  const a = await shot();
+  await sleep(700);
+  return a === (await shot());
+}
+const DISC = `(() => { const d = document.querySelector("main .hero__art > .loop-pause"); if (!d) return null; const b = d.getBoundingClientRect(); const f = d.parentElement.getBoundingClientRect(); const cs = getComputedStyle(d); return { x: b.x + b.width / 2, y: b.y + b.height / 2, label: d.getAttribute("aria-label"), shown: cs.display !== "none" && b.width > 0, inside: b.left >= f.left && b.right <= f.right && b.top >= f.top && b.bottom <= f.bottom }; })()`;
+
 async function checkHero(c) {
   for (const vp of VIEWPORTS) {
     await setViewport(c, vp.width, vp.height, vp.mobile);
@@ -189,6 +200,25 @@ async function checkHero(c) {
     if (Math.abs(r.bottom - r.vh) > 2) fail("/", vp.name, `hero bottom ${r.bottom}, innerHeight ${r.vh}`);
     if (r.lines > 3) fail("/", vp.name, `h1 on ${r.lines} lines`);
     if (!r.main || r.main.t !== "Start a project" || r.main.h !== "/contact") fail("/", vp.name, `hero main action ${JSON.stringify(r.main)}`);
+    // a phone holds the Orb on its finished picture, so no disc covers the window's chips
+    if (vp.mobile) {
+      if (!(await orbStill(c))) fail("/", vp.name, "Orb canvas moving on a phone");
+      if ((await c.evaluate(DISC))?.shown) fail("/", vp.name, "pause disc shown on a phone");
+    }
+  }
+  // The Orb moves (baseline: the clip method sees motion), and the frame's pause disc stops it
+  await setViewport(c, 1440, 900, false);
+  await load(c, BASE + "/");
+  await sleep(1500);
+  if (await orbStill(c)) fail("/", "orb", "Orb canvas did not change in 700ms with normal motion (baseline)");
+  const disc = await c.evaluate(DISC);
+  if (!disc || !disc.shown || !disc.inside || disc.label !== "Pause animation") fail("/", "orb", `pause disc ${JSON.stringify(disc)}`);
+  else {
+    for (const type of ["mousePressed", "mouseReleased"]) await c.send("Input.dispatchMouseEvent", { type, x: disc.x, y: disc.y, button: "left", clickCount: 1 });
+    await sleep(400);
+    const after = await c.evaluate(DISC);
+    if (after?.label !== "Play animation") fail("/", "orb", `disc label after click: ${after?.label}`);
+    if (!(await orbStill(c))) fail("/", "orb", "Orb canvas still moving after the pause disc was clicked");
   }
   // Review Focus 4: under reduced motion nothing in the hero keeps animating and nothing stays hidden
   await setViewport(c, 1440, 900, false);
@@ -202,7 +232,11 @@ async function checkHero(c) {
     const h1 = hero?.querySelector("h1");
     return { running, h1: h1 ? getComputedStyle(h1).opacity : null };
   })()`);
+  const rmStill = await orbStill(c);
+  const rmDisc = await c.evaluate(DISC);
   await c.send("Emulation.setEmulatedMedia", { features: [] });
+  if (!rmStill) fail("/", "reduced-motion", "Orb canvas changed in 700ms under reduced motion");
+  if (rmDisc?.shown) fail("/", "reduced-motion", "pause disc shown under reduced motion");
   if (rm.running.length) fail("/", "reduced-motion", `running animations in hero: ${rm.running.join(", ")}`);
   if (rm.h1 !== "1") fail("/", "reduced-motion", `h1 opacity ${rm.h1}`);
 }

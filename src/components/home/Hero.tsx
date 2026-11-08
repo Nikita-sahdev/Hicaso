@@ -1,5 +1,5 @@
 import styles from "./HeroArt.module.css";
-import Orb from "../ui/Orb";
+import OrbGround from "./OrbGround";
 import SpecularButton from "../ui/SpecularButton";
 
 // The dealt collage hero (kit layout/hero-collage.html). motion.js runs the entrance from data-enter,
@@ -55,36 +55,16 @@ export default function Hero() {
                 See our products
               </a>
             </div>
-            <p className={styles.proof}>Our working hours overlap with Europe and the Middle East.</p>
+            <p className="hero__proof">Our working hours overlap with Europe and the Middle East.</p>
           </div>
 
           <div
             className={`hero__art span-6 start-7 ${styles.art}`}
             role="img"
+            data-ui-pause-host
             aria-label="AppKavo's ranked security findings for an Android build, with two blockers for Google Play review"
           >
-            <div className={styles.ground} aria-hidden="true">
-              <Orb
-                colors={["#9c43fe", "#4cc2e9", "#101499"]}
-                hoverIntensity={1}
-                trail={1}
-                rotateOnHover
-                followCursor
-                hue={0}
-                size={1.3}
-                glow={1}
-                bleed={1}
-                wobble={1}
-                highlight={1}
-                tiltX={0}
-                tiltY={0}
-                speed={1}
-                backgroundColor={GROUND}
-                forceHoverState={false}
-                clickPulse
-                intro
-              />
-            </div>
+            <OrbGround background={GROUND} />
 
             <div className="ly-piece ly-piece--main" aria-hidden="true">
               <div className="ui ui-panel ui-win ui-win--compact">

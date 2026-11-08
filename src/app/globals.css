@@ -10,3 +10,6 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* page CSS of the dealt collage hero, as SK/assets/layout/hero-collage.html writes it */
+.hero__proof { font-size: var(--t-small); color: var(--muted); }

@@ -1,11 +1,6 @@
 /* Page CSS inside the hero's visual (layout-v4.md: page CSS only inside a visual). The frame, its
    size and the pieces' places are layout.css's .hero__art / .ly-piece rules. */
 
-.proof {
-  font-size: var(--t-small);
-  color: var(--muted);
-}
-
 /* the fragments' palette, as cards.css gives a .stage: a white surface on the lit ground */
 .art {
   --ui-font: var(--font-text);
