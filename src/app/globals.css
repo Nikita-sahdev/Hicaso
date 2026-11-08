@@ -18,6 +18,11 @@
 
 /* services (features-2x2): one --p-h for the group; 352 so the pipeline-board stands whole with 24 under it */
 #services .panel { --p-h: 352px; }
+/* tablet (two screens, layout-v4.md section 2): each screen's card row runs down to that screen's foot,
+   as system.css does from 1024, so the 2x2 never leaves a short row over empty ground at 820x1180 */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #services > .wrap > .grid:last-child, #services > .wrap > .group > .grid:last-child { align-self: stretch; flex: 1 1 auto; min-height: 0; }
+}
 @media (max-width: 639px) { #services .panel { --p-h: 180px; } }
 /* the phone: a .device built in page CSS (280 wide, 8px bezel, radius 32), its screen the app's settings */
 /* one box: the bezel is the border of the white screen, so the settings list sits on it without a panel of its own */
@@ -44,10 +49,10 @@
 @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
 @media (max-width: 1023px) {
   .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
-  .app > .app__pane--list { max-height: 252px; }
+  .app > .app__pane--list { max-height: 268px; }
   .app > .app__pane--list::after { display: none; }
   .app .ui-win__side { display: none; }
-  .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+  .app .ui-win--compact .ui-win__body { grid-template-columns: minmax(0, 1fr); }
   .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
   .app > .app__pane--open > .ui-doc { padding: 24px 224px 0 24px; }
 }
@@ -71,8 +76,7 @@
 .proof-stack { margin-top: var(--s-4); }
 .proof-stack .ic-chip { height: 36px; }
 .proof-stack .ic-chip > .ic { --ic-s: 24px; }
-/* the FAQ's start timeline, under its grey line */
-.faq-start { --p-h: 260px; margin-top: var(--s-6); }
+
 /* step 1's scope: the note rests over the page's empty foot, clear of the lines */
 .mo-pc__visual .ui-doc__page { padding-bottom: 120px; }
 .mo-pc__visual .ui-doc__note { top: auto; bottom: 16px; }

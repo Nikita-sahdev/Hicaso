@@ -32,7 +32,7 @@ const agent = `<div class="stage stage--fade-b"><div class="at-rise fit" style="
   <div class="ui-checks__head"><div class="ui-title">Agent run: overdue invoices</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>3 of 5</div></div>
   <div class="ui-checks__bar"><i data-checks-bar style="--k:0.6"></i></div>
   <ul class="ui-checks__list">
-    ${check("Found 4 overdue invoices in BillMinute", true)}
+    ${check("Found 4 overdue invoices", true)}
     ${check("Matched the bank transfers received", true)}
     ${check("Drafted 4 reminder emails", true)}
     ${check("Waiting for approval from finance", false)}

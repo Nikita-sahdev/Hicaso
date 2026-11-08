@@ -11,7 +11,7 @@ const hash = (label: string) => `<span class="ui-win__nav"><span class="ui-win__
 const row = (i: number, who: string, sub: string, st: string, cls = "", av = String(i + 1)) =>
   `<li class="ui-win__row${i === 0 ? " is-sel" : ""}"><span class="ui-avatar" data-tone="${(i % 5) + 1}">${av}</span><span class="ui-win__who">${who}</span><span class="ui-win__sub">${sub}</span><span class="ui-win__st${cls ? ` ${cls}` : ""}">${st}</span></li>`;
 const win = (crumb: string, side: string, rows: string) =>
-  `<div class="ui ui-panel ui-win"><div class="ui-win__bar"><span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ui-win__crumb">${crumb}</span><span class="ui-spacer"></span>${SEARCH}</div><div class="ui-win__body"><nav class="ui-win__side" aria-hidden="true">${side}</nav><div class="ui-win__main"><ul class="ui-win__rows">${rows}</ul></div></div></div>`;
+  `<div class="ui ui-panel ui-win ui-win--compact"><div class="ui-win__bar"><span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ui-win__crumb">${crumb}</span><span class="ui-spacer"></span>${SEARCH}</div><div class="ui-win__body"><nav class="ui-win__side" aria-hidden="true">${side}</nav><div class="ui-win__main"><ul class="ui-win__rows">${rows}</ul></div></div></div>`;
 
 const SHIELD = `<path d="M8 2 3 4v4c0 3 2.2 5.2 5 6 2.8-.8 5-3 5-6V4z"/>`;
 const CHECK = `<path d="m3.5 8.4 2.8 2.8 6.2-6.4"/>`;
