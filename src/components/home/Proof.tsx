@@ -1,107 +1,64 @@
-import React from "react";
-import styles from "./Proof.module.css";
-import Container from "../ui/Container";
-import Eyebrow from "../common/Eyebrow";
-import LinkButton from "../ui/LinkButton";
 import LogoMarquee from "../ui/LogoMarquee";
 import { proof, showProof } from "@/data/proof";
-import { getService } from "@/data/services";
 
-const visible = showProof(proof.demo);
+// icon ids (icons.mjs) for the stack names in proof.ts; a name without a mark stays a plain chip
+const ICONS: Record<string, string> = {
+  Claude: "claude", "Next.js": "nextjs", Python: "python", Flutter: "flutter", Firebase: "firebase",
+  "Node.js": "nodejs", Laravel: "laravel", MySQL: "mysql", React: "react", OpenAI: "openai",
+};
 
-export const ClientStrip: React.FC = () =>
-  visible ? (
-    <section className={styles.strip} aria-label="Clients">
-      <Container>
-        <div className={styles.stripRow}>
-          <p className={styles.stripLabel}>Teams we have built for</p>
-          <LogoMarquee
-            label="client names"
-            items={proof.clients.map((name) => ({
-              id: name,
-              content: <span className={styles.client}>{name}</span>,
-            }))}
-          />
+// DEMO proof (src/data/proof.ts): rendered only while showProof allows it (development), never in a
+// production build. One section on the kit's classes: the client strip, the figures, and each case
+// with its client's quote.
+export default function Proof() {
+  if (!showProof(proof.demo)) return null;
+  return (
+    <section className="section" id="clients" style={{ "--hm": 2 } as React.CSSProperties} aria-labelledby="clients-h">
+      <div className="wrap">
+        <div className="section-head">
+          <h2 id="clients-h">Projects for customers</h2>
         </div>
-      </Container>
-    </section>
-  ) : null;
-
-export const Stats: React.FC = () =>
-  visible ? (
-    <section className={styles.section} aria-label="Hicaso in numbers">
-      <Container>
-        <dl className={styles.stats}>
+        <LogoMarquee
+          label="client names"
+          items={proof.clients.map((name) => ({ id: name, content: <span className="t-lead muted">{name}</span> }))}
+        />
+        <dl className="stats proof-stats">
           {proof.stats.map((s) => (
-            <div key={s.label} className={styles.stat}>
-              <dt className="t-caption">{s.label}</dt>
-              <dd className={styles.statValue}>{s.value}</dd>
+            <div key={s.label}>
+              <dt className="t-small muted">{s.label}</dt>
+              <dd className="t-stat">{s.value}</dd>
             </div>
           ))}
         </dl>
-      </Container>
-    </section>
-  ) : null;
-
-export const CaseStudies: React.FC = () =>
-  visible ? (
-    <section className={styles.section} aria-labelledby="work-title">
-      <Container>
-        <Eyebrow>SELECTED WORK</Eyebrow>
-        <h2 id="work-title" className={`t-heading ${styles.title}`}>
-          Built for clients
-        </h2>
-        <ul className={styles.cases}>
-          {proof.caseStudies.map((c) => (
-            <li key={c.client} className={styles.case}>
-              <p className="t-eyebrow">{c.industry}</p>
-              <h3 className="t-heading-sm">{c.client}</h3>
-              <p className={styles.summary}>{c.summary}</p>
-              <dl className={styles.meta}>
-                <div>
-                  <dt>Platforms</dt>
-                  <dd>{c.platforms.join(", ")}</dd>
+        <div className="grid proof-cases">
+          {proof.caseStudies.map((c) => {
+            const t = proof.testimonials.find((x) => x.company === c.client);
+            return (
+              <article key={c.client} className="card m-nolift span-4">
+                <h3>{c.client}</h3>
+                <p>{c.summary}</p>
+                {t ? (
+                  <figure className="quote">
+                    <blockquote>{t.quote}</blockquote>
+                    <figcaption>
+                      {t.name}, {t.role}
+                    </figcaption>
+                  </figure>
+                ) : null}
+                <div className="ic-chip-row proof-stack">
+                  {c.stack.map((t) => (
+                    <span key={t} className="ic-chip">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- a kit icon file, as the fragments use */}
+                      {ICONS[t] ? <img className="ic" data-icon={ICONS[t]} src={`/assets/icons/${ICONS[t]}.svg`} alt="" width="18" height="18" /> : null}
+                      {t}
+                    </span>
+                  ))}
                 </div>
-                <div>
-                  <dt>Stack</dt>
-                  <dd>{c.stack.join(", ")}</dd>
-                </div>
-              </dl>
-              <LinkButton href={`/services/${c.service}`} variant="text">
-                {getService(c.service)?.name ?? "Our services"}
-              </LinkButton>
-            </li>
-          ))}
-        </ul>
-      </Container>
+              </article>
+            );
+          })}
+        </div>
+      </div>
     </section>
-  ) : null;
-
-export const Testimonials: React.FC = () =>
-  visible ? (
-    <section className={styles.section} aria-labelledby="voices-title">
-      <Container>
-        <Eyebrow>CLIENTS</Eyebrow>
-        <h2 id="voices-title" className={`t-heading ${styles.title}`}>
-          What clients say
-        </h2>
-        <ul className={styles.quotes}>
-          {proof.testimonials.map((t) => (
-            <li key={t.name}>
-              <figure className={styles.quote}>
-                <blockquote>
-                  <p>“{t.quote}”</p>
-                </blockquote>
-                <figcaption>
-                  <strong>{t.name}</strong>
-                  <span>
-                    {t.role}, {t.company}
-                  </span>
-                </figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </section>
-  ) : null;
+  );
+}

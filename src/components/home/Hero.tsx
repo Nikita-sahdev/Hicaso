@@ -35,7 +35,7 @@ export default function Hero() {
                 href="/contact"
                 size="md"
                 radius={8}
-                tint="#0a0a0a"
+                tint="#256f82"
                 tintOpacity={1}
                 textColor="#ffffff"
                 lineColor="#ffffff"

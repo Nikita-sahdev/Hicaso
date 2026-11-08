@@ -15,8 +15,21 @@ const STYLESHEETS = [
   "icons/icon.css",
   "ui/base.css",
   "ui/window/fragment.css",
+  "ui/chat/fragment.css",
+  "ui/checklist/fragment.css",
+  "ui/toggles/fragment.css",
+  "ui/pipeline-board/fragment.css",
+  "ui/diff-review/fragment.css",
+  "ui/doc/fragment.css",
+  "ui/files/fragment.css",
+  "ui/terminal-run/fragment.css",
+  "ui/notify/fragment.css",
   "diagrams/diagram.css",
+  // the loader links it too; here so the steps stand styled with scripts off
+  "moments/pinned-chapters/moment.css",
 ];
+// the dealt moment's loader, its lib and the moment, preloaded as SK/assets/moments/_demo/in-page-service.html does
+const MOMENT_PRELOADS = ["moments/moments.js", "moments/lib.js", "moments/pinned-chapters/moment.js"];
 const MODULES = ["system.js", "motion/motion.js", "layout/layout.js", "diagrams/mount.js"];
 
 // The :root block exactly as start.mjs prints it (palette putty-black-teal, type instrument, radius soft).
@@ -39,6 +52,8 @@ const ROOT_TOKENS = `
 
 // Hero entrance guard from the kit's starter.html, verbatim.
 const M_ENTER = "document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)";
+// Moments guard from the kit's starter.html / in-page-service.html, verbatim.
+const MO_JS = "document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)";
 
 // Product fonts: used only inside product-themed surfaces.
 const bricolage = Bricolage_Grotesque({
@@ -92,6 +107,10 @@ export default function RootLayout({
         {/* keep after the links: layout.css resets --ly-scale */}
         <style dangerouslySetInnerHTML={{ __html: ROOT_TOKENS }} />
         <script dangerouslySetInnerHTML={{ __html: M_ENTER }} />
+        <script dangerouslySetInnerHTML={{ __html: MO_JS }} />
+        {MOMENT_PRELOADS.map((href) => (
+          <link key={href} rel="modulepreload" href={`/assets/${href}`} />
+        ))}
         {/* eslint-disable-next-line @next/next/no-sync-scripts -- kit grounds set page tokens before first paint */}
         <script src="/assets/backgrounds/backgrounds.js" />
       </head>

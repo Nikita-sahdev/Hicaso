@@ -1,7 +1,7 @@
 .marquee {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--s-4);
 }
 
 /* Edges fade out, the Lightswind look without the stacked backdrop blurs */
@@ -47,7 +47,7 @@
   text-decoration: none;
 }
 
-/* 44px target; Oat circle like the light buttons */
+/* the kit's pause disc look: a 44px target in the page colours */
 .toggle {
   flex-shrink: 0;
   display: inline-grid;
@@ -55,24 +55,15 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 0;
+  border: 1px solid var(--line);
   border-radius: 50%;
-  background: var(--color-oat);
-  color: var(--color-ink);
+  background: var(--surface);
+  color: var(--ink);
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-
-.toggle:hover {
-  background: var(--color-outline);
-}
-
-.toggle:active {
-  transform: scale(0.94);
 }
 
 .toggle:focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--action);
   outline-offset: 2px;
 }
 

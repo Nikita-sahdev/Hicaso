@@ -35,9 +35,9 @@
 }
 
 .button:focus-visible {
-  /* Ink ring: the upstream ring took the (white) text colour and vanished on a light page */
-  outline: 2px solid var(--color-ink);
-  outline-offset: 3px;
+  /* the kit's ring (system.css :focus-visible): 2px in the action colour, 2px off the control */
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
 }
 
 .button:disabled {

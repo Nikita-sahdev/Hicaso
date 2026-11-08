@@ -148,6 +148,49 @@ async function checkNav(c) {
   if (!s1.shown || !s1.open) fail("/", "mobile", `phone sheet not visible after tap: ${JSON.stringify(s1)}`);
 }
 
+// The home sections (Task 4): each section's h2 is its first heading and its only h2, every FAQ answer is
+// open, the product tabs swap the app frames, the dealt moment mounts, and no kit sample name is left.
+const HOME_SECTIONS = ["services", "products", "how", "stack", "faq"];
+async function checkHome(c) {
+  await setViewport(c, 1440, 900, false);
+  await load(c, BASE + "/");
+  await sleep(1500);
+  const r = await c.evaluate(`(() => {
+    const ids = ${JSON.stringify(HOME_SECTIONS)};
+    const sections = ids.map((id) => {
+      const s = document.getElementById(id);
+      if (!s) return { id, missing: true };
+      const h = s.querySelectorAll("h2");
+      const first = s.querySelector("h1, h2, h3");
+      return { id, h2: h.length, firstIsH2: first?.tagName === "H2", main: s.parentElement?.tagName === "MAIN" };
+    });
+    const answers = [...document.querySelectorAll("#faq .faq__item > p")].map((p) => {
+      const b = p.getBoundingClientRect(); const cs = getComputedStyle(p);
+      return b.height > 0 && cs.visibility === "visible" && +cs.opacity === 1;
+    });
+    const text = document.querySelector("main").innerText;
+    return {
+      sections, answers,
+      leftovers: ["Relay", "harbor", "Mara Okafor", "Lena Fischer", "Tom Keller", "Returns policy", "Launch checklist"].filter((w) => text.includes(w)),
+      moment: document.querySelector("#how")?.dataset.moment, ready: document.documentElement.hasAttribute("data-moments-ready"),
+    };
+  })()`);
+  for (const s of r.sections) {
+    if (s.missing) fail("/", "home", `no section #${s.id}`);
+    else if (s.h2 !== 1 || !s.firstIsH2 || !s.main) fail("/", "home", `#${s.id}: ${JSON.stringify(s)}`);
+  }
+  if (r.answers.length < 3 || r.answers.some((v) => !v)) fail("/", "faq", `answers not all open: ${JSON.stringify(r.answers)}`);
+  if (r.leftovers.length) fail("/", "home", `kit sample text left: ${r.leftovers.join(", ")}`);
+  if (r.moment !== "pinned-chapters" || !r.ready) fail("/", "moment", `pinned-chapters not mounted: ${JSON.stringify({ m: r.moment, ready: r.ready })}`);
+  const tabs = `(() => ({ a: document.getElementById("app-appkavo")?.hidden, b: document.getElementById("app-billminute")?.hidden, sel: document.getElementById("tab-billminute")?.getAttribute("aria-selected") }))()`;
+  const t0 = await c.evaluate(tabs);
+  if (t0.a !== false || t0.b !== true) fail("/", "tabs", `initial panels ${JSON.stringify(t0)}`);
+  await c.evaluate(`document.getElementById("tab-billminute").click()`);
+  await sleep(400);
+  const t1 = await c.evaluate(tabs);
+  if (t1.a !== true || t1.b !== false || t1.sel !== "true") fail("/", "tabs", `after BillMinute click ${JSON.stringify(t1)}`);
+}
+
 // The collage hero on "/" (Task 3): kit entrance, Orb + window in the art frame, one screen, h1 <= 3 lines.
 const HERO_STATE = `(() => {
   const hero = document.querySelector("main section.hero");
@@ -256,6 +299,7 @@ try {
   }
   await checkNav(c);
   await checkHero(c);
+  await checkHome(c);
   c.ws.close();
 } catch (e) {
   failures.push(`smoke crashed: ${e.message}`);
