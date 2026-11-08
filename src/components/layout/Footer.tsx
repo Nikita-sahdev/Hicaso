@@ -1,82 +1,55 @@
 import React from "react";
-import Link from "next/link";
-import styles from "./Footer.module.css";
-import Container from "../ui/Container";
-import LinkButton from "../ui/LinkButton";
+import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
+import { ENQUIRY_TO } from "@/lib/enquiry";
 
-const columns = [
-  {
-    title: "Services",
-    links: services.map((s) => ({ label: s.name, href: `/services/${s.slug}` })),
-  },
-  {
-    title: "Products",
-    links: products.map((p) => ({ label: p.name, href: `/products/${p.slug}` })),
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms & Conditions", href: "/terms" },
-    ],
-  },
-  {
-    title: "Contact",
-    links: [
-      { label: "hello@hicaso.com", href: "mailto:hello@hicaso.com" },
-      { label: "+91 70091 37936", href: "tel:+917009137936" },
-    ],
-  },
+// Kit footer.closing: row 1 is the site-wide close (close--type), row 2 the footer-statement links.
+const cols = [
+  { title: "Services", links: [{ label: "All services", href: "/services" }, ...services.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))] },
+  { title: "Products", links: [{ label: "All products", href: "/products" }, ...products.map((p) => ({ label: p.name, href: `/products/${p.slug}` }))] },
+  { title: "Company", links: [{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Careers", href: "/careers" }, { label: "Contact", href: "/contact" }] },
+  { title: "Legal", links: [{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }, { label: ENQUIRY_TO, href: `mailto:${ENQUIRY_TO}` }] },
 ];
 
-export const Footer: React.FC = () => {
-  return (
-    <footer className={styles.footer}>
-      <Container>
-        <div className={styles.top}>
-          <h2 className="t-heading-sm">Have a project in mind?</h2>
-          <LinkButton href="/contact" variant="filled">
-            Start a project
-          </LinkButton>
+export const Footer: React.FC = () => (
+  <footer className="footer closing footer--statement" id="contact" aria-labelledby="close-h">
+    <div className="wrap">
+      <div className="closing__cta close--type">
+        <div className="section-head">
+          <h2 id="close-h">AI, mobile and web software, built to order</h2>
+          <p>Tell us what you need built. We reply by email.</p>
         </div>
-        <div className={styles.columns}>
-          {columns.map((col) => (
-            <div key={col.title}>
-              <h2 className={`t-eyebrow ${styles.heading}`}>{col.title}</h2>
-              <ul className={styles.list}>
+        <a className="btn btn--primary btn--xl btn--wide" href="/contact">
+          Start a project
+          <svg className="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path className="m-arrow__stem" d="M1 6h8" /><path className="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" /></svg>
+        </a>
+      </div>
+      <div className="closing__links">
+        <div className="grid">
+          <div className="span-4 stack-4">
+            <Logo />
+            <p className="footer__lede">Hicaso builds AI, mobile and web software for companies.</p>
+          </div>
+          {cols.map((col) => (
+            <div key={col.title} className="span-2 footer__col">
+              <h3>{col.title}</h3>
+              <ul>
                 {col.links.map((l) => (
-                  <li key={l.href}>
-                    {l.href.startsWith("/") ? (
-                      <Link href={l.href}>{l.label}</Link>
-                    ) : (
-                      <a href={l.href}>{l.label}</a>
-                    )}
-                  </li>
+                  <li key={l.href}><a href={l.href}>{l.label}</a></li>
                 ))}
-                {col.title === "Contact" && (
-                  <>
-                    <li>2646, Sector 52, Lig Housing Board, Sector 36 (Chandigarh)</li>
-                    <li>Mon–Fri, 9:00 AM–6:00 PM IST</li>
-                  </>
-                )}
               </ul>
             </div>
           ))}
         </div>
-        <p className={styles.fine}>© {new Date().getFullYear()} Hicaso LLP</p>
-      </Container>
-    </footer>
-  );
-};
+        <div className="footer__legal">
+          <span>&copy; {new Date().getFullYear()} Hicaso LLP</span>
+          {/* photo credit line, filled in Task 7 */}
+          <span className="credits" data-slot="photo-credit" />
+        </div>
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

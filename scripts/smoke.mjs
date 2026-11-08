@@ -102,6 +102,42 @@ async function checkNoJs(c, route) {
   if (!r || r.h <= 0 || r.o !== "1") fail(path, "no-js", `h1 hidden: ${JSON.stringify(r)}`);
 }
 
+async function setViewport(c, w, h, mobile) {
+  await c.send("Emulation.setScriptExecutionDisabled", { value: false });
+  await c.send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile });
+}
+
+// Nav, closing footer and click-navigation (Review Focus 2). The mega menu opens on hover/focus (system.js).
+async function checkNav(c) {
+  await setViewport(c, 1440, 900, false);
+  await load(c, BASE + "/");
+  const pos = await c.evaluate(`(() => { const a = [...document.querySelectorAll(".nav__link")].find(l => l.textContent.trim() === "Services"); if (!a) return null; const b = a.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; })()`);
+  if (!pos) fail("/", "nav", "no Services .nav__link");
+  else {
+    await c.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: pos.x, y: pos.y });
+    await sleep(500);
+    const open = await c.evaluate(`(() => { const m = document.querySelector(".nav__menu"); const b = m.getBoundingClientRect(); return b.height > 0 && getComputedStyle(m).visibility !== "hidden" && getComputedStyle(m).display !== "none"; })()`);
+    if (!open) fail("/", "nav", "Services menu not visible on hover");
+    await c.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 5, y: 700 });
+  }
+  const cta = await c.evaluate(`(() => { const a = document.querySelector("footer.closing .close--type a.btn--primary"); return a && { t: a.textContent.trim(), h: a.getAttribute("href") }; })()`);
+  if (!cta || cta.t !== "Start a project" || cta.h !== "/contact") fail("/", "footer", `close button ${JSON.stringify(cta)}`);
+  const about = await c.evaluate(`(() => { const a = [...document.querySelectorAll(".nav__link")].find(l => l.textContent.trim() === "About"); if (!a) return false; a.click(); return true; })()`);
+  if (!about) fail("/", "nav", "no About link");
+  else {
+    await sleep(2500);
+    const r = await c.evaluate(`({ p: location.pathname, c: document.documentElement.className })`);
+    if (r.p !== "/about" || !r.c.includes("m-enter-done")) fail("/about", "click-nav", `after click: ${JSON.stringify(r)}`);
+  }
+  await setViewport(c, 390, 844, true);
+  await load(c, BASE + "/");
+  const exp = () => c.evaluate(`document.querySelector(".nav__toggle")?.getAttribute("aria-expanded")`);
+  if ((await exp()) !== "false") fail("/", "mobile", "nav__toggle aria-expanded not false");
+  await c.evaluate(`document.querySelector(".nav__toggle")?.click()`);
+  await sleep(300);
+  if ((await exp()) !== "true") fail("/", "mobile", "nav__toggle aria-expanded not true after click");
+}
+
 try {
   const c = await connect();
   const errors = [];
@@ -115,6 +151,7 @@ try {
     for (const vp of VIEWPORTS) await checkRoute(c, route, vp, errors);
     await checkNoJs(c, route);
   }
+  await checkNav(c);
   c.ws.close();
 } catch (e) {
   failures.push(`smoke crashed: ${e.message}`);

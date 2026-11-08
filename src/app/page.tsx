@@ -5,7 +5,6 @@ import Products from "@/components/home/Products";
 import HowWeWork from "@/components/common/HowWeWork";
 import WhyHicaso from "@/components/home/WhyHicaso";
 import FAQ from "@/components/common/FAQ";
-import ClosingCTA from "@/components/common/ClosingCTA";
 import { ClientStrip, Stats, CaseStudies, Testimonials } from "@/components/home/Proof";
 
 const faqs = [
@@ -30,7 +29,6 @@ export default function Home() {
       <WhyHicaso />
       <Testimonials />
       <FAQ items={faqs} />
-      <ClosingCTA />
     </>
   );
 }

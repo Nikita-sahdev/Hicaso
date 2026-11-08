@@ -1,7 +1,7 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  color: var(--color-ink);
+  color: var(--ink);
   text-decoration: none;
 }
 
@@ -22,7 +22,7 @@
 
 /* Load-in: the i-dot drops onto the stem and settles with a squash */
 .dot {
-  fill: var(--color-logo-dot);
+  fill: #0071e3;
   animation: dot-drop 0.9s cubic-bezier(0.3, 0, 0.2, 1) 0.15s both;
 }
 

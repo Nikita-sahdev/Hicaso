@@ -8,7 +8,6 @@ import Eyebrow from "@/components/common/Eyebrow";
 import StackGrid from "@/components/common/StackGrid";
 import HowWeWork from "@/components/common/HowWeWork";
 import FAQ from "@/components/common/FAQ";
-import ClosingCTA from "@/components/common/ClosingCTA";
 import { services, getService } from "@/data/services";
 
 // Only slugs from the data file exist; anything else is a 404.
@@ -70,7 +69,6 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
       <HowWeWork />
       <FAQ items={service.faqs} />
-      <ClosingCTA href={contact} />
     </>
   );
 }

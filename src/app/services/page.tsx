@@ -5,7 +5,6 @@ import Container from "@/components/ui/Container";
 import LinkButton from "@/components/ui/LinkButton";
 import Eyebrow from "@/components/common/Eyebrow";
 import HowWeWork from "@/components/common/HowWeWork";
-import ClosingCTA from "@/components/common/ClosingCTA";
 import { services } from "@/data/services";
 
 export const metadata: Metadata = {
@@ -49,7 +48,6 @@ export default function ServicesPage() {
       </section>
 
       <HowWeWork />
-      <ClosingCTA />
     </>
   );
 }
