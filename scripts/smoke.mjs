@@ -111,13 +111,17 @@ async function setViewport(c, w, h, mobile) {
 async function checkNav(c) {
   await setViewport(c, 1440, 900, false);
   await load(c, BASE + "/");
-  const pos = await c.evaluate(`(() => { const a = [...document.querySelectorAll(".nav__link")].find(l => l.textContent.trim() === "Services"); if (!a) return null; const b = a.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; })()`);
-  if (!pos) fail("/", "nav", "no Services .nav__link");
+  const svc = `[...document.querySelectorAll(".nav__item")].find(i => i.querySelector(":scope > .nav__link")?.textContent.trim() === "Services")`;
+  const menuState = `(() => { const i = ${svc}; const m = i?.querySelector(":scope > .nav__menu"); if (!m) return null; const b = m.getBoundingClientRect(); const cs = getComputedStyle(m); return { visible: cs.visibility === "visible" && +cs.opacity > 0.5 && b.height > 0, vis: cs.visibility, op: cs.opacity }; })()`;
+  const pos = await c.evaluate(`(() => { const a = ${svc}?.querySelector(":scope > .nav__link"); if (!a) return null; const b = a.getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; })()`);
+  const before = await c.evaluate(menuState);
+  if (!pos || !before) fail("/", "nav", "no Services .nav__item with a .nav__menu");
   else {
+    if (before.visible) fail("/", "nav", `Services menu already visible before hover: ${JSON.stringify(before)}`);
     await c.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: pos.x, y: pos.y });
-    await sleep(500);
-    const open = await c.evaluate(`(() => { const m = document.querySelector(".nav__menu"); const b = m.getBoundingClientRect(); return b.height > 0 && getComputedStyle(m).visibility !== "hidden" && getComputedStyle(m).display !== "none"; })()`);
-    if (!open) fail("/", "nav", "Services menu not visible on hover");
+    await sleep(1000);
+    const after = await c.evaluate(menuState);
+    if (!after.visible) fail("/", "nav", `Services menu not visible on hover: ${JSON.stringify(after)}`);
     await c.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 5, y: 700 });
   }
   const cta = await c.evaluate(`(() => { const a = document.querySelector("footer.closing .close--type a.btn--primary"); return a && { t: a.textContent.trim(), h: a.getAttribute("href") }; })()`);
@@ -132,10 +136,16 @@ async function checkNav(c) {
   await setViewport(c, 390, 844, true);
   await load(c, BASE + "/");
   const exp = () => c.evaluate(`document.querySelector(".nav__toggle")?.getAttribute("aria-expanded")`);
+  const sheet = () => c.evaluate(`(() => { const l = document.querySelector(".nav__links"); const b = l.getBoundingClientRect(); const cs = getComputedStyle(l); return { shown: cs.display !== "none" && cs.visibility === "visible" && b.height > 0 && b.width > 0 && b.bottom > 0 && b.top < innerHeight, open: document.querySelector(".nav").classList.contains("is-open") }; })()`);
   if ((await exp()) !== "false") fail("/", "mobile", "nav__toggle aria-expanded not false");
-  await c.evaluate(`document.querySelector(".nav__toggle")?.click()`);
-  await sleep(300);
-  if ((await exp()) !== "true") fail("/", "mobile", "nav__toggle aria-expanded not true after click");
+  const s0 = await sheet();
+  if (s0.shown || s0.open) fail("/", "mobile", `phone sheet visible before tap: ${JSON.stringify(s0)}`);
+  const t = await c.evaluate(`(() => { const b = document.querySelector(".nav__toggle").getBoundingClientRect(); return { x: b.x + b.width / 2, y: b.y + b.height / 2 }; })()`);
+  for (const type of ["mousePressed", "mouseReleased"]) await c.send("Input.dispatchMouseEvent", { type, x: t.x, y: t.y, button: "left", clickCount: 1 });
+  await sleep(400);
+  if ((await exp()) !== "true") fail("/", "mobile", "nav__toggle aria-expanded not true after tap");
+  const s1 = await sheet();
+  if (!s1.shown || !s1.open) fail("/", "mobile", `phone sheet not visible after tap: ${JSON.stringify(s1)}`);
 }
 
 try {
