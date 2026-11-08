@@ -80,9 +80,10 @@ hiring side, but it bans the Orb the owner asked for.)*
    (chat reply, agent run, phone screen, deploy log)
 3. products · Hicaso runs its own software · app-frame of AppKavo, with BillMinute as a second tab
 4. how-we-work · four steps from brief to launch · pinned-chapters moment, one picture per step
-5. stack · tools we ship with · `hub-tools` diagram card with real icons
+5. faq · calm section
+6. stack · tools we ship with · `hub-tools` diagram card with real icons
    (React, Next.js, Flutter, Laravel, Node.js, OpenAI)
-6. faq · calm section
+   (R5: a text-only FAQ never closes `<main>`, so the stack diagram follows it as the last section.)
 7. close-type · Start a project
 
 **Services** (`/services`, 4 detail pages)

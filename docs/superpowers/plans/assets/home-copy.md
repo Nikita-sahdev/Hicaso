@@ -50,12 +50,6 @@ We build in short cycles, and you try working software in a demo each week.
 
 We release to production or the app stores, then fix and improve. The code and IP are yours.
 
-## Tools we ship with
-
-React and Next.js on the web, Flutter for phones, Laravel and Node.js behind them, and OpenAI models for the AI work.
-
-Kotlin, Swift, Python, PostgreSQL, MySQL and Firebase where a project needs them.
-
 ## Questions
 
 About code, hours and how a project starts.
@@ -79,3 +73,9 @@ Every week, in a demo of working software you can try.
 ### Can you work on existing apps?
 
 Yes. We take over, fix and extend web and mobile apps, including PHP and Laravel codebases.
+
+## Tools we ship with
+
+React and Next.js on the web, Flutter for phones, Laravel and Node.js behind them, and OpenAI models for the AI work.
+
+Kotlin, Swift, Python, PostgreSQL, MySQL and Firebase where a project needs them.

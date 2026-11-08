@@ -150,7 +150,8 @@ async function checkNav(c) {
 
 // The home sections (Task 4): each section's h2 is its first heading and its only h2, every FAQ answer is
 // open, the product tabs swap the app frames, the dealt moment mounts, and no kit sample name is left.
-const HOME_SECTIONS = ["services", "products", "how", "stack", "faq"];
+// HOME_SECTIONS is in page order, and #stack must close <main> (R5: a text-only FAQ never does).
+const HOME_SECTIONS = ["services", "products", "how", "faq", "stack"];
 async function checkHome(c) {
   await setViewport(c, 1440, 900, false);
   await load(c, BASE + "/");
@@ -169,8 +170,9 @@ async function checkHome(c) {
       return b.height > 0 && cs.visibility === "visible" && +cs.opacity === 1;
     });
     const text = document.querySelector("main").innerText;
+    const order = [...document.querySelectorAll("main > section")].map((s) => s.id).filter((id) => ids.includes(id));
     return {
-      sections, answers,
+      sections, answers, order, last: [...document.querySelectorAll("main > section")].pop()?.id,
       leftovers: ["Relay", "harbor", "Mara Okafor", "Lena Fischer", "Tom Keller", "Returns policy", "Launch checklist"].filter((w) => text.includes(w)),
       moment: document.querySelector("#how")?.dataset.moment, ready: document.documentElement.hasAttribute("data-moments-ready"),
     };
@@ -179,6 +181,8 @@ async function checkHome(c) {
     if (s.missing) fail("/", "home", `no section #${s.id}`);
     else if (s.h2 !== 1 || !s.firstIsH2 || !s.main) fail("/", "home", `#${s.id}: ${JSON.stringify(s)}`);
   }
+  if (r.order.join() !== HOME_SECTIONS.join()) fail("/", "home", `section order ${r.order.join(" > ")}`);
+  if (r.last !== "stack") fail("/", "home", `last section in main is #${r.last}, not #stack`);
   if (r.answers.length < 3 || r.answers.some((v) => !v)) fail("/", "faq", `answers not all open: ${JSON.stringify(r.answers)}`);
   if (r.leftovers.length) fail("/", "home", `kit sample text left: ${r.leftovers.join(", ")}`);
   if (r.moment !== "pinned-chapters" || !r.ready) fail("/", "moment", `pinned-chapters not mounted: ${JSON.stringify({ m: r.moment, ready: r.ready })}`);

@@ -21,9 +21,10 @@ export default function Home() {
       <ServicesGrid />
       <Products />
       <HowWeWork />
-      <StackSection />
       <Proof />
       <FAQ items={faqs} lead="About code, hours and how a project starts." />
+      {/* R5: a text-only FAQ never closes <main>; the stack diagram does. */}
+      <StackSection />
     </>
   );
 }
