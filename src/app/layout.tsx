@@ -14,6 +14,7 @@ const STYLESHEETS = [
   "layout/layout.css",
   "icons/icon.css",
   "ui/base.css",
+  "ui/window/fragment.css",
   "diagrams/diagram.css",
 ];
 const MODULES = ["system.js", "motion/motion.js", "layout/layout.js", "diagrams/mount.js"];

@@ -1,0 +1,125 @@
+/* Page CSS inside the hero's visual (layout-v4.md: page CSS only inside a visual). The frame, its
+   size and the pieces' places are layout.css's .hero__art / .ly-piece rules. */
+
+.proof {
+  font-size: var(--t-small);
+  color: var(--muted);
+}
+
+/* the fragments' palette, as cards.css gives a .stage: a white surface on the lit ground */
+.art {
+  --ui-font: var(--font-text);
+  --ui-mono: var(--font-mono);
+  --ui-radius: 12px;
+}
+.art > :global(.ly-piece) {
+  z-index: 1;
+  --fx-bg: #ffffff;
+  --fx-surface: var(--surface);
+  --fx-ink: var(--ink);
+  --fx-muted: var(--muted);
+  --fx-accent: var(--accent);
+  --fx-accent-ink: var(--accent-ink);
+}
+
+/* the Orb is the lit ground: its canvas fills the frame */
+.ground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* the window (compact rows: the finding over its file, no time column) takes its piece's width and runs
+   down past the card; its content keeps --ly-cut-room clear at the right, so the frame's edge cuts
+   empty margin, never a status chip or the search box */
+.art :global(.ui-win) {
+  width: 100%;
+}
+.art :global(.ui-win__body) {
+  min-height: 452px;
+}
+.art :global(.ui-win__main) {
+  padding-right: var(--ly-cut-room);
+}
+/* the bar keeps the same room, so the search box is never cut */
+.art :global(.ui-win) :global(.ui-win__bar) {
+  padding-right: var(--ly-cut-room);
+}
+
+/* the result card over the window's lower-left corner: 300 wide, 32 in */
+.art > .card {
+  left: var(--s-6);
+  bottom: var(--s-6);
+  width: 300px;
+  z-index: 2;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--ink);
+  font: 400 13px/1.4 var(--font-text);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.07), 0 18px 44px -20px rgb(0 0 0 / 0.45);
+}
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 6px;
+  font-size: 14px;
+}
+.cardHead b {
+  font-weight: 500;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  /* the card's one accent */
+  background: color-mix(in oklab, var(--accent) 14%, #ffffff);
+  color: color-mix(in oklab, var(--accent) 80%, var(--ink));
+}
+.chip::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-top: 1px solid rgb(0 0 0 / 0.06);
+  color: color-mix(in oklab, var(--ink) 80%, #ffffff);
+}
+.line b {
+  font-weight: 500;
+  color: var(--ink);
+}
+.line i {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-style: normal;
+  font-size: 12px;
+  background: color-mix(in oklab, var(--ink) 7%, #ffffff);
+  color: var(--ink);
+}
+
+@media (max-width: 1023px) {
+  .art > .card {
+    left: var(--s-4);
+    bottom: var(--s-4);
+    width: 270px;
+  }
+}

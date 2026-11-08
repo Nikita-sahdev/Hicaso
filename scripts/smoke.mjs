@@ -148,6 +148,65 @@ async function checkNav(c) {
   if (!s1.shown || !s1.open) fail("/", "mobile", `phone sheet not visible after tap: ${JSON.stringify(s1)}`);
 }
 
+// The collage hero on "/" (Task 3): kit entrance, Orb + window in the art frame, one screen, h1 <= 3 lines.
+const HERO_STATE = `(() => {
+  const hero = document.querySelector("main section.hero");
+  if (!hero) return null;
+  const h1 = hero.querySelector("h1");
+  const tops = [];
+  const walk = document.createTreeWalker(h1, NodeFilter.SHOW_TEXT);
+  for (let n; (n = walk.nextNode()); ) {
+    for (const m of n.textContent.matchAll(/\\S+/g)) {
+      const r = document.createRange();
+      r.setStart(n, m.index); r.setEnd(n, m.index + m[0].length);
+      const t = r.getBoundingClientRect().top;
+      if (!tops.some((x) => Math.abs(x - t) < 4)) tops.push(t);
+    }
+  }
+  const art = hero.querySelector(".hero__art");
+  const main = hero.querySelector("a.btn--primary, a[href='/contact']");
+  return {
+    enter: hero.hasAttribute("data-enter"),
+    canvas: !!art?.querySelector("canvas"),
+    win: !!art?.querySelector(".ui-win"),
+    bottom: hero.getBoundingClientRect().bottom + scrollY,
+    vh: innerHeight,
+    lines: tops.length,
+    main: main && { t: main.textContent.trim(), h: main.getAttribute("href") },
+  };
+})()`;
+
+async function checkHero(c) {
+  for (const vp of VIEWPORTS) {
+    await setViewport(c, vp.width, vp.height, vp.mobile);
+    await load(c, BASE + "/");
+    await sleep(800);
+    const r = await c.evaluate(HERO_STATE);
+    if (!r) { fail("/", vp.name, "no main section.hero"); continue; }
+    if (!r.enter) fail("/", vp.name, "hero has no data-enter");
+    if (!r.canvas) fail("/", vp.name, "no Orb canvas in .hero__art");
+    if (!r.win) fail("/", vp.name, "no .ui-win window in .hero__art");
+    if (Math.abs(r.bottom - r.vh) > 2) fail("/", vp.name, `hero bottom ${r.bottom}, innerHeight ${r.vh}`);
+    if (r.lines > 3) fail("/", vp.name, `h1 on ${r.lines} lines`);
+    if (!r.main || r.main.t !== "Start a project" || r.main.h !== "/contact") fail("/", vp.name, `hero main action ${JSON.stringify(r.main)}`);
+  }
+  // Review Focus 4: under reduced motion nothing in the hero keeps animating and nothing stays hidden
+  await setViewport(c, 1440, 900, false);
+  await c.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+  await load(c, BASE + "/");
+  await sleep(2000);
+  const rm = await c.evaluate(`(() => {
+    const hero = document.querySelector("main section.hero");
+    const running = document.getAnimations().filter((a) => a.playState === "running" && hero?.contains(a.effect?.target))
+      .map((a) => (a.animationName || a.transitionProperty || a.constructor.name) + " on " + a.effect.target.className);
+    const h1 = hero?.querySelector("h1");
+    return { running, h1: h1 ? getComputedStyle(h1).opacity : null };
+  })()`);
+  await c.send("Emulation.setEmulatedMedia", { features: [] });
+  if (rm.running.length) fail("/", "reduced-motion", `running animations in hero: ${rm.running.join(", ")}`);
+  if (rm.h1 !== "1") fail("/", "reduced-motion", `h1 opacity ${rm.h1}`);
+}
+
 try {
   const c = await connect();
   const errors = [];
@@ -162,6 +221,7 @@ try {
     await checkNoJs(c, route);
   }
   await checkNav(c);
+  await checkHero(c);
   c.ws.close();
 } catch (e) {
   failures.push(`smoke crashed: ${e.message}`);

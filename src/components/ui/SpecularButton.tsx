@@ -1,11 +1,9 @@
 'use client';
 
 // SpecularButton from React Bits (reactbits.dev/r/SpecularButton-TS-CSS). Local changes: an optional
-// `href` renders a Next <Link> instead of a <button>, CSS is a module, the settings ref syncs in an effect.
+// `href` renders a plain <a href> instead of a <button>, CSS is a module, the settings ref syncs in an effect.
 
 import React, { useEffect, useRef, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react';
-
-import Link from 'next/link';
 
 import styles from './SpecularButton.module.css';
 
@@ -499,9 +497,9 @@ const SpecularButton = ({
 
   if (href) {
     return (
-      <Link ref={buttonRef as React.Ref<HTMLAnchorElement>} href={href} className={className_} style={style_}>
+      <a ref={buttonRef as React.Ref<HTMLAnchorElement>} href={href} className={className_} style={style_}>
         {inner}
-      </Link>
+      </a>
     );
   }
 

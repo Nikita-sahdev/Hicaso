@@ -69,6 +69,8 @@
   inset: -24px;
   z-index: 1;
   display: block;
+  /* the kit's reset caps canvas at max-width: 100%, which squeezed the rim light inside the button */
+  max-width: none;
   width: calc(100% + 48px);
   height: calc(100% + 48px);
   pointer-events: none;
