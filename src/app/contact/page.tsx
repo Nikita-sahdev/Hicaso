@@ -32,7 +32,7 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
               </div>
             </div>
             <div className="hero__media span-6 start-7">
-              <Photo photo="lamp" sizes="(max-width: 1023px) 100vw, 1100px" hero />
+              <Photo photo="laptop" sizes="(max-width: 1023px) 100vw, 1100px" hero />
             </div>
           </div>
         </div>

@@ -47,7 +47,7 @@ export const Footer: React.FC = () => (
           {/* the one credit line from `photos.mjs credits` (three stand-in photographs on about, careers and contact); its list opens under it */}
           <details className="credits" data-slot="photo-credit">
             <summary>Photographs via Wikimedia Commons</summary>
-            <p>Photographs by Luke Chesser, Damian Patkowski and Parker Byrd, all CC0, via Wikimedia Commons.</p>
+            <p>Photographs by Parker Byrd and Markus Spiske (CC0) and Shixart1985 (CC BY 2.0), via Wikimedia Commons.</p>
           </details>
         </div>
       </div>

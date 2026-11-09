@@ -62,7 +62,7 @@ export default function CareersPage() {
               <a className="link" href="/products">See our products</a>
             </div>
             <div className="frame frame--photo frame--split span-6 start-7">
-              <Photo photo="monitor" className="frame__img" sizes="(max-width: 1023px) 100vw, 628px" />
+              <Photo photo="code" className="frame__img" sizes="(max-width: 1023px) 100vw, 628px" />
             </div>
           </div>
         </div>
