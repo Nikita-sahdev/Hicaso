@@ -12,6 +12,12 @@ const cols = [
   { title: "Legal", links: [{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }, { label: ENQUIRY_TO, href: `mailto:${ENQUIRY_TO}` }] },
 ];
 
+// CC BY 2.0 needs the licence and the source linked: both URLs are the ones in public/assets/photos/credits.json
+const SHIXART = {
+  page: "https://commons.wikimedia.org/wiki/File:Hands_of_a_woman_typing_on_the_Macbook_keyboard_and_write_on_note_book.jpg",
+  licenceUrl: "https://creativecommons.org/licenses/by/2.0",
+};
+
 export const Footer: React.FC = () => (
   <footer className="footer closing footer--statement" id="contact" aria-labelledby="close-h">
     <div className="wrap">
@@ -47,7 +53,11 @@ export const Footer: React.FC = () => (
           {/* the one credit line from `photos.mjs credits` (three stand-in photographs on about, careers and contact); its list opens under it */}
           <details className="credits" data-slot="photo-credit">
             <summary>Photographs via Wikimedia Commons</summary>
-            <p>Photographs by Parker Byrd and Markus Spiske (CC0) and Shixart1985 (CC BY 2.0), via Wikimedia Commons.</p>
+            <p>
+              Photographs by Parker Byrd and Markus Spiske (CC0) and{" "}
+              <a className="link" href={SHIXART.page} rel="noopener noreferrer">Shixart1985</a> (
+              <a className="link" href={SHIXART.licenceUrl} rel="noopener noreferrer">CC BY 2.0</a>), via Wikimedia Commons.
+            </p>
           </details>
         </div>
       </div>

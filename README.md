@@ -20,6 +20,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Design kit and checks
+
+The site is built on the tasteskill kit (`design-taste-frontend`). The kit's files in `public/assets` are byte-identical copies and are never edited; page-specific CSS lives in component files. `npm run smoke` drives headless Chrome against the dev server on :3000 (start it with `npm run dev`) and checks every route, the nav, the hero, JavaScript off and reduced motion; set `SMOKE_RUN_MS` (milliseconds) to give a slow host more time. For the finish gate, run the kit's `gate.mjs` and `consistency.mjs` from the project root with `--profile "$TMPDIR/hicaso-taste-chrome"`, a profile outside the project so eslint never lints it.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

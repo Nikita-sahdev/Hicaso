@@ -7,7 +7,7 @@ import { join } from "node:path";
 
 const SERVICE_SLUGS = ["generative-ai", "agentic-ai", "mobile-app-development", "web-development"];
 const PRODUCT_SLUGS = ["appkavo", "billminute"];
-const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`), "/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`), "/about", "/careers", "/contact"];
+const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`), "/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`), "/about", "/careers", "/contact", "/privacy", "/terms", { path: "/this-page-does-not-exist", status: 404 }];
 const BASE = process.env.SMOKE_BASE ?? "http://localhost:3000";
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const VIEWPORTS = [
@@ -101,7 +101,8 @@ async function checkRoute(c, route, vp, errors) {
   if (h1 !== 1) fail(t, vp.name, `${h1} h1 elements`);
   const overflow = await c.evaluate(`document.documentElement.scrollWidth - innerWidth`);
   if (overflow > 0) fail(t, vp.name, `horizontal overflow ${overflow}px`);
-  errors.forEach((e) => fail(t, vp.name, `console error: ${e}`));
+  // the browser itself logs "Failed to load resource ... status of 404" for an expected 404 document
+  errors.filter((e) => !(status !== 200 && e.includes(`status of ${status}`) && e.includes(path))).forEach((e) => fail(t, vp.name, `console error: ${e}`));
 }
 
 async function checkNoJs(c, route) {
@@ -447,6 +448,7 @@ async function checkCompany(c) {
 async function checkLastVisual(c) {
   for (const route of ROUTES) {
     const path = typeof route === "string" ? route : route.path;
+    if (typeof route !== "string" && route.status && route.status !== 200) continue; // an error page is not a content page
     for (const vp of VIEWPORTS) {
       await setViewport(c, vp.width, vp.height, vp.mobile);
       await load(c, BASE + path);

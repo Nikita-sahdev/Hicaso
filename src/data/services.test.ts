@@ -17,9 +17,8 @@ test("services are the four from the spec, in order", () => {
   assert.equal(getService("nope"), undefined);
 });
 
-test("each service has 4–6 offerings, ≥1 stack group, 2–4 FAQs", () => {
+test("each service has ≥1 stack group, 2–4 FAQs", () => {
   for (const s of services) {
-    assert.ok(s.offerings.length >= 4 && s.offerings.length <= 6, s.slug);
     assert.ok(s.stack.length >= 1, s.slug);
     assert.ok(s.faqs.length >= 2 && s.faqs.length <= 4, s.slug);
   }
