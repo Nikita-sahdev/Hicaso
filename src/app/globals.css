@@ -93,11 +93,21 @@
   .hero--centred .hero__window > .ly-piece.ly-piece--list { width: min(420px, calc(100% - 2 * var(--s-6))); }
   .hero--centred .hero__window > .ly-piece.ly-piece--log { width: min(560px, calc(100% - 2 * var(--s-6))); }
   .hero--centred .hero__window > .ly-piece.ly-piece--phone { width: 280px; }
+  /* three rows: the phone ends whole inside the frame, above its fade */
+  .hero--centred .hero__window .ui-toggles.device { height: auto; }
 }
 @media (max-width: 639px) {
   .hero--centred .hero__window > .ly-piece.ly-piece--phone { width: 280px; left: 50%; transform: translateX(-50%); }
 }
 
 /* the three feature cards: one --p-h for the group (400 holds the terminal whole with 24 under it, and fills the screen) */
-#features .panel { --p-h: 400px; }
-@media (max-width: 639px) { #features .panel { --p-h: 240px; } }
+#features .panel { --p-h: 460px; }
+@media (min-width: 1024px) { #features .panel { --p-h: 500px; } }
+@media (max-width: 639px) { #features .panel { --p-h: 350px; } #features { --h: 2; } }
+
+/* services index: the lead in the ink (7:1), the rows' links a full tap target, the diagram a visible
+   frame on a phone, the marquee row under the list */
+.hero--centred .hero__c > .hero__lead { color: var(--ink); }
+#services .rows__value a { display: inline-flex; align-items: center; min-height: 44px; }
+#services .mo-host { margin-top: var(--s-6); }
+@media (max-width: 1023px) { #services .panel.frame--fill { min-height: 240px; margin-top: var(--s-5); } }

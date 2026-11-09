@@ -27,6 +27,8 @@ const STYLESHEETS = [
   "diagrams/diagram.css",
   // the loader links it too; here so the steps stand styled with scripts off
   "moments/pinned-chapters/moment.css",
+  // the services index's marquee-row, so its words stand as a wrapped row with scripts off
+  "moments/marquee-row/moment.css",
 ];
 // the dealt moment's loader, its lib and the moment, preloaded as SK/assets/moments/_demo/in-page-service.html does
 const MOMENT_PRELOADS = ["moments/moments.js", "moments/lib.js", "moments/pinned-chapters/moment.js"];

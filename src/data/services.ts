@@ -12,7 +12,7 @@ export type Service = {
 export const STACK_GROUPS = ["AI", "Mobile", "Frontend", "Backend", "Databases"] as const;
 
 const ownCode = {
-  q: "Do I own the code?",
+  q: "Who owns the software you build?",
   a: "Yes. Once the project is paid for, the code and IP are yours.",
 };
 
@@ -43,7 +43,7 @@ export const services: Service[] = [
     ],
     faqs: [
       ownCode,
-      { q: "Which model will you use?", a: "We pick the model that fits your task, data and constraints. That can be a hosted model or an open-source one." },
+      { q: "Which AI model will you use?", a: "We pick the model that fits your task, data and constraints. That can be a hosted model or an open-source one." },
       { q: "Can the AI work with our private data?", a: "Yes. Retrieval can run over your own documents and databases, and we agree on how that data is handled before we start." },
     ],
   },
@@ -67,8 +67,8 @@ export const services: Service[] = [
     ],
     faqs: [
       ownCode,
-      { q: "Can an agent act without approval?", a: "Only where you decide it can. We add approval steps for actions that need a person." },
-      { q: "How do we know what the agent did?", a: "We can log each step and tool call so runs can be reviewed and evaluated." },
+      { q: "Can an AI agent act without approval?", a: "Only where you decide it can. We add approval steps for actions that need a person." },
+      { q: "How do we know what the AI agent did?", a: "We can log each step and tool call so runs can be reviewed and evaluated." },
     ],
   },
   {
@@ -91,8 +91,8 @@ export const services: Service[] = [
     ],
     faqs: [
       ownCode,
-      existing("app"),
-      { q: "Native or cross-platform?", a: "It depends on the product. We will talk through the trade-offs with you before choosing." },
+      existing("mobile app"),
+      { q: "Native or cross-platform mobile apps?", a: "It depends on the product. We will talk through the trade-offs with you before choosing." },
     ],
   },
   {
@@ -116,8 +116,8 @@ export const services: Service[] = [
     ],
     faqs: [
       ownCode,
-      existing("codebase"),
-      { q: "Do you work with our timezone?", a: "We keep working-hours overlap with Europe and the Middle East." },
+      existing("web codebase"),
+      { q: "Which hours do you keep for our software project?", a: "We keep working-hours overlap with Europe and the Middle East." },
     ],
   },
 ];

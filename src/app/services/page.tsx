@@ -29,6 +29,18 @@ const HERO = chat({
   srcs: ["Generative AI", "Mobile App Development"],
 });
 
+const FORMATS = [
+  "Chat assistants",
+  "AI agents",
+  "MCP servers",
+  "Android apps",
+  "iOS apps",
+  "SaaS products",
+  "APIs",
+  "Online stores",
+  "PHP upgrades",
+];
+
 const LINKS: Record<string, string> = {
   "generative-ai": "See generative AI",
   "agentic-ai": "See agentic AI",
@@ -41,13 +53,13 @@ export default function ServicesPage() {
     <>
       <ServiceHero
         h1="Software services for global teams"
-        lead="Hicaso is a software company in India. We build generative AI, agentic AI, mobile and web software, with a working demo every week."
+        lead="Hicaso is a software company in India. We build generative AI, agentic AI, mobile and web software for clients worldwide."
         secondary={{ label: "See our products", href: "/products" }}
         fragment={HERO}
         label="A client asking Hicaso whether one team can build an AI feature and a mobile app together"
         piece="ly-piece--chat"
       />
-      <section className="section" id="services" aria-labelledby="services-h">
+      <section className="section" id="services" style={{ "--h": 2 } as React.CSSProperties} aria-labelledby="services-h">
         <div className="wrap">
           <div className="grid fill">
             <div className="span-5 stack-5">
@@ -72,6 +84,14 @@ export default function ServicesPage() {
                 <script type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SPEC) }} />
               </div>
             </div>
+          </div>
+          {/* marquee-row (dealt moment): the formats we deliver, real words from the services data */}
+          <div className="mo-host" data-moment="marquee-row" data-moment-opts='{"speed": 36}'>
+            <ul className="mo-mq__track">
+              {FORMATS.map((f) => (
+                <li key={f}>{f}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

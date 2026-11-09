@@ -4,7 +4,7 @@ import type { Card } from "./content";
 // kit fragment. span-4 from 1024 (system.css); the page's one --p-h is set in globals.css.
 export default function ServiceFeatures({ title, cards }: { title: string; cards: Card[] }) {
   return (
-    <section className="section ground-surface" id="features" aria-labelledby="features-h">
+    <section className="section" id="features" aria-labelledby="features-h">
       <div className="wrap">
         <div className="section-head">
           <h2 id="features-h">{title}</h2>

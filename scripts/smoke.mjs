@@ -17,7 +17,7 @@ const FONT_READY = `document.fonts.ready.then(() => [...document.fonts].some(f =
 
 // Every CDP call and every page load has a timeout that names the route and step; the whole run has one too.
 const STEP_MS = 30000;
-const RUN_MS = 540000;
+const RUN_MS = Number(process.env.SMOKE_RUN_MS) || 540000;
 let where = "start";
 const port = 9300 + Math.floor(Math.random() * 500);
 const dir = mkdtempSync(join(tmpdir(), "smoke-"));
@@ -318,7 +318,7 @@ async function checkServices(c) {
           heroes: heroes.length, enter: hero?.hasAttribute("data-enter"), centred: hero?.classList.contains("hero--centred"),
           frag: !!hero?.querySelector(".hero__window .ui"), first: secs[0] === hero, ids: secs.map((s) => s.id).join(">"),
           visual: !!last?.querySelector(".dg svg, .dg canvas, [data-diagram], .panel .ui, .frame img"),
-          main: hero?.querySelector("a.btn--primary")?.textContent.trim(),
+          main: hero?.querySelector("a.btn--primary")?.textContent.trim(), href: hero?.querySelector("a.btn--primary")?.getAttribute("href"),
           moment: document.querySelector("#how")?.dataset.moment, olds: document.querySelectorAll("[class*='services-module'], [class*='service-module']").length,
         };
       })()`);
@@ -327,6 +327,8 @@ async function checkServices(c) {
       if (r.heroes !== 1 || !r.first) failures.push(`${t} ${r.heroes} heroes, first=${r.first}`);
       if (!r.enter || !r.centred || !r.frag) failures.push(`${t} hero is not the dealt centred hero with a fragment: ${JSON.stringify(r)}`);
       if (r.main !== "Start a project") failures.push(`${t} hero main action "${r.main}"`);
+      const want = slug ? `/contact?service=${path.split("/").pop()}` : "/contact";
+      if (r.href !== want) failures.push(`${t} hero main action href "${r.href}", expected "${want}"`);
       if (r.olds) failures.push(`${t} old CSS-module classes still render`);
       if (!r.visual) failures.push(`${t} last section holds no visual (R5): ${r.ids}`);
       if (slug && !r.ids.endsWith(">features>how>faq>stack")) failures.push(`${t} section order ${r.ids}`);
@@ -335,7 +337,7 @@ async function checkServices(c) {
   }
 }
 
-const guard = setTimeout(() => { console.error(`SMOKE FAIL\n  - whole run exceeded ${RUN_MS / 1000}s, last at ${where}`); try { chrome.kill(); } catch {} process.exit(1); }, RUN_MS);
+const guard = setTimeout(() => { console.error(`SMOKE FAIL\n  - whole run exceeded ${RUN_MS / 1000}s, last at ${where}`); try { chrome.kill(); } catch {} try { rmSync(dir, { recursive: true, force: true }); } catch {} process.exit(1); }, RUN_MS);
 try {
   const c = await connect();
   const errors = [];

@@ -6,7 +6,7 @@ Voice: technical-dry. "We" for the work, "you" for what the buyer gets, the serv
 
 # Software services for global teams
 
-Hicaso is a software company in India. We build generative AI, agentic AI, mobile and web software, with a working demo every week.
+Hicaso is a software company in India. We build generative AI, agentic AI, mobile and web software for clients worldwide.
 
 Start a project. See our products.
 
@@ -22,13 +22,15 @@ Mobile App Development. Android and iOS apps, native or cross-platform.
 
 Web Development. Web apps, sites and backends, built and maintained.
 
-See generative AI. See agentic AI. See mobile app development. See web development.
+See generative AI. See agentic AI. See mobile apps. See web development.
+
+Chat assistants. AI agents. MCP servers. Android apps. iOS apps. SaaS products. APIs. Online stores. PHP upgrades.
 
 ## /services/generative-ai
 
 # Generative AI for product teams
 
-We add generative AI to your product or build new ones around it: assistants, retrieval over your own data, and the checks that keep outputs useful. You see a working demo every week.
+Our team in India adds generative AI to your product or builds new ones around it: assistants, retrieval over your own data, and the checks that keep outputs useful.
 
 Start a project. See all services.
 
@@ -42,7 +44,7 @@ Summaries, search, drafting or classification in the app you already run.
 
 Retrieval over your files and databases, so each answer comes from your data.
 
-### Tests output before users see it
+### Checks model output before release
 
 Test sets and checks measure output quality and keep the model inside its limits.
 
@@ -64,21 +66,21 @@ Vector search: pgvector and Pinecone. Backend: Python and Node.js.
 
 # AI agent development for teams
 
-We build AI agents that call your APIs and tools and carry a task through several steps. A person approves the actions you choose, and every run is traced.
+Our team in India builds AI agents that call your APIs and tools and carry a task through several steps. A person approves the actions you choose, and every run is traced.
 
 Start a project. See all services.
 
 ## What we build in agentic AI
 
-### Connects agents to your tools
+### Connects AI agents to your tools
 
 Agents read from and act on the systems your team already works in, through APIs and MCP servers.
 
-### Asks a person before it acts
+### Asks a person to approve AI actions
 
 Approval steps put a person in front of each action you choose.
 
-### Shows what each run did
+### Shows what each AI agent run did
 
 Traces and evaluations show how an agent behaves and catch regressions.
 
@@ -136,7 +138,7 @@ Backend: Firebase.
 
 # Web app development for companies
 
-We build web apps and SaaS products, marketing sites, APIs and online stores, and we maintain and upgrade existing PHP applications. You see working software in weekly demos.
+Our team in India builds web apps and SaaS products, marketing sites, APIs and online stores, and we maintain and upgrade existing PHP applications. You see working software in weekly demos.
 
 Start a project. See all services.
 

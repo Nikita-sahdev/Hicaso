@@ -25,7 +25,7 @@ export const content: Record<string, Content> = {
   "generative-ai": {
     h1: "Generative AI for product teams",
     lead:
-      "We add generative AI to your product or build new ones around it: assistants, retrieval over your own data, and the checks that keep outputs useful. You see a working demo every week.",
+      "Our team in India adds generative AI to your product or builds new ones around it: assistants, retrieval over your own data, and the checks that keep outputs useful.",
     hero: {
       html: chat({
         title: "Help assistant",
@@ -64,7 +64,7 @@ export const content: Record<string, Content> = {
         ),
       },
       {
-        title: "Tests output before users see it",
+        title: "Checks model output before release",
         line: "Test sets and checks measure output quality and keep the model inside its limits.",
         panel: RISE(
           checklist("Evaluation run: 40 cases", [
@@ -98,7 +98,7 @@ export const content: Record<string, Content> = {
   "agentic-ai": {
     h1: "AI agent development for teams",
     lead:
-      "We build AI agents that call your APIs and tools and carry a task through several steps. A person approves the actions you choose, and every run is traced.",
+      "Our team in India builds AI agents that call your APIs and tools and carry a task through several steps. A person approves the actions you choose, and every run is traced.",
     hero: {
       html: checklist("Agent run: weekly sales report", [
         ["Pulled last week's orders", true],
@@ -113,7 +113,7 @@ export const content: Record<string, Content> = {
     featuresTitle: "What we build in agentic AI",
     cards: [
       {
-        title: "Connects agents to your tools",
+        title: "Connects AI agents to your tools",
         line: "Agents read from and act on the systems your team already works in, through APIs and MCP servers.",
         panel: RISE(
           notify([
@@ -126,7 +126,7 @@ export const content: Record<string, Content> = {
         ),
       },
       {
-        title: "Asks a person before it acts",
+        title: "Asks a person to approve AI actions",
         line: "Approval steps put a person in front of each action you choose.",
         panel: RIGHT(
           toggles("Approvals", [
@@ -138,7 +138,7 @@ export const content: Record<string, Content> = {
         ),
       },
       {
-        title: "Shows what each run did",
+        title: "Shows what each AI agent run did",
         line: "Traces and evaluations show how an agent behaves and catch regressions.",
         panel: RISE(
           chat({
@@ -179,7 +179,6 @@ export const content: Record<string, Content> = {
           ["Order updates", "When an order ships", true],
           ["Delivery alerts", "On the day it arrives", true],
           ["Offers", "Once a week", false],
-          ["Dark theme", "Follows the system", true],
         ],
         " device",
       ),
@@ -254,7 +253,7 @@ export const content: Record<string, Content> = {
   "web-development": {
     h1: "Web app development for companies",
     lead:
-      "We build web apps and SaaS products, marketing sites, APIs and online stores, and we maintain and upgrade existing PHP applications. You see working software in weekly demos.",
+      "Our team in India builds web apps and SaaS products, marketing sites, APIs and online stores, and we maintain and upgrade existing PHP applications. You see working software in weekly demos.",
     hero: {
       html: deploy,
       label: "A deploy log for a web store: checkout, install, test, build and deploy all passed",

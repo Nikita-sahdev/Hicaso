@@ -8,6 +8,7 @@ export default function ServiceHero({
   fragment,
   label,
   piece = "",
+  contactHref = "/contact",
 }: {
   h1: string;
   lead: string;
@@ -15,6 +16,7 @@ export default function ServiceHero({
   fragment: string;
   label: string;
   piece?: string;
+  contactHref?: string;
 }) {
   return (
     <section className="hero hero--centred" data-enter aria-labelledby="hero-h">
@@ -24,7 +26,7 @@ export default function ServiceHero({
             <h1 id="hero-h">{h1}</h1>
             <p className="hero__lead">{lead}</p>
             <div className="btn-row">
-              <a className="btn btn--primary" href="/contact">
+              <a className="btn btn--primary" href={contactHref}>
                 Start a project
               </a>
               <a className="btn btn--secondary" href={secondary.href}>
