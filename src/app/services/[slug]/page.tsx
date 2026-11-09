@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import page from "@/styles/page.module.css";
-import styles from "./service.module.css";
-import Container from "@/components/ui/Container";
-import LinkButton from "@/components/ui/LinkButton";
-import Eyebrow from "@/components/common/Eyebrow";
-import StackGrid from "@/components/common/StackGrid";
+import ServiceHero from "@/components/services/ServiceHero";
+import ServiceFeatures from "@/components/services/ServiceFeatures";
+import StackIcons from "@/components/services/StackIcons";
+import { content } from "@/components/services/content";
 import HowWeWork from "@/components/common/HowWeWork";
 import FAQ from "@/components/common/FAQ";
 import { services, getService } from "@/data/services";
@@ -28,47 +26,23 @@ export async function generateMetadata({
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
   const service = getService((await params).slug);
   if (!service) notFound();
-  const contact = `/contact?service=${service.slug}`;
+  const c = content[service.slug];
 
   return (
     <>
-      <section className={page.hero}>
-        <Container>
-          <Eyebrow>{service.eyebrow}</Eyebrow>
-          <h1 className="t-display">{service.name}</h1>
-          <p className="t-subhead">{service.description}</p>
-          <div className={page.actions}>
-            <LinkButton href={contact}>Start your project</LinkButton>
-            <LinkButton href="/services" variant="light">
-              All services
-            </LinkButton>
-          </div>
-        </Container>
-      </section>
-
-      <section className={page.section}>
-        <Container>
-          <h2 className={`t-heading ${page.sectionTitle}`}>What we build</h2>
-          <div className={styles.grid}>
-            {service.offerings.map((o) => (
-              <div key={o.title} className={styles.offering}>
-                <h3 className="t-heading-sm">{o.title}</h3>
-                <p>{o.body}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className={page.section}>
-        <Container>
-          <h2 className={`t-heading ${page.sectionTitle}`}>Technologies</h2>
-          <StackGrid groups={service.stack} />
-        </Container>
-      </section>
-
+      <ServiceHero
+        h1={c.h1}
+        lead={c.lead}
+        secondary={{ label: "See all services", href: "/services" }}
+        fragment={c.hero.html}
+        label={c.hero.label}
+        piece={c.hero.piece}
+      />
+      <ServiceFeatures title={c.featuresTitle} cards={c.cards} />
       <HowWeWork />
       <FAQ items={service.faqs} />
+      {/* R5: a text-only FAQ never closes <main>; the tools diagram does. */}
+      <StackIcons title={c.stackTitle} lines={c.stackLines} spokes={c.spokes} alt={c.stackAlt} />
     </>
   );
 }

@@ -80,3 +80,24 @@
 /* step 1's scope: the note rests over the page's empty foot, clear of the lines */
 .mo-pc__visual .ui-doc__page { padding-bottom: 120px; }
 .mo-pc__visual .ui-doc__note { top: auto; bottom: 16px; }
+
+/* ---- services (hero--centred, features, stack): page CSS inside the visuals ---- */
+/* the centred hero's window: kit fragments sit on white on the lit frame, each at its true width */
+.hero--centred .hero__window { --ui-font: var(--font-text); --ui-mono: var(--font-mono); --ui-radius: 12px; }
+.hero--centred .hero__window > .ly-piece {
+  --fx-bg: #ffffff; --fx-surface: var(--surface); --fx-ink: var(--ink); --fx-muted: var(--muted);
+  --fx-accent: var(--accent); --fx-accent-ink: var(--accent-ink);
+}
+@media (min-width: 640px) {
+  .hero--centred .hero__window > .ly-piece.ly-piece--chat { width: min(520px, calc(100% - 2 * var(--s-6))); }
+  .hero--centred .hero__window > .ly-piece.ly-piece--list { width: min(420px, calc(100% - 2 * var(--s-6))); }
+  .hero--centred .hero__window > .ly-piece.ly-piece--log { width: min(560px, calc(100% - 2 * var(--s-6))); }
+  .hero--centred .hero__window > .ly-piece.ly-piece--phone { width: 280px; }
+}
+@media (max-width: 639px) {
+  .hero--centred .hero__window > .ly-piece.ly-piece--phone { width: 280px; left: 50%; transform: translateX(-50%); }
+}
+
+/* the three feature cards: one --p-h for the group (400 holds the terminal whole with 24 under it, and fills the screen) */
+#features .panel { --p-h: 400px; }
+@media (max-width: 639px) { #features .panel { --p-h: 240px; } }

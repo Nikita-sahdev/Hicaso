@@ -5,7 +5,8 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const ROUTES = ["/"];
+const SERVICE_SLUGS = ["generative-ai", "agentic-ai", "mobile-app-development", "web-development"];
+const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`)];
 const BASE = process.env.SMOKE_BASE ?? "http://localhost:3000";
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const VIEWPORTS = [
@@ -14,6 +15,10 @@ const VIEWPORTS = [
 ];
 const FONT_READY = `document.fonts.ready.then(() => [...document.fonts].some(f => f.family.replace(/["']/g, "") === "Instrument Sans" && f.status === "loaded"))`;
 
+// Every CDP call and every page load has a timeout that names the route and step; the whole run has one too.
+const STEP_MS = 30000;
+const RUN_MS = 540000;
+let where = "start";
 const port = 9300 + Math.floor(Math.random() * 500);
 const dir = mkdtempSync(join(tmpdir(), "smoke-"));
 const chrome = spawn(CHROME, [
@@ -47,7 +52,8 @@ async function connect() {
   };
   const send = (method, params = {}) => new Promise((res, rej) => {
     const i = ++id;
-    pending.set(i, (m) => (m.error ? rej(new Error(`${method}: ${m.error.message}`)) : res(m.result)));
+    const t = setTimeout(() => { pending.delete(i); rej(new Error(`${method}: no answer in ${STEP_MS / 1000}s at ${where}`)); }, STEP_MS);
+    pending.set(i, (m) => { clearTimeout(t); if (m.error) rej(new Error(`${method}: ${m.error.message}`)); else res(m.result); });
     ws.send(JSON.stringify({ id: i, method, params }));
   });
   const evaluate = async (expression) => {
@@ -64,7 +70,12 @@ async function load(c, url) {
     if (m.method === "Network.responseReceived" && m.params.type === "Document" && !status) status = m.params.response.status;
   };
   c.on(off);
-  const loaded = new Promise((r) => c.on((m) => m.method === "Page.loadEventFired" && r()));
+  const loaded = new Promise((r, j) => {
+    const t = setTimeout(() => j(new Error(`load of ${url} did not fire in ${STEP_MS / 1000}s`)), STEP_MS);
+    c.on((m) => { if (m.method === "Page.loadEventFired") { clearTimeout(t); r(); } });
+  });
+  loaded.catch(() => {});
+  where = url;
   await c.send("Page.navigate", { url });
   await loaded;
   await sleep(1200);
@@ -76,6 +87,7 @@ async function checkRoute(c, route, vp, errors) {
   errors.length = 0;
   await c.send("Emulation.setScriptExecutionDisabled", { value: false });
   await c.send("Emulation.setDeviceMetricsOverride", { width: vp.width, height: vp.height, deviceScaleFactor: 1, mobile: vp.mobile });
+  if (process.env.SMOKE_VERBOSE) console.error("route", path, vp.name);
   const got = await load(c, BASE + path);
   const t = `${path}`;
   if (got !== status) fail(t, vp.name, `HTTP ${got}, expected ${status}`);
@@ -93,6 +105,7 @@ async function checkRoute(c, route, vp, errors) {
 
 async function checkNoJs(c, route) {
   const { path } = typeof route === "string" ? { path: route } : route;
+  if (process.env.SMOKE_VERBOSE) console.error("nojs", path);
   await c.send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
   await c.send("Emulation.setScriptExecutionDisabled", { value: true });
   await load(c, BASE + path);
@@ -288,6 +301,41 @@ async function checkHero(c) {
   if (rm.h1 !== "1") fail("/", "reduced-motion", `h1 opacity ${rm.h1}`);
 }
 
+
+// Services (Task 5): one dealt hero per page (centred, data-enter, a UI fragment in its window); a service page
+// runs hero > features > how > faq > stack, and R5 holds: the last main > section holds a visual, never text only.
+async function checkServices(c) {
+  for (const path of ["/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`)]) {
+    for (const vp of VIEWPORTS) {
+      await setViewport(c, vp.width, vp.height, vp.mobile);
+      await load(c, BASE + path);
+      const r = await c.evaluate(`(() => {
+        const secs = [...document.querySelectorAll("main > section")];
+        const heroes = document.querySelectorAll("main section.hero");
+        const last = secs[secs.length - 1];
+        const hero = heroes[0];
+        return {
+          heroes: heroes.length, enter: hero?.hasAttribute("data-enter"), centred: hero?.classList.contains("hero--centred"),
+          frag: !!hero?.querySelector(".hero__window .ui"), first: secs[0] === hero, ids: secs.map((s) => s.id).join(">"),
+          visual: !!last?.querySelector(".dg svg, .dg canvas, [data-diagram], .panel .ui, .frame img"),
+          main: hero?.querySelector("a.btn--primary")?.textContent.trim(),
+          moment: document.querySelector("#how")?.dataset.moment, olds: document.querySelectorAll("[class*='services-module'], [class*='service-module']").length,
+        };
+      })()`);
+      const t = `${path} [${vp.name}]`;
+      const slug = path !== "/services";
+      if (r.heroes !== 1 || !r.first) failures.push(`${t} ${r.heroes} heroes, first=${r.first}`);
+      if (!r.enter || !r.centred || !r.frag) failures.push(`${t} hero is not the dealt centred hero with a fragment: ${JSON.stringify(r)}`);
+      if (r.main !== "Start a project") failures.push(`${t} hero main action "${r.main}"`);
+      if (r.olds) failures.push(`${t} old CSS-module classes still render`);
+      if (!r.visual) failures.push(`${t} last section holds no visual (R5): ${r.ids}`);
+      if (slug && !r.ids.endsWith(">features>how>faq>stack")) failures.push(`${t} section order ${r.ids}`);
+      if (slug && r.moment !== "pinned-chapters") failures.push(`${t} #how moment ${r.moment}`);
+    }
+  }
+}
+
+const guard = setTimeout(() => { console.error(`SMOKE FAIL\n  - whole run exceeded ${RUN_MS / 1000}s, last at ${where}`); try { chrome.kill(); } catch {} process.exit(1); }, RUN_MS);
 try {
   const c = await connect();
   const errors = [];
@@ -304,10 +352,12 @@ try {
   await checkNav(c);
   await checkHero(c);
   await checkHome(c);
+  await checkServices(c);
   c.ws.close();
 } catch (e) {
   failures.push(`smoke crashed: ${e.message}`);
 } finally {
+  clearTimeout(guard);
   chrome.kill();
   await sleep(300);
   rmSync(dir, { recursive: true, force: true });

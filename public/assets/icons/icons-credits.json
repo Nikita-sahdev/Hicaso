@@ -1,5 +1,17 @@
 [
   {
+    "file": "android.svg",
+    "icon": "logos:android-icon",
+    "name": "Android",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.android.com/"
+  },
+  {
     "file": "app-store.svg",
     "icon": "logos:apple-app-store",
     "name": "App Store",
@@ -34,6 +46,18 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://claude.ai/"
+  },
+  {
+    "file": "dart.svg",
+    "icon": "logos:dart",
+    "name": "Dart",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://dart.dev/"
   },
   {
     "file": "docker.svg",
@@ -84,6 +108,18 @@
     "markUrl": "https://flutter.dev"
   },
   {
+    "file": "gemini.svg",
+    "icon": "logos:google-gemini-icon",
+    "name": "Gemini",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://deepmind.google/technologies/gemini/"
+  },
+  {
     "file": "git.svg",
     "icon": "logos:git-icon",
     "name": "Git",
@@ -120,6 +156,18 @@
     "markUrl": "https://play.google.com/"
   },
   {
+    "file": "langchain.svg",
+    "icon": "logos:langchain-icon",
+    "name": "LangChain",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.langchain.com"
+  },
+  {
     "file": "laravel.svg",
     "icon": "logos:laravel",
     "name": "Laravel",
@@ -130,6 +178,18 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://laravel.com/"
+  },
+  {
+    "file": "mcp.svg",
+    "icon": "logos:model-context-protocol-icon",
+    "name": "Model Context Protocol",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://modelcontextprotocol.io/"
   },
   {
     "file": "mysql.svg",
@@ -192,6 +252,30 @@
     "markUrl": "https://openai.com/"
   },
   {
+    "file": "php.svg",
+    "icon": "logos:php",
+    "name": "PHP",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://php.net/"
+  },
+  {
+    "file": "pinecone.svg",
+    "icon": "logos:pinecone-icon",
+    "name": "Pinecone",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.pinecone.io/"
+  },
+  {
     "file": "python.svg",
     "icon": "logos:python",
     "name": "Python",
@@ -214,6 +298,18 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://facebook.github.io/react/"
+  },
+  {
+    "file": "swift.svg",
+    "icon": "logos:swift",
+    "name": "Swift",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://developer.apple.com/swift/"
   },
   {
     "file": "xml.svg",
