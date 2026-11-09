@@ -1,0 +1,50 @@
+{
+ "note": "Credits for the photographs in this folder: photos.mjs credits prints the footer block for the ones the pages use.",
+ "photos": [
+  {
+   "file": "photo-f61715796.jpg",
+   "files": [
+    "photo-f61715796-500.jpg",
+    "photo-f61715796-960.jpg",
+    "photo-f61715796.jpg"
+   ],
+   "id": "f61715796",
+   "alt": "Mobile developer at work (Unsplash)",
+   "by": "Parker Byrd parkerabyrd",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Mobile_developer_at_work_(Unsplash).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f58856453.jpg",
+   "files": [
+    "photo-f58856453-500.jpg",
+    "photo-f58856453-960.jpg",
+    "photo-f58856453.jpg"
+   ],
+   "id": "f58856453",
+   "alt": "Desk Setup (Unsplash)",
+   "by": "Luke Chesser lukechesser",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Desk_Setup_(Unsplash).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f61802100.jpg",
+   "files": [
+    "photo-f61802100-500.jpg",
+    "photo-f61802100-960.jpg",
+    "photo-f61802100.jpg"
+   ],
+   "id": "f61802100",
+   "alt": "Workspace (Unsplash)",
+   "by": "Damian Patkowski damianpatkowski",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Workspace_(Unsplash).jpg",
+   "source": "Wikimedia Commons"
+  }
+ ]
+}

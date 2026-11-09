@@ -7,7 +7,7 @@ import { join } from "node:path";
 
 const SERVICE_SLUGS = ["generative-ai", "agentic-ai", "mobile-app-development", "web-development"];
 const PRODUCT_SLUGS = ["appkavo", "billminute"];
-const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`), "/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`)];
+const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`), "/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`), "/about", "/careers", "/contact"];
 const BASE = process.env.SMOKE_BASE ?? "http://localhost:3000";
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const VIEWPORTS = [
@@ -381,6 +381,81 @@ async function checkProducts(c) {
   }
 }
 
+// About, careers, contact (Task 7): each opens on its own dealt hero, holds one dealt moment, carries one filled
+// button at most, and (R5) closes on a visual. /contact is the starter's booking-form: an action, a visible label
+// on every field, a submit that starts with a verb, and ?service=<slug> preselects that service.
+const COMPANY = {
+  "/about": { hero: "hero--film", moment: "counter-rolls" },
+  "/careers": { hero: "hero--centred", moment: "giant-type-pass" },
+  "/contact": { hero: "hero--split", moment: "pinned-chapters" },
+};
+const VERBS = ["send", "book", "start", "request", "contact", "email", "get", "join", "ask", "tell"];
+async function checkCompany(c) {
+  for (const [path, want] of Object.entries(COMPANY)) {
+    for (const vp of VIEWPORTS) {
+      await setViewport(c, vp.width, vp.height, vp.mobile);
+      await load(c, BASE + path);
+      const r = await c.evaluate(`(() => {
+        const secs = [...document.querySelectorAll("main > section")];
+        const heroes = document.querySelectorAll("main section.hero");
+        const hero = heroes[0];
+        return {
+          heroes: heroes.length, first: secs[0] === hero, enter: hero?.hasAttribute("data-enter"), cls: hero?.className ?? "",
+          moments: [...document.querySelectorAll("[data-moment]")].map((m) => m.dataset.moment).join(),
+          primaries: document.querySelectorAll("main .btn--primary").length, ids: secs.map((s) => s.id).join(">"),
+          olds: document.querySelectorAll("[class*='about-module'], [class*='contact-module'], [class*='EnquiryForm-module'], [class*='WhyHicaso-module']").length,
+        };
+      })()`);
+      const t = `${path} [${vp.name}]`;
+      if (r.heroes !== 1 || !r.first) failures.push(`${t} ${r.heroes} heroes, first=${r.first}`);
+      if (!r.enter || !r.cls.split(" ").includes(want.hero)) failures.push(`${t} hero is not the dealt ${want.hero} with data-enter: ${r.cls}`);
+      if (r.moments !== want.moment) failures.push(`${t} dealt moment "${r.moments}", expected ${want.moment}`);
+      // contact holds the hero's "Start a project" (to #enquiry) and the form's submit, a screen apart; the others one
+      if (r.primaries > (path === "/contact" ? 2 : 1)) failures.push(`${t} ${r.primaries} btn--primary in main, expected ${path === "/contact" ? "the hero's and the form's" : "one at most"}`);
+      if (r.olds) failures.push(`${t} old CSS-module classes still render`);
+    }
+  }
+  await setViewport(c, 1440, 900, false);
+  await load(c, BASE + "/contact");
+  const f = await c.evaluate(`(() => {
+    const form = document.querySelector("main form");
+    if (!form) return null;
+    const fields = [...form.querySelectorAll("input, select, textarea")].filter((e) => e.type !== "hidden" && e.type !== "submit");
+    const unlabelled = fields.filter((e) => { const l = e.id && form.querySelector('label[for="' + e.id + '"]'); const b = l?.getBoundingClientRect(); return !l || !l.textContent.trim() || !(b.width > 0 && b.height > 0); }).map((e) => e.name);
+    const submit = form.querySelector('button[type="submit"]');
+    return { action: form.getAttribute("action"), method: form.getAttribute("method"), fields: fields.length, unlabelled, submit: submit?.textContent.trim(), cls: form.className, service: form.querySelector("select[name=service]")?.value };
+  })()`);
+  if (!f) failures.push("/contact no form in main");
+  else {
+    if (!f.action) failures.push(`/contact form[action] is empty`);
+    if (f.method !== "post") failures.push(`/contact form method ${f.method}`);
+    if (f.fields < 6) failures.push(`/contact only ${f.fields} fields`);
+    if (f.unlabelled.length) failures.push(`/contact fields without a visible label: ${f.unlabelled.join(", ")}`);
+    if (!VERBS.includes((f.submit ?? "").split(" ")[0].toLowerCase())) failures.push(`/contact submit "${f.submit}" does not start with a verb`);
+    if (!/\bform\b/.test(f.cls)) failures.push(`/contact form lacks the kit's .form class: ${f.cls}`);
+    if (f.service !== "") failures.push(`/contact preselects "${f.service}" with no ?service`);
+  }
+  // an empty submit (scripts on) stops at system.js's check: each required field is marked and gives its reason under it
+  const inv = await c.evaluate(`(() => { const f = document.querySelector("main form"); f.requestSubmit(); const bad = [...f.querySelectorAll("[aria-invalid=true]")].map((e) => e.name); const errs = [...f.querySelectorAll(".field__error")].filter((e) => !e.hidden && e.textContent.trim()).length; return { bad: bad.join(), errs, status: f.querySelector("[data-form-status]")?.textContent }; })()`);
+  if (inv.bad !== "name,email,message" || inv.errs !== 3) failures.push(`/contact empty submit: ${JSON.stringify(inv)}`);
+  await load(c, BASE + "/contact?service=generative-ai");
+  const pre = await c.evaluate(`document.querySelector("main form select[name=service]")?.value`);
+  if (pre !== "generative-ai") failures.push(`/contact?service=generative-ai preselects "${pre}"`);
+}
+
+// R5 on every page: the last main > section holds a visual (a picture, diagram, canvas or UI), never text only.
+async function checkLastVisual(c) {
+  for (const route of ROUTES) {
+    const path = typeof route === "string" ? route : route.path;
+    for (const vp of VIEWPORTS) {
+      await setViewport(c, vp.width, vp.height, vp.mobile);
+      await load(c, BASE + path);
+      const ok = await c.evaluate(`!![...document.querySelectorAll("main > section")].pop()?.querySelector(".dg svg, .dg canvas, [data-diagram], .ui, picture img, .frame img, .mo-pc__visuals")`);
+      if (!ok) failures.push(`${path} [${vp.name}] last main > section holds no visual (R5)`);
+    }
+  }
+}
+
 const guard = setTimeout(() => { console.error(`SMOKE FAIL\n  - whole run exceeded ${RUN_MS / 1000}s, last at ${where}`); try { chrome.kill(); } catch {} try { rmSync(dir, { recursive: true, force: true }); } catch {} process.exit(1); }, RUN_MS);
 try {
   const c = await connect();
@@ -400,6 +475,8 @@ try {
   await checkHome(c);
   await checkServices(c);
   await checkProducts(c);
+  await checkCompany(c);
+  await checkLastVisual(c);
   c.ws.close();
 } catch (e) {
   failures.push(`smoke crashed: ${e.message}`);

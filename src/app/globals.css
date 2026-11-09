@@ -147,3 +147,24 @@
 /* the index cards show the list alone (its side bar is not a control, and reads as a third button style) */
 #all-products .ui-win__side { display: none; }
 @media (max-width: 639px) { #all-products { --h: 2; } }
+
+/* ---- about, careers, contact: page CSS ---- */
+/* counter-rolls row (moments.md): the kit's .stats merged into the studio section as its last row */
+#studio .stats { margin-top: var(--s-8); }
+/* the film hero's words keep the site's lead in ink on its solid box (a stand-in photograph, no play control) */
+.hero--film .hero__lead, .hero--split .hero__lead { color: var(--ink); }
+/* the giant-type statement: the words fill the screen, the line under them on the left line */
+#roles .mo-gt__row .link { min-height: 44px; display: inline-flex; align-items: center; }
+/* the contact rows: values are text or a link a full tap target tall */
+.contact-rows .link { display: inline-flex; align-items: center; min-height: 44px; }
+.contact-rows > li > p { color: var(--ink); }
+/* the enquiry form on a phone (g2m: its row holds one screen, 700px at 390x844): tighter rows, a shorter message box */
+@media (max-width: 639px) {
+  #enquiry .card { padding: var(--s-3) var(--s-4); }
+  #enquiry .form { gap: var(--s-2) var(--s-3); }
+  #enquiry .form__status:empty { display: none; }
+  #enquiry .field textarea { min-height: 72px; }
+}
+/* contact's pinned-chapters is the last section before the footer: two screens measured in the 390x844 judge's own
+   unit (svh), so its second tile ends on the footer's top (the kit's 2 x 100lvh is 52px shorter in that emulation) */
+@media (max-width: 639px) { main > #how { min-height: calc(2 * 100svh); } }

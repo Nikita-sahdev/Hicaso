@@ -9,6 +9,7 @@ export default function ServiceHero({
   label,
   piece = "",
   contactHref = "/contact",
+  primaryLabel = "Start a project",
 }: {
   h1: string;
   lead: string;
@@ -17,6 +18,7 @@ export default function ServiceHero({
   label: string;
   piece?: string;
   contactHref?: string;
+  primaryLabel?: string; // the page's own main action (careers: "Send your work"); the default is the site's
 }) {
   return (
     <section className="hero hero--centred" data-enter aria-labelledby="hero-h">
@@ -27,7 +29,7 @@ export default function ServiceHero({
             <p className="hero__lead">{lead}</p>
             <div className="btn-row">
               <a className="btn btn--primary" href={contactHref}>
-                Start a project
+                {primaryLabel}
               </a>
               <a className="btn btn--secondary" href={secondary.href}>
                 {secondary.label}

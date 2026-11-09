@@ -30,6 +30,9 @@ const STYLESHEETS = [
   "moments/marquee-row/moment.css",
   // the product pages' iris-opens
   "moments/iris-opens/moment.css",
+  // the company pages' moments: about counter-rolls, careers giant-type-pass
+  "moments/counter-rolls/moment.css",
+  "moments/giant-type-pass/moment.css",
 ];
 // the dealt moment's loader, its lib and the moment, preloaded as SK/assets/moments/_demo/in-page-service.html does
 const MOMENT_PRELOADS = ["moments/moments.js", "moments/lib.js", "moments/pinned-chapters/moment.js"];
