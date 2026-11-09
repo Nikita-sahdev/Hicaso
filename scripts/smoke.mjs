@@ -359,6 +359,7 @@ async function checkProducts(c) {
           win: !!hero?.querySelector(".hero__art .ui-win"), orb: !!hero?.querySelector("canvas"), ids: secs.map((s) => s.id).join(">"),
           ground: hero && getComputedStyle(hero).backgroundColor, main: a?.textContent.trim(), href: a?.getAttribute("href"),
           visual: !!last?.querySelector(".dg svg, .dg canvas, [data-diagram], .panel .ui, .frame img"),
+          primaries: document.querySelectorAll("main .btn--primary").length,
           moment: document.querySelector("[data-moment]")?.dataset.moment,
           olds: document.querySelectorAll("[class*='products-module'], [class*='product-module'], [class*='ProductPanel-module']").length,
         };
@@ -369,6 +370,7 @@ async function checkProducts(c) {
       if (r.orb) failures.push(`${t} hero holds a canvas (no Orb on product pages)`);
       if (r.main !== "Start a project" || r.href !== "/contact") failures.push(`${t} hero main action "${r.main}" -> "${r.href}"`);
       if (r.olds) failures.push(`${t} old CSS-module classes still render`);
+      if (r.primaries !== 1) failures.push(`${t} ${r.primaries} btn--primary in main, expected only the hero's`);
       if (!r.visual) failures.push(`${t} last section holds no visual (R5): ${r.ids}`);
       if (r.moment !== "iris-opens") failures.push(`${t} dealt moment ${r.moment}`);
       if (slug) {

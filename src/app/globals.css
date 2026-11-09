@@ -116,7 +116,8 @@
 .hero--collage .hero__lead { color: var(--ink); }
 /* the index cards: one panel height for the pair; the card's links a full tap target */
 #all-products .panel { --p-h: 440px; }
-#all-products .card .btn { min-height: 44px; }
+#all-products .card .btn-row { gap: var(--s-6); }
+#all-products .card .link { min-height: 44px; }
 @media (max-width: 639px) { #all-products .panel { --p-h: 300px; } }
 /* the last section's open item (diff or invoice): a visible frame on a phone */
 #window .panel { --p-h: 520px; }
@@ -145,3 +146,4 @@
 .hero--collage.ground-base .hero__art { --ink: var(--ground-ink); --muted: var(--ground-muted); }
 /* the index cards show the list alone (its side bar is not a control, and reads as a third button style) */
 #all-products .ui-win__side { display: none; }
+@media (max-width: 639px) { #all-products { --h: 2; } }

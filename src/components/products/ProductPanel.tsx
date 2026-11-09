@@ -15,10 +15,10 @@ export default function ProductPanel({ product }: { product: Product }) {
         {product.tagline} {product.audience}.
       </p>
       <div className="btn-row">
-        <a className="btn btn--primary" href={`/products/${product.slug}`}>
+        <a className="link" href={`/products/${product.slug}`}>
           See {product.name}
         </a>
-        <a className="btn btn--secondary" href={product.url} rel="noopener noreferrer">
+        <a className="link" href={product.url} rel="noopener noreferrer">
           Try {product.name}
         </a>
       </div>
