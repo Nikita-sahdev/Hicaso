@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Bricolage_Grotesque, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -29,6 +28,8 @@ const STYLESHEETS = [
   "moments/pinned-chapters/moment.css",
   // the services index's marquee-row, so its words stand as a wrapped row with scripts off
   "moments/marquee-row/moment.css",
+  // the product pages' iris-opens
+  "moments/iris-opens/moment.css",
 ];
 // the dealt moment's loader, its lib and the moment, preloaded as SK/assets/moments/_demo/in-page-service.html does
 const MOMENT_PRELOADS = ["moments/moments.js", "moments/lib.js", "moments/pinned-chapters/moment.js"];
@@ -57,20 +58,6 @@ const M_ENTER = "document.documentElement.classList.add('m-enter');setTimeout(()
 // Moments guard from the kit's starter.html / in-page-service.html, verbatim.
 const MO_JS = "document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)";
 
-// Product fonts: used only inside product-themed surfaces.
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: ["600"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: "Hicaso — software development and product studio",
   description: `Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and ships its own products, including ${products.map((p) => p.name).join(" and ")}.`,
@@ -89,7 +76,6 @@ export default function RootLayout({
       data-ground="sand"
       data-buttons="solid"
       data-motion=""
-      className={`${bricolage.variable} ${poppins.variable}`}
       suppressHydrationWarning
     >
       <head>

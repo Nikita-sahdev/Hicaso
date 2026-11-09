@@ -6,7 +6,8 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 const SERVICE_SLUGS = ["generative-ai", "agentic-ai", "mobile-app-development", "web-development"];
-const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`)];
+const PRODUCT_SLUGS = ["appkavo", "billminute"];
+const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`), "/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`)];
 const BASE = process.env.SMOKE_BASE ?? "http://localhost:3000";
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const VIEWPORTS = [
@@ -337,6 +338,47 @@ async function checkServices(c) {
   }
 }
 
+// Products (Task 6): the index and both product pages open on the dealt collage hero with the product's window,
+// the main action is "Start a project" (/contact), R5 holds (the last main > section holds a visual), a detail page
+// runs hero > features > steps > faq > window with iris-opens on #steps, and the page wears the product's own ground.
+const PRODUCT_GROUND = { appkavo: "rgb(10, 10, 12)", billminute: "rgb(255, 255, 255)" };
+async function checkProducts(c) {
+  for (const path of ["/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`)]) {
+    const slug = path === "/products" ? null : path.split("/").pop();
+    for (const vp of VIEWPORTS) {
+      await setViewport(c, vp.width, vp.height, vp.mobile);
+      await load(c, BASE + path);
+      const r = await c.evaluate(`(() => {
+        const secs = [...document.querySelectorAll("main > section")];
+        const heroes = document.querySelectorAll("main section.hero");
+        const hero = heroes[0];
+        const last = secs[secs.length - 1];
+        const a = hero?.querySelector("a.btn--primary, a[href^='/contact']");
+        return {
+          heroes: heroes.length, first: secs[0] === hero, enter: hero?.hasAttribute("data-enter"), collage: hero?.classList.contains("hero--collage"),
+          win: !!hero?.querySelector(".hero__art .ui-win"), orb: !!hero?.querySelector("canvas"), ids: secs.map((s) => s.id).join(">"),
+          ground: hero && getComputedStyle(hero).backgroundColor, main: a?.textContent.trim(), href: a?.getAttribute("href"),
+          visual: !!last?.querySelector(".dg svg, .dg canvas, [data-diagram], .panel .ui, .frame img"),
+          moment: document.querySelector("[data-moment]")?.dataset.moment,
+          olds: document.querySelectorAll("[class*='products-module'], [class*='product-module'], [class*='ProductPanel-module']").length,
+        };
+      })()`);
+      const t = `${path} [${vp.name}]`;
+      if (r.heroes !== 1 || !r.first) failures.push(`${t} ${r.heroes} heroes, first=${r.first}`);
+      if (!r.enter || !r.collage || !r.win) failures.push(`${t} hero is not the dealt collage hero with a window: ${JSON.stringify(r)}`);
+      if (r.orb) failures.push(`${t} hero holds a canvas (no Orb on product pages)`);
+      if (r.main !== "Start a project" || r.href !== "/contact") failures.push(`${t} hero main action "${r.main}" -> "${r.href}"`);
+      if (r.olds) failures.push(`${t} old CSS-module classes still render`);
+      if (!r.visual) failures.push(`${t} last section holds no visual (R5): ${r.ids}`);
+      if (r.moment !== "iris-opens") failures.push(`${t} dealt moment ${r.moment}`);
+      if (slug) {
+        if (!r.ids.endsWith(">features>steps>faq>window")) failures.push(`${t} section order ${r.ids}`);
+        if (r.ground !== PRODUCT_GROUND[slug]) failures.push(`${t} hero ground ${r.ground}, expected ${PRODUCT_GROUND[slug]}`);
+      } else if (r.ids !== ">all-products") failures.push(`${t} section order ${r.ids}`);
+    }
+  }
+}
+
 const guard = setTimeout(() => { console.error(`SMOKE FAIL\n  - whole run exceeded ${RUN_MS / 1000}s, last at ${where}`); try { chrome.kill(); } catch {} try { rmSync(dir, { recursive: true, force: true }); } catch {} process.exit(1); }, RUN_MS);
 try {
   const c = await connect();
@@ -355,6 +397,7 @@ try {
   await checkHero(c);
   await checkHome(c);
   await checkServices(c);
+  await checkProducts(c);
   c.ws.close();
 } catch (e) {
   failures.push(`smoke crashed: ${e.message}`);

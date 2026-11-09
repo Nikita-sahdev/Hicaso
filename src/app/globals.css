@@ -111,3 +111,37 @@
 #services .rows__value a { display: inline-flex; align-items: center; min-height: 44px; }
 #services .mo-host { margin-top: var(--s-6); }
 @media (max-width: 1023px) { #services .panel.frame--fill { min-height: 240px; margin-top: var(--s-5); } }
+
+/* ---- products (collage hero without the Orb, features, steps, window): page CSS ---- */
+.hero--collage .hero__lead { color: var(--ink); }
+/* the index cards: one panel height for the pair; the card's links a full tap target */
+#all-products .panel { --p-h: 440px; }
+#all-products .card .btn { min-height: 44px; }
+@media (max-width: 639px) { #all-products .panel { --p-h: 300px; } }
+/* the last section's open item (diff or invoice): a visible frame on a phone */
+#window .panel { --p-h: 520px; }
+/* below 1024 the fragment sits in the panel's flow, so the panel grows to hold it (never a fixed height) */
+@media (max-width: 1023px) {
+  #window .panel.frame--fill { height: auto; min-height: 0; margin-top: var(--s-5); }
+  #window .stage { position: relative; inset: auto; -webkit-mask: none; mask: none; }
+  #window .stage > .at-rise { position: relative; left: auto; right: auto; top: auto; padding: var(--s-5); }
+}
+#all-products .card .btn-row { margin-top: var(--s-4); }
+/* four feature cards on two screens (.g2): one --p-h, as the home's services; 352 holds each fragment above its fade */
+@media (min-width: 640px) { #features.g2 .panel { --p-h: 352px; } }
+@media (max-width: 639px) { #features.g2 .panel { --p-h: 220px; } }
+/* the steps and the questions fill their screen: the list stretches to the section's foot and shares the height
+   between its rows (each row keeps its own height as the least), so no screen ends in a bare half */
+@media (max-width: 1023px) {
+  #steps .rows > li:not(:last-child) { padding-bottom: var(--s-8); }
+  #steps .rows > li:not(:first-child) { padding-top: var(--s-8); }
+}
+@media (min-width: 1024px) {
+  #steps > .wrap > .grid, #faq.ground-base > .wrap > .grid { flex: 1 1 0; min-height: 0; }
+  #steps .rows, #faq.ground-base .faq { align-self: stretch; display: grid; grid-auto-rows: minmax(min-content, 1fr); }
+  #steps .rows > li, #faq.ground-base .faq > .faq__item { align-content: center; }
+}
+/* a product page paints the hero in its own ground: the lit frame keeps its own inks */
+.hero--collage.ground-base .hero__art { --ink: var(--ground-ink); --muted: var(--ground-muted); }
+/* the index cards show the list alone (its side bar is not a control, and reads as a third button style) */
+#all-products .ui-win__side { display: none; }

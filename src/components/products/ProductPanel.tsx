@@ -1,43 +1,28 @@
-import React from "react";
-import Image from "next/image";
-import styles from "./ProductPanel.module.css";
-import LinkButton from "../ui/LinkButton";
-import { themeStyle } from "./themeStyle";
-import { domainOf, type Product } from "@/data/products";
+import { FRAMES } from "./fragments";
+import { RISE } from "../services/content";
+import type { Product } from "@/data/products";
 
-interface ProductPanelProps {
-  product: Product;
-}
-
-// A large card in the product's own colors (home page product grid).
-export const ProductPanel: React.FC<ProductPanelProps> = ({ product }) => {
+// A product as a card on the index:  name, tagline, audience, two links, and
+// the product's window in a panel (a kit fragment from ./fragments).
+export default function ProductPanel({ product }: { product: Product }) {
   const titleId = `${product.slug}-title`;
   return (
-    <article className={styles.card} style={themeStyle(product)} aria-labelledby={titleId}>
-      <h3 id={titleId} className={`t-heading-sm ${styles.name}`}>
-        {product.name}
+    <article className="card card--row card--open span-6 m-nolift" aria-labelledby={titleId}>
+      <h3 id={titleId}>
+        <a href={`/products/${product.slug}`}>{product.name}</a>
       </h3>
-      {product.status === "beta" && <p className={styles.status}>Beta</p>}
-      <p className={styles.tagline}>{product.tagline}</p>
-      <p className={styles.audience}>{product.audience}</p>
-      <div className={styles.actions}>
-        <LinkButton href={`/products/${product.slug}`}>Learn more</LinkButton>
-        <LinkButton href={product.url} variant="text">
-          Visit {domainOf(product)}
-        </LinkButton>
+      <p>
+        {product.tagline} {product.audience}.
+      </p>
+      <div className="btn-row">
+        <a className="btn btn--primary" href={`/products/${product.slug}`}>
+          See {product.name}
+        </a>
+        <a className="btn btn--secondary" href={product.url} rel="noopener noreferrer">
+          Try {product.name}
+        </a>
       </div>
-      {product.screenshot && (
-        <Image
-          src={product.screenshot.src}
-          width={product.screenshot.width}
-          height={product.screenshot.height}
-          alt={`${product.name} screenshot`}
-          sizes="(min-width: 900px) 560px, 100vw"
-          className={styles.shot}
-        />
-      )}
+      <div className="panel" dangerouslySetInnerHTML={{ __html: RISE(FRAMES[product.slug].list, 520, "48px") }} />
     </article>
   );
-};
-
-export default ProductPanel;
+}

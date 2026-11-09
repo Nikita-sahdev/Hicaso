@@ -16,9 +16,9 @@ export type Content = {
   stackAlt: string;
 };
 
-const RISE = (inner: string, max: number, ay: string, extra = "") =>
+export const RISE = (inner: string, max: number, ay: string, extra = "") =>
   `<div class="stage stage--fade-b"><div class="at-rise fit${extra}" style="--fit-max:${max}px;--ax:max(24px, 50% - ${max / 2}px);--ay:${ay};--ay-sm:${ay}">${inner}</div></div>`;
-const RIGHT = (inner: string) =>
+export const RIGHT = (inner: string) =>
   `<div class="stage stage--fade-b"><div class="at-right to-edge" style="--ax:32px;--ay:40px;--ay-sm:24px">${inner}</div></div>`;
 
 export const content: Record<string, Content> = {
