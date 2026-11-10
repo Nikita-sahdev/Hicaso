@@ -88,6 +88,15 @@ export const services: Service[] = [
   },
 ];
 
+// Services offered without a page of their own (owner, 2026-11-10: "Sirf list mein"): listed on /services and
+// in the enquiry form only. Facts are the owner's: Figma; manual and mobile testing, security and store audits;
+// bug fixes and updates.
+export const moreServices: Pick<Service, "slug" | "name" | "tagline">[] = [
+  { slug: "ui-ux-design", name: "UI/UX Design", tagline: "App and web interfaces, designed and prototyped in Figma." },
+  { slug: "qa-testing", name: "QA & Testing", tagline: "Manual and mobile app testing, plus security and store-review audits." },
+  { slug: "maintenance-support", name: "Maintenance & Support", tagline: "Bug fixes and updates for apps that are already live." },
+];
+
 export const getService = (slug: string): Service | undefined =>
   services.find((s) => s.slug === slug);
 

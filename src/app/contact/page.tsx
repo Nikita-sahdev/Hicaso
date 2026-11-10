@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import EnquiryForm from "@/components/contact/EnquiryForm";
 import Photo from "@/components/company/Photo";
 import HowWeWork from "@/components/common/HowWeWork";
-import { services } from "@/data/services";
+import { moreServices, services } from "@/data/services";
+
+// every service a client can ask for: the four with pages, then the listed ones (UI/UX, QA, maintenance)
+const ALL = [...services, ...moreServices].map(({ slug, name }) => ({ slug, name }));
 import { ENQUIRY_TO, resolveService } from "@/lib/enquiry";
 
 export const metadata: Metadata = {
@@ -16,7 +19,7 @@ export const metadata: Metadata = {
 export default async function ContactPage({ searchParams }: PageProps<"/contact">) {
   const initialService = resolveService(
     (await searchParams).service,
-    services.map((s) => s.slug),
+    ALL.map((s) => s.slug),
   );
   return (
     <>
@@ -65,7 +68,7 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
           <div className="card span-6 start-7">
             <EnquiryForm
               key={initialService}
-              services={services.map(({ slug, name }) => ({ slug, name }))}
+              services={ALL}
               initialService={initialService}
             />
           </div>

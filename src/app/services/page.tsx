@@ -41,6 +41,9 @@ const FORMATS = [
   "PHP upgrades",
 ];
 
+// services without a page of their own (src/data/services.ts moreServices): one row, each a choice in the enquiry form
+const MORE = "UI/UX design in Figma, app testing and store audits, and bug fixes.";
+
 const LINKS: Record<string, string> = {
   "generative-ai": "See generative AI",
   "agentic-ai": "See agentic AI",
@@ -77,6 +80,15 @@ export default function ServicesPage() {
                     <p>{s.tagline}</p>
                   </li>
                 ))}
+                <li>
+                  <span className="rows__name">More services</span>
+                  <span className="rows__value">
+                    <a className="ly-link" href="/contact">
+                      Ask us
+                    </a>
+                  </span>
+                  <p>{MORE}</p>
+                </li>
               </ul>
             </div>
             <div className="panel frame--fill span-6 start-7" data-icon-base="/assets/icons/">
