@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import styles from "./Logo.module.css";
 
 interface LogoProps {
@@ -13,12 +12,15 @@ const LETTERS =
 
 export const Logo: React.FC<LogoProps> = ({ className = "" }) => {
   return (
-    <Link href="/" className={`${styles.logo} ${className}`} aria-label="Hicaso home">
+    <a href="/" className={`nav__logo ${styles.logo} ${className}`} aria-label="Hicaso home">
       <svg viewBox="6.1 -77.53 290.1 78.73" className={styles.wordmark} aria-hidden="true">
         <path fill="currentColor" d={LETTERS} />
-        <rect className={styles.dot} x="59.94" y="-77.53" width="17.03" height="17.03" rx="3.75" />
+        {/* Hover hop lives on the group so it never restarts the rect's load-in drop */}
+        <g className={styles.dotHop}>
+          <rect className={styles.dot} x="59.94" y="-77.53" width="17.03" height="17.03" rx="3.75" />
+        </g>
       </svg>
-    </Link>
+    </a>
   );
 };
 

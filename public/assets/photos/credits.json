@@ -1,0 +1,49 @@
+{
+ "note": "Credits for the photographs in this folder: photos.mjs credits prints the footer block for the ones the pages use.",
+ "photos": [
+  {
+   "file": "photo-f61715796.jpg",
+   "files": [
+    "photo-f61715796-500.jpg",
+    "photo-f61715796-960.jpg",
+    "photo-f61715796.jpg"
+   ],
+   "id": "f61715796",
+   "alt": "Mobile developer at work (Unsplash)",
+   "by": "Parker Byrd parkerabyrd",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Mobile_developer_at_work_(Unsplash).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f62049414-960.jpg",
+   "files": [
+    "photo-f62049414-500.jpg",
+    "photo-f62049414-960.jpg"
+   ],
+   "id": "f62049414",
+   "alt": "Code on computer monitor (Unsplash)",
+   "by": "Markus Spiske markusspiske",
+   "licence": "CC0",
+   "licenceUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "page": "https://commons.wikimedia.org/wiki/File:Code_on_computer_monitor_(Unsplash).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-f194319915.jpg",
+   "files": [
+    "photo-f194319915-500.jpg",
+    "photo-f194319915-960.jpg",
+    "photo-f194319915.jpg"
+   ],
+   "id": "f194319915",
+   "alt": "Hands of a woman typing on the Macbook keyboard and write on note book",
+   "by": "Shixart1985",
+   "licence": "CC BY 2.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+   "page": "https://commons.wikimedia.org/wiki/File:Hands_of_a_woman_typing_on_the_Macbook_keyboard_and_write_on_note_book.jpg",
+   "source": "Wikimedia Commons"
+  }
+ ]
+}

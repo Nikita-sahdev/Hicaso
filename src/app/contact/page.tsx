@@ -1,55 +1,81 @@
 import type { Metadata } from "next";
-import styles from "@/styles/page.module.css";
-import Container from "@/components/ui/Container";
-import LinkButton from "@/components/ui/LinkButton";
+import EnquiryForm from "@/components/contact/EnquiryForm";
+import Photo from "@/components/company/Photo";
+import HowWeWork from "@/components/common/HowWeWork";
+import { moreServices, services } from "@/data/services";
+
+// every service a client can ask for: the four with pages, then the listed ones (UI/UX, QA, maintenance)
+const ALL = [...services, ...moreServices].map(({ slug, name }) => ({ slug, name }));
+import { ENQUIRY_TO, resolveService } from "@/lib/enquiry";
 
 export const metadata: Metadata = {
   title: "Contact — Hicaso",
-  description: "Contact Hicaso LLP: email, phone and address in Chandigarh, India.",
+  description:
+    "Tell Hicaso about your project: AI, mobile or web. Email, phone and address in Chandigarh, India.",
 };
 
-export default function ContactPage() {
+// hero (the dealt split hero: words left, a stand-in photograph right) > enquiry (the starter's booking-form beside
+// the contact details; /contact?service=<slug> preselects that service) > how (the dealt pinned-chapters, R5).
+export default async function ContactPage({ searchParams }: PageProps<"/contact">) {
+  const initialService = resolveService(
+    (await searchParams).service,
+    ALL.map((s) => s.slug),
+  );
   return (
     <>
-      <section className={styles.hero}>
-        <Container>
-          <h1 className="t-display">Contact</h1>
-          <p className="t-subhead">Questions about Hicaso or one of our products? Write to us.</p>
-          <div className={styles.actions}>
-            <LinkButton href="mailto:hello@hicaso.com">Email us</LinkButton>
-            <LinkButton href="tel:+917009137936" variant="text">
-              Call +91 70091 37936
-            </LinkButton>
+      <section className="hero hero--split" data-enter aria-labelledby="hero-h">
+        <div className="wrap">
+          <div className="hero-text grid hero__grid">
+            <div className="hero__text span-5">
+              <h1 id="hero-h">Start an AI, mobile or web software project</h1>
+              <p className="hero__lead">Tell us what you want to build. Hicaso is a software studio in Chandigarh, India, and we reply by email.</p>
+              <div className="btn-row">
+                <a className="btn btn--primary" href="#enquiry">Start a project</a>
+                <a className="btn btn--secondary" href={`mailto:${ENQUIRY_TO}`}>Email us</a>
+              </div>
+            </div>
+            <div className="hero__media span-6 start-7">
+              <Photo photo="laptop" sizes="(max-width: 1023px) 100vw, 1100px" hero />
+            </div>
           </div>
-        </Container>
+        </div>
       </section>
 
-      <section className={styles.section}>
-        <Container>
-          <dl className={`${styles.card} ${styles.facts}`}>
-            <div>
-              <dt>Email</dt>
-              <dd>
-                <a href="mailto:hello@hicaso.com">hello@hicaso.com</a>
-              </dd>
-            </div>
-            <div>
-              <dt>Phone</dt>
-              <dd>
-                <a href="tel:+917009137936">+91 70091 37936</a>
-              </dd>
-            </div>
-            <div>
-              <dt>Address</dt>
-              <dd>2646, Sector 52, Lig Housing Board, Sector 36 (Chandigarh)</dd>
-            </div>
-            <div>
-              <dt>Hours</dt>
-              <dd>Mon–Fri, 9:00 AM–6:00 PM IST</dd>
-            </div>
-          </dl>
-        </Container>
+      <section className="section g2m" id="enquiry" aria-labelledby="enquiry-h">
+        <div className="wrap grid">
+          <div className="span-5 stack-5">
+            <h2 id="enquiry-h">Send an enquiry</h2>
+            <p className="t-lead">Tell us about the project: what it does, who it is for, and when you need it.</p>
+            <ul className="rows contact-rows">
+              <li>
+                <span className="rows__name">Email</span>
+                <p><a className="link" href={`mailto:${ENQUIRY_TO}`}>{ENQUIRY_TO}</a></p>
+              </li>
+              <li>
+                <span className="rows__name">Phone</span>
+                <p><a className="link" href="tel:+917009137936">+91 70091 37936</a></p>
+              </li>
+              <li>
+                <span className="rows__name">Address</span>
+                <p>2646, Sector 52, Lig Housing Board, Sector 36 (Chandigarh)</p>
+              </li>
+              <li>
+                <span className="rows__name">Hours</span>
+                <p>Mon–Fri, 9:00 AM–6:00 PM IST</p>
+              </li>
+            </ul>
+          </div>
+          <div className="card span-6 start-7">
+            <EnquiryForm
+              key={initialService}
+              services={ALL}
+              initialService={initialService}
+            />
+          </div>
+        </div>
       </section>
+
+      <HowWeWork />
     </>
   );
 }

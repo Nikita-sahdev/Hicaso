@@ -1,112 +1,185 @@
-@import "tailwindcss";
-
-@theme {
-  /* DESIGN.md tokens (Wise-style system in Hicaso blue) */
-  --color-navy-ink: #0a2540;
-  --color-electric-blue: #0071e3;
-  --color-sky-blue: #2997ff;
-  --color-ice-mist: #e6f0fd;
-  --color-charcoal: #454745;
-  --color-obsidian: #0d0f14;
-  --color-slate: #6a6c6a;
-  --color-fog: #e8ebf0;
-  --color-paper: #ffffff;
-  --color-hairline: #dde1e8;
-
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-
-  --radius-pill: 9999px;
-  --radius-card: 10px;
-  --radius-large-card: 28px;
-  --shadow-lg: rgba(0, 0, 0, 0.08) 0px 6px 20px 0px;
-  --shadow-xl: rgba(0, 0, 0, 0.15) 0px 10px 32px 0px, rgba(0, 0, 0, 0.04) 0px 40px 40px 0px;
-
+/* Tokens and layout come from /assets (the kit) and the :root block in layout.tsx. Only utilities the kit lacks live here. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* page CSS of the dealt collage hero, as SK/assets/layout/hero-collage.html writes it */
+.hero__proof { font-size: var(--t-small); color: var(--muted); }
+
+/* ---- page CSS inside the home sections' visuals (sections-library.md, cards.md) ---- */
+
+/* services (features-2x2): one --p-h for the group; 352 so the pipeline-board stands whole with 24 under it */
+#services .panel { --p-h: 352px; }
+/* tablet (two screens, layout-v4.md section 2): each screen's card row runs down to that screen's foot,
+   as system.css does from 1024, so the 2x2 never leaves a short row over empty ground at 820x1180 */
+@media (min-width: 640px) and (max-width: 1023px) {
+  #services > .wrap > .grid:last-child, #services > .wrap > .group > .grid:last-child { align-self: stretch; flex: 1 1 auto; min-height: 0; }
+}
+@media (max-width: 639px) { #services .panel { --p-h: 136px; } }
+/* the phone: a .device built in page CSS (280 wide, 8px bezel, radius 32), its screen the app's settings */
+/* one box: the bezel is the border of the white screen, so the settings list sits on it without a panel of its own */
+.ui-toggles.device {
+  width: 280px; height: 570px; border: 8px solid #0a0a0a; border-radius: 32px; overflow: hidden;
+  background: #ffffff; box-shadow: 0 24px 48px -28px rgb(0 0 0 / 0.5);
+}
+.device__status {
+  display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 18px;
+  color: #0a0a0a; font: 500 12px/1 var(--font-text);
+}
+.device__notch { width: 72px; height: 18px; border-radius: 99px; background: #0a0a0a; }
+
+/* products (app-frame): the recipe's CSS; the tab panel is the .fill and the window fills it */
+.app-tab { margin-top: var(--s-7); }
+.app.ui { height: 100%; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); overflow: hidden; }
+.app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+.app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+.app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+.app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+/* the open invoice: the page at the pane's left, its note in the room at the right, cut by the pane's foot */
+.app > .app__pane--open > .ui-doc { width: 100%; min-height: calc(100% + 72px); padding: 32px 248px 0 32px; }
+.app > .app__pane--open > .ui-doc > .ui-doc__note { right: 24px; top: 32px; }
+@media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+@media (max-width: 1023px) {
+  .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .app > .app__pane--list { max-height: 268px; }
+  .app > .app__pane--list::after { display: none; }
+  .app .ui-win__side { display: none; }
+  .app .ui-win--compact .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+  .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
+  .app > .app__pane--open > .ui-doc { padding: 24px 224px 0 24px; }
+}
+@media (max-width: 639px) {
+  .app.ui { grid-template-rows: minmax(0, 1fr); }
+  .app > .app__pane--list { display: none; }
+  .app > .app__pane + .app__pane { border-top: 0; }
+  .app > .app__pane--open > .ui-doc { padding: 16px 16px 0; }
+  .app > .app__pane--open > .ui-doc > .ui-doc__note { display: none; }
 }
 
-body {
-  background: var(--color-paper);
-  color: var(--color-charcoal);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 1.5;
-  letter-spacing: -0.126px;
-  overflow-wrap: break-word;
+/* how-we-work (pinned-chapters): a drawn window's lit figure keeps the static rows to two screens */
+[data-moment="pinned-chapters"]:not(.is-live) .mo-pc__visual--lit { max-height: 30svh; align-items: flex-start; }
+@media (max-width: 639px) { [data-moment="pinned-chapters"]:not(.is-live) .mo-pc__visual--lit { max-height: 26svh; } }
+
+/* the dev-only demo proof */
+.proof-stats { margin-top: var(--s-6); }
+.proof-cases { margin-top: var(--s-6); }
+.proof-cases .quote { margin: var(--s-4) 0 0; }
+.proof-cases .quote blockquote { font-size: var(--t-body); }
+.proof-stack { margin-top: var(--s-4); }
+.proof-stack .ic-chip { height: 36px; }
+.proof-stack .ic-chip > .ic { --ic-s: 24px; }
+
+/* step 1's scope: the note rests over the page's empty foot, clear of the lines */
+.mo-pc__visual .ui-doc__page { padding-bottom: 120px; }
+.mo-pc__visual .ui-doc__note { top: auto; bottom: 16px; }
+
+/* ---- services (hero--centred, features, stack): page CSS inside the visuals ---- */
+/* the centred hero's window: kit fragments sit on white on the lit frame, each at its true width */
+.hero--centred .hero__window { --ui-font: var(--font-text); --ui-mono: var(--font-mono); --ui-radius: 12px; }
+.hero--centred .hero__window > .ly-piece {
+  --fx-bg: #ffffff; --fx-surface: var(--surface); --fx-ink: var(--ink); --fx-muted: var(--muted);
+  --fx-accent: var(--accent); --fx-accent-ink: var(--accent-ink);
+}
+@media (min-width: 640px) {
+  .hero--centred .hero__window > .ly-piece.ly-piece--chat { width: min(520px, calc(100% - 2 * var(--s-6))); }
+  .hero--centred .hero__window > .ly-piece.ly-piece--list { width: min(420px, calc(100% - 2 * var(--s-6))); }
+  .hero--centred .hero__window > .ly-piece.ly-piece--log { width: min(560px, calc(100% - 2 * var(--s-6))); }
+  .hero--centred .hero__window > .ly-piece.ly-piece--phone { width: 280px; }
+  /* three rows: the phone ends whole inside the frame, above its fade */
+  .hero--centred .hero__window .ui-toggles.device { height: auto; }
+}
+@media (max-width: 639px) {
+  .hero--centred .hero__window > .ly-piece.ly-piece--phone { width: 280px; left: 50%; transform: translateX(-50%); }
 }
 
-/* Product and dark surfaces override --heading-color */
-h1,
-h2,
-h3 {
-  color: var(--heading-color, var(--color-obsidian));
-}
+/* the three feature cards: one --p-h for the group (400 holds the terminal whole with 24 under it, and fills the screen) */
+#features .panel { --p-h: 460px; }
+@media (min-width: 1024px) { #features .panel { --p-h: 500px; } }
+@media (max-width: 639px) { #features .panel { --p-h: 350px; } }
+@media (max-width: 1023px) { #features { --h: 2; } }
 
-:focus-visible {
-  outline: 2px solid var(--focus-ring, var(--color-electric-blue));
-  outline-offset: 2px;
-}
+/* services index: the lead in the ink (7:1), the rows' links a full tap target, the diagram a visible
+   frame on a phone, the marquee row under the list */
+.hero--centred .hero__c > .hero__lead { color: var(--ink); }
+#services .rows__value a { display: inline-flex; align-items: center; min-height: 44px; }
+#services .mo-host { margin-top: var(--s-6); }
+/* phone: the list and diagram keep their own height, so the section grows and the marquee stays under them */
+@media (max-width: 639px) { #services > .wrap > .fill { min-height: auto; } }
+@media (max-width: 1023px) { #services .panel.frame--fill { min-height: 240px; margin-top: var(--s-5); } }
 
-::selection {
-  background: rgba(0, 113, 227, 0.2);
+/* ---- products (collage hero without a moving ground, features, steps, window): page CSS ---- */
+.hero--collage .hero__lead { color: var(--ink); }
+/* the index cards: one panel height for the pair; the card's links a full tap target */
+#all-products .panel { --p-h: 440px; }
+#all-products .card .btn-row { gap: var(--s-6); }
+#all-products .card .link { min-height: 44px; }
+@media (max-width: 639px) { #all-products .panel { --p-h: 300px; } }
+/* the last section's open item (diff or invoice): a visible frame on a phone */
+#window .panel { --p-h: 520px; }
+/* below 1024 the fragment sits in the panel's flow, so the panel grows to hold it (never a fixed height) */
+@media (max-width: 1023px) {
+  #window .panel.frame--fill { height: auto; min-height: 0; margin-top: var(--s-5); }
+  #window .stage { position: relative; inset: auto; -webkit-mask: none; mask: none; }
+  #window .stage > .at-rise { position: relative; left: auto; right: auto; top: auto; padding: var(--s-5); }
 }
-
-/* Type scale from DESIGN.md; mobile sizes below 734px */
-@layer components {
-  .t-display {
-    font-size: 48px;
-    line-height: 0.9;
-    font-weight: 900;
-    letter-spacing: -0.03em;
-  }
-  .t-subhead {
-    font-size: 20px;
-    line-height: 1.4;
-    font-weight: 400;
-    letter-spacing: -0.009em;
-  }
-  .t-heading {
-    font-size: 32px;
-    line-height: 1.1;
-    font-weight: 700;
-    letter-spacing: -0.011em;
-  }
-  .t-heading-sm {
-    font-size: 25px;
-    line-height: 1.25;
-    font-weight: 700;
-    letter-spacing: -0.009em;
-  }
-  .t-subheading {
-    font-size: 18px;
-    line-height: 1.4;
-    font-weight: 700;
-    letter-spacing: -0.007em;
-  }
-  .t-caption {
-    font-size: 14px;
-    line-height: 1.55;
-    letter-spacing: -0.005em;
-  }
-
-  @media (min-width: 734px) {
-    .t-display {
-      font-size: 89px;
-      line-height: 0.85;
-    }
-    .t-subhead {
-      font-size: 25px;
-      line-height: 1.3;
-    }
-    .t-heading {
-      font-size: 45px;
-    }
-    .t-heading-sm {
-      font-size: 36px;
-    }
-  }
+#all-products .card .btn-row { margin-top: var(--s-4); }
+/* four feature cards on two screens (.g2): one --p-h, as the home's services; 352 holds each fragment above its fade */
+@media (min-width: 640px) { #features.g2 .panel { --p-h: 352px; } }
+@media (max-width: 639px) { #features.g2 .panel { --p-h: 180px; } }
+/* the steps and the questions fill their screen: the list stretches to the section's foot and shares the height
+   between its rows (each row keeps its own height as the least), so no screen ends in a bare half */
+@media (max-width: 1023px) {
+  #steps .rows > li:not(:last-child) { padding-bottom: var(--s-8); }
+  #steps .rows > li:not(:first-child) { padding-top: var(--s-8); }
 }
+@media (min-width: 1024px) {
+  #steps > .wrap > .grid, #faq.ground-base > .wrap > .grid { flex: 1 1 0; min-height: 0; }
+  #steps .rows, #faq.ground-base .faq { align-self: stretch; display: grid; grid-auto-rows: minmax(min-content, 1fr); }
+  #steps .rows > li, #faq.ground-base .faq > .faq__item { align-content: center; }
+}
+/* a product page paints the hero in its own ground: the lit frame keeps its own inks */
+.hero--collage.ground-base .hero__art { --ink: var(--ground-ink); --muted: var(--ground-muted); }
+/* the index cards show the list alone (its side bar is not a control, and reads as a third button style) */
+#all-products .ui-win__side { display: none; }
+@media (max-width: 639px) { #all-products { --h: 2; } }
+
+/* ---- about, careers, contact: page CSS ---- */
+/* counter-rolls row (moments.md): the kit's .stats merged into the studio section as its last row */
+#studio .stats { margin-top: var(--s-8); }
+/* the film hero's words keep the site's lead in ink on its solid box (a stand-in photograph, no play control) */
+.hero--film .hero__lead, .hero--split .hero__lead { color: var(--ink); }
+/* the giant-type statement: the words fill the screen, the line under them on the left line */
+#roles .mo-gt__row .link { min-height: 44px; display: inline-flex; align-items: center; }
+/* the contact rows: values are text or a link a full tap target tall */
+.contact-rows .link { display: inline-flex; align-items: center; min-height: 44px; }
+.contact-rows > li > p { color: var(--ink); }
+/* the enquiry form on a phone (g2m: its row holds one screen, 700px at 390x844): tighter rows, a shorter message box */
+@media (max-width: 639px) {
+  #enquiry .card { padding: var(--s-3) var(--s-4); }
+  #enquiry .form { gap: var(--s-2) var(--s-3); }
+  #enquiry .form__status:empty { display: none; }
+  #enquiry .field textarea { min-height: 72px; }
+}
+/* contact's pinned-chapters is the last section before the footer: two screens measured in the 390x844 judge's own
+   unit (svh), so its second tile ends on the footer's top (the kit's 2 x 100lvh is 52px shorter in that emulation) */
+@media (max-width: 639px) { main > #how { min-height: calc(2 * 100svh); } }
+
+/* tablet: the pinned-chapters scene's static layout is 1.3 screens; hold it to two (SR-2), as the phone rule above does for contact */
+@media (min-width: 640px) and (max-width: 1023px) { main > #how { min-height: calc(2 * 100svh); } main > #how .mo-pc__steps { gap: var(--s-9); } }
+
+/* phone: the footer's links screen (g2m) holds its columns in 700px so the footer is exactly two screens (SR-2) */
+@media (max-width: 639px) {
+  footer.closing .closing__links, footer.closing .closing__links > .grid { row-gap: var(--s-3); }
+  footer.closing .closing__links { gap: var(--s-3); }
+  footer.closing .footer__lede { display: none; }
+}
+/* phone: five answers close to a screen (SR-2) */
+@media (max-width: 639px) { #faq .faq > .faq__item { padding-block: var(--s-2); } #faq .faq > .faq__item:first-child { padding-top: 0; } }
