@@ -19,7 +19,7 @@ const SHIXART = {
 };
 
 export const Footer: React.FC = () => (
-  <footer className="footer closing footer--statement" id="contact" aria-labelledby="close-h">
+  <footer className="footer closing g2m footer--statement" id="contact" aria-labelledby="close-h">
     <div className="wrap">
       <div className="closing__cta close--type">
         <div className="section-head">

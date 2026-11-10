@@ -23,7 +23,7 @@
 @media (min-width: 640px) and (max-width: 1023px) {
   #services > .wrap > .grid:last-child, #services > .wrap > .group > .grid:last-child { align-self: stretch; flex: 1 1 auto; min-height: 0; }
 }
-@media (max-width: 639px) { #services .panel { --p-h: 180px; } }
+@media (max-width: 639px) { #services .panel { --p-h: 136px; } }
 /* the phone: a .device built in page CSS (280 wide, 8px bezel, radius 32), its screen the app's settings */
 /* one box: the bezel is the border of the white screen, so the settings list sits on it without a panel of its own */
 .ui-toggles.device {
@@ -103,16 +103,19 @@
 /* the three feature cards: one --p-h for the group (400 holds the terminal whole with 24 under it, and fills the screen) */
 #features .panel { --p-h: 460px; }
 @media (min-width: 1024px) { #features .panel { --p-h: 500px; } }
-@media (max-width: 639px) { #features .panel { --p-h: 350px; } #features { --h: 2; } }
+@media (max-width: 639px) { #features .panel { --p-h: 350px; } }
+@media (max-width: 1023px) { #features { --h: 2; } }
 
 /* services index: the lead in the ink (7:1), the rows' links a full tap target, the diagram a visible
    frame on a phone, the marquee row under the list */
 .hero--centred .hero__c > .hero__lead { color: var(--ink); }
 #services .rows__value a { display: inline-flex; align-items: center; min-height: 44px; }
 #services .mo-host { margin-top: var(--s-6); }
+/* phone: the list and diagram keep their own height, so the section grows and the marquee stays under them */
+@media (max-width: 639px) { #services > .wrap > .fill { min-height: auto; } }
 @media (max-width: 1023px) { #services .panel.frame--fill { min-height: 240px; margin-top: var(--s-5); } }
 
-/* ---- products (collage hero without the Orb, features, steps, window): page CSS ---- */
+/* ---- products (collage hero without a moving ground, features, steps, window): page CSS ---- */
 .hero--collage .hero__lead { color: var(--ink); }
 /* the index cards: one panel height for the pair; the card's links a full tap target */
 #all-products .panel { --p-h: 440px; }
@@ -130,7 +133,7 @@
 #all-products .card .btn-row { margin-top: var(--s-4); }
 /* four feature cards on two screens (.g2): one --p-h, as the home's services; 352 holds each fragment above its fade */
 @media (min-width: 640px) { #features.g2 .panel { --p-h: 352px; } }
-@media (max-width: 639px) { #features.g2 .panel { --p-h: 220px; } }
+@media (max-width: 639px) { #features.g2 .panel { --p-h: 180px; } }
 /* the steps and the questions fill their screen: the list stretches to the section's foot and shares the height
    between its rows (each row keeps its own height as the least), so no screen ends in a bare half */
 @media (max-width: 1023px) {
@@ -168,3 +171,15 @@
 /* contact's pinned-chapters is the last section before the footer: two screens measured in the 390x844 judge's own
    unit (svh), so its second tile ends on the footer's top (the kit's 2 x 100lvh is 52px shorter in that emulation) */
 @media (max-width: 639px) { main > #how { min-height: calc(2 * 100svh); } }
+
+/* tablet: the pinned-chapters scene's static layout is 1.3 screens; hold it to two (SR-2), as the phone rule above does for contact */
+@media (min-width: 640px) and (max-width: 1023px) { main > #how { min-height: calc(2 * 100svh); } main > #how .mo-pc__steps { gap: var(--s-9); } }
+
+/* phone: the footer's links screen (g2m) holds its columns in 700px so the footer is exactly two screens (SR-2) */
+@media (max-width: 639px) {
+  footer.closing .closing__links, footer.closing .closing__links > .grid { row-gap: var(--s-3); }
+  footer.closing .closing__links { gap: var(--s-3); }
+  footer.closing .footer__lede { display: none; }
+}
+/* phone: five answers close to a screen (SR-2) */
+@media (max-width: 639px) { #faq .faq > .faq__item { padding-block: var(--s-2); } #faq .faq > .faq__item:first-child { padding-top: 0; } }
