@@ -38,13 +38,14 @@ const STYLESHEETS = [
 const MOMENT_PRELOADS = ["moments/moments.js", "moments/lib.js", "moments/pinned-chapters/moment.js"];
 const MODULES = ["system.js", "motion/motion.js", "layout/layout.js", "diagrams/mount.js"];
 
-// The :root block exactly as start.mjs prints it (palette putty-black-teal, type instrument, radius soft).
+// Palette lines as `start.mjs brand --page software --bg #ffffff --ink #0a0a0a --accent #2456d6` prints them
+// (owner's choice: white + blueprint blue); type instrument, radius soft from the original deal.
 const ROOT_TOKENS = `
 :root {
-  --p-bg: #dedad3; --p-surface: #d3cec6; --p-ink: #0a0a0a; --p-muted: #55514c;
-  --p-accent: #256f82; --p-accent-ink: #ffffff; --p-action: #256f82; --p-action-ink: #ffffff;
-  --p-inv-bg: #0a0a0a; --p-inv-surface: #151515; --p-inv-ink: #dedad3; --p-inv-muted: #84827e;
-  --p-inv-accent: #256f82; --p-inv-accent-ink: #ffffff; --p-inv-action: #256f82; --p-inv-action-ink: #ffffff;
+  --p-bg: #ffffff; --p-surface: #f1f1f1; --p-ink: #0a0a0a; --p-muted: #6c6c6c;
+  --p-accent: #2456d6; --p-accent-ink: #ffffff; --p-action: #2456d6; --p-action-ink: #ffffff;
+  --p-inv-bg: #0a0a0a; --p-inv-surface: #171717; --p-inv-ink: #ffffff; --p-inv-muted: #979797;
+  --p-inv-accent: #2456d6; --p-inv-accent-ink: #ffffff; --p-inv-action: #2456d6; --p-inv-action-ink: #ffffff;
   --font-display: "Instrument Sans", system-ui, sans-serif;
   --font-text: "Instrument Sans", system-ui, sans-serif;
   --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -76,7 +77,7 @@ export default function RootLayout({
       lang="en"
       data-type="software"
       data-radius="soft"
-      data-ground="sand"
+      data-ground="sky"
       data-buttons="solid"
       data-motion=""
       suppressHydrationWarning
@@ -84,7 +85,7 @@ export default function RootLayout({
       <head>
         <meta name="page-type" content="software" />
         <meta name="site-kind" content="software" />
-        <meta name="theme-color" content="#dedad3" />
+        <meta name="theme-color" content="#ffffff" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* eslint-disable-next-line @next/next/no-page-custom-font -- root layout, loads on every page */}

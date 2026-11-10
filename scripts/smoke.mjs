@@ -95,7 +95,7 @@ async function checkRoute(c, route, vp, errors) {
   const type = await c.evaluate(`document.documentElement.dataset.type`);
   if (type !== "software") fail(t, vp.name, `data-type is ${type}`);
   const bg = await c.evaluate(`getComputedStyle(document.body).backgroundColor`);
-  if (bg !== "rgb(222, 218, 211)") fail(t, vp.name, `body background ${bg}`);
+  if (bg !== "rgb(255, 255, 255)") fail(t, vp.name, `body background ${bg}`);
   if (!(await c.evaluate(FONT_READY))) fail(t, vp.name, "Instrument Sans not loaded");
   const h1 = await c.evaluate(`document.querySelectorAll("h1").length`);
   if (h1 !== 1) fail(t, vp.name, `${h1} h1 elements`);
@@ -210,7 +210,7 @@ async function checkHome(c) {
   if (t1.a !== true || t1.b !== false || t1.sel !== "true") fail("/", "tabs", `after BillMinute click ${JSON.stringify(t1)}`);
 }
 
-// The collage hero on "/" (Task 3): kit entrance, Orb + window in the art frame, one screen, h1 <= 3 lines.
+// The collage hero on "/" (Task 3): kit entrance, gradient-mesh ground + window in the art frame, one screen, h1 <= 3 lines.
 const HERO_STATE = `(() => {
   const hero = document.querySelector("main section.hero");
   if (!hero) return null;
@@ -239,8 +239,8 @@ const HERO_STATE = `(() => {
 })()`;
 
 // Canvas motion (rAF, invisible to getAnimations): two clips of the art frame's top strip, where only the
-// Orb's ground shows (the window starts 64px down), 700ms apart. true when they are byte-identical.
-async function orbStill(c) {
+// ground shows (the window starts 64px down), 700ms apart. true when they are byte-identical.
+async function groundStill(c) {
   const clip = await c.evaluate(`(() => { const b = document.querySelector("main .hero__art").getBoundingClientRect(); return { x: b.x, y: b.y + scrollY, width: b.width, height: 56, scale: 1 }; })()`);
   const shot = async () => (await c.send("Page.captureScreenshot", { format: "png", clip, captureBeyondViewport: false })).data;
   const a = await shot();
@@ -257,30 +257,30 @@ async function checkHero(c) {
     const r = await c.evaluate(HERO_STATE);
     if (!r) { fail("/", vp.name, "no main section.hero"); continue; }
     if (!r.enter) fail("/", vp.name, "hero has no data-enter");
-    if (!r.canvas) fail("/", vp.name, "no Orb canvas in .hero__art");
+    if (!r.canvas) fail("/", vp.name, "no ground canvas in .hero__art");
     if (!r.win) fail("/", vp.name, "no .ui-win window in .hero__art");
     if (Math.abs(r.bottom - r.vh) > 2) fail("/", vp.name, `hero bottom ${r.bottom}, innerHeight ${r.vh}`);
     if (r.lines > 3) fail("/", vp.name, `h1 on ${r.lines} lines`);
     if (!r.main || r.main.t !== "Start a project" || r.main.h !== "/contact") fail("/", vp.name, `hero main action ${JSON.stringify(r.main)}`);
-    // a phone holds the Orb on its finished picture, so no disc covers the window's chips
+    // a phone holds the ground on its finished picture, so no disc covers the window's chips
     if (vp.mobile) {
-      if (!(await orbStill(c))) fail("/", vp.name, "Orb canvas moving on a phone");
+      if (!(await groundStill(c))) fail("/", vp.name, "hero ground canvas moving on a phone");
       if ((await c.evaluate(DISC))?.shown) fail("/", vp.name, "pause disc shown on a phone");
     }
   }
-  // The Orb moves (baseline: the clip method sees motion), and the frame's pause disc stops it
+  // The ground moves (baseline: the clip method sees motion), and the frame's pause disc stops it
   await setViewport(c, 1440, 900, false);
   await load(c, BASE + "/");
   await sleep(1500);
-  if (await orbStill(c)) fail("/", "orb", "Orb canvas did not change in 700ms with normal motion (baseline)");
+  if (await groundStill(c)) fail("/", "ground", "hero ground canvas did not change in 700ms with normal motion (baseline)");
   const disc = await c.evaluate(DISC);
-  if (!disc || !disc.shown || !disc.inside || disc.label !== "Pause animation") fail("/", "orb", `pause disc ${JSON.stringify(disc)}`);
+  if (!disc || !disc.shown || !disc.inside || disc.label !== "Pause animation") fail("/", "ground", `pause disc ${JSON.stringify(disc)}`);
   else {
     for (const type of ["mousePressed", "mouseReleased"]) await c.send("Input.dispatchMouseEvent", { type, x: disc.x, y: disc.y, button: "left", clickCount: 1 });
     await sleep(400);
     const after = await c.evaluate(DISC);
-    if (after?.label !== "Play animation") fail("/", "orb", `disc label after click: ${after?.label}`);
-    if (!(await orbStill(c))) fail("/", "orb", "Orb canvas still moving after the pause disc was clicked");
+    if (after?.label !== "Play animation") fail("/", "ground", `disc label after click: ${after?.label}`);
+    if (!(await groundStill(c))) fail("/", "ground", "hero ground canvas still moving after the pause disc was clicked");
   }
   // Review Focus 4: under reduced motion nothing in the hero keeps animating and nothing stays hidden
   await setViewport(c, 1440, 900, false);
@@ -294,10 +294,10 @@ async function checkHero(c) {
     const h1 = hero?.querySelector("h1");
     return { running, h1: h1 ? getComputedStyle(h1).opacity : null };
   })()`);
-  const rmStill = await orbStill(c);
+  const rmStill = await groundStill(c);
   const rmDisc = await c.evaluate(DISC);
   await c.send("Emulation.setEmulatedMedia", { features: [] });
-  if (!rmStill) fail("/", "reduced-motion", "Orb canvas changed in 700ms under reduced motion");
+  if (!rmStill) fail("/", "reduced-motion", "hero ground canvas changed in 700ms under reduced motion");
   if (rmDisc?.shown) fail("/", "reduced-motion", "pause disc shown under reduced motion");
   if (rm.running.length) fail("/", "reduced-motion", `running animations in hero: ${rm.running.join(", ")}`);
   if (rm.h1 !== "1") fail("/", "reduced-motion", `h1 opacity ${rm.h1}`);
@@ -357,7 +357,7 @@ async function checkProducts(c) {
         const a = hero?.querySelector("a.btn--primary, a[href^='/contact']");
         return {
           heroes: heroes.length, first: secs[0] === hero, enter: hero?.hasAttribute("data-enter"), collage: hero?.classList.contains("hero--collage"),
-          win: !!hero?.querySelector(".hero__art .ui-win"), orb: !!hero?.querySelector("canvas"), ids: secs.map((s) => s.id).join(">"),
+          win: !!hero?.querySelector(".hero__art .ui-win"), canvas: !!hero?.querySelector("canvas"), ids: secs.map((s) => s.id).join(">"),
           ground: hero && getComputedStyle(hero).backgroundColor, main: a?.textContent.trim(), href: a?.getAttribute("href"),
           visual: !!last?.querySelector(".dg svg, .dg canvas, [data-diagram], .panel .ui, .frame img"),
           primaries: document.querySelectorAll("main .btn--primary").length,
@@ -368,7 +368,7 @@ async function checkProducts(c) {
       const t = `${path} [${vp.name}]`;
       if (r.heroes !== 1 || !r.first) failures.push(`${t} ${r.heroes} heroes, first=${r.first}`);
       if (!r.enter || !r.collage || !r.win) failures.push(`${t} hero is not the dealt collage hero with a window: ${JSON.stringify(r)}`);
-      if (r.orb) failures.push(`${t} hero holds a canvas (no Orb on product pages)`);
+      if (r.canvas) failures.push(`${t} hero holds a canvas (no moving ground on product pages)`);
       if (r.main !== "Start a project" || r.href !== "/contact") failures.push(`${t} hero main action "${r.main}" -> "${r.href}"`);
       if (r.olds) failures.push(`${t} old CSS-module classes still render`);
       if (r.primaries !== 1) failures.push(`${t} ${r.primaries} btn--primary in main, expected only the hero's`);

@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import styles from "../home/HeroArt.module.css";
 
-// The dealt collage hero (kit layout/hero-collage.html) without the Orb: the product's window on the lit
+// The dealt collage hero (kit layout/hero-collage.html) without a moving ground: the product's window on the lit
 // ground, a small result card over its lower-left corner. motion.js runs the entrance from data-enter, so
 // the h1 stays plain text for its word masks. `theme` paints the section in a product's --p-* ground.
 export default function ProductHero({

@@ -17,12 +17,6 @@
   --fx-accent-ink: var(--accent-ink);
 }
 
-/* the Orb is the lit ground: its canvas fills the frame */
-.ground {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
 
 /* the window (compact rows: the finding over its file, no time column) takes its piece's width and runs
    down past the card; its content keeps --ly-cut-room clear at the right, so the frame's edge cuts

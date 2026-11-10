@@ -1,12 +1,10 @@
 import styles from "./HeroArt.module.css";
-import OrbGround from "./OrbGround";
 import SpecularButton from "../ui/SpecularButton";
 
 // The dealt collage hero (kit layout/hero-collage.html). motion.js runs the entrance from data-enter,
 // so the h1 stays plain text for its word masks.
-// The art frame's ground is html[data-ground="sand"] (--ground-bg #d9ccb7): the Orb draws on the same
-// colour so its shader blends into the frame.
-const GROUND = "#d9ccb7";
+// The art frame's ground is the kit effect gradient-mesh (owner's choice, quiet ground for a UI frame,
+// effects-usage.md): system.js mounts it, keeps it moving in the hero and gives the frame its pause disc.
 
 // AppKavo's findings for one build, ranked (the product's own subject: src/data/products.ts).
 const FINDINGS = [
@@ -35,7 +33,7 @@ export default function Hero() {
                 href="/contact"
                 size="md"
                 radius={8}
-                tint="#256f82"
+                tint="#2456d6"
                 tintOpacity={1}
                 textColor="#ffffff"
                 lineColor="#ffffff"
@@ -62,10 +60,11 @@ export default function Hero() {
             className={`hero__art span-6 start-7 ${styles.art}`}
             role="img"
             data-ui-pause-host
+            data-fx="gradient-mesh"
+            data-fx-seed="11"
+            data-fx-palette='{"bg":"#c6d3df","surface":"#d6e0e9","ink":"#25303a","muted":"#4d5964","accent":"#2456d6","accentInk":"#ffffff"}'
             aria-label="AppKavo's ranked security findings for an Android build, with two blockers for Google Play review"
           >
-            <OrbGround background={GROUND} />
-
             <div className="ly-piece ly-piece--main" aria-hidden="true">
               <div className="ui ui-panel ui-win ui-win--compact">
                 <div className="ui-win__bar">
