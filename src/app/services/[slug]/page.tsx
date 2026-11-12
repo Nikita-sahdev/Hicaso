@@ -7,6 +7,7 @@ import { content } from "@/components/services/content";
 import HowWeWork from "@/components/common/HowWeWork";
 import FAQ from "@/components/common/FAQ";
 import { services, getService } from "@/data/services";
+import { SITE_URL, ldJson } from "@/lib/site";
 
 // Site-wide answers (the home FAQ's own wording) that fill a service's FAQ out to five questions.
 const SITE_FAQS = [
@@ -34,8 +35,20 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   if (!service) notFound();
   const c = content[service.slug];
 
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.name,
+    serviceType: service.name,
+    description: service.description,
+    url: `${SITE_URL}/services/${service.slug}`,
+    areaServed: "Worldwide",
+    provider: { "@type": "Organization", name: "Hicaso", url: SITE_URL },
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ld)} />
       <ServiceHero
         h1={c.h1}
         lead={c.lead}

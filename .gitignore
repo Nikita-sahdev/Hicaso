@@ -43,3 +43,7 @@ next-env.d.ts
 # taste skill
 .taste-skill/
 shots/
+
+# enquiry leads (personal data)
+leads.jsonl
+!.env.example
