@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { buildEnquiryMailto, resolveService, type Enquiry } from "./enquiry.ts";
+import { buildEnquiryMailto, parseEnquiry, resolveService, type Enquiry } from "./enquiry.ts";
 
 const base: Enquiry = {
   name: "Ana",
@@ -46,4 +46,23 @@ test("resolveService accepts only known slugs", () => {
   assert.equal(resolveService("foo", slugs), "");
   assert.equal(resolveService(["a", "b"], slugs), "");
   assert.equal(resolveService(undefined, slugs), "");
+});
+
+const fd = (o: Record<string, string>) => {
+  const f = new FormData();
+  for (const [k, v] of Object.entries(o)) f.set(k, v);
+  return f;
+};
+
+test("parseEnquiry accepts a good enquiry and trims it", () => {
+  const e = parseEnquiry(fd({ ...base, name: "  Ana " }));
+  assert.equal(e?.name, "Ana");
+  assert.equal(e?.message, "Hello there");
+});
+
+test("parseEnquiry rejects missing name, bad email, empty or too-long message", () => {
+  assert.equal(parseEnquiry(fd({ ...base, name: " " })), null);
+  assert.equal(parseEnquiry(fd({ ...base, email: "ana.x.com" })), null);
+  assert.equal(parseEnquiry(fd({ ...base, message: "" })), null);
+  assert.equal(parseEnquiry(fd({ ...base, message: "x".repeat(1001) })), null);
 });

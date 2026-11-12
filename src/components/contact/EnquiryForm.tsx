@@ -31,7 +31,23 @@ export default function EnquiryForm({ services, initialService }: Props) {
   }
 
   return (
-    <form className="form" onSubmit={onSubmit} action={`mailto:${ENQUIRY_TO}`} method="post" encType="text/plain" data-endpoint="">
+    // system.js posts to data-endpoint (/api/enquiry) and shows data-sent / data-failed; the mailto handler and action
+    // only run if system.js hasn't loaded or scripts are off.
+    <form
+      className="form"
+      onSubmit={onSubmit}
+      action={`mailto:${ENQUIRY_TO}`}
+      method="post"
+      encType="text/plain"
+      data-endpoint="/api/enquiry"
+      data-sent="Sent. We'll reply by email."
+      data-failed={`Not sent: the connection failed. Your words are still here; try again, or write to ${ENQUIRY_TO}.`}
+    >
+      {/* honeypot: hidden from people, bots fill it and the route drops the lead */}
+      <div hidden aria-hidden="true">
+        <label htmlFor="enq-website">Website</label>
+        <input id="enq-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="field">
         <label htmlFor="enq-name">Name</label>
         <input id="enq-name" name="name" type="text" required autoComplete="name" aria-describedby="enq-name-err" />
