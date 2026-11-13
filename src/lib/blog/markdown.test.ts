@@ -52,3 +52,25 @@ test("heading ids are unique and outline matches", () => {
   ]);
   assert.match(renderMarkdown("## !!!"), /<h2 id="section">/);
 });
+
+test("entity-encoded hrefs cannot become protocol-relative", () => {
+  const dec = (s: string) =>
+    s.replace(/&amp;/g, "\u0000").replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16))).replace(/&#(\d+);/g, (_, d) => String.fromCharCode(+d)).replace(/\u0000/g, "&");
+  for (const href of ["/&#47;evil.com", "/&#x2f;evil.com", "/&sol;evil.com", "/&#92;evil.com", "/&bsol;evil.com", "/&#9;/evil.com"]) {
+    for (const src of [`[x](${href})`, `[x][r]\n\n[r]: ${href}`]) {
+      const html = renderMarkdown(src);
+      const m = html.match(/href="([^"]*)"/);
+      assert.ok(m, html);
+      assert.ok(!/&(?!amp;)/.test(m[1]), html);
+      assert.equal(new URL(dec(m[1]), "https://hicaso.com/blog/x").origin, "https://hicaso.com", html);
+    }
+  }
+});
+
+test("heading ids stay distinct when a suffixed id collides", () => {
+  const src = "## Cost\n\n## Cost 2\n\n## Cost";
+  const ids = outline(src).map((o) => o.id);
+  assert.equal(new Set(ids).size, 3, ids.join());
+  const html = [...renderMarkdown(src).matchAll(/id="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(html, ids);
+});

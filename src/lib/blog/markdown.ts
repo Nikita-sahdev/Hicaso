@@ -11,7 +11,7 @@ const plain = (tokens: Token[]): string =>
   tokens.map((t) => ("tokens" in t && t.tokens ? plain(t.tokens) : "text" in t ? String(t.text) : "")).join("");
 
 function render(src: string): { html: string; outline: { id: string; text: string }[] } {
-  const used = new Map<string, number>();
+  const used = new Set<string>();
   const outline: { id: string; text: string }[] = [];
   const md = new Marked({ gfm: true, async: false });
   md.use({
@@ -20,21 +20,25 @@ function render(src: string): { html: string; outline: { id: string; text: strin
       html({ text }) {
         return escapeHtml(text);
       },
-      // Returning false falls back to marked's default renderer, which escapes href and title.
-      link({ href, tokens }) {
-        return SAFE_HREF.test(href) ? false : this.parser.parseInline(tokens);
+      // Tags are built here, not by marked's default renderer: it leaves existing entities
+      // alone, so "/&#47;evil.com" would decode to "//evil.com". escapeHtml encodes every "&".
+      link({ href, title, tokens }) {
+        const inner = this.parser.parseInline(tokens);
+        if (!SAFE_HREF.test(href)) return inner;
+        return `<a href="${escapeHtml(href)}"${title ? ` title="${escapeHtml(title)}"` : ""}>${inner}</a>`;
       },
-      image({ href, text }) {
-        return SAFE_SRC.test(href) ? false : escapeHtml(text);
+      image({ href, title, text }) {
+        if (!SAFE_SRC.test(href)) return escapeHtml(text);
+        return `<img src="${escapeHtml(href)}" alt="${escapeHtml(text)}"${title ? ` title="${escapeHtml(title)}"` : ""}>`;
       },
       heading({ tokens, depth }) {
         const inner = this.parser.parseInline(tokens);
         if (depth !== 2 && depth !== 3) return `<h${depth}>${inner}</h${depth}>\n`;
         const text = plain(tokens).trim();
         const base = slugify(text) || "section";
-        const n = (used.get(base) ?? 0) + 1;
-        used.set(base, n);
-        const id = n === 1 ? base : `${base}-${n}`;
+        let id = base;
+        for (let n = 2; used.has(id); n++) id = `${base}-${n}`;
+        used.add(id);
         if (depth === 2) outline.push({ id, text });
         return `<h${depth} id="${id}">${inner}</h${depth}>\n`;
       },
