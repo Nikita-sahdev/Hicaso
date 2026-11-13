@@ -10,6 +10,8 @@ export function getPool(): pg.Pool | null {
   let pool = pools.get(url);
   if (!pool || pool.ended) {
     pool = new pg.Pool({ connectionString: url });
+    // Idle-client errors (Postgres restart, dropped connection) would otherwise crash the server.
+    pool.on("error", (e) => console.error("pg pool:", e.message));
     pools.set(url, pool);
   }
   return pool;

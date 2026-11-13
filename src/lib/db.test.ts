@@ -36,3 +36,15 @@ test("a draft cannot carry a publish time", { skip }, async () => {
   );
   await pool.end();
 });
+
+test("an idle-client error on the pool does not throw", () => {
+  const saved = process.env.DATABASE_URL;
+  process.env.DATABASE_URL = "postgres://localhost/does_not_matter";
+  try {
+    const pool = getPool()!;
+    assert.doesNotThrow(() => pool.emit("error", new Error("connection lost")));
+  } finally {
+    if (saved === undefined) delete process.env.DATABASE_URL;
+    else process.env.DATABASE_URL = saved;
+  }
+});
