@@ -9,7 +9,7 @@ export type Service = {
 
 export const STACK_GROUPS = ["AI", "Mobile", "Frontend", "Backend", "Databases"] as const;
 
-const ownCode = {
+export const ownCode = {
   q: "Who owns the software you build?",
   a: "You do. Once the project is paid for, the code and IP are yours.",
 };

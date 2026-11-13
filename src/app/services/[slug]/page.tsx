@@ -9,6 +9,8 @@ import FAQ from "@/components/common/FAQ";
 import { services, getService } from "@/data/services";
 import { SITE_URL, ldJson } from "@/lib/site";
 import { siteFaqs } from "@/data/faqs";
+import { technologies } from "@/data/technologies";
+import TechLinks from "@/components/services/TechLinks";
 
 // Only slugs from the data file exist; anything else is a 404.
 export const dynamicParams = false;
@@ -57,7 +59,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <HowWeWork />
       <FAQ items={[...service.faqs, ...siteFaqs]} />
       {/* R5: a text-only FAQ never closes <main>; the tools diagram does. */}
-      <StackIcons title={c.stackTitle} lines={c.stackLines} spokes={c.spokes} alt={c.stackAlt} />
+      <StackIcons title={c.stackTitle} lines={c.stackLines} spokes={c.spokes} alt={c.stackAlt}>
+        <TechLinks items={technologies.filter((t) => t.service === service.slug)} />
+      </StackIcons>
     </>
   );
 }

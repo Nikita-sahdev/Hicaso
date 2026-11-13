@@ -22,3 +22,9 @@ test("llms.txt gives the contact email and company pages", () => {
   assert.ok(t.includes(ENQUIRY_TO));
   for (const p of ["/about", "/contact"]) assert.ok(t.includes(`${SITE_URL}${p}`), p);
 });
+
+test("llms.txt links every technology page", async () => {
+  const { technologies } = await import("../data/technologies.ts");
+  const t = llmsText();
+  for (const x of technologies) assert.ok(t.includes(`${SITE_URL}/technologies/${x.slug}`), x.slug);
+});

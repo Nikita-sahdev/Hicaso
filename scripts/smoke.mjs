@@ -7,7 +7,8 @@ import { join } from "node:path";
 
 const SERVICE_SLUGS = ["generative-ai", "agentic-ai", "mobile-app-development", "web-development"];
 const PRODUCT_SLUGS = ["appkavo", "billminute"];
-const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`), "/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`), "/about", "/careers", "/contact", "/privacy", "/terms", { path: "/this-page-does-not-exist", status: 404 }];
+const TECH_SLUGS = ["flutter", "react-native", "laravel", "nextjs", "nodejs"];
+const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`), ...TECH_SLUGS.map((s) => `/technologies/${s}`), "/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`), "/about", "/careers", "/contact", "/privacy", "/terms", { path: "/this-page-does-not-exist", status: 404 }];
 const BASE = process.env.SMOKE_BASE ?? "http://localhost:3000";
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const VIEWPORTS = [

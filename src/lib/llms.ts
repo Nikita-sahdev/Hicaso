@@ -4,6 +4,7 @@ import { SITE_URL } from "./site.ts";
 import { ENQUIRY_TO } from "./enquiry.ts";
 import { services, moreServices } from "../data/services.ts";
 import { products } from "../data/products.ts";
+import { technologies } from "../data/technologies.ts";
 
 export function llmsText(): string {
   const link = (name: string, path: string, note: string) => `- [${name}](${SITE_URL}${path}): ${note}`;
@@ -16,6 +17,10 @@ export function llmsText(): string {
     "",
     ...services.map((s) => link(s.name, `/services/${s.slug}`, s.tagline)),
     ...moreServices.map((s) => `- ${s.name}: ${s.tagline}`),
+    "",
+    "## Technologies",
+    "",
+    ...technologies.map((t) => link(t.h1, `/technologies/${t.slug}`, t.uses.map((u) => u.title).join("; "))),
     "",
     "## Products",
     "",
