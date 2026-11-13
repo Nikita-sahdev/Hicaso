@@ -104,7 +104,9 @@ test("an invalid save of a live post leaves it unchanged", { skip }, async () =>
 test("unpublish keeps the slug locked", { skip }, async () => {
   await freshDb();
   const p = await live();
-  await unpublishPost(p.id);
+  const u = await unpublishPost(p.id);
+  assert.ok(u.ok);
+  assert.equal(u.post.status, "draft");
   const q = (await getPost(p.id))!;
   assert.equal(q.status, "draft");
   assert.equal(q.publishAt, null);
@@ -124,11 +126,19 @@ test("publishing a draft without a description is refused", { skip }, async () =
   assert.equal((await getPost(p.id))?.status, "draft");
 });
 
-test("deletePost removes the post", { skip }, async () => {
+test("deletePost removes the post and reports whether it did", { skip }, async () => {
   await freshDb();
   const p = await draft();
-  await deletePost(p.id);
+  assert.equal(await deletePost(p.id), true);
   assert.equal(await getPost(p.id), null);
+  assert.equal(await deletePost(p.id), false);
+});
+
+test("unpublishPost on a missing post is refused", { skip }, async () => {
+  await freshDb();
+  const r = await unpublishPost("00000000-0000-4000-8000-000000000000");
+  assert.equal(r.ok, false);
+  assert.equal((await unpublishPost("not-a-uuid")).ok, false);
 });
 
 test("getPost returns null for a non-UUID id", { skip }, async () => {

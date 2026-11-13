@@ -61,16 +61,18 @@ export async function publishPostAction(id: string, f: PostFields, atIso?: strin
   return r;
 }
 
-export async function unpublishPostAction(id: string): Promise<void> {
+export async function unpublishPostAction(id: string): Promise<SaveResult> {
   await requireAdmin();
-  if (typeof id !== "string") return;
-  await unpublishPost(id);
-  refreshSite();
+  if (typeof id !== "string") return bad("headline", "That request was not understood.");
+  const r = await unpublishPost(id);
+  if (r.ok) refreshSite();
+  return r;
 }
 
-export async function deletePostAction(id: string) {
+// Returns only when the delete did nothing; a real delete redirects.
+export async function deletePostAction(id: string): Promise<SaveResult> {
   await requireAdmin();
-  if (typeof id === "string") await deletePost(id);
+  if (typeof id !== "string" || !(await deletePost(id))) return bad("headline", "This post no longer exists.");
   refreshSite();
   redirect("/admin/blog");
 }

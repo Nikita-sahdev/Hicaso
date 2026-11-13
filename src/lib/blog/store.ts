@@ -158,17 +158,19 @@ export async function publishPost(id: string, at?: Date): Promise<SaveResult> {
   return rows[0] ? { ok: true, post: toPost(rows[0]) } : { ok: false, problems: [NOT_FOUND] };
 }
 
-export async function unpublishPost(id: string): Promise<void> {
+export async function unpublishPost(id: string): Promise<SaveResult> {
   const pool = getPool();
-  if (!pool || !UUID_RE.test(id)) return;
-  await pool.query(
-    "update blog_posts set status = 'draft', publish_at = null, updated_at = now() where id = $1",
+  if (!pool || !UUID_RE.test(id)) return { ok: false, problems: [NOT_FOUND] };
+  const { rows } = await pool.query(
+    "update blog_posts set status = 'draft', publish_at = null, updated_at = now() where id = $1 returning *",
     [id],
   );
+  return rows[0] ? { ok: true, post: toPost(rows[0]) } : { ok: false, problems: [NOT_FOUND] };
 }
 
-export async function deletePost(id: string): Promise<void> {
+export async function deletePost(id: string): Promise<boolean> {
   const pool = getPool();
-  if (!pool || !UUID_RE.test(id)) return;
-  await pool.query("delete from blog_posts where id = $1", [id]);
+  if (!pool || !UUID_RE.test(id)) return false;
+  const { rowCount } = await pool.query("delete from blog_posts where id = $1", [id]);
+  return rowCount === 1;
 }

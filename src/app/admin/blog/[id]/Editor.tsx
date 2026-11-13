@@ -165,14 +165,7 @@ export default function Editor({ post }: { post: EditorPost }) {
             className="btn"
             type="button"
             disabled={pending}
-            onClick={() =>
-              start(async () => {
-                await unpublishPostAction(post.id);
-                setMeta((m) => ({ ...m, status: "draft", publishAt: null }));
-                setServer([]);
-                setNote("Unpublished.");
-              })
-            }
+            onClick={() => run(() => unpublishPostAction(post.id), "Unpublished.")}
           >
             Unpublish
           </button>
@@ -182,7 +175,7 @@ export default function Editor({ post }: { post: EditorPost }) {
           type="button"
           disabled={pending}
           onClick={() => {
-            if (confirm("Delete this post for good?")) start(() => deletePostAction(post.id));
+            if (confirm("Delete this post for good?")) start(async () => apply(await deletePostAction(post.id), ""));
           }}
         >
           Delete
