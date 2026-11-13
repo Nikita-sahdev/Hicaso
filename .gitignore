@@ -47,3 +47,6 @@ shots/
 # enquiry leads (personal data)
 leads.jsonl
 !.env.example
+
+# blog image uploads (development)
+/uploads

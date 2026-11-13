@@ -11,18 +11,21 @@
     "start": "next start",
     "lint": "eslint",
     "smoke": "node scripts/smoke.mjs",
-    "test": "node --test src/data/technologies.test.ts src/components/layout/socialIcons.test.ts src/lib/llms.test.ts src/data/faqs.test.ts src/lib/site.test.ts src/data/products.test.ts src/data/services.test.ts src/lib/enquiry.test.ts src/data/proof.test.ts src/components/products/themeStyle.test.ts"
+    "db:migrate": "node scripts/migrate.ts",
+    "test": "node --test src/data/technologies.test.ts src/components/layout/socialIcons.test.ts src/lib/llms.test.ts src/data/faqs.test.ts src/lib/site.test.ts src/data/products.test.ts src/data/services.test.ts src/lib/enquiry.test.ts src/data/proof.test.ts src/components/products/themeStyle.test.ts src/lib/db.test.ts"
   },
   "dependencies": {
     "lucide-react": "^0.400.0",
     "next": "16.2.12",
     "nodemailer": "^10.5.0",
+    "pg": "^8.23.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/nodemailer": "^8.0.2",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
