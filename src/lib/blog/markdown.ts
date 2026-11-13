@@ -3,11 +3,11 @@ import { slugify } from "./post.ts";
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-// Relative paths must not start with "//" (protocol-relative, i.e. another site).
+// Links and images are judged by where a browser would resolve the cleaned URL (see safeHref, safeSrc), not by the raw string.
 const HOST = "https://hicaso.invalid";
 const clean = (u: string): string | null => {
   try {
-    return encodeURI(u);
+    return encodeURI(u).replace(/%25/g, "%"); // as marked does: keep existing escapes
   } catch {
     return null;
   }

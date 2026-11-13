@@ -110,3 +110,14 @@ test("backslash, tab and dot-dot cannot escape the site or the image folder", ()
   assert.match(renderMarkdown("[c](mailto:a@b.c)"), /href="mailto:a@b\.c"/);
   assert.match(renderMarkdown("[t](#cost)"), /href="#cost"/);
 });
+
+test("existing percent-escapes are not double-encoded, and stay safe", () => {
+  assert.match(renderMarkdown("[w](https://en.wikipedia.org/wiki/Caf%C3%A9)"), /href="https:\/\/en\.wikipedia\.org\/wiki\/Caf%C3%A9"/);
+  assert.match(renderMarkdown("[w](/blog/a%20b)"), /href="\/blog\/a%20b"/);
+  for (const src of ["[x](/%2F%2Fevil.com)", "[x](/%5C%5Cevil.com)"]) {
+    const html = renderMarkdown(src);
+    const m = html.match(/href="([^"]*)"/);
+    if (m) assert.equal(new URL(m[1].replace(/&amp;/g, "&"), "https://hicaso.com/blog/x").origin, "https://hicaso.com", html);
+  }
+  assert.ok(!renderMarkdown("![a](/blog-images/%2e%2e/x.png)").includes("<img"));
+});
