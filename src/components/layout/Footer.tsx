@@ -3,6 +3,9 @@ import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
 import { ENQUIRY_TO } from "@/lib/enquiry";
+import { SOCIAL, httpsLinks } from "@/lib/site";
+
+const social = httpsLinks(SOCIAL);
 
 // Kit footer.closing: row 1 is the site-wide close (close--type), row 2 the footer-statement links.
 const cols = [
@@ -50,6 +53,9 @@ export const Footer: React.FC = () => (
         </div>
         <div className="footer__legal">
           <span>&copy; {new Date().getFullYear()} Hicaso LLP</span>
+          {social.map((s) => (
+            <a key={s.url} className="link" href={s.url} rel="noopener noreferrer">{s.label}</a>
+          ))}
           {/* the one credit line from `photos.mjs credits` (three stand-in photographs on about, careers and contact); its list opens under it */}
           <details className="credits" data-slot="photo-credit">
             <summary>Photographs via Wikimedia Commons</summary>

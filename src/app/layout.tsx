@@ -5,7 +5,9 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { products } from "@/data/products";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { SITE_URL, ldJson } from "@/lib/site";
+import { SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
+
+const SAME_AS = httpsLinks(SOCIAL).map((l) => l.url);
 
 const STYLESHEETS = [
   "system.css",
@@ -77,6 +79,7 @@ const ORG_LD = {
   email: ENQUIRY_TO,
   telephone: "+91 70091 37936",
   address: { "@type": "PostalAddress", addressLocality: "Chandigarh", addressCountry: "IN" },
+  ...(SAME_AS.length ? { sameAs: SAME_AS } : {}),
 };
 
 export const metadata: Metadata = {
