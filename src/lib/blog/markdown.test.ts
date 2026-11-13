@@ -74,3 +74,39 @@ test("heading ids stay distinct when a suffixed id collides", () => {
   const html = [...renderMarkdown(src).matchAll(/id="([^"]+)"/g)].map((m) => m[1]);
   assert.deepEqual(html, ids);
 });
+
+test("backslash, tab and dot-dot cannot escape the site or the image folder", () => {
+  const decode = (s: string) => s.replace(/&amp;/g, "&");
+  const base = "https://hicaso.com/blog/x";
+  const srcs = [
+    "[x](/\\evil.com)",
+    "[x](</\t/evil.com>)",
+    "[x](</\\evil.com>)",
+    "[x][r]\n\n[r]: /\\evil.com",
+    "[x](/&#47;evil.com)",
+    "[x](/&#x2f;evil.com)",
+    "[x](/&sol;evil.com)",
+    "[x](/&#92;evil.com)",
+    "[x](/&bsol;evil.com)",
+    "[x](/&#9;/evil.com)",
+    "[x][r]\n\n[r]: /&#47;evil.com",
+  ];
+  for (const src of srcs) {
+    const html = renderMarkdown(src);
+    const m = html.match(/href="([^"]*)"/);
+    if (m) assert.equal(new URL(decode(m[1]), base).origin, "https://hicaso.com", `${src} -> ${html}`);
+    else assert.match(html, /^<p>x<\/p>/, html);
+  }
+  // encodeURI turns the backslash into %5C, a literal path character, so the link stays on-site.
+  assert.match(renderMarkdown("[x](/\\evil.com)"), /href="\/%5Cevil\.com"/);
+  for (const bad of ["![a](/blog-images/\\..\\x.png)", "![a](/blog-images/../x.png)"]) {
+    const html = renderMarkdown(bad);
+    assert.ok(!html.includes("<img"), html);
+  }
+  const ok = "![d](/blog-images/0123456789abcdef0123456789abcdef.png)";
+  assert.match(renderMarkdown(ok), /<img src="\/blog-images\/0123456789abcdef0123456789abcdef\.png"/);
+  assert.match(renderMarkdown("[x](https://a.com/?a=1&b=2)"), /href="https:\/\/a\.com\/\?a=1&amp;b=2"/);
+  assert.match(renderMarkdown("[b](/contact)"), /href="\/contact"/);
+  assert.match(renderMarkdown("[c](mailto:a@b.c)"), /href="mailto:a@b\.c"/);
+  assert.match(renderMarkdown("[t](#cost)"), /href="#cost"/);
+});
