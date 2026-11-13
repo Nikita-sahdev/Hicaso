@@ -156,6 +156,18 @@
     "markUrl": "https://play.google.com/"
   },
   {
+    "file": "instagram.svg",
+    "icon": "logos:instagram-icon",
+    "name": "Instagram",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://instagram.com/"
+  },
+  {
     "file": "langchain.svg",
     "icon": "logos:langchain-icon",
     "name": "LangChain",
@@ -178,6 +190,18 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://laravel.com/"
+  },
+  {
+    "file": "linkedin.svg",
+    "icon": "logos:linkedin-icon",
+    "name": "LinkedIn",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.linkedin.com/"
   },
   {
     "file": "mcp.svg",
@@ -312,6 +336,18 @@
     "markUrl": "https://developer.apple.com/swift/"
   },
   {
+    "file": "x.svg",
+    "icon": "logos:x",
+    "name": "X",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://x.com"
+  },
+  {
     "file": "xml.svg",
     "icon": "file:file-type-xml",
     "name": "XML",
@@ -321,5 +357,17 @@
     "licence": "MIT",
     "url": "https://github.com/vscode-icons/vscode-icons",
     "trademark": false
+  },
+  {
+    "file": "youtube.svg",
+    "icon": "logos:youtube-icon",
+    "name": "YouTube",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.youtube.com/"
   }
 ]

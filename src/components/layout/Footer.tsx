@@ -4,6 +4,7 @@ import { products } from "@/data/products";
 import { services } from "@/data/services";
 import { ENQUIRY_TO } from "@/lib/enquiry";
 import { BOOKING_URL, SOCIAL, httpsLinks } from "@/lib/site";
+import { SOCIAL_ICONS } from "./socialIcons";
 
 const social = httpsLinks(SOCIAL);
 const booking = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
@@ -60,10 +61,8 @@ export const Footer: React.FC = () => (
           {social.length ? (
             <div className="socials">
               {social.map((s) => (
-                <a key={s.url} href={s.url} rel="noopener noreferrer" aria-label={`Hicaso on ${s.label}`}>
-                  {/* eslint-disable-next-line @next/next/no-img-element -- a kit icon file, as the fragments use */}
-                  <img className="ic" data-icon={s.icon} src={`/assets/icons/${s.icon}.svg`} alt="" width="18" height="18" />
-                </a>
+                <a key={s.url} href={s.url} rel="noopener noreferrer" aria-label={`Hicaso on ${s.label}`}
+                  dangerouslySetInnerHTML={{ __html: SOCIAL_ICONS[s.icon] }} />
               ))}
             </div>
           ) : null}
