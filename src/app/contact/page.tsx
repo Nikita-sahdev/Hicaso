@@ -7,6 +7,11 @@ import { moreServices, services } from "@/data/services";
 // every service a client can ask for: the four with pages, then the listed ones (UI/UX, QA, maintenance)
 const ALL = [...services, ...moreServices].map(({ slug, name }) => ({ slug, name }));
 import { ENQUIRY_TO, resolveService } from "@/lib/enquiry";
+import { BOOKING_URL, WHATSAPP, httpsLinks, whatsappUrl } from "@/lib/site";
+
+// each row shows only once configured in src/lib/site.ts
+const WA = whatsappUrl(WHATSAPP);
+const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
 export const metadata: Metadata = {
   title: "Contact — Hicaso",
@@ -55,6 +60,18 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
                 <span className="rows__name">Phone</span>
                 <p><a className="link" href="tel:+917009137936">+91 70091 37936</a></p>
               </li>
+              {WA ? (
+                <li>
+                  <span className="rows__name">WhatsApp</span>
+                  <p><a className="link" href={WA} target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a></p>
+                </li>
+              ) : null}
+              {BOOKING ? (
+                <li>
+                  <span className="rows__name">Book a call</span>
+                  <p><a className="link" href={BOOKING} target="_blank" rel="noopener noreferrer">Book a 30-minute call</a></p>
+                </li>
+              ) : null}
               <li>
                 <span className="rows__name">Address</span>
                 <p>2646, Sector 52, Lig Housing Board, Sector 36 (Chandigarh)</p>

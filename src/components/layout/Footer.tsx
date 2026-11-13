@@ -3,9 +3,10 @@ import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { SOCIAL, httpsLinks } from "@/lib/site";
+import { BOOKING_URL, SOCIAL, httpsLinks } from "@/lib/site";
 
 const social = httpsLinks(SOCIAL);
+const booking = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
 // Kit footer.closing: row 1 is the site-wide close (close--type), row 2 the footer-statement links.
 const cols = [
@@ -27,12 +28,15 @@ export const Footer: React.FC = () => (
       <div className="closing__cta close--type">
         <div className="section-head">
           <h2 id="close-h">AI, mobile and web software, built to order</h2>
-          <p>Tell us what you need built. We reply by email.</p>
+          <p>Tell us what you need built. The first 30-minute call is free.</p>
         </div>
         <a className="btn btn--primary btn--xl btn--wide" href="/contact">
           Start a project
           <svg className="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path className="m-arrow__stem" d="M1 6h8" /><path className="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" /></svg>
         </a>
+        {booking ? (
+          <a className="btn btn--secondary btn--xl" href={booking} target="_blank" rel="noopener noreferrer">Book a 30-minute call</a>
+        ) : null}
       </div>
       <div className="closing__links">
         <div className="grid">
@@ -53,9 +57,16 @@ export const Footer: React.FC = () => (
         </div>
         <div className="footer__legal">
           <span>&copy; {new Date().getFullYear()} Hicaso LLP</span>
-          {social.map((s) => (
-            <a key={s.url} className="link" href={s.url} rel="noopener noreferrer">{s.label}</a>
-          ))}
+          {social.length ? (
+            <div className="socials">
+              {social.map((s) => (
+                <a key={s.url} href={s.url} rel="noopener noreferrer" aria-label={`Hicaso on ${s.label}`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element -- a kit icon file, as the fragments use */}
+                  <img className="ic" data-icon={s.icon} src={`/assets/icons/${s.icon}.svg`} alt="" width="18" height="18" />
+                </a>
+              ))}
+            </div>
+          ) : null}
           {/* the one credit line from `photos.mjs credits` (three stand-in photographs on about, careers and contact); its list opens under it */}
           <details className="credits" data-slot="photo-credit">
             <summary>Photographs via Wikimedia Commons</summary>
