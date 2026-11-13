@@ -189,14 +189,14 @@
 .post-body ol { list-style: decimal; }
 .post-body a { text-decoration: underline; text-underline-offset: 0.15em; }
 .post-body img { border-radius: var(--r-md); }
-.post-body h2 { font-size: var(--t-h3); margin-top: var(--s-5); }
 /* the post's "In this post" panel: each link a full tap target tall */
 .post-toc ul { padding: var(--s-2) var(--s-4); }
 .post-toc a { display: flex; align-items: center; min-height: 44px; }
 .post-toc__meta { padding: 0 var(--s-4) var(--s-4); }
+.post-toc__meta:first-child { padding-top: var(--s-4); }
 /* the blog's post list and a post's text are the owner's, of any length: from 1280 they grow past one screen
    (as the kit lets every section do below 1280) instead of running under the footer */
 @media (min-width: 1280px) {
-  main > :is(#posts, #post) { height: auto; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; }
-  main > :is(#posts, #post) > .wrap { flex: 1 0 auto; height: auto; }
+  main > :is(#posts, #blog-text) { height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
+  main > :is(#posts, #blog-text) > .wrap { flex: 1 0 auto; height: auto; }
 }

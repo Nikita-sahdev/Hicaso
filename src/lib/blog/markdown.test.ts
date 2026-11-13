@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { renderMarkdown, outline } from "./markdown.ts";
+import { renderMarkdown, outline, renderSections } from "./markdown.ts";
 
 // " onerror=" is checked inside real tags only: escaped text may still contain the word.
 const BAD = ["<script", 'href="javascript:', 'href="//', 'src="data:', 'src="http:'];
@@ -120,4 +120,28 @@ test("existing percent-escapes are not double-encoded, and stay safe", () => {
     if (m) assert.equal(new URL(m[1].replace(/&amp;/g, "&"), "https://hicaso.com/blog/x").origin, "https://hicaso.com", html);
   }
   assert.ok(!renderMarkdown("![a](/blog-images/%2e%2e/x.png)").includes("<img"));
+});
+
+test("renderSections cuts at h2s with outline's ids and lets no raw HTML through", () => {
+  const src = "Intro <b>x</b>\n\n## Cost\n\nA\n\n### Cost\n\n<!--h2-->\n\n## Cost <script>alert(1)</script>\n\n<img src=x onerror=alert(1)>\n\n## **Bold**";
+  const parts = renderSections(src);
+  assert.deepEqual(
+    parts.slice(1).map((p) => ({ id: p.id, text: p.heading })),
+    outline(src),
+  );
+  // headings are plain text (the page renders them as React text nodes)
+  assert.deepEqual(parts.slice(1).map((p) => p.heading), ["Cost", "Cost <script>alert(1)</script>", "Bold"]);
+  assert.equal(parts[0].id, null);
+  assert.match(parts[0].html, /Intro &lt;b&gt;x&lt;\/b&gt;/);
+  // a literal sentinel in the post is escaped text, not a cut: 1 intro + 3 h2 parts
+  assert.equal(parts.length, 4);
+  assert.match(parts[1].html, /&lt;!--h2--&gt;/);
+  assert.match(parts[1].html, /<h3 id="cost-2">/);
+  for (const p of parts) {
+    assert.doesNotMatch(p.html, /<h2/);
+    assert.doesNotMatch(p.html, /<script|<img[^>]*onerror|<b>/);
+  }
+  // the body joined back is renderMarkdown's output without its h2 tags
+  assert.equal(parts.map((p) => p.html).join(""), renderMarkdown(src).replace(/<h2 id="[^"]*">.*?<\/h2>\n/g, ""));
+  assert.deepEqual(renderSections("No headings."), [{ id: null, heading: null, html: "<p>No headings.</p>\n" }]);
 });

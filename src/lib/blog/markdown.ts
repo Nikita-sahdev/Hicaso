@@ -37,7 +37,11 @@ const safeSrc = (raw: string): string | null => {
 const plain = (tokens: Token[]): string =>
   tokens.map((t) => ("tokens" in t && t.tokens ? plain(t.tokens) : "text" in t ? String(t.text) : "")).join("");
 
-function render(src: string): { html: string; outline: { id: string; text: string }[] } {
+// renderSections puts this in place of each h2. It cannot come from a post: raw HTML is escaped and marked
+// escapes "<" in text and code, so every "<" in the output is one of the renderer's own tags.
+const SPLIT = "<!--h2-->";
+
+function render(src: string, split = false): { html: string; outline: { id: string; text: string }[] } {
   const used = new Set<string>();
   const outline: { id: string; text: string }[] = [];
   const md = new Marked({ gfm: true, async: false });
@@ -69,6 +73,7 @@ function render(src: string): { html: string; outline: { id: string; text: strin
         for (let n = 2; used.has(id); n++) id = `${base}-${n}`;
         used.add(id);
         if (depth === 2) outline.push({ id, text });
+        if (depth === 2 && split) return SPLIT;
         return `<h${depth} id="${id}">${inner}</h${depth}>\n`;
       },
     },
@@ -78,3 +83,16 @@ function render(src: string): { html: string; outline: { id: string; text: strin
 
 export const renderMarkdown = (src: string): string => render(src).html;
 export const outline = (src: string): { id: string; text: string }[] => render(src).outline;
+
+export type PostSection = { id: string | null; heading: string | null; html: string };
+// The post cut at its h2s, from one render: the text before the first h2 (id and heading null, html maybe
+// empty), then one part per h2 with outline()'s id, its plain text (render it as text, never as HTML) and
+// the HTML under it. The h2 tags themselves are left out; the page sets the headings.
+export function renderSections(src: string): PostSection[] {
+  const { html, outline: heads } = render(src, true);
+  const [intro, ...rest] = html.split(SPLIT);
+  return [
+    { id: null, heading: null, html: intro },
+    ...rest.map((part, i) => ({ id: heads[i].id, heading: heads[i].text, html: part })),
+  ];
+}
