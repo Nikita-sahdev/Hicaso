@@ -486,9 +486,10 @@ try {
   for (const d of ["Page", "Runtime", "Network", "Log"]) await c.send(`${d}.enable`);
   for (const route of ROUTES) {
     for (const vp of VIEWPORTS) await checkRoute(c, route, vp, errors);
-    // A runtime notFound() from the blog's force-dynamic pages ships Next's bare error shell (the 404 UI is client-rendered), so
-    // /blog 404s have no h1 with scripts off. Present since Task 4, reproduced on the base commit; status is 404 and JS shows the page.
-    if (!(typeof route !== "string" && route.status === 404 && route.path.startsWith("/blog"))) await checkNoJs(c, route);
+    // OPEN FOLLOW-UP: a runtime notFound() from /blog or /blog/[slug] answers 404 but serves Next's bare __next_error__ shell, so with
+    // scripts off the page has no h1 (the root not-found renders server-side only for unmatched URLs). Skipped for exactly these two.
+    const blog404 = typeof route !== "string" && route.status === 404 && (route.path === "/blog" || route.path === "/blog/no-such-post");
+    if (!blog404) await checkNoJs(c, route);
   }
   await checkNav(c);
   await checkHero(c);
