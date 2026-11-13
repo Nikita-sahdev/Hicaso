@@ -9,7 +9,8 @@ export function getPool(): pg.Pool | null {
   if (!url) return null;
   let pool = pools.get(url);
   if (!pool || pool.ended) {
-    pool = new pg.Pool({ connectionString: url });
+    // The root layout queries on every dynamic request: never wait for ever on a hung or full Postgres.
+    pool = new pg.Pool({ connectionString: url, connectionTimeoutMillis: 3000, statement_timeout: 5000 });
     // Idle-client errors (Postgres restart, dropped connection) would otherwise crash the server.
     pool.on("error", (e) => console.error("pg pool:", e.message));
     pools.set(url, pool);

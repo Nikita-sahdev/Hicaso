@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { getPool } from "./db.ts";
+import { listLivePostsSafe } from "./blog/store.ts";
 import { migrate } from "./migrate.ts";
 import { freshDb } from "./testDb.ts";
 
@@ -44,6 +45,25 @@ test("an idle-client error on the pool does not throw", () => {
     const pool = getPool()!;
     assert.doesNotThrow(() => pool.emit("error", new Error("connection lost")));
   } finally {
+    if (saved === undefined) delete process.env.DATABASE_URL;
+    else process.env.DATABASE_URL = saved;
+  }
+});
+
+// 10.255.255.1 is a non-routable address: connect() hangs instead of failing fast. Without
+// connectionTimeoutMillis the query waits for the OS TCP timeout (minutes), so the test
+// timeout turns that regression into a failure rather than a hang.
+test("a hung Postgres connection rejects within 5 s and the layout list falls back to []", { timeout: 9000 }, async () => {
+  const saved = process.env.DATABASE_URL;
+  process.env.DATABASE_URL = "postgres://10.255.255.1:5432/x";
+  const t0 = Date.now();
+  try {
+    await assert.rejects(getPool()!.query("select 1"));
+    assert.ok(Date.now() - t0 < 5000, `took ${Date.now() - t0} ms`);
+    assert.deepEqual(await listLivePostsSafe(), []);
+    assert.ok(Date.now() - t0 < 8000);
+  } finally {
+    await getPool()?.end();
     if (saved === undefined) delete process.env.DATABASE_URL;
     else process.env.DATABASE_URL = saved;
   }
