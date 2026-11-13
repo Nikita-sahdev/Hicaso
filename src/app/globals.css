@@ -194,9 +194,9 @@
 .post-toc a { display: flex; align-items: center; min-height: 44px; }
 .post-toc__meta { padding: 0 var(--s-4) var(--s-4); }
 .post-toc__meta:first-child { padding-top: var(--s-4); }
-/* the blog's post list and a post's text are the owner's, of any length: from 1280 they grow past one screen
+/* the blog post list, a post text and the admin pages are the owner's, of any length: from 1280 they grow past one screen
    (as the kit lets every section do below 1280) instead of running under the footer */
 @media (min-width: 1280px) {
-  main > :is(#posts, #blog-text) { height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
-  main > :is(#posts, #blog-text) > .wrap { flex: 1 0 auto; height: auto; }
+  main > :is(#posts, #blog-text, #admin) { height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
+  main > :is(#posts, #blog-text, #admin) > .wrap { flex: 1 0 auto; height: auto; }
 }

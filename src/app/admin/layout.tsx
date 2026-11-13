@@ -5,7 +5,7 @@ export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <section className="section">
+    <section className="section" id="admin">
       <div className="wrap">{children}</div>
     </section>
   );
