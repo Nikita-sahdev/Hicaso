@@ -1,14 +1,18 @@
 # Deploying the blog and admin panel
 
-For the Apache server that runs hicaso.com. Run every command on the server, as the user that runs the app, from the app folder. Needs Node 22.18 or newer (`node -v`).
+For the Apache server that runs hicaso.com. Run every command on the server, as the user that runs the app, from the app folder. Needs Node 22.18 or newer (`node -v`) and Postgres 13 or newer (`psql --version`; the migration uses `gen_random_uuid()`).
 
 The blog and `/admin` need Postgres. Without `DATABASE_URL` the site still runs, with no blog and no admin (both return 404).
 
-1. Install Postgres if `psql --version` fails.
+1. Install Postgres 13 or newer if `psql --version` fails or shows 12 or older. Ubuntu 20.04's own package is 12, so add the official PGDG apt repository first (also fine on newer Ubuntu):
 
    ```
+   sudo apt install -y postgresql-common
+   sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
    sudo apt install postgresql
    ```
+
+   That script adds the line `deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main` and its signing key. Check again with `psql --version`.
 
 2. Create the database user and database.
 
@@ -38,11 +42,12 @@ The blog and `/admin` need Postgres. Without `DATABASE_URL` the site still runs,
    chmod 700 /var/lib/hicaso/uploads
    ```
 
-5. Build on the server so the image library (sharp) matches it, then create the tables.
+5. Install, create the tables, then build. Build on the server so the image library (sharp) matches it. Migrate before building: the build prerenders pages that read `blog_posts`, so on a first deploy it would log `relation "blog_posts" does not exist`.
 
    ```
-   npm ci && npm run build
+   npm ci
    npm run db:migrate
+   npm run build
    ```
 
    Both `db:migrate` and `admin:create` load `.env.local` themselves (`node --env-file-if-exists=.env.local`), so run them from the app folder. They run `.ts` files directly through Node. A `MODULE_TYPELESS_PACKAGE_JSON` warning is harmless; ignore it.
