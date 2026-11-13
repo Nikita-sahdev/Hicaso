@@ -4,7 +4,7 @@ import { mkdtemp, readdir, readFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import sharp from "sharp";
-import { IMAGE_MAX_BYTES, readImage, saveImage, sniffImage } from "./images.ts";
+import { IMAGE_MAX_BYTES, IMAGE_MAX_PIXELS, readImage, saveImage, sniffImage } from "./images.ts";
 
 const tmp = () => mkdtemp(path.join(os.tmpdir(), "hicaso-img-"));
 const REFUSED = "Upload a PNG or JPEG image up to 3 MB.";
@@ -57,4 +57,16 @@ test("readImage refuses bad names and missing files", async () => {
   assert.equal(await readImage("../etc/passwd", dir), null);
   assert.equal(await readImage("x.png", dir), null);
   assert.equal(await readImage("a".repeat(32) + ".png", dir), null);
+});
+
+test("an image over the pixel limit is refused, a normal one accepted", async () => {
+  const dir = await tmp();
+  const solid = (width: number, height: number) =>
+    sharp({ create: { width, height, channels: 3, background: "#2456d6" } }).png().toBuffer();
+  assert.equal(IMAGE_MAX_PIXELS, 24_000_000);
+  const big = await solid(6000, 4001);
+  assert.ok(big.length < IMAGE_MAX_BYTES, "must fail on pixels, not size");
+  assert.deepEqual(await saveImage(big, dir), { ok: false, error: REFUSED });
+  assert.deepEqual(await readdir(dir), []);
+  assert.ok((await saveImage(await solid(1600, 1000), dir)).ok);
 });

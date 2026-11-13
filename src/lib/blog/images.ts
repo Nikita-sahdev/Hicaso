@@ -4,6 +4,7 @@ import path from "node:path";
 import sharp from "sharp";
 
 export const IMAGE_MAX_BYTES = 3_000_000;
+export const IMAGE_MAX_PIXELS = 24_000_000;
 export const IMAGE_FILE = /^[a-f0-9]{32}\.(png|jpg)$/;
 const REFUSED = "Upload a PNG or JPEG image up to 3 MB.";
 
@@ -26,7 +27,7 @@ export async function saveImage(b: Buffer, dir: string): Promise<Saved> {
   if (!kind) return { ok: false, error: REFUSED };
   let out: Buffer;
   try {
-    const img = sharp(b, { failOn: "error" }).rotate().resize({ width: 1600, withoutEnlargement: true });
+    const img = sharp(b, { failOn: "error", limitInputPixels: IMAGE_MAX_PIXELS }).rotate().resize({ width: 1600, withoutEnlargement: true });
     out = await (kind === "png" ? img.png() : img.jpeg({ quality: 85 })).toBuffer();
   } catch {
     return { ok: false, error: REFUSED };
