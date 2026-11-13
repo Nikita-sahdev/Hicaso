@@ -28,3 +28,13 @@ test("llms.txt links every technology page", async () => {
   const t = llmsText();
   for (const x of technologies) assert.ok(t.includes(`${SITE_URL}/technologies/${x.slug}`), x.slug);
 });
+
+test("llms.txt has no Blog section without live posts", () => {
+  assert.ok(!llmsText().includes("## Blog"));
+});
+
+test("llms.txt lists live posts under Blog, before Company", () => {
+  const t = llmsText([{ slug: "a-post", headline: "A post", description: "D", category: "web", publishAt: new Date(), updatedAt: new Date() }]);
+  assert.ok(t.includes(`- [A post](${SITE_URL}/blog/a-post): D`));
+  assert.ok(t.indexOf("## Blog") > -1 && t.indexOf("## Blog") < t.indexOf("## Company"));
+});

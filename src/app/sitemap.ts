@@ -3,8 +3,12 @@ import { services } from "@/data/services";
 import { products } from "@/data/products";
 import { technologies } from "@/data/technologies";
 import { SITE_URL } from "@/lib/site";
+import { listLivePostsSafe } from "@/lib/blog/store";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 60;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await listLivePostsSafe();
   const paths = [
     "",
     "/services",
@@ -18,5 +22,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/privacy",
     "/terms",
   ];
-  return paths.map((p) => ({ url: `${SITE_URL}${p}` }));
+  return [
+    ...paths.map((p) => ({ url: `${SITE_URL}${p}` })),
+    ...(posts.length
+      ? [{ url: `${SITE_URL}/blog` }, ...posts.map((p) => ({ url: `${SITE_URL}/blog/${p.slug}`, lastModified: p.updatedAt }))]
+      : []),
+  ];
 }

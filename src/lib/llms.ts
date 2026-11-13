@@ -5,8 +5,9 @@ import { ENQUIRY_TO } from "./enquiry.ts";
 import { services, moreServices } from "../data/services.ts";
 import { products } from "../data/products.ts";
 import { technologies } from "../data/technologies.ts";
+import type { PostSummary } from "./blog/store.ts";
 
-export function llmsText(): string {
+export function llmsText(posts: PostSummary[] = []): string {
   const link = (name: string, path: string, note: string) => `- [${name}](${SITE_URL}${path}): ${note}`;
   return [
     "# Hicaso",
@@ -26,6 +27,7 @@ export function llmsText(): string {
     "",
     ...products.map((p) => link(p.name, `/products/${p.slug}`, p.tagline)),
     "",
+    ...(posts.length ? ["## Blog", "", ...posts.map((p) => link(p.headline, `/blog/${p.slug}`, p.description)), ""] : []),
     "## Company",
     "",
     link("About", "/about", "Who we are and how we work"),

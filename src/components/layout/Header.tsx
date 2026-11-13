@@ -21,7 +21,7 @@ const Chev = () => (
 
 const appkavo = products.find((p) => p.slug === "appkavo")!;
 
-export const Header: React.FC = () => (
+export const Header: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
   <header className="nav">
     <div className="wrap nav__bar">
       <a className="skip-link" href="#top">Skip to content</a>
@@ -77,6 +77,7 @@ export const Header: React.FC = () => (
         </div>
         <div className="nav__item"><a className="nav__link" href="/about">About</a></div>
         <div className="nav__item"><a className="nav__link" href="/careers">Careers</a></div>
+        {blog ? <div className="nav__item"><a className="nav__link" href="/blog">Blog</a></div> : null}
       </nav>
       <div className="nav__actions">
         <a className="btn btn--primary" href="/contact">Start a project</a>

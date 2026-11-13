@@ -6,6 +6,10 @@ import Footer from "@/components/layout/Footer";
 import { products } from "@/data/products";
 import { ENQUIRY_TO } from "@/lib/enquiry";
 import { SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
+import { listLivePostsSafe } from "@/lib/blog/store";
+
+// The Blog link shows once a post is live; re-checked every minute and after admin writes. A DB outage only hides it.
+export const revalidate = 60;
 
 const SAME_AS = httpsLinks(SOCIAL).map((l) => l.url);
 
@@ -88,11 +92,12 @@ export const metadata: Metadata = {
   description: `Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and ships its own products, including ${products.map((p) => p.name).join(" and ")}.`,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const blog = (await listLivePostsSafe()).length > 0;
   return (
     <html
       lang="en"
@@ -129,9 +134,9 @@ export default function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ORG_LD)} />
       </head>
       <body>
-        <Header />
+        <Header blog={blog} />
         <main>{children}</main>
-        <Footer />
+        <Footer blog={blog} />
         {MODULES.map((src) => (
           <Script key={src} src={`/assets/${src}`} type="module" strategy="afterInteractive" />
         ))}

@@ -10,10 +10,10 @@ const social = httpsLinks(SOCIAL);
 const booking = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
 // Kit footer.closing: row 1 is the site-wide close (close--type), row 2 the footer-statement links.
-const cols = [
+const cols = (blog: boolean) => [
   { title: "Services", links: [{ label: "All services", href: "/services" }, ...services.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))] },
   { title: "Products", links: [{ label: "All products", href: "/products" }, ...products.map((p) => ({ label: p.name, href: `/products/${p.slug}` }))] },
-  { title: "Company", links: [{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Careers", href: "/careers" }, { label: "Contact", href: "/contact" }] },
+  { title: "Company", links: [{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Careers", href: "/careers" }, ...(blog ? [{ label: "Blog", href: "/blog" }] : []), { label: "Contact", href: "/contact" }] },
   { title: "Legal", links: [{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }, { label: ENQUIRY_TO, href: `mailto:${ENQUIRY_TO}` }] },
 ];
 
@@ -23,7 +23,7 @@ const SHIXART = {
   licenceUrl: "https://creativecommons.org/licenses/by/2.0",
 };
 
-export const Footer: React.FC = () => (
+export const Footer: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
   <footer className="footer closing g2m footer--statement" id="contact" aria-labelledby="close-h">
     <div className="wrap">
       <div className="closing__cta close--type">
@@ -45,7 +45,7 @@ export const Footer: React.FC = () => (
             <Logo />
             <p className="footer__lede">Hicaso builds AI, mobile and web software for companies.</p>
           </div>
-          {cols.map((col) => (
+          {cols(blog).map((col) => (
             <div key={col.title} className="span-2 footer__col">
               <h3>{col.title}</h3>
               <ul>

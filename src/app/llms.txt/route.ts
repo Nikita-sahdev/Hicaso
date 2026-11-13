@@ -1,8 +1,9 @@
 import { llmsText } from "@/lib/llms";
+import { listLivePostsSafe } from "@/lib/blog/store";
 
-// Built once at build time (route handlers are uncached unless force-static: docs 01-app/01-getting-started/15-route-handlers.md).
-export const dynamic = "force-static";
+// Regenerated at most once a minute, and straight away after an admin write (refreshSite revalidates /llms.txt).
+export const revalidate = 60;
 
-export function GET() {
-  return new Response(llmsText(), { headers: { "content-type": "text/plain; charset=utf-8" } });
+export async function GET() {
+  return new Response(llmsText(await listLivePostsSafe()), { headers: { "content-type": "text/plain; charset=utf-8" } });
 }
