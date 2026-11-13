@@ -51,6 +51,19 @@ export function draftProblems(f: PostFields): Problem[] {
   return out;
 }
 
+// An h1 is "#" plus space or tab at line start, outside ``` or ~~~ fences.
+function hasH1(body: string): boolean {
+  let fence = "";
+  for (const line of body.split(/\r?\n/)) {
+    const m = /^ {0,3}(`{3,}|~{3,})/.exec(line);
+    if (fence) {
+      if (m && m[1][0] === fence[0] && m[1].length >= fence.length) fence = "";
+    } else if (m) fence = m[1];
+    else if (/^#[ \t]/.test(line)) return true;
+  }
+  return false;
+}
+
 export function publishProblems(f: PostFields): Problem[] {
   const out = draftProblems(f);
   const add = (field: Problem["field"], message: string) => out.push({ field, message });
@@ -59,7 +72,7 @@ export function publishProblems(f: PostFields): Problem[] {
   if (!CATEGORIES.some((c) => c.id === f.category))
     add("category", `Pick a category: ${CATEGORIES.map((c) => c.id).join(", ")}.`);
   if (!f.body.trim()) add("body", "Write the post body.");
-  else if (/^# /m.test(f.body)) add("body", "Start headings at ##; the page already has the h1.");
+  else if (hasH1(f.body)) add("body", "Start headings at ##; the page already has the h1.");
   return out;
 }
 

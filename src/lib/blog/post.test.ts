@@ -42,6 +42,14 @@ test("each publish rule alone gives one problem", () => {
   one({ headline: "a\nb" }, "headline");
 });
 
+test("h1 rule ignores fenced code and catches a tab", () => {
+  const fenced = "## Setup\n\n```sh\n# install deps\nnpm i\n```";
+  assert.deepEqual(publishProblems({ ...ok, body: fenced }), []);
+  assert.deepEqual(publishProblems({ ...ok, body: "## A\n\n~~~\n# c\n~~~" }), []);
+  one({ body: "#\tTitle" }, "body");
+  one({ body: "```\n# c\n```\n# Real" }, "body");
+});
+
 test("draftProblems passes an empty description, category and body", () => {
   assert.deepEqual(draftProblems({ ...ok, description: "", category: "", body: "" }), []);
 });
