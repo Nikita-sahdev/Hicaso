@@ -31,3 +31,10 @@ test("h1 is 2–8 words and names the technology; 3–4 uses; 2–3 FAQs", () =>
 test("no invented proof in technology copy", () => {
   assert.doesNotMatch(JSON.stringify(technologies), INVENTED_PROOF);
 });
+
+test("technology copy promises nothing services.ts does not state (final review, Task 7)", () => {
+  assert.doesNotMatch(
+    JSON.stringify(technologies),
+    /TypeScript|push notifications|admin (panels|screens)|dashboards|upgrade plan|keep the pages|types can be shared/i,
+  );
+});

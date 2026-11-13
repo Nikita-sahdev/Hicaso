@@ -29,7 +29,7 @@ export const technologies: Technology[] = [
     usesTitle: "What we build with Flutter",
     uses: [
       { title: "Ships one app to both stores", body: "One Dart codebase builds the Android and iOS apps, so a feature reaches both together." },
-      { title: "Connects to Firebase or your API", body: "Sign-in, data and push notifications through Firebase, or through the backend you already run." },
+      { title: "Connects to Firebase or your API", body: "Firebase as the app's backend, or the API your web app already uses." },
       takeOver("Flutter app"),
     ],
     faqs: [
@@ -46,8 +46,8 @@ export const technologies: Technology[] = [
     lead: "Our team in India builds React Native apps for Android and iOS from one codebase and handles the store release. You see working builds in weekly demos.",
     usesTitle: "What we build with React Native",
     uses: [
-      { title: "Ships one app to both stores", body: "One TypeScript codebase builds the Android and iOS apps, so a feature reaches both together." },
-      { title: "Shares code with your React web app", body: "Logic and types can be shared with a React or Next.js web app we build or already run." },
+      { title: "Ships one app to both stores", body: "One React Native codebase builds the Android and iOS apps, so a feature reaches both together." },
+      { title: "Connects to Firebase or your API", body: "Firebase as the app's backend, or a Node.js API built by the same team." },
       takeOver("React Native app"),
     ],
     faqs: [
@@ -65,11 +65,11 @@ export const technologies: Technology[] = [
     usesTitle: "What we build with Laravel",
     uses: [
       { title: "Builds web apps and APIs", body: "Laravel with MySQL or PostgreSQL, behind a React or Next.js front end or Laravel's own pages." },
-      { title: "Runs online stores and admin panels", body: "The catalogue, orders and the admin screens your team works in." },
+      { title: "Builds online stores", body: "Storefronts on Laravel and MySQL, built from scratch or extended from the shop you run." },
       { title: "Upgrades older PHP and Laravel apps", body: "We take over CodeIgniter and older Laravel codebases, fix what is broken and move them forward." },
     ],
     faqs: [
-      { q: "Can you upgrade an old Laravel version?", a: "Yes. We read the existing codebase first and agree the upgrade plan with you before we start." },
+      { q: "Can you upgrade an old Laravel version?", a: "Yes. We maintain and upgrade existing PHP and Laravel applications, reading what is there before we change it." },
       { q: "Which databases do you use with Laravel?", a: "MySQL or PostgreSQL, picked with you to fit the app and your hosting." },
       ownCode,
     ],
@@ -82,12 +82,12 @@ export const technologies: Technology[] = [
     lead: "Our team in India builds web apps, SaaS products and marketing sites with React and Next.js, on Node.js or the API you already run. You see working software in weekly demos.",
     usesTitle: "What we build with Next.js",
     uses: [
-      { title: "Builds SaaS products and dashboards", body: "React and Next.js front ends with a Node.js backend and PostgreSQL or MongoDB." },
+      { title: "Builds web apps and SaaS products", body: "React and Next.js front ends with a Node.js backend and PostgreSQL or MongoDB." },
       { title: "Builds marketing sites", body: "Pages rendered on the server, so visitors and search engines get the content on first load." },
       { title: "Adds AI features to your web app", body: "Assistants and search over your own data, from the team that does our generative AI work." },
     ],
     faqs: [
-      { q: "Can you move our site to Next.js?", a: "Yes. We can rebuild an existing site or web app in Next.js and keep the pages and links you need." },
+      { q: "Can you work on our existing Next.js app?", a: "Yes. We can pick up an existing web codebase, read what is there and extend or fix it." },
       { q: "Which backend do you pair with Next.js?", a: "Node.js with PostgreSQL or MongoDB, or the API you already run." },
       ownCode,
     ],
