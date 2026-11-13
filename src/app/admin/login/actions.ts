@@ -32,7 +32,11 @@ export async function loginAction(
 
   // The attempt is recorded before anything else, so parallel requests all count.
   const a = await beginAttempt(ip, valid ? email : "");
-  if (a.limited) return { error: LIMITED };
+  // A refused attempt is not a failure: dropping its row keeps the lock from extending while the owner retries.
+  if (a.limited) {
+    await forgetAttempt(a.id);
+    return { error: LIMITED };
+  }
   if (!valid) return { error: WRONG };
 
   const user = await findAdmin(email);

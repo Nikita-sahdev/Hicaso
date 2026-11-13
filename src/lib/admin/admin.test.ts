@@ -143,3 +143,14 @@ test("forgetAttempt removes exactly one row", { skip }, async () => {
   const r = await pool.query("select count(*)::int as n from login_failures");
   assert.equal(r.rows[0].n, 1);
 });
+
+test("a refused attempt that is forgotten does not extend the lock", { skip }, async () => {
+  const pool = (await freshDb())!;
+  for (let i = 0; i < LOGIN_LIMIT; i++) await beginAttempt("5.5.5.5", "lock@x.com");
+  const a = await beginAttempt("5.5.5.5", "lock@x.com");
+  assert.equal(a.limited, true);
+  await forgetAttempt(a.id);
+  const r = await pool.query("select count(*)::int as n from login_failures where email = 'lock@x.com'");
+  assert.equal(r.rows[0].n, LOGIN_LIMIT);
+  assert.equal((await beginAttempt("5.5.5.5", "lock@x.com")).limited, true);
+});
