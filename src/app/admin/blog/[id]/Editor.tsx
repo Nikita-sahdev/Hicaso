@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { CATEGORIES, publishProblems, type PostFields, type Problem } from "@/lib/blog/post";
 import { renderMarkdown } from "@/lib/blog/markdown";
-import { deletePostAction, publishPostAction, savePostAction, unpublishPostAction } from "../actions";
+import { deletePostAction, publishPostAction, savePostAction, unpublishPostAction, uploadImageAction } from "../actions";
 import type { SaveResult } from "@/lib/blog/store";
 import LocalTime from "../LocalTime";
 import css from "./editor.module.css";
@@ -30,6 +30,34 @@ export default function Editor({ post }: { post: EditorPost }) {
   const [note, setNote] = useState("");
   const [now, setNow] = useState(() => Date.now());
   const [pending, start] = useTransition();
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
+  const upload = async (input: HTMLInputElement) => {
+    const file = input.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const fd = new FormData();
+      fd.set("file", file);
+      const r = await uploadImageAction(fd);
+      if (!r.ok) return setUploadError(r.error);
+      const md = `![Describe the image](${r.path})`;
+      const at = bodyRef.current?.selectionStart;
+      setF((s) => {
+        const i = typeof at === "number" ? Math.min(at, s.body.length) : s.body.length;
+        return { ...s, body: s.body.slice(0, i) + md + s.body.slice(i) };
+      });
+      setNote("");
+    } catch {
+      setUploadError("The upload failed. Try again.");
+    } finally {
+      setUploading(false);
+      input.value = "";
+    }
+  };
 
   const set = (k: keyof PostFields) => (e: { target: { value: string } }) => {
     setF((s) => ({ ...s, [k]: e.target.value }));
@@ -123,13 +151,25 @@ export default function Editor({ post }: { post: EditorPost }) {
       <div className={css.body}>
         <label>
           Body (Markdown)
-          <textarea value={f.body} onChange={set("body")} rows={24} />
+          <textarea ref={bodyRef} value={f.body} onChange={set("body")} rows={24} />
         </label>
         <div>
           <p>Preview</p>
           <div className={css.preview} data-preview dangerouslySetInnerHTML={{ __html: renderMarkdown(f.body) }} />
         </div>
       </div>
+      <p>
+        <label>
+          Add an image (PNG or JPEG, up to 3 MB)
+          <input type="file" accept="image/png,image/jpeg" disabled={uploading} onChange={(e) => upload(e.currentTarget)} />
+        </label>
+        {uploading ? " Uploading…" : null}
+      </p>
+      {uploadError ? (
+        <p role="alert" className={css.err}>
+          {uploadError}
+        </p>
+      ) : null}
       {err("body")}
 
       {live.length > 0 ? (

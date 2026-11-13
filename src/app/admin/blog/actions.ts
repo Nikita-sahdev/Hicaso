@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/admin/guard";
 import { createPost, deletePost, publishPost, savePost, unpublishPost, type SaveResult } from "@/lib/blog/store";
+import { IMAGE_MAX_BYTES, saveImage, uploadsDir } from "@/lib/blog/images";
 import type { PostFields, Problem } from "@/lib/blog/post";
 
 // Not exported: with "use server" every export is a callable action.
@@ -75,4 +76,15 @@ export async function deletePostAction(id: string): Promise<SaveResult> {
   if (typeof id !== "string" || !(await deletePost(id))) return bad("headline", "This post no longer exists.");
   refreshSite();
   redirect("/admin/blog");
+}
+
+// A named type keeps the signature free of braces, which the action-guard test's parser trips on.
+type UploadResult = { ok: true; path: string } | { ok: false; error: string };
+
+export async function uploadImageAction(fd: FormData): Promise<UploadResult> {
+  await requireAdmin();
+  const file = fd instanceof FormData ? fd.get("file") : null;
+  // Size is checked before the bytes are read into memory.
+  if (!(file instanceof Blob) || file.size > IMAGE_MAX_BYTES) return { ok: false, error: "Upload a PNG or JPEG image up to 3 MB." };
+  return saveImage(Buffer.from(await file.arrayBuffer()), uploadsDir());
 }
