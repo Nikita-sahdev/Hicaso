@@ -20,6 +20,7 @@ export default async function AdminPostPage({ params }: PageProps<"/admin/blog/[
         status: post.status,
         slugLocked: post.slugLocked,
         publishAt: post.publishAt ? post.publishAt.toISOString() : null,
+        updatedAt: post.updatedAt.toISOString(),
       }}
     />
   );

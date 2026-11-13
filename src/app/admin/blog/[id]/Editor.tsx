@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { CATEGORIES, publishProblems, type PostFields, type Problem } from "@/lib/blog/post";
 import { renderMarkdown } from "@/lib/blog/markdown";
 import { deletePostAction, publishPostAction, savePostAction, unpublishPostAction, uploadImageAction } from "../actions";
 import type { SaveResult } from "@/lib/blog/store";
 import LocalTime from "../LocalTime";
+import { backupKey, backupOffer, isDirty, type Backup } from "./draftBackup";
 import css from "./editor.module.css";
 
 type EditorPost = PostFields & {
@@ -13,17 +14,24 @@ type EditorPost = PostFields & {
   status: "draft" | "published";
   slugLocked: boolean;
   publishAt: string | null;
+  updatedAt: string;
 };
 
 export default function Editor({ post }: { post: EditorPost }) {
-  const [f, setF] = useState<PostFields>({
-    slug: post.slug,
-    headline: post.headline,
-    seoTitle: post.seoTitle,
-    description: post.description,
-    category: post.category,
-    body: post.body,
+  const pick = (p: PostFields): PostFields => ({
+    slug: p.slug,
+    headline: p.headline,
+    seoTitle: p.seoTitle,
+    description: p.description,
+    category: p.category,
+    body: p.body,
   });
+  const [f, setF] = useState<PostFields>(() => pick(post));
+  // The last saved (or server-loaded) copy: `dirty` is f compared with it.
+  const [saved, setSaved] = useState<PostFields>(() => pick(post));
+  const [serverAt, setServerAt] = useState(post.updatedAt);
+  const [offer, setOffer] = useState<{ backup: Backup; savedSince: boolean } | null>(null);
+  const dirty = isDirty(f, saved);
   const [meta, setMeta] = useState({ status: post.status, slugLocked: post.slugLocked, publishAt: post.publishAt });
   const [when, setWhen] = useState("");
   const [server, setServer] = useState<Problem[]>([]);
@@ -59,6 +67,54 @@ export default function Editor({ post }: { post: EditorPost }) {
     }
   };
 
+  const readBackup = (): Backup | null => {
+    try {
+      const raw = localStorage.getItem(backupKey(post.id));
+      return raw ? (JSON.parse(raw) as Backup) : null;
+    } catch {
+      return null;
+    }
+  };
+  const writeBackup = () => {
+    try {
+      const b: Backup = { fields: f, savedAt: Date.now(), serverUpdatedAt: serverAt };
+      localStorage.setItem(backupKey(post.id), JSON.stringify(b));
+    } catch {}
+  };
+  const clearBackup = () => {
+    try {
+      localStorage.removeItem(backupKey(post.id));
+    } catch {}
+  };
+
+  // On mount: offer a backup that differs from the server copy.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const b = readBackup();
+      const o = backupOffer(b, saved, serverAt);
+      if (b && o) setOffer({ backup: b, ...o });
+      else if (b) clearBackup();
+    }, 0);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Keep the backup current while dirty (debounced). Saves clear it. Hold off while a restore
+  // offer is waiting (or has not been looked up yet: not dirty), so the old backup survives.
+  useEffect(() => {
+    if (offer || !dirty) return;
+    const t = setTimeout(writeBackup, 500);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [f, saved, offer]);
+
+  useEffect(() => {
+    if (!dirty) return;
+    const h = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", h);
+    return () => window.removeEventListener("beforeunload", h);
+  }, [dirty]);
+
   const set = (k: keyof PostFields) => (e: { target: { value: string } }) => {
     setF((s) => ({ ...s, [k]: e.target.value }));
     setNote("");
@@ -74,13 +130,21 @@ export default function Editor({ post }: { post: EditorPost }) {
       setServer([]);
       setMeta({ status: r.post.status, slugLocked: r.post.slugLocked, publishAt: r.post.publishAt ? new Date(r.post.publishAt).toISOString() : null });
       setF((s) => ({ ...s, slug: r.post.slug }));
+      setSaved(pick(r.post));
+      setServerAt(new Date(r.post.updatedAt).toISOString());
+      clearBackup();
       setNote(done);
     } else {
       setServer(r.problems);
       setNote("");
     }
   };
-  const run = (fn: () => Promise<SaveResult>, done: string) => start(async () => apply(await fn(), done));
+  const run = (fn: () => Promise<SaveResult>, done: string) =>
+    start(async () => {
+      // An ended session makes the action redirect to the login page; keep the text safe first.
+      if (dirty) writeBackup();
+      apply(await fn(), done);
+    });
 
   const schedule = () => {
     if (!when) return setServer([{ field: "publishAt", message: "Pick a date and time." }]);
@@ -98,8 +162,44 @@ export default function Editor({ post }: { post: EditorPost }) {
 
   return (
     <>
+      {offer ? (
+        <div role="status" className={css.restore}>
+          <p>
+            You have unsaved changes from {new Date(offer.backup.savedAt).toLocaleString()}.
+            {offer.savedSince ? " The post was saved since then, so restoring will replace the newer text." : ""} Restore them?
+          </p>
+          <button
+            className="btn btn--primary"
+            type="button"
+            onClick={() => {
+              const b = offer.backup.fields;
+              setF(post.slugLocked ? { ...b, slug: saved.slug } : b);
+              setOffer(null);
+            }}
+          >
+            Restore
+          </button>{" "}
+          <button
+            className="btn"
+            type="button"
+            onClick={() => {
+              clearBackup();
+              setOffer(null);
+            }}
+          >
+            Discard
+          </button>
+        </div>
+      ) : null}
       <p>
-        <a href="/admin/blog">All posts</a>
+        <a
+          href="/admin/blog"
+          onClick={(e) => {
+            if (dirty && !confirm("Leave without saving? Your changes will be lost.")) e.preventDefault();
+          }}
+        >
+          All posts
+        </a>
       </p>
       <h1>Edit post</h1>
       <p>
@@ -215,7 +315,11 @@ export default function Editor({ post }: { post: EditorPost }) {
           type="button"
           disabled={pending}
           onClick={() => {
-            if (confirm("Delete this post for good?")) start(async () => apply(await deletePostAction(post.id), ""));
+            if (confirm("Delete this post for good?"))
+              start(async () => {
+                clearBackup();
+                apply(await deletePostAction(post.id), "");
+              });
           }}
         >
           Delete
