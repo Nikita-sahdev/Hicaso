@@ -5,6 +5,8 @@ import { DUMMY_HASH, hashPassword, verifyPassword } from "./password.ts";
 import { createSession, deleteSession, findAdmin, sessionUser, upsertAdmin } from "./accounts.ts";
 import {
   LOGIN_LIMIT,
+  beginAttempt,
+  forgetAttempt,
   clearFailures,
   clientIp,
   isLimited,
@@ -107,4 +109,37 @@ test("login limit: 10 failures per IP or per account", { skip }, async () => {
   assert.equal(await isLimited("8.8.8.8", "other@x.com"), false);
   await clearFailures("me@x.com");
   assert.equal(await isLimited("8.8.8.8", "me@x.com"), false);
+});
+
+test("beginAttempt: the 11th attempt per account is limited", { skip }, async () => {
+  await freshDb();
+  for (let i = 0; i < LOGIN_LIMIT; i++) {
+    assert.equal((await beginAttempt(`1.1.1.${i}`, "Me@x.com")).limited, false);
+  }
+  assert.equal((await beginAttempt("1.1.1.99", " me@x.com")).limited, true);
+});
+
+test("beginAttempt: the 11th attempt per IP is limited across emails", { skip }, async () => {
+  await freshDb();
+  for (let i = 0; i < LOGIN_LIMIT; i++) {
+    assert.equal((await beginAttempt("2.2.2.2", `u${i}@x.com`)).limited, false);
+  }
+  assert.equal((await beginAttempt("2.2.2.2", "new@x.com")).limited, true);
+});
+
+test("beginAttempt: concurrent attempts cannot all pass", { skip }, async () => {
+  await freshDb();
+  const rs = await Promise.all(
+    Array.from({ length: 15 }, () => beginAttempt("3.3.3.3", "burst@x.com")),
+  );
+  assert.ok(rs.filter((r) => !r.limited).length <= LOGIN_LIMIT);
+});
+
+test("forgetAttempt removes exactly one row", { skip }, async () => {
+  const pool = (await freshDb())!;
+  const a = await beginAttempt("4.4.4.4", "f@x.com");
+  await beginAttempt("4.4.4.4", "f@x.com");
+  await forgetAttempt(a.id);
+  const r = await pool.query("select count(*)::int as n from login_failures");
+  assert.equal(r.rows[0].n, 1);
 });
