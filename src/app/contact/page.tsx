@@ -16,7 +16,7 @@ const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 export const metadata: Metadata = {
   title: "Contact — Hicaso",
   description:
-    "Tell Hicaso about your project: AI, mobile or web. Email, phone and address in Chandigarh, India.",
+    "Tell Hicaso about your project: AI, mobile or web. Email and phone for our team in Chandigarh, India.",
 };
 
 // hero (the dealt split hero: words left, a stand-in photograph right) > enquiry (the starter's booking-form beside
@@ -73,8 +73,8 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
                 </li>
               ) : null}
               <li>
-                <span className="rows__name">Address</span>
-                <p>2646, Sector 52, Lig Housing Board, Sector 36 (Chandigarh)</p>
+                <span className="rows__name">Location</span>
+                <p>Chandigarh, India</p>
               </li>
               <li>
                 <span className="rows__name">Hours</span>
