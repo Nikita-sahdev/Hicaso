@@ -10,6 +10,8 @@ export default function ServiceHero({
   piece = "",
   contactHref = "/contact",
   primaryLabel = "Start a project",
+  id,
+  meta,
 }: {
   h1: string;
   lead: string;
@@ -19,14 +21,17 @@ export default function ServiceHero({
   piece?: string;
   contactHref?: string;
   primaryLabel?: string; // the page's own main action (careers: "Send your work"); the default is the site's
+  meta?: string; // a small line under the lead (a blog post's date, author and category)
+  id?: string; // a page whose text makes its own ids (a blog post's headings) names the hero apart from them
 }) {
   return (
-    <section className="hero hero--centred" data-enter aria-labelledby="hero-h">
+    <section className="hero hero--centred" id={id} data-enter aria-labelledby="hero-h">
       <div className="wrap">
         <div className="hero-text">
           <div className="hero__c">
             <h1 id="hero-h">{h1}</h1>
             <p className="hero__lead">{lead}</p>
+            {meta ? <p className="t-small muted">{meta}</p> : null}
             <div className="btn-row">
               <a className="btn btn--primary" href={contactHref}>
                 {primaryLabel}

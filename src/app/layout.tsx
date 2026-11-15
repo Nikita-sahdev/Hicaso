@@ -4,6 +4,14 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { products } from "@/data/products";
+import { ENQUIRY_TO } from "@/lib/enquiry";
+import { SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
+import { listLivePostsSafe } from "@/lib/blog/store";
+
+// The Blog link shows once a post is live; re-checked every minute and after admin writes. A DB outage only hides it.
+export const revalidate = 60;
+
+const SAME_AS = httpsLinks(SOCIAL).map((l) => l.url);
 
 const STYLESHEETS = [
   "system.css",
@@ -62,16 +70,34 @@ const M_ENTER = "document.documentElement.classList.add('m-enter');setTimeout(()
 // Moments guard from the kit's starter.html / in-page-service.html, verbatim.
 const MO_JS = "document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)";
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+// GA4 page views, plus a generate_lead event when system.js reports a sent enquiry (form:sent).
+const GA_JS = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config',${JSON.stringify(GA_ID)});document.addEventListener('form:sent',function(){gtag('event','generate_lead')});`;
+
+const ORG_LD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Hicaso",
+  url: SITE_URL,
+  logo: `${SITE_URL}/apple-icon.png`,
+  email: ENQUIRY_TO,
+  telephone: "+91 70091 37936",
+  address: { "@type": "PostalAddress", addressLocality: "Chandigarh", addressCountry: "IN" },
+  ...(SAME_AS.length ? { sameAs: SAME_AS } : {}),
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Hicaso — software development and product studio",
   description: `Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and ships its own products, including ${products.map((p) => p.name).join(" and ")}.`,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const blog = (await listLivePostsSafe()).length > 0;
   return (
     <html
       lang="en"
@@ -105,14 +131,21 @@ export default function RootLayout({
         ))}
         {/* eslint-disable-next-line @next/next/no-sync-scripts -- kit grounds set page tokens before first paint */}
         <script src="/assets/backgrounds/backgrounds.js" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ORG_LD)} />
       </head>
       <body>
-        <Header />
+        <Header blog={blog} />
         <main>{children}</main>
-        <Footer />
+        <Footer blog={blog} />
         {MODULES.map((src) => (
           <Script key={src} src={`/assets/${src}`} type="module" strategy="afterInteractive" />
         ))}
+        {GA_ID ? (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_ID)}`} strategy="afterInteractive" />
+            <Script id="ga" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: GA_JS }} />
+          </>
+        ) : null}
       </body>
     </html>
   );

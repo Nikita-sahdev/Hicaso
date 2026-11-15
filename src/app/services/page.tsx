@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import ServiceHero from "@/components/services/ServiceHero";
 import { chat } from "@/components/services/fragments";
 import { services } from "@/data/services";
+import { technologies } from "@/data/technologies";
+import TechLinks from "@/components/services/TechLinks";
 
 export const metadata: Metadata = {
   title: "Services — Hicaso",
@@ -90,6 +92,7 @@ export default function ServicesPage() {
                   <p>{MORE}</p>
                 </li>
               </ul>
+              <TechLinks items={technologies} />
             </div>
             <div className="panel frame--fill span-6 start-7" data-icon-base="/assets/icons/">
               <div className="dg" data-diagram="">

@@ -297,6 +297,7 @@ function forms() {
         const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
         if (!res.ok) throw new Error(String(res.status));
         clearTimeout(wait); form.reset(); say(form.dataset.sent || 'Sent.');
+        form.dispatchEvent(new CustomEvent('form:sent', { bubbles: true })); // analytics hook (layout.tsx GA)
       } catch {
         clearTimeout(wait); say(form.dataset.failed || 'Not sent: the connection failed. Your words are still here; try again.');
       } finally {

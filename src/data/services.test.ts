@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { services, moreServices, getService, STACK_GROUPS, allStackGroups } from "./services.ts";
+import { INVENTED_PROOF } from "./copyRules.ts";
 
 test("slugs are unique and URL-safe", () => {
   const slugs = [...services, ...moreServices].map((s) => s.slug);
@@ -50,8 +51,5 @@ test("allStackGroups merges and de-dupes", () => {
 
 test("no invented proof in copy", () => {
   const text = JSON.stringify([services, moreServices]);
-  assert.doesNotMatch(
-    text,
-    /\d+\+|\b\d+ (projects|clients|years|countries)\b|\bawards?\b|\bguarantee[sd]?\b|\$\d|\b(fast(est)?|blazing|scalable|secure|24\/7|enterprise-grade|best|leading|expert|proven|world-class|cutting-edge)\b/i,
-  );
+  assert.doesNotMatch(text, INVENTED_PROOF);
 });

@@ -7,16 +7,20 @@ export default function StackIcons({
   spokes,
   alt,
   center = "Hicaso",
+  children,
+  hm,
 }: {
   title: string;
   lines: string[];
   spokes: { label: string; icon: string }[];
   alt: string;
   center?: string;
+  children?: React.ReactNode; // more of the text column under the lines (a technology's uses, a service's technology links)
+  hm?: number; // phone height in screens (--hm) when the text column and the diagram outgrow one screen
 }) {
   const spec = { layout: "hub", alt, center: { label: center }, spokes };
   return (
-    <section className="section" id="stack" aria-labelledby="stack-h">
+    <section className="section" id="stack" style={hm ? ({ "--hm": hm } as React.CSSProperties) : undefined} aria-labelledby="stack-h">
       <div className="wrap">
         <div className="grid fill">
           <div className="span-5 stack-5">
@@ -25,6 +29,7 @@ export default function StackIcons({
             {lines.slice(1).map((l) => (
               <p key={l}>{l}</p>
             ))}
+            {children}
           </div>
           <div className="panel frame--fill span-6 start-7" data-icon-base="/assets/icons/">
             <div className="dg" data-diagram="">

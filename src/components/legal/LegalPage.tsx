@@ -6,7 +6,7 @@ import { ENQUIRY_TO } from "@/lib/enquiry";
 // A legal page on the kit: the dealt centred hero (h1, the date, a window with the page's three plain facts),
 // one text section (heading left, text right per numbered part), and a closing panel with the contact
 // details, so the page ends on a visual (R5). The legal text itself is passed in untouched.
-const CONTACT = notify([
+export const CONTACT = notify([
   { ico: "tick", title: `Write to ${ENQUIRY_TO}`, time: "", body: "We reply by email" },
   { ico: "tick", title: "Monday to Friday", time: "", body: "9:00 AM to 6:00 PM IST" },
 ]);
