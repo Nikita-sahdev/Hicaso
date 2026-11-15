@@ -29,15 +29,21 @@ export const Footer: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
       <div className="closing__cta close--type">
         <div className="section-head">
           <h2 id="close-h">AI, mobile and web software, built to order</h2>
-          <p>Tell us what you need built. The first 30-minute call is free.</p>
+          {/* the kit's close--type row holds one big button, so the booking link sits in the line */}
+          <p>
+            Tell us what you need built.{" "}
+            {booking ? (
+              <a className="link" href={booking} target="_blank" rel="noopener noreferrer">Book a free 30-minute call</a>
+            ) : (
+              "The first 30-minute call is free"
+            )}
+            .
+          </p>
         </div>
         <a className="btn btn--primary btn--xl btn--wide" href="/contact">
           Start a project
           <svg className="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path className="m-arrow__stem" d="M1 6h8" /><path className="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5" /></svg>
         </a>
-        {booking ? (
-          <a className="btn btn--secondary btn--xl" href={booking} target="_blank" rel="noopener noreferrer">Book a 30-minute call</a>
-        ) : null}
       </div>
       <div className="closing__links">
         <div className="grid">

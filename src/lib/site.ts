@@ -16,8 +16,8 @@ export const SOCIAL: { label: string; url: string; icon: string }[] = [
 export const httpsLinks = <T extends { url: string }>(links: T[]): T[] =>
   links.filter((l) => l.url.startsWith("https://"));
 
-// Booking link (Cal.com / Calendly): empty until the owner has one, and its links stay hidden until then.
-export const BOOKING_URL = "";
+// Booking link (owner's Cal.com, 2026-11-14); an empty value hides its links.
+export const BOOKING_URL = "https://cal.com/hicaso/free-30-minute-call-with-hicaso";
 // WhatsApp, digits only in international form: the office phone, +91 70091 37936 (owner, 2026-11-13).
 export const WHATSAPP = "917009137936";
 
