@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Photo from "@/components/company/Photo";
 import { WHY } from "@/data/why";
+import { services } from "@/data/services";
 
 export const metadata: Metadata = {
   title: "About — Hicaso",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 // The figures are counts from the data files and the working week the old pages state (counter-rolls, the dealt moment).
 const FIGURES = [
-  { n: "4", label: "services: generative AI, agentic AI, mobile and web" },
+  { n: String(services.length), label: "services, from generative AI to cloud and dedicated teams" },
   { n: "2", label: "products we run ourselves" },
   { n: "5", label: "days a week, Monday to Friday, 9:00 AM to 6:00 PM IST" },
 ];

@@ -1,6 +1,6 @@
 import styles from "./HeroArt.module.css";
 import SpecularButton from "../ui/SpecularButton";
-import { BOOKING_URL, httpsLinks } from "@/lib/site";
+import { BOOKING_URL, PROFILES, httpsLinks } from "@/lib/site";
 
 // the second button books the free call once a booking link is set (src/lib/site.ts)
 const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
@@ -63,7 +63,11 @@ export default function Hero() {
                 </a>
               )}
             </div>
-            <p className="hero__proof">Our working hours overlap with Europe and the Middle East.</p>
+            <p className="hero__proof">
+              Reviews on{" "}
+              <a className="link" href={PROFILES[0].url} target="_blank" rel="noopener noreferrer">{PROFILES[0].label}</a> and{" "}
+              <a className="link" href={PROFILES[1].url} target="_blank" rel="noopener noreferrer">{PROFILES[1].label}</a>.
+            </p>
           </div>
 
           <div
