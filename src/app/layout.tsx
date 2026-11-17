@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { products } from "@/data/products";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { PHONE, PROFILES, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
+import { OG, PHONE, PROFILES, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
 import { listLivePostsSafe } from "@/lib/blog/store";
 
 // The Blog link shows once a post is live; re-checked every minute and after admin writes. A DB outage only hides it.
@@ -90,6 +90,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Hicaso — software development and product studio",
   description: `Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and ships its own products, including ${products.map((p) => p.name).join(" and ")}.`,
+  openGraph: { type: "website", ...OG },
+  twitter: { card: "summary_large_image" },
 };
 
 export default async function RootLayout({

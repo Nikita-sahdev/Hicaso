@@ -8,7 +8,7 @@ import { getLivePost } from "@/lib/blog/store";
 import { categoryLabel } from "@/lib/blog/post";
 import { renderSections, type PostSection } from "@/lib/blog/markdown";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { SITE_URL, ldJson } from "@/lib/site";
+import { OG, SITE_URL, ldJson } from "@/lib/site";
 
 // One post on the site's document-page pattern (src/components/legal/LegalPage.tsx):
 // - the dealt centred hero: the headline, the description, and a window listing the category, the date and the post's h2s;
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
     title: post.seoTitle || post.headline,
     description: post.description,
     alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
-    openGraph: { type: "article" },
+    openGraph: { type: "article", ...OG },
   };
 }
 

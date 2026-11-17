@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
+import { technologies } from "@/data/technologies";
 
 // Kit nav-mega markup. The menu opens on hover/focus and the phone sheet is wired by /assets/system.js.
 const blurb: Record<string, string> = {
@@ -43,6 +44,12 @@ export const Header: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
                   <a key={s.slug} href={`/services/${s.slug}`}>{s.name}<span>{blurb[s.slug]}</span></a>
                 ))}
                 <a href="/services">All services</a>
+              </div>
+              <div className="menu-col span-3">
+                <p className="t-label">Technologies</p>
+                {technologies.map((t) => (
+                  <a key={t.slug} href={`/technologies/${t.slug}`}>{t.name}</a>
+                ))}
               </div>
               <a className="menu-card span-3 start-10" href={`/products/${appkavo.slug}`}>
                 <div className="panel">

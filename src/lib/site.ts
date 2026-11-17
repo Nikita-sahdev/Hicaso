@@ -18,6 +18,14 @@ export const PROFILES: { label: string; url: string }[] = [
   { label: "GoodFirms", url: "https://www.goodfirms.co/company/hicaso" },
 ];
 
+// Link previews (WhatsApp, LinkedIn, X): one shared card. Pages that set their own openGraph spread this in, since
+// Next replaces a parent's openGraph whole; og:title/description come from each page's own title and description.
+export const OG = {
+  siteName: "Hicaso",
+  locale: "en_US",
+  images: [{ url: "/og.png", width: 1200, height: 630, alt: "Hicaso: AI, mobile and web software, built to order" }],
+};
+
 // Only https links render, so an empty or mistyped URL never ships as a dead or unsafe href.
 export const httpsLinks = <T extends { url: string }>(links: T[]): T[] =>
   links.filter((l) => l.url.startsWith("https://"));
