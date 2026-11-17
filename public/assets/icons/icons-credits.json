@@ -36,6 +36,30 @@
     "markUrl": "https://www.apple.com/"
   },
   {
+    "file": "aws.svg",
+    "icon": "logos:aws",
+    "name": "AWS",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://aws.amazon.com/"
+  },
+  {
+    "file": "azure.svg",
+    "icon": "logos:microsoft-azure",
+    "name": "Azure",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://azure.microsoft.com/"
+  },
+  {
     "file": "claude.svg",
     "icon": "logos:claude-icon",
     "name": "Claude",
@@ -58,6 +82,18 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://dart.dev/"
+  },
+  {
+    "file": "digitalocean.svg",
+    "icon": "logos:digital-ocean-icon",
+    "name": "DigitalOcean",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.digitalocean.com/"
   },
   {
     "file": "docker.svg",
@@ -132,6 +168,18 @@
     "markUrl": "https://git-scm.com/"
   },
   {
+    "file": "google-cloud.svg",
+    "icon": "logos:google-cloud",
+    "name": "Google Cloud",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://cloud.google.com/"
+  },
+  {
     "file": "google-docs.svg",
     "icon": "si:googledocs",
     "name": "Google Docs",
@@ -204,6 +252,18 @@
     "markUrl": "https://www.linkedin.com/"
   },
   {
+    "file": "make.svg",
+    "icon": "si:make",
+    "name": "Make",
+    "kind": "mono",
+    "source": "simple-icons@16.30.0",
+    "author": "Simple Icons Collaborators",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/simple-icons/simple-icons",
+    "trademark": true,
+    "colour": "one-colour fallback in the brand hex"
+  },
+  {
     "file": "mcp.svg",
     "icon": "logos:model-context-protocol-icon",
     "name": "Model Context Protocol",
@@ -226,6 +286,18 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://dev.mysql.com/"
+  },
+  {
+    "file": "n8n.svg",
+    "icon": "logos:n8n-icon",
+    "name": "n8n",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://n8n.io"
   },
   {
     "file": "nextjs.svg",
@@ -324,6 +396,18 @@
     "markUrl": "https://facebook.github.io/react/"
   },
   {
+    "file": "shopify.svg",
+    "icon": "logos:shopify",
+    "name": "Shopify",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://shopify.com/"
+  },
+  {
     "file": "swift.svg",
     "icon": "logos:swift",
     "name": "Swift",
@@ -334,6 +418,18 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://developer.apple.com/swift/"
+  },
+  {
+    "file": "woocommerce.svg",
+    "icon": "logos:woocommerce-icon",
+    "name": "WooCommerce",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://www.woothemes.com/woocommerce/"
   },
   {
     "file": "x.svg",
@@ -369,5 +465,17 @@
     "url": "https://github.com/gilbarbara/logos",
     "trademark": true,
     "markUrl": "https://www.youtube.com/"
+  },
+  {
+    "file": "zapier.svg",
+    "icon": "logos:zapier",
+    "name": "Zapier",
+    "kind": "colour",
+    "source": "gilbarbara/logos@d6960edc1b7309d392c76e40d3a320df7f9ff85c",
+    "author": "Gil Barbara",
+    "licence": "CC0-1.0",
+    "url": "https://github.com/gilbarbara/logos",
+    "trademark": true,
+    "markUrl": "https://zapier.com/"
   }
 ]

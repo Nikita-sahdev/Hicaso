@@ -2,7 +2,7 @@
 // as the pages so it never drifts. Relative .ts imports so node --test can load it.
 import { SITE_URL } from "./site.ts";
 import { ENQUIRY_TO } from "./enquiry.ts";
-import { services, moreServices } from "../data/services.ts";
+import { services } from "../data/services.ts";
 import { products } from "../data/products.ts";
 import { technologies } from "../data/technologies.ts";
 import type { PostSummary } from "./blog/store.ts";
@@ -17,7 +17,6 @@ export function llmsText(posts: PostSummary[] = []): string {
     "## Services",
     "",
     ...services.map((s) => link(s.name, `/services/${s.slug}`, s.tagline)),
-    ...moreServices.map((s) => `- ${s.name}: ${s.tagline}`),
     "",
     "## Technologies",
     "",

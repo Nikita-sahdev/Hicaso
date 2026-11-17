@@ -29,7 +29,7 @@ export default function Hero() {
           <div className="hero__text span-5">
             <h1 id="hero-h">AI, mobile and web software for global companies</h1>
             <p className="hero__lead">
-              Hicaso is a software company and product studio in India, building generative and agentic AI for
+              Hicaso is a custom software development company and product studio in India, building generative and agentic AI for
               clients and running products of our own.
             </p>
             <div className="btn-row">

@@ -1,21 +1,26 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { services, moreServices, getService, STACK_GROUPS, allStackGroups } from "./services.ts";
+import { services, getService, SERVICE_GROUPS, STACK_GROUPS, allStackGroups } from "./services.ts";
 import { INVENTED_PROOF } from "./copyRules.ts";
 
 test("slugs are unique and URL-safe", () => {
-  const slugs = [...services, ...moreServices].map((s) => s.slug);
+  const slugs = services.map((s) => s.slug);
   assert.equal(new Set(slugs).size, slugs.length);
   for (const slug of slugs) assert.match(slug, /^[a-z0-9-]+$/);
 });
 
-test("services are the four from the spec, in order", () => {
+test("the first four are the spec's four, in order (the home grid reads them by position)", () => {
   assert.deepEqual(
-    services.map((s) => s.slug),
+    services.slice(0, 4).map((s) => s.slug),
     ["generative-ai", "agentic-ai", "mobile-app-development", "web-development"],
   );
   assert.equal(getService("agentic-ai")?.name, "Agentic AI");
   assert.equal(getService("nope"), undefined);
+});
+
+test("every service sits in a menu group, and every group has a service", () => {
+  for (const s of services) assert.ok(SERVICE_GROUPS.includes(s.group), s.slug);
+  for (const g of SERVICE_GROUPS) assert.ok(services.some((s) => s.group === g), g);
 });
 
 test("each service has ≥1 stack group, 2–4 FAQs", () => {
@@ -50,6 +55,6 @@ test("allStackGroups merges and de-dupes", () => {
 });
 
 test("no invented proof in copy", () => {
-  const text = JSON.stringify([services, moreServices]);
+  const text = JSON.stringify(services);
   assert.doesNotMatch(text, INVENTED_PROOF);
 });

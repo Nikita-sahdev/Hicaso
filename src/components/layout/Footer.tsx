@@ -10,9 +10,12 @@ const social = httpsLinks(SOCIAL);
 const profiles = httpsLinks(PROFILES);
 const booking = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
+// the footer names six services; the menu and /services list all of them
+const FOOTER_SERVICES = ["generative-ai", "agentic-ai", "mobile-app-development", "web-development", "mvp-development", "dedicated-team"];
+
 // Kit footer.closing: row 1 is the site-wide close (close--type), row 2 the footer-statement links.
 const cols = (blog: boolean) => [
-  { title: "Services", links: [{ label: "All services", href: "/services" }, ...services.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))] },
+  { title: "Services", links: [{ label: "All services", href: "/services" }, ...FOOTER_SERVICES.map((slug) => services.find((s) => s.slug === slug)!).map((s) => ({ label: s.name, href: `/services/${s.slug}` }))] },
   { title: "Products", links: [{ label: "All products", href: "/products" }, ...products.map((p) => ({ label: p.name, href: `/products/${p.slug}` }))] },
   { title: "Company", links: [{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Careers", href: "/careers" }, ...(blog ? [{ label: "Blog", href: "/blog" }] : []), { label: "Contact", href: "/contact" }] },
   { title: "Legal", links: [{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }, { label: ENQUIRY_TO, href: `mailto:${ENQUIRY_TO}` }, { label: PHONE.display, href: `tel:${PHONE.tel}` }] },

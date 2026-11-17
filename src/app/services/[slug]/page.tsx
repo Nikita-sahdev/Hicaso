@@ -20,8 +20,14 @@ const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 const POST_CATEGORY: Record<string, string> = {
   "generative-ai": "ai",
   "agentic-ai": "ai",
+  "ai-chatbot-development": "ai",
+  "ai-automation": "ai",
+  "ai-consulting": "ai",
   "mobile-app-development": "mobile",
   "web-development": "web",
+  "mvp-development": "web",
+  "saas-development": "web",
+  "ecommerce-development": "web",
 };
 
 // Only slugs from the data file exist; anything else is a 404.

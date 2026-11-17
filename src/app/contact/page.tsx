@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import EnquiryForm from "@/components/contact/EnquiryForm";
 import Photo from "@/components/company/Photo";
 import HowWeWork from "@/components/common/HowWeWork";
-import { moreServices, services } from "@/data/services";
+import { services } from "@/data/services";
 
-// every service a client can ask for: the four with pages, then the listed ones (UI/UX, QA, maintenance)
-const ALL = [...services, ...moreServices].map(({ slug, name }) => ({ slug, name }));
+// every service a client can ask for
+const ALL = services.map(({ slug, name }) => ({ slug, name }));
 import { ENQUIRY_TO, resolveService } from "@/lib/enquiry";
 import { BOOKING_URL, PHONE, WHATSAPP, httpsLinks, whatsappUrl } from "@/lib/site";
 

@@ -1,15 +1,11 @@
 import React from "react";
 import Logo from "../ui/Logo";
 import { products } from "@/data/products";
-import { services } from "@/data/services";
+import { SERVICE_GROUPS, services } from "@/data/services";
 import { technologies } from "@/data/technologies";
 
 // Kit nav-mega markup. The menu opens on hover/focus and the phone sheet is wired by /assets/system.js.
 const blurb: Record<string, string> = {
-  "generative-ai": "LLM features in your product",
-  "agentic-ai": "Agents that finish the work",
-  "mobile-app-development": "Android and iOS apps",
-  "web-development": "Web apps and backends",
   appkavo: "Security audit for mobile apps",
   billminute: "Invoices in under a minute",
 };
@@ -19,8 +15,6 @@ const Chev = () => (
     <path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
-
-const appkavo = products.find((p) => p.slug === "appkavo")!;
 
 export const Header: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
   <header className="nav">
@@ -32,39 +26,21 @@ export const Header: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
           <a className="nav__link" href="/services">Services <Chev /></a>
           <div className="nav__menu">
             <div className="wrap grid">
-              <div className="menu-col span-3">
-                <p className="t-label">Services</p>
-                {services.slice(0, 2).map((s) => (
-                  <a key={s.slug} href={`/services/${s.slug}`}>{s.name}<span>{blurb[s.slug]}</span></a>
-                ))}
-              </div>
-              <div className="menu-col span-3">
-                <p className="t-label">&nbsp;</p>
-                {services.slice(2).map((s) => (
-                  <a key={s.slug} href={`/services/${s.slug}`}>{s.name}<span>{blurb[s.slug]}</span></a>
-                ))}
-                <a href="/services">All services</a>
-              </div>
+              {SERVICE_GROUPS.map((g) => (
+                <div key={g} className="menu-col span-3">
+                  <p className="t-label">{g}</p>
+                  {services.filter((s) => s.group === g).map((s) => (
+                    <a key={s.slug} href={`/services/${s.slug}`}>{s.name}</a>
+                  ))}
+                  {g === SERVICE_GROUPS[SERVICE_GROUPS.length - 1] ? <a href="/services">All services</a> : null}
+                </div>
+              ))}
               <div className="menu-col span-3">
                 <p className="t-label">Technologies</p>
                 {technologies.map((t) => (
                   <a key={t.slug} href={`/technologies/${t.slug}`}>{t.name}</a>
                 ))}
               </div>
-              <a className="menu-card span-3 start-10" href={`/products/${appkavo.slug}`}>
-                <div className="panel">
-                  <div className="stage stage--fade-br">
-                    <div className="at-corner">
-                      <div className="ui ui-panel">
-                        <div className="ui-head"><div className="ui-title">{appkavo.name}</div></div>
-                        <p className="t-small muted">{blurb.appkavo}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <span className="t-card">{appkavo.name}</span>
-                <span className="t-small muted">{appkavo.audience}</span>
-              </a>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const SERVICE_SLUGS = ["generative-ai", "agentic-ai", "mobile-app-development", "web-development"];
+const SERVICE_SLUGS = ["generative-ai", "agentic-ai", "mobile-app-development", "web-development", "ai-chatbot-development", "ai-automation", "ai-consulting", "mvp-development", "saas-development", "ecommerce-development", "ui-ux-design", "qa-testing", "maintenance-support", "app-modernization", "cloud-devops", "dedicated-team"];
 const PRODUCT_SLUGS = ["appkavo", "billminute"];
 const TECH_SLUGS = ["flutter", "react-native", "laravel", "nextjs", "nodejs"];
 const ROUTES = ["/", "/services", ...SERVICE_SLUGS.map((s) => `/services/${s}`), ...TECH_SLUGS.map((s) => `/technologies/${s}`), "/products", ...PRODUCT_SLUGS.map((s) => `/products/${s}`), "/about", "/careers", "/contact", "/privacy", "/terms", { path: "/this-page-does-not-exist", status: 404 }];
