@@ -3,10 +3,11 @@ import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { BOOKING_URL, PHONE, SOCIAL, httpsLinks } from "@/lib/site";
+import { BOOKING_URL, PHONE, PROFILES, SOCIAL, httpsLinks } from "@/lib/site";
 import { SOCIAL_ICONS } from "./socialIcons";
 
 const social = httpsLinks(SOCIAL);
+const profiles = httpsLinks(PROFILES);
 const booking = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
 // Kit footer.closing: row 1 is the site-wide close (close--type), row 2 the footer-statement links.
@@ -50,6 +51,17 @@ export const Footer: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
           <div className="span-4 stack-4">
             <Logo />
             <p className="footer__lede">Hicaso builds AI, mobile and web software for companies.</p>
+            {profiles.length ? (
+              <p className="t-small">
+                Reviews on{" "}
+                {profiles.map((p, i) => (
+                  <React.Fragment key={p.url}>
+                    {i ? (i === profiles.length - 1 ? " and " : ", ") : ""}
+                    <a className="link" href={p.url} target="_blank" rel="noopener noreferrer">{p.label}</a>
+                  </React.Fragment>
+                ))}
+              </p>
+            ) : null}
           </div>
           {cols(blog).map((col) => (
             <div key={col.title} className="span-2 footer__col">

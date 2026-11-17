@@ -5,13 +5,13 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { products } from "@/data/products";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { PHONE, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
+import { PHONE, PROFILES, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
 import { listLivePostsSafe } from "@/lib/blog/store";
 
 // The Blog link shows once a post is live; re-checked every minute and after admin writes. A DB outage only hides it.
 export const revalidate = 60;
 
-const SAME_AS = httpsLinks(SOCIAL).map((l) => l.url);
+const SAME_AS = httpsLinks([...SOCIAL, ...PROFILES]).map((l) => l.url);
 
 const STYLESHEETS = [
   "system.css",

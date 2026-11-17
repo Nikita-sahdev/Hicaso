@@ -12,6 +12,12 @@ export const SOCIAL: { label: string; url: string; icon: string }[] = [
   { label: "Instagram", url: "https://www.instagram.com/hicasollp", icon: "instagram" },
 ];
 
+// Review-site profiles (owner, 2026-11-17): a text line in the footer (the kit has no marks for them) and JSON-LD sameAs.
+export const PROFILES: { label: string; url: string }[] = [
+  { label: "Clutch", url: "https://clutch.co/profile/hicaso" },
+  { label: "GoodFirms", url: "https://www.goodfirms.co/company/hicaso" },
+];
+
 // Only https links render, so an empty or mistyped URL never ships as a dead or unsafe href.
 export const httpsLinks = <T extends { url: string }>(links: T[]): T[] =>
   links.filter((l) => l.url.startsWith("https://"));

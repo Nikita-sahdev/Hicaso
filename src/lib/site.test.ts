@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { httpsLinks, SOCIAL, whatsappUrl, WHATSAPP, BOOKING_URL } from "./site.ts";
+import { httpsLinks, PROFILES, SOCIAL, whatsappUrl, WHATSAPP, BOOKING_URL } from "./site.ts";
 
 test("httpsLinks drops empty and non-https URLs", () => {
   const out = httpsLinks([{ url: "" }, { url: "http://x.com" }, { url: "javascript:alert(1)" }, { url: "https://linkedin.com/company/hicaso" }]);
@@ -12,6 +12,11 @@ test("httpsLinks of an empty list is empty", () => assert.deepEqual(httpsLinks([
 test("every configured social link is https and labelled", () => {
   assert.equal(httpsLinks(SOCIAL).length, SOCIAL.length);
   for (const s of SOCIAL) assert.ok(s.label.trim(), s.url);
+});
+
+test("every review-site profile is https and labelled", () => {
+  assert.equal(httpsLinks(PROFILES).length, PROFILES.length);
+  for (const p of PROFILES) assert.ok(p.label.trim(), p.url);
 });
 
 test("whatsappUrl builds wa.me links from digits only", () => {
