@@ -7,7 +7,7 @@ import { moreServices, services } from "@/data/services";
 // every service a client can ask for: the four with pages, then the listed ones (UI/UX, QA, maintenance)
 const ALL = [...services, ...moreServices].map(({ slug, name }) => ({ slug, name }));
 import { ENQUIRY_TO, resolveService } from "@/lib/enquiry";
-import { BOOKING_URL, WHATSAPP, httpsLinks, whatsappUrl } from "@/lib/site";
+import { BOOKING_URL, PHONE, WHATSAPP, httpsLinks, whatsappUrl } from "@/lib/site";
 
 // each row shows only once configured in src/lib/site.ts
 const WA = whatsappUrl(WHATSAPP);
@@ -58,7 +58,7 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
               </li>
               <li>
                 <span className="rows__name">Phone</span>
-                <p><a className="link" href="tel:+917009137936">+91 70091 37936</a></p>
+                <p><a className="link" href={`tel:${PHONE.tel}`}>{PHONE.display}</a></p>
               </li>
               {WA ? (
                 <li>

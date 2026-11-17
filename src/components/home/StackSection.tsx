@@ -1,6 +1,9 @@
 // The stack as a hub-tools diagram card (diagrams.md): Hicaso at the core, the six tools it ships with
 // on the spokes, each with its real colour icon (icons.mjs scan writes them to /assets/icons). The spec
 // sits in a JSON script inside the element (a label with an apostrophe would end a quoted attribute).
+import TechLinks from "../services/TechLinks";
+import { technologies } from "@/data/technologies";
+
 const SPEC = {
   layout: "hub",
   alt: "Hicaso builds with React, Next.js, Flutter, Laravel, Node.js and OpenAI.",
@@ -27,6 +30,7 @@ export default function StackSection() {
               the AI work.
             </p>
             <p>Kotlin, Swift, Python, PostgreSQL, MySQL and Firebase where a project needs them.</p>
+            <TechLinks items={technologies} />
           </div>
           <div className="panel frame--fill span-6 start-7" data-icon-base="/assets/icons/">
             <div className="dg" data-diagram="">

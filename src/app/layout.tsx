@@ -5,7 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { products } from "@/data/products";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
+import { PHONE, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
 import { listLivePostsSafe } from "@/lib/blog/store";
 
 // The Blog link shows once a post is live; re-checked every minute and after admin writes. A DB outage only hides it.
@@ -81,7 +81,7 @@ const ORG_LD = {
   url: SITE_URL,
   logo: `${SITE_URL}/apple-icon.png`,
   email: ENQUIRY_TO,
-  telephone: "+91 70091 37936",
+  telephone: PHONE.display,
   address: { "@type": "PostalAddress", addressLocality: "Chandigarh", addressCountry: "IN" },
   ...(SAME_AS.length ? { sameAs: SAME_AS } : {}),
 };

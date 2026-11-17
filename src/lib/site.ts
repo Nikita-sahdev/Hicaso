@@ -18,7 +18,9 @@ export const httpsLinks = <T extends { url: string }>(links: T[]): T[] =>
 
 // Booking link (owner's Cal.com, 2026-11-14); an empty value hides its links.
 export const BOOKING_URL = "https://cal.com/hicaso/free-30-minute-call-with-hicaso";
-// WhatsApp, digits only in international form: the office phone, +91 70091 37936 (owner, 2026-11-13).
+// The office phone (owner, 2026-11-13): shown as `display`, dialled as `tel`.
+export const PHONE = { display: "+91 70091 37936", tel: "+917009137936" };
+// WhatsApp, digits only in international form: the office phone.
 export const WHATSAPP = "917009137936";
 
 export const whatsappUrl = (digits: string): string | null =>

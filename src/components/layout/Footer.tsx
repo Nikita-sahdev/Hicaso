@@ -3,7 +3,7 @@ import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { BOOKING_URL, SOCIAL, httpsLinks } from "@/lib/site";
+import { BOOKING_URL, PHONE, SOCIAL, httpsLinks } from "@/lib/site";
 import { SOCIAL_ICONS } from "./socialIcons";
 
 const social = httpsLinks(SOCIAL);
@@ -14,7 +14,7 @@ const cols = (blog: boolean) => [
   { title: "Services", links: [{ label: "All services", href: "/services" }, ...services.map((s) => ({ label: s.name, href: `/services/${s.slug}` }))] },
   { title: "Products", links: [{ label: "All products", href: "/products" }, ...products.map((p) => ({ label: p.name, href: `/products/${p.slug}` }))] },
   { title: "Company", links: [{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Careers", href: "/careers" }, ...(blog ? [{ label: "Blog", href: "/blog" }] : []), { label: "Contact", href: "/contact" }] },
-  { title: "Legal", links: [{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }, { label: ENQUIRY_TO, href: `mailto:${ENQUIRY_TO}` }] },
+  { title: "Legal", links: [{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }, { label: ENQUIRY_TO, href: `mailto:${ENQUIRY_TO}` }, { label: PHONE.display, href: `tel:${PHONE.tel}` }] },
 ];
 
 // CC BY 2.0 needs the licence and the source linked: both URLs are the ones in public/assets/photos/credits.json
