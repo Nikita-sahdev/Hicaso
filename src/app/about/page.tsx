@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
 import Photo from "@/components/company/Photo";
+import { WHY } from "@/data/why";
 
 export const metadata: Metadata = {
   title: "About — Hicaso",
   description: "Hicaso is a software development company and product studio in Chandigarh, India.",
 };
 
-// The true points of the old "Why Hicaso" block (home/WhyHicaso, now deleted), in their old wording.
-const POINTS = [
-  { title: "You own the code and IP", text: "Once the project is paid for, the code, designs and IP are yours." },
-  { title: "Our product team builds yours", text: "The people who ship AppKavo and BillMinute work on your project." },
-  { title: "Weekly demos", text: "You see working software every week, not just status updates." },
-  { title: "Hours that overlap with Europe and the Middle East", text: "We work Monday to Friday, 9:00 AM to 6:00 PM IST." },
-];
 
 // The figures are counts from the data files and the working week the old pages state (counter-rolls, the dealt moment).
 const FIGURES = [
@@ -90,7 +84,7 @@ export default function AboutPage() {
             <div className="span-5 stack-5">
               <h2 id="why-h">Ownership, demos and working hours</h2>
               <ul className="rows">
-                {POINTS.map((p) => (
+                {WHY.map((p) => (
                   <li key={p.title}>
                     <span className="rows__name">{p.title}</span>
                     <p>{p.text}</p>

@@ -11,6 +11,18 @@ import { SITE_URL, ldJson } from "@/lib/site";
 import { siteFaqs } from "@/data/faqs";
 import { technologies } from "@/data/technologies";
 import TechLinks from "@/components/services/TechLinks";
+import LatestPosts from "@/components/common/LatestPosts";
+import { listLivePostsSafe } from "@/lib/blog/store";
+import { BOOKING_URL, httpsLinks } from "@/lib/site";
+
+const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
+// which blog category (src/lib/blog/post.ts CATEGORIES) holds each service's guides
+const POST_CATEGORY: Record<string, string> = {
+  "generative-ai": "ai",
+  "agentic-ai": "ai",
+  "mobile-app-development": "mobile",
+  "web-development": "web",
+};
 
 // Only slugs from the data file exist; anything else is a 404.
 export const dynamicParams = false;
@@ -31,6 +43,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   const service = getService((await params).slug);
   if (!service) notFound();
   const c = content[service.slug];
+  const posts = await listLivePostsSafe();
 
   const ld = {
     "@context": "https://schema.org",
@@ -49,7 +62,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <ServiceHero
         h1={c.h1}
         lead={c.lead}
-        secondary={{ label: "See all services", href: "/services" }}
+        secondary={BOOKING ? { label: "Book a free 30-minute call", href: BOOKING } : { label: "See all services", href: "/services" }}
         fragment={c.hero.html}
         label={c.hero.label}
         piece={c.hero.piece}
@@ -57,6 +70,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       />
       <ServiceFeatures title={c.featuresTitle} cards={c.cards} />
       <HowWeWork />
+      <LatestPosts posts={posts.filter((p) => p.category === POST_CATEGORY[service.slug])} title={`${service.name} guides`} />
       <FAQ items={[...service.faqs, ...siteFaqs]} />
       {/* R5: a text-only FAQ never closes <main>; the tools diagram does. */}
       <StackIcons title={c.stackTitle} lines={c.stackLines} spokes={c.spokes} alt={c.stackAlt}>
