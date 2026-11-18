@@ -14,6 +14,15 @@
 /* page CSS of the dealt collage hero, as SK/assets/layout/hero-collage.html writes it */
 .hero__proof { font-size: var(--t-small); color: var(--muted); }
 
+/* ---- anime.js pieces: the enquiry form's sent tick and the products' click demos ---- */
+.form__sent { display: flex; align-items: center; gap: var(--s-2); }
+.form__tick { flex: none; } /* no display here, so the hidden attribute still hides it */
+.form__tick svg { display: block; width: 24px; height: 24px; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* a toggle button group on the kit's .tab look: aria-pressed takes .tab[aria-selected]'s state */
+.tab[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.demo-bar { display: block; height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.demo-bar__fill { display: block; height: 100%; background: var(--accent); transform-origin: left; }
+
 /* ---- page CSS inside the home sections' visuals (sections-library.md, cards.md) ---- */
 
 /* services (features-2x2): one --p-h for the group; 352 so the pipeline-board stands whole with 24 under it */

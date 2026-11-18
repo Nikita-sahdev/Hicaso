@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductHero from "@/components/products/ProductHero";
+import ProductDemo from "@/components/products/ProductDemo";
 import ServiceFeatures from "@/components/services/ServiceFeatures";
 import FAQ from "@/components/common/FAQ";
 import { FRAMES, PANELS } from "@/components/products/fragments";
@@ -79,6 +80,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             <div className="span-5 stack-5">
               <h2 id="window-h">{page.closeTitle}</h2>
               <p className="t-lead">{page.closeLine}</p>
+              <ProductDemo slug={product.slug} />
             </div>
             <div className="panel frame--fill span-6 start-7" role="img" aria-label={frame.openLabel}>
               <div aria-hidden="true" dangerouslySetInnerHTML={{ __html: RISE(frame.open, 600, "40px") }} />
