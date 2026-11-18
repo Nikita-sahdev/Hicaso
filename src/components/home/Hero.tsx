@@ -29,8 +29,8 @@ export default function Hero() {
           <div className="hero__text span-5">
             <h1 id="hero-h">AI, mobile and web software for global companies</h1>
             <p className="hero__lead">
-              Hicaso is a custom software development company and product studio in India, building generative and agentic AI for
-              clients and running products of our own.
+              Hicaso is a custom software development company in India. The team that builds and runs our own products,
+              AppKavo and BillMinute, builds your AI, mobile and web software.
             </p>
             <div className="btn-row">
               <SpecularButton
@@ -64,7 +64,7 @@ export default function Hero() {
               )}
             </div>
             <p className="hero__proof">
-              Reviews on{" "}
+              Hicaso on{" "}
               <a className="link" href={PROFILES[0].url} target="_blank" rel="noopener noreferrer">{PROFILES[0].label}</a> and{" "}
               <a className="link" href={PROFILES[1].url} target="_blank" rel="noopener noreferrer">{PROFILES[1].label}</a>.
             </p>

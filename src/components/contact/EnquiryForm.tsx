@@ -65,7 +65,7 @@ export default function EnquiryForm({ services, initialService }: Props) {
       encType="text/plain"
       data-endpoint="/api/enquiry"
       data-sent="Sent. We'll reply by email."
-      data-failed={`Not sent: the connection failed. Your words are still here; try again, or write to ${ENQUIRY_TO}.`}
+      data-failed={`Not sent. Your words are still here; try again, or write to ${ENQUIRY_TO}.`}
     >
       {/* honeypot: hidden from people, bots fill it and the route drops the lead */}
       <div hidden aria-hidden="true">
@@ -74,17 +74,17 @@ export default function EnquiryForm({ services, initialService }: Props) {
       </div>
       <div className="field">
         <label htmlFor="enq-name">Name</label>
-        <input id="enq-name" name="name" type="text" required autoComplete="name" aria-describedby="enq-name-err" />
+        <input id="enq-name" name="name" type="text" required maxLength={100} autoComplete="name" aria-describedby="enq-name-err" />
         <p className="field__error" id="enq-name-err" hidden>Write your name.</p>
       </div>
       <div className="field">
         <label htmlFor="enq-email">Email</label>
-        <input id="enq-email" name="email" type="email" required autoComplete="email" inputMode="email" aria-describedby="enq-email-err" />
+        <input id="enq-email" name="email" type="email" required maxLength={200} autoComplete="email" inputMode="email" aria-describedby="enq-email-err" />
         <p className="field__error" id="enq-email-err" hidden>Write an email address with an @, like name@example.com.</p>
       </div>
       <div className="field">
         <label htmlFor="enq-country">Country</label>
-        <input id="enq-country" name="country" type="text" autoComplete="country-name" />
+        <input id="enq-country" name="country" type="text" maxLength={100} autoComplete="country-name" />
       </div>
       <div className="field">
         <label htmlFor="enq-service">Service</label>

@@ -15,6 +15,6 @@ test("ownership answer says who owns it", () => {
   for (const f of owns) assert.match(f.a, /^You do\./);
 });
 
-test("site FAQs are a subset of the home FAQs, word for word", () => {
-  for (const f of siteFaqs) assert.ok(homeFaqs.some((h) => h.q === f.q && h.a === f.a), f.q);
+test("service and technology pages keep the two site-wide answers", () => {
+  assert.deepEqual(siteFaqs.map((f) => f.q), ["Who works on my product?", "How often will I see the software?"]);
 });

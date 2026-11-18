@@ -49,7 +49,7 @@ export default async function Home() {
       <HowWeWork />
       <Proof />
       <LatestPosts posts={posts} title="Latest from the blog" />
-      <FAQ items={homeFaqs} lead="About code, hours and how a project starts." />
+      <FAQ items={homeFaqs} lead="How a project starts, NDAs, billing and working hours." />
       {/* R5: a text-only FAQ never closes <main>; the stack diagram does. */}
       <StackSection />
     </>
