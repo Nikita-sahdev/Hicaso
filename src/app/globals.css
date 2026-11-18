@@ -14,6 +14,10 @@
 /* page CSS of the dealt collage hero, as SK/assets/layout/hero-collage.html writes it */
 .hero__proof { font-size: var(--t-small); color: var(--muted); }
 
+/* services cards: the title link covers the whole card, so the tap target passes 44px and the demo is clickable */
+#services .card { position: relative; }
+#services .card h3 a::after { content: ""; position: absolute; inset: 0; }
+
 /* ---- anime.js pieces: the enquiry form's sent tick and the products' click demos ---- */
 .form__sent { display: flex; align-items: center; gap: var(--s-2); }
 .form__tick { flex: none; } /* no display here, so the hidden attribute still hides it */
@@ -32,7 +36,6 @@
 @media (min-width: 640px) and (max-width: 1023px) {
   #services > .wrap > .grid:last-child, #services > .wrap > .group > .grid:last-child { align-self: stretch; flex: 1 1 auto; min-height: 0; }
 }
-@media (max-width: 639px) { #services .panel { --p-h: 136px; } }
 /* the phone: a .device built in page CSS (280 wide, 8px bezel, radius 32), its screen the app's settings */
 /* one box: the bezel is the border of the white screen, so the settings list sits on it without a panel of its own */
 .ui-toggles.device {
