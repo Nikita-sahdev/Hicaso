@@ -348,9 +348,13 @@ main:focus { outline: none; }
 .post-toc a { display: flex; align-items: center; min-height: 44px; }
 .post-toc__meta { padding: 0 var(--s-4) var(--s-4); }
 .post-toc__meta:first-child { padding-top: var(--s-4); }
-/* the blog post list, a post text and the admin pages are the owner's, of any length: from 1280 they grow past one screen
-   (as the kit lets every section do below 1280) instead of running under the footer */
+/* from 1280, every section but the hero (and the closing footer) is at least its screens and grows past them when its
+   content needs more, as the kit already lets every section do below 1280. The kit sizes a screen's content for
+   1440x900; on a shorter laptop (1440x727) a fixed height laid the last rows over the next section. Owner content
+   (blog posts, admin, legal text) of any length grows the same way. The pinned-chapters scroll scene sizes itself. :where() keeps the display at no weight, as the
+   kit's tablet rule does, so a page's own hiding still wins */
 @media (min-width: 1280px) {
-  main > :is(#posts, #blog-text, #admin, #text, #case-hero) { height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
-  main > :is(#posts, #blog-text, #admin, #text, #case-hero) > .wrap { flex: 1 0 auto; height: auto; }
+  main > :is(section, .section):not(.hero, .section--hero, [data-moment="pinned-chapters"]), footer.footer.closing { height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh); }
+  :where(main > :is(section, .section):not(.hero, .section--hero, [data-moment="pinned-chapters"]), footer.footer.closing) { display: flex; flex-direction: column; }
+  main > :is(section, .section):not(.hero, .section--hero, [data-moment="pinned-chapters"]) > :is(.wrap, .container), footer.footer.closing > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
 }
