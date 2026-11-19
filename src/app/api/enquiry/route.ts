@@ -2,10 +2,10 @@ import { appendFile } from "node:fs/promises";
 import nodemailer from "nodemailer";
 import { ENQUIRY_TO, OTHER_SERVICE, enquirySubject, enquiryText, parseEnquiry, type Enquiry } from "@/lib/enquiry";
 import { services } from "@/data/services";
+import { LEADS_FILE } from "@/lib/leads";
 
 // The enquiry form posts here (system.js, data-endpoint). Each lead is appended to LEADS_FILE and emailed over SMTP;
 // it counts as received when either one works, so a mail outage never loses a lead.
-const LEADS_FILE = process.env.LEADS_FILE || "leads.jsonl";
 const NAMES = new Map(services.map((s) => [s.slug, s.name]));
 
 // ponytail: in-memory per-IP limit, per process and reset on restart; move to Redis if you run several instances.
