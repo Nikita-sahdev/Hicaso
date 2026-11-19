@@ -115,7 +115,7 @@ export default async function RootLayout({
         <main id="main" tabIndex={-1}>{children}</main>
         <Footer blog={blog} />
         {MODULES.map((src) => (
-          <Script key={src} src={`/assets/${src}`} type="module" strategy="afterInteractive" />
+          <Script key={src} src={`/assets/${src}`} type="module" crossOrigin="anonymous" strategy="afterInteractive" />
         ))}
         {/* GA4, Clarity and LinkedIn: each on when its ID is set, loaded only after the visitor accepts */}
         {ANALYTICS.tools.length ? <Analytics ids={ANALYTICS.ids} tools={ANALYTICS.tools} /> : null}

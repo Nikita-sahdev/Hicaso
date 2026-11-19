@@ -26,7 +26,7 @@ test("whatsappUrl builds wa.me links from digits only", () => {
 
 test("configured WhatsApp number is valid; booking URL is empty or https", () => {
   assert.ok(whatsappUrl(WHATSAPP));
-  assert.ok(BOOKING_URL === "" || httpsLinks([{ url: BOOKING_URL }]).length === 1);
+  assert.ok((BOOKING_URL as string) === "" || httpsLinks([{ url: BOOKING_URL }]).length === 1);
 });
 
 test("every social link has an icon file in the kit icons folder", async () => {
