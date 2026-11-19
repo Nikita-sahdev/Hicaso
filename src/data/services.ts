@@ -3,7 +3,7 @@ export type ServiceGroup = "AI" | "Design and build" | "Test, run and grow";
 export type Service = {
   slug: string;
   name: string;
-  // the <title>, worded the way ranking pages for the query are (company / services / India), at most 60 characters
+  // the <title>, worded the way ranking pages for the query are (company / services); "India" only where buyers search for it (dedicated developers), since Hicaso serves clients worldwide, at most 60 characters
   seoTitle: string;
   group: ServiceGroup;
   tagline: string;
@@ -38,7 +38,7 @@ export const services: Service[] = [
   {
     slug: "generative-ai",
     name: "Generative AI",
-    seoTitle: "Generative AI Development Services in India — Hicaso",
+    seoTitle: "Generative AI Development Services — Hicaso",
     group: "AI",
     tagline: "Language models built into products people already use.",
     description:
@@ -57,7 +57,7 @@ export const services: Service[] = [
   {
     slug: "agentic-ai",
     name: "Agentic AI",
-    seoTitle: "AI Agent Development Company in India — Hicaso",
+    seoTitle: "AI Agent Development Company — Hicaso",
     group: "AI",
     tagline: "Agents that use your tools and finish multi-step work.",
     description:
@@ -75,7 +75,7 @@ export const services: Service[] = [
   {
     slug: "mobile-app-development",
     name: "Mobile App Development",
-    seoTitle: "Mobile App Development Company in India — Hicaso",
+    seoTitle: "Mobile App Development Company — Hicaso",
     group: "Design and build",
     tagline: "Android and iOS apps, native or cross-platform.",
     description:
@@ -93,7 +93,7 @@ export const services: Service[] = [
   {
     slug: "web-development",
     name: "Web Development",
-    seoTitle: "Web Development Company in India — Hicaso",
+    seoTitle: "Web Development Company — Hicaso",
     group: "Design and build",
     tagline: "Web apps, sites and backends, built and maintained.",
     description:
@@ -112,7 +112,7 @@ export const services: Service[] = [
   {
     slug: "ai-chatbot-development",
     name: "AI Chatbot Development",
-    seoTitle: "AI Chatbot Development Company in India — Hicaso",
+    seoTitle: "AI Chatbot Development Company — Hicaso",
     group: "AI",
     tagline: "Chat assistants that answer from your own documents and data.",
     description:
@@ -131,7 +131,7 @@ export const services: Service[] = [
   {
     slug: "ai-automation",
     name: "AI Automation",
-    seoTitle: "AI Automation Services with n8n, Zapier, Make — Hicaso",
+    seoTitle: "AI Automation Agency: n8n, Zapier, Make — Hicaso",
     group: "AI",
     tagline: "Workflows that move data and do routine work between your tools.",
     description:
@@ -150,7 +150,7 @@ export const services: Service[] = [
   {
     slug: "ai-consulting",
     name: "AI Consulting",
-    seoTitle: "AI Consulting Services for Businesses — Hicaso",
+    seoTitle: "AI Consulting Company — Hicaso",
     group: "AI",
     tagline: "Where AI fits in your business, and what it takes to build it.",
     description:
@@ -188,7 +188,7 @@ export const services: Service[] = [
   {
     slug: "saas-development",
     name: "SaaS Development",
-    seoTitle: "SaaS Development Company in India — Hicaso",
+    seoTitle: "SaaS Development Company — Hicaso",
     group: "Design and build",
     tagline: "Subscription software, built by a team that runs its own.",
     description:
@@ -227,7 +227,7 @@ export const services: Service[] = [
   {
     slug: "ui-ux-design",
     name: "UI/UX Design",
-    seoTitle: "UI/UX Design Services in Figma — Hicaso",
+    seoTitle: "UI/UX Design Agency for Web and Mobile Apps — Hicaso",
     group: "Design and build",
     tagline: "App and web interfaces, designed and prototyped in Figma.",
     description:
@@ -242,7 +242,7 @@ export const services: Service[] = [
   {
     slug: "qa-testing",
     name: "QA & Testing",
-    seoTitle: "QA and Mobile App Testing Services — Hicaso",
+    seoTitle: "Software Testing and QA Services — Hicaso",
     group: "Test, run and grow",
     tagline: "Manual and mobile app testing, plus security and store-review audits.",
     description:
@@ -275,7 +275,7 @@ export const services: Service[] = [
   {
     slug: "app-modernization",
     name: "App Modernization",
-    seoTitle: "Legacy App Modernization Services — Hicaso",
+    seoTitle: "Legacy Application Modernization Services — Hicaso",
     group: "Test, run and grow",
     tagline: "Older apps taken over, upgraded and moved to a current stack.",
     description:
@@ -294,7 +294,7 @@ export const services: Service[] = [
   {
     slug: "cloud-devops",
     name: "Cloud & DevOps",
-    seoTitle: "Cloud and DevOps Services: AWS, Azure, GCP — Hicaso",
+    seoTitle: "DevOps Services Company: AWS, Azure, GCP — Hicaso",
     group: "Test, run and grow",
     tagline: "Servers, deploys and backups on AWS, Azure, Google Cloud or a VPS.",
     description:
@@ -313,7 +313,7 @@ export const services: Service[] = [
     group: "Test, run and grow",
     tagline: "Developers who work only on your product, billed monthly or by the hour.",
     description:
-      "Dedicated developers who work only on your product, billed monthly or hourly, in hours that overlap with Europe and the Middle East.",
+      "A dedicated development team in India: developers who work only on your product, billed monthly or hourly, in hours overlapping Europe and the Middle East.",
     stack: [
       { group: "AI", items: ["OpenAI", "Claude"] },
       { group: "Mobile", items: ["Flutter", "React Native", "Kotlin", "Swift"] },

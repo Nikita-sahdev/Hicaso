@@ -58,7 +58,7 @@ const SITE_LD = websiteLd();
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Custom Software Development Company in India — Hicaso",
-  description: `Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and ships its own products, including ${products.map((p) => p.name).join(" and ")}.`,
+  description: `Custom software for clients worldwide: generative AI, agentic AI, mobile and web apps, built by our team in India, plus our own products ${products.map((p) => p.name).join(" and ")}.`,
   openGraph: { type: "website", ...OG },
   twitter: { card: "summary_large_image" },
 };

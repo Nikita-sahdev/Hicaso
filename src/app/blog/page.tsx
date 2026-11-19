@@ -12,8 +12,8 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
-  title: "Blog — Hicaso",
-  description: "Guides from the Hicaso team in India on building AI, mobile and web software.",
+  title: "Software Development Blog — Hicaso",
+  description: "Guides from the Hicaso team on planning, building and running AI, mobile and web software, written from the projects we ship.",
 };
 
 const day = (d: Date | null) =>

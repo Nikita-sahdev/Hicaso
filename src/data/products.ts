@@ -5,6 +5,8 @@ export type Product = {
   slug: string;
   name: string;
   tagline: string;
+  // the <title>, naming what the product does, at most 60 characters
+  seoTitle: string;
   audience: string;
   description: string;
   highlights: { title: string; body: string }[];
@@ -32,6 +34,7 @@ export const products: Product[] = [
   {
     slug: "appkavo",
     name: "AppKavo",
+    seoTitle: "AppKavo — Mobile App Security Audit Before Release",
     tagline: "Know your mobile app is secure and store-ready before you ship.",
     audience: "For indie developers and mobile teams",
     description:
@@ -96,6 +99,7 @@ export const products: Product[] = [
   {
     slug: "billminute",
     name: "BillMinute",
+    seoTitle: "BillMinute — Invoicing in Your Client's Currency",
     tagline: "Send a professional invoice in a minute, in any currency.",
     audience: "For freelancers and small businesses with clients anywhere",
     description:
