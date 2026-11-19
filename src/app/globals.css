@@ -53,6 +53,17 @@ main:focus { outline: none; }
    kit's .ui-note__title time (a <time> would need a valid datetime) */
 .ui-note__title .ui-note__time { margin-left: auto; font-size: 13px; font-weight: 400; color: var(--u-soft); }
 
+/* "Ask Hicaso" on /contact: a narrow chat card on the kit's tokens */
+.ask { max-width: 46rem; display: grid; gap: var(--s-4); }
+.ask__log { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+.ask__log:empty { display: none; }
+.ask__msg { max-width: 85%; padding: var(--s-3) var(--s-4); border-radius: 14px; background: var(--bg); overflow-wrap: anywhere; } /* white on the grey card */
+.ask__msg--user { justify-self: end; background: var(--accent); color: #fff; }
+.ask__starters { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.ask__form { display: flex; gap: var(--s-2); }
+.ask__form input { flex: 1 1 auto; min-width: 0; min-height: 44px; padding: 0 var(--s-4); border: 1px solid var(--line); border-radius: 8px; font: inherit; background: var(--bg); color: var(--ink); }
+.ask__error { margin: 0; color: #b42318; }
+
 /* ---- polish (second critique, 2026-11-18) ---- */
 /* a done step reads done, not cancelled: no drawn strike over the label (kit checklist) */
 :root .ui-check.is-done .ui-check__label::after { transform: scaleX(0); }

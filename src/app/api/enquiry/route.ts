@@ -3,28 +3,18 @@ import nodemailer from "nodemailer";
 import { ENQUIRY_TO, OTHER_SERVICE, enquirySubject, enquiryText, parseEnquiry, type Enquiry } from "@/lib/enquiry";
 import { services } from "@/data/services";
 import { LEADS_FILE } from "@/lib/leads";
+import { clientIp, rateLimit } from "@/lib/rateLimit";
 
 // The enquiry form posts here (system.js, data-endpoint). Each lead is appended to LEADS_FILE and emailed over SMTP;
 // it counts as received when either one works, so a mail outage never loses a lead.
 const NAMES = new Map(services.map((s) => [s.slug, s.name]));
 
-// ponytail: in-memory per-IP limit, per process and reset on restart; move to Redis if you run several instances.
-const hits = new Map<string, number[]>();
-function tooMany(ip: string): boolean {
-  const now = Date.now();
-  if (hits.size > 10_000) hits.clear();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < 10 * 60_000);
-  recent.push(now);
-  hits.set(ip, recent);
-  return recent.length > 5;
-}
+const tooMany = rateLimit(5, 10 * 60_000); // five enquiries per IP per ten minutes
 
 const fail = (status: number) => Response.json({ ok: false }, { status });
 
 export async function POST(req: Request) {
-  // Apache appends the client it saw as the last x-forwarded-for entry; earlier entries are client-supplied.
-  const ip = req.headers.get("x-forwarded-for")?.split(",").at(-1)?.trim() || "local";
-  if (tooMany(ip)) return fail(429);
+  if (tooMany(clientIp(req))) return fail(429);
 
   let fd: FormData;
   try {

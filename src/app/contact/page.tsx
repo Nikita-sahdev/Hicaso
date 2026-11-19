@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import EnquiryForm from "@/components/contact/EnquiryForm";
+import AskHicaso from "@/components/contact/AskHicaso";
 import Photo from "@/components/company/Photo";
 import HowWeWork from "@/components/common/HowWeWork";
 import { services } from "@/data/services";
@@ -92,6 +93,19 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
           </div>
         </div>
       </section>
+
+      {/* "Ask Hicaso" shows only once the server has an Anthropic key (src/app/api/assistant/route.ts) */}
+      {process.env.ANTHROPIC_API_KEY ? (
+        <section className="section" id="ask" aria-labelledby="ask-h">
+          <div className="wrap stack-6">
+            <div className="section-head">
+              <h2 id="ask-h">Questions about Hicaso, answered here</h2>
+              <p className="t-lead">Not ready to write yet? Ask about our services, products, hours or how a project runs.</p>
+            </div>
+            <AskHicaso />
+          </div>
+        </section>
+      ) : null}
 
       <HowWeWork />
     </>
