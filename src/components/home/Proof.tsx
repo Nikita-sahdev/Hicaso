@@ -35,7 +35,7 @@ export default function Proof() {
             const t = proof.testimonials.find((x) => x.company === c.client);
             return (
               <article key={c.client} className="card m-nolift span-4">
-                <h3>{c.client}</h3>
+                <h3><a href={`/case-studies/${c.slug}`}>{c.client}</a></h3>
                 <p>{c.summary}</p>
                 {t ? (
                   <figure className="quote">
@@ -49,7 +49,7 @@ export default function Proof() {
                   {c.stack.map((t) => (
                     <span key={t} className="ic-chip">
                       {/* eslint-disable-next-line @next/next/no-img-element -- a kit icon file, as the fragments use */}
-                      {ICONS[t] ? <img className="ic" data-icon={ICONS[t]} src={`/assets/icons/${ICONS[t]}.svg`} alt="" width="18" height="18" /> : null}
+                      {ICONS[t] ? <img className="ic" data-icon={ICONS[t]} src={`/assets/icons/${ICONS[t]}.svg`} alt="" width="18" height="18" loading="lazy" /> : null}
                       {t}
                     </span>
                   ))}

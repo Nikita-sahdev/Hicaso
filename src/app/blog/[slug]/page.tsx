@@ -5,10 +5,11 @@ import ServiceHero from "@/components/services/ServiceHero";
 import { notify } from "@/components/services/fragments";
 import { CONTACT } from "@/components/legal/LegalPage";
 import { getLivePost } from "@/lib/blog/store";
+import { withTimeout } from "@/lib/db";
 import { categoryLabel } from "@/lib/blog/post";
 import { renderSections, type PostSection } from "@/lib/blog/markdown";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { SITE_URL, ldJson } from "@/lib/site";
+import { OG, SITE_URL, breadcrumbLd, ldJson } from "@/lib/site";
 
 // One post on the site's document-page pattern (src/components/legal/LegalPage.tsx):
 // - the dealt centred hero: the headline, the description, and a window listing the category, the date and the post's h2s;
@@ -20,7 +21,8 @@ import { SITE_URL, ldJson } from "@/lib/site";
 export const dynamic = "force-dynamic";
 
 // generateMetadata and the page share one query per request.
-const load = cache(getLivePost);
+// timed: with Postgres down the page errors in seconds instead of hanging (src/lib/db.ts)
+const load = cache((slug: string) => withTimeout(getLivePost(slug)));
 
 const day = (d: Date | null) =>
   d ? d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : "";
@@ -34,8 +36,8 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   return {
     title: post.seoTitle || post.headline,
     description: post.description,
-    alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
-    openGraph: { type: "article" },
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: { type: "article", ...OG },
   };
 }
 
@@ -51,7 +53,9 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     headline: post.headline,
     description: post.description,
     datePublished: post.publishAt?.toISOString(),
-    dateModified: post.updatedAt.toISOString(),
+    // an edit made before the post went live is not a modification after publishing
+    dateModified: new Date(Math.max(post.updatedAt.getTime(), post.publishAt?.getTime() ?? 0)).toISOString(),
+    image: `${SITE_URL}${OG.images[0].url}`,
     author: hicaso,
     publisher: hicaso,
     mainEntityOfPage: url,
@@ -86,6 +90,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ld)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(breadcrumbLd([["Home", "/"], ["Blog", "/blog"], [post.headline, `/blog/${post.slug}`]]))} />
       <ServiceHero
         id="blog-hero"
         h1={post.headline}

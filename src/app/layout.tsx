@@ -1,47 +1,27 @@
 import type { Metadata } from "next";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Analytics from "@/components/analytics/Analytics";
+import { ANALYTICS } from "@/lib/analytics";
 import { products } from "@/data/products";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
+import { OG, PHONE, PROFILES, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
 import { listLivePostsSafe } from "@/lib/blog/store";
 
 // The Blog link shows once a post is live; re-checked every minute and after admin writes. A DB outage only hides it.
 export const revalidate = 60;
 
-const SAME_AS = httpsLinks(SOCIAL).map((l) => l.url);
+const SAME_AS = httpsLinks([...SOCIAL, ...PROFILES]).map((l) => l.url);
 
-const STYLESHEETS = [
-  "system.css",
-  "ui/cards.css",
-  "motion/motion.css",
-  "backgrounds/backgrounds.css",
-  "layout/layout.css",
-  "icons/icon.css",
-  "ui/base.css",
-  "ui/window/fragment.css",
-  "ui/chat/fragment.css",
-  "ui/checklist/fragment.css",
-  "ui/toggles/fragment.css",
-  "ui/pipeline-board/fragment.css",
-  "ui/diff-review/fragment.css",
-  "ui/doc/fragment.css",
-  "ui/files/fragment.css",
-  "ui/terminal-run/fragment.css",
-  "ui/notify/fragment.css",
-  "diagrams/diagram.css",
-  // the loader links it too; here so the steps stand styled with scripts off
-  "moments/pinned-chapters/moment.css",
-  // the services index's marquee-row, so its words stand as a wrapped row with scripts off
-  "moments/marquee-row/moment.css",
-  // the product pages' iris-opens
-  "moments/iris-opens/moment.css",
-  // the company pages' moments: about counter-rolls, careers giant-type-pass
-  "moments/counter-rolls/moment.css",
-  "moments/giant-type-pass/moment.css",
-];
+// The kit stylesheets, joined in cascade order into one file by scripts/kit-css.mjs (predev, prebuild): the list
+// lives there. One render-blocking request instead of 23.
+// backgrounds.js sets page tokens before first paint, so it stays a blocking script, but inline: no request
+// queued behind the stylesheets.
+const BACKGROUNDS_JS = readFileSync(join(process.cwd(), "public/assets/backgrounds/backgrounds.js"), "utf8");
 // the dealt moment's loader, its lib and the moment, preloaded as SK/assets/moments/_demo/in-page-service.html does
 const MOMENT_PRELOADS = ["moments/moments.js", "moments/lib.js", "moments/pinned-chapters/moment.js"];
 const MODULES = ["system.js", "motion/motion.js", "layout/layout.js", "diagrams/mount.js"];
@@ -70,9 +50,6 @@ const M_ENTER = "document.documentElement.classList.add('m-enter');setTimeout(()
 // Moments guard from the kit's starter.html / in-page-service.html, verbatim.
 const MO_JS = "document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-// GA4 page views, plus a generate_lead event when system.js reports a sent enquiry (form:sent).
-const GA_JS = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config',${JSON.stringify(GA_ID)});document.addEventListener('form:sent',function(){gtag('event','generate_lead')});`;
 
 const ORG_LD = {
   "@context": "https://schema.org",
@@ -81,7 +58,7 @@ const ORG_LD = {
   url: SITE_URL,
   logo: `${SITE_URL}/apple-icon.png`,
   email: ENQUIRY_TO,
-  telephone: "+91 70091 37936",
+  telephone: PHONE.display,
   address: { "@type": "PostalAddress", addressLocality: "Chandigarh", addressCountry: "IN" },
   ...(SAME_AS.length ? { sameAs: SAME_AS } : {}),
 };
@@ -90,6 +67,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Hicaso — software development and product studio",
   description: `Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and ships its own products, including ${products.map((p) => p.name).join(" and ")}.`,
+  openGraph: { type: "website", ...OG },
+  twitter: { card: "summary_large_image" },
 };
 
 export default async function RootLayout({
@@ -119,9 +98,8 @@ export default async function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=DM+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
-        {STYLESHEETS.map((href) => (
-          <link key={href} rel="stylesheet" href={`/assets/${href}`} />
-        ))}
+        {/* eslint-disable-next-line @next/next/no-css-tags -- the kit is plain files in /public, joined by scripts/kit-css.mjs, never bundled */}
+        <link rel="stylesheet" href="/kit.css" />
         {/* keep after the links: layout.css resets --ly-scale */}
         <style dangerouslySetInnerHTML={{ __html: ROOT_TOKENS }} />
         <script dangerouslySetInnerHTML={{ __html: M_ENTER }} />
@@ -129,23 +107,18 @@ export default async function RootLayout({
         {MOMENT_PRELOADS.map((href) => (
           <link key={href} rel="modulepreload" href={`/assets/${href}`} />
         ))}
-        {/* eslint-disable-next-line @next/next/no-sync-scripts -- kit grounds set page tokens before first paint */}
-        <script src="/assets/backgrounds/backgrounds.js" />
+        <script dangerouslySetInnerHTML={{ __html: BACKGROUNDS_JS }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ORG_LD)} />
       </head>
       <body>
         <Header blog={blog} />
-        <main>{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
         <Footer blog={blog} />
         {MODULES.map((src) => (
-          <Script key={src} src={`/assets/${src}`} type="module" strategy="afterInteractive" />
+          <Script key={src} src={`/assets/${src}`} type="module" crossOrigin="anonymous" strategy="afterInteractive" />
         ))}
-        {GA_ID ? (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_ID)}`} strategy="afterInteractive" />
-            <Script id="ga" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: GA_JS }} />
-          </>
-        ) : null}
+        {/* GA4, Clarity and LinkedIn: each on when its ID is set, loaded only after the visitor accepts */}
+        {ANALYTICS.tools.length ? <Analytics ids={ANALYTICS.ids} tools={ANALYTICS.tools} /> : null}
       </body>
     </html>
   );

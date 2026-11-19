@@ -8,5 +8,8 @@ export const PHOTO = {
 } as const;
 
 export type Photo = { id: string; alt: string; pos: string; max?: 960 };
-export const src = (p: Photo, w?: 500 | 960) => `/assets/photos/photo-${p.id}${w ?? p.max ? `-${w ?? p.max}` : ""}.jpg`;
-export const srcSet = (p: Photo) => `${src(p, 500)} 500w, ${src(p, 960)} 960w${p.max ? "" : `, ${src(p)} 1280w`}`;
+export const src = (p: Photo, w?: 500 | 960, ext: "jpg" | "webp" = "jpg") =>
+  `/assets/photos/photo-${p.id}${w ?? p.max ? `-${w ?? p.max}` : ""}.${ext}`;
+// the srcset offers the WebP copies (about half the bytes; every current browser reads WebP); src stays the JPEG
+export const srcSet = (p: Photo) =>
+  `${src(p, 500, "webp")} 500w, ${src(p, 960, "webp")} 960w${p.max ? "" : `, ${src(p, undefined, "webp")} 1280w`}`;

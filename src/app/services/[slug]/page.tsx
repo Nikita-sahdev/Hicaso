@@ -7,10 +7,28 @@ import { content } from "@/components/services/content";
 import HowWeWork from "@/components/common/HowWeWork";
 import FAQ from "@/components/common/FAQ";
 import { services, getService } from "@/data/services";
-import { SITE_URL, ldJson } from "@/lib/site";
+import { SITE_URL, breadcrumbLd, ldJson } from "@/lib/site";
 import { siteFaqs } from "@/data/faqs";
 import { technologies } from "@/data/technologies";
 import TechLinks from "@/components/services/TechLinks";
+import LatestPosts from "@/components/common/LatestPosts";
+import { listLivePostsSafe } from "@/lib/blog/store";
+import { BOOKING_URL, httpsLinks } from "@/lib/site";
+
+const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
+// which blog category (src/lib/blog/post.ts CATEGORIES) holds each service's guides
+const POST_CATEGORY: Record<string, string> = {
+  "generative-ai": "ai",
+  "agentic-ai": "ai",
+  "ai-chatbot-development": "ai",
+  "ai-automation": "ai",
+  "ai-consulting": "ai",
+  "mobile-app-development": "mobile",
+  "web-development": "web",
+  "mvp-development": "web",
+  "saas-development": "web",
+  "ecommerce-development": "web",
+};
 
 // Only slugs from the data file exist; anything else is a 404.
 export const dynamicParams = false;
@@ -24,13 +42,14 @@ export async function generateMetadata({
 }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const service = getService((await params).slug);
   if (!service) return {};
-  return { title: `${service.name} — Hicaso`, description: service.description };
+  return { title: `${service.name} — Hicaso`, description: service.description, alternates: { canonical: `/services/${service.slug}` } };
 }
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
   const service = getService((await params).slug);
   if (!service) notFound();
   const c = content[service.slug];
+  const posts = await listLivePostsSafe();
 
   const ld = {
     "@context": "https://schema.org",
@@ -46,10 +65,14 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ld)} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={ldJson(breadcrumbLd([["Home", "/"], ["Services", "/services"], [service.name, `/services/${service.slug}`]]))}
+      />
       <ServiceHero
         h1={c.h1}
         lead={c.lead}
-        secondary={{ label: "See all services", href: "/services" }}
+        secondary={BOOKING ? { label: "Book a free 30-minute call", href: BOOKING } : { label: "See all services", href: "/services" }}
         fragment={c.hero.html}
         label={c.hero.label}
         piece={c.hero.piece}
@@ -57,6 +80,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       />
       <ServiceFeatures title={c.featuresTitle} cards={c.cards} />
       <HowWeWork />
+      <LatestPosts posts={posts.filter((p) => p.category === POST_CATEGORY[service.slug])} title="Guides from our blog" />
       <FAQ items={[...service.faqs, ...siteFaqs]} />
       {/* R5: a text-only FAQ never closes <main>; the tools diagram does. */}
       <StackIcons title={c.stackTitle} lines={c.stackLines} spokes={c.spokes} alt={c.stackAlt}>

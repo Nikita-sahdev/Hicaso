@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import ServiceHero from "@/components/services/ServiceHero";
 import { chat } from "@/components/services/fragments";
-import { services } from "@/data/services";
+import { SERVICE_GROUPS, groupId, services } from "@/data/services";
 import { technologies } from "@/data/technologies";
 import TechLinks from "@/components/services/TechLinks";
 
 export const metadata: Metadata = {
-  title: "Services — Hicaso",
-  description: "Generative AI, agentic AI, mobile and web software, built with clients worldwide.",
+  alternates: { canonical: "/services" },
+  title: "Custom Software Development Services — Hicaso",
+  description:
+    "Custom software development from India: generative and agentic AI, mobile and web apps, MVPs, SaaS, eCommerce, cloud and DevOps, and dedicated developers.",
 };
 
 // The hub: Hicaso with the four services, each beside one tool it ships with (real colour icons).
@@ -43,22 +45,13 @@ const FORMATS = [
   "PHP upgrades",
 ];
 
-// services without a page of their own (src/data/services.ts moreServices): one row, each a choice in the enquiry form
-const MORE = "UI/UX design in Figma, app testing and store audits, and bug fixes.";
-
-const LINKS: Record<string, string> = {
-  "generative-ai": "See generative AI",
-  "agentic-ai": "See agentic AI",
-  "mobile-app-development": "See mobile apps",
-  "web-development": "See web development",
-};
 
 export default function ServicesPage() {
   return (
     <>
       <ServiceHero
-        h1="Software services for global teams"
-        lead="Hicaso is a software company in India. We build generative AI, agentic AI, mobile and web software for clients worldwide."
+        h1="Custom software development services"
+        lead="Hicaso is a custom software development company in India. We build AI, mobile and web software for clients worldwide, and run it after launch."
         secondary={{ label: "See our products", href: "/products" }}
         fragment={HERO}
         label="A client asking Hicaso whether one team can build an AI feature and a mobile app together"
@@ -70,27 +63,20 @@ export default function ServicesPage() {
             <div className="span-5 stack-5">
               <h2 id="services-h">Services, from first prototype to production</h2>
               <p className="t-lead">Pick one, or combine them. The team that builds our own products builds yours.</p>
+              {/* one row per group (src/data/services.ts SERVICE_GROUPS): every service, each with its own page */}
               <ul className="rows">
-                {services.map((s) => (
-                  <li key={s.slug}>
-                    <span className="rows__name">{s.name}</span>
-                    <span className="rows__value">
-                      <a className="ly-link" href={`/services/${s.slug}`}>
-                        {LINKS[s.slug]}
-                      </a>
-                    </span>
-                    <p>{s.tagline}</p>
+                {SERVICE_GROUPS.map((g) => (
+                  <li key={g} id={groupId(g)}>
+                    <span className="rows__name">{g}</span>
+                    <p className="link-list">
+                      {services
+                        .filter((s) => s.group === g)
+                        .map((s) => (
+                          <a key={s.slug} className="link" href={`/services/${s.slug}`}>{s.name}</a>
+                        ))}
+                    </p>
                   </li>
                 ))}
-                <li>
-                  <span className="rows__name">More services</span>
-                  <span className="rows__value">
-                    <a className="ly-link" href="/contact">
-                      Ask us
-                    </a>
-                  </span>
-                  <p>{MORE}</p>
-                </li>
               </ul>
               <TechLinks items={technologies} />
             </div>

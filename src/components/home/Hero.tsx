@@ -1,5 +1,9 @@
 import styles from "./HeroArt.module.css";
 import SpecularButton from "../ui/SpecularButton";
+import { BOOKING_URL, PROFILES, httpsLinks } from "@/lib/site";
+
+// the second button books the free call once a booking link is set (src/lib/site.ts)
+const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
 // The dealt collage hero (kit layout/hero-collage.html). motion.js runs the entrance from data-enter,
 // so the h1 stays plain text for its word masks.
@@ -25,8 +29,8 @@ export default function Hero() {
           <div className="hero__text span-5">
             <h1 id="hero-h">AI, mobile and web software for global companies</h1>
             <p className="hero__lead">
-              Hicaso is a software company and product studio in India, building generative and agentic AI for
-              clients and running products of our own.
+              Hicaso is a custom software development company in India. The team that builds and runs our own products,
+              AppKavo and BillMinute, builds your AI, mobile and web software.
             </p>
             <div className="btn-row">
               <SpecularButton
@@ -49,11 +53,21 @@ export default function Hero() {
               >
                 Start a project
               </SpecularButton>
-              <a className="btn btn--secondary" href="/products">
-                See our products
-              </a>
+              {BOOKING ? (
+                <a className="btn btn--secondary" href={BOOKING} target="_blank" rel="noopener noreferrer">
+                  Book a free 30-minute call
+                </a>
+              ) : (
+                <a className="btn btn--secondary" href="/products">
+                  See our products
+                </a>
+              )}
             </div>
-            <p className="hero__proof">Our working hours overlap with Europe and the Middle East.</p>
+            <p className="hero__proof">
+              Hicaso on{" "}
+              <a href={PROFILES[0].url} target="_blank" rel="noopener noreferrer">{PROFILES[0].label}</a> and{" "}
+              <a href={PROFILES[1].url} target="_blank" rel="noopener noreferrer">{PROFILES[1].label}</a>.
+            </p>
           </div>
 
           <div

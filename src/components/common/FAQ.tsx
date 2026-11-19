@@ -1,6 +1,6 @@
 // faq (sections-library.md): the page's split, the h2 and a grey line on the left, every answer open
 // on the right (system.css .faq: no accordion).
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { ldJson } from "@/lib/site";
 
 // `theme` (a product page's --p-* tokens) puts the section on that ground.
@@ -9,11 +9,13 @@ export default function FAQ({
   title = "Questions",
   lead,
   theme,
+  aside,
 }: {
   items: { q: string; a: string }[];
   title?: string;
   lead?: string;
   theme?: CSSProperties;
+  aside?: ReactNode; // more of the left column under the lead (the home page's newest posts)
 }) {
   return (
     <section className={theme ? "section ground-base" : "section"} style={theme} id="faq" aria-labelledby="faq-h">
@@ -30,6 +32,7 @@ export default function FAQ({
           <div className="span-5 section-head">
             <h2 id="faq-h">{title}</h2>
             {lead ? <p className="muted">{lead}</p> : null}
+            {aside}
           </div>
           <div className="faq span-6 start-7">
             {items.map((item) => (

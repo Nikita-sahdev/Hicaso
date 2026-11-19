@@ -11,6 +11,7 @@ import { categoryLabel } from "@/lib/blog/post";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog — Hicaso",
   description: "Guides from the Hicaso team in India on building AI, mobile and web software.",
 };
@@ -62,6 +63,9 @@ export default async function BlogPage() {
               </ul>
             </div>
             <div className="panel frame--fill span-6 start-7">
+              {/* on the panel's stage like every other fragment, not flush in its corner */}
+              <div className="stage stage--fade-b">
+              <div className="at-rise fit" style={{ "--fit-max": "420px", "--ax": "max(24px, 50% - 210px)", "--ay": "40px", "--ay-sm": "40px" } as React.CSSProperties}>
               <div className="ui ui-doc">
                 <article className="ui-doc__page">
                   <div className="ui-doc__label">
@@ -70,6 +74,8 @@ export default async function BlogPage() {
                   <div className="ui-doc__title">{newest.headline}</div>
                   <div className="ui-doc__text">{newest.description}</div>
                 </article>
+              </div>
+              </div>
               </div>
             </div>
           </div>

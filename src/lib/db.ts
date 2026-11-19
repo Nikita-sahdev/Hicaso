@@ -17,3 +17,13 @@ export function getPool(): pg.Pool | null {
   }
   return pool;
 }
+
+// A read the site renders without (the Blog link, the latest posts) must not hold a page: when Postgres is down, pg
+// can throw outside the query's promise and leave it pending past connectionTimeoutMillis. Give up after ms.
+export function withTimeout<T>(work: Promise<T>, ms = 4000): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const late = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`db: no answer in ${ms}ms`)), ms);
+  });
+  return Promise.race([work, late]).finally(() => clearTimeout(timer));
+}

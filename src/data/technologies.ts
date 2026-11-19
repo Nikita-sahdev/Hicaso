@@ -61,7 +61,7 @@ export const technologies: Technology[] = [
     name: "Laravel",
     service: "web-development",
     h1: "Laravel development for web apps and stores",
-    lead: "Our team in India builds Laravel web apps, APIs and online stores, and maintains and upgrades existing PHP applications. You see working software in weekly demos.",
+    lead: "Our team in India builds Laravel web apps, APIs and online stores, and maintains and upgrades older PHP apps. You see working software in weekly demos.",
     usesTitle: "What we build with Laravel",
     uses: [
       { title: "Builds web apps and APIs", body: "Laravel with MySQL or PostgreSQL, behind a React or Next.js front end or Laravel's own pages." },
@@ -79,7 +79,7 @@ export const technologies: Technology[] = [
     name: "Next.js",
     service: "web-development",
     h1: "Next.js development for web apps and sites",
-    lead: "Our team in India builds web apps, SaaS products and marketing sites with React and Next.js, on Node.js or the API you already run. You see working software in weekly demos.",
+    lead: "Our team in India builds web apps, SaaS products and marketing sites with React and Next.js, on Node.js or your own API. You see working software in weekly demos.",
     usesTitle: "What we build with Next.js",
     uses: [
       { title: "Builds web apps and SaaS products", body: "React and Next.js front ends with a Node.js backend and PostgreSQL or MongoDB." },

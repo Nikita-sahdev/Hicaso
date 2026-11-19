@@ -62,7 +62,7 @@ function render(src: string, split = false): { html: string; outline: { id: stri
       image({ href, title, text }) {
         const h = safeSrc(href);
         if (h === null) return escapeHtml(text);
-        return `<img src="${escapeHtml(h)}" alt="${escapeHtml(text)}"${title ? ` title="${escapeHtml(title)}"` : ""}>`;
+        return `<img src="${escapeHtml(h)}" alt="${escapeHtml(text)}"${title ? ` title="${escapeHtml(title)}"` : ""} loading="lazy" decoding="async">`;
       },
       heading({ tokens, depth }) {
         const inner = this.parser.parseInline(tokens);

@@ -1,4 +1,4 @@
-import { getPool } from "../db.ts";
+import { getPool, withTimeout } from "../db.ts";
 import { draftProblems, publishProblems, slugify, type PostFields, type Problem } from "./post.ts";
 
 export type Post = PostFields & {
@@ -68,7 +68,7 @@ export async function listLivePosts(): Promise<PostSummary[]> {
 
 export async function listLivePostsSafe(): Promise<PostSummary[]> {
   try {
-    return await listLivePosts();
+    return await withTimeout(listLivePosts());
   } catch (e) {
     console.error("blog: could not list posts:", e);
     return [];

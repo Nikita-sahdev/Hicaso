@@ -1,4 +1,4 @@
-import { services } from "@/data/services";
+import { SERVICE_GROUPS, groupId, services } from "@/data/services";
 
 // features-2x2 (sections-library.md) as two screens (.g2): four .card--open tiles, each with one kit
 // fragment (assets/ui/<name>/fragment.html) pasted and rewritten to Hicaso's and its products' own
@@ -135,9 +135,24 @@ export default function ServicesGrid() {
             <Card slug={b} />
           </div>
         </div>
-        <div className="grid">
-          <Card slug={c} />
-          <Card slug={d} />
+        <div className="group">
+          <div className="grid">
+            <Card slug={c} />
+            <Card slug={d} />
+          </div>
+          {/* the four tiles are a sample: one line under them shows the rest of the offer, by group */}
+          <ul className="rows">
+            <li>
+              <span className="rows__name">All {services.length} services</span>
+              <p className="link-list">
+                {SERVICE_GROUPS.map((g) => (
+                  <a key={g} className="link" href={`/services#${groupId(g)}`}>
+                    {g} ({services.filter((s) => s.group === g).length})
+                  </a>
+                ))}
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
     </section>

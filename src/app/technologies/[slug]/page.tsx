@@ -8,7 +8,7 @@ import FAQ from "@/components/common/FAQ";
 import { getService } from "@/data/services";
 import { technologies, getTechnology } from "@/data/technologies";
 import { siteFaqs } from "@/data/faqs";
-import { SITE_URL, ldJson } from "@/lib/site";
+import { SITE_URL, breadcrumbLd, ldJson } from "@/lib/site";
 
 // A technology page borrows its parent service's hero fragment and tools diagram (src/components/services/content.ts):
 // hero > the four steps > FAQ > uses beside the tools diagram, which closes the page on a visual (R5).
@@ -21,7 +21,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/technologies/[slug]">): Promise<Metadata> {
   const t = getTechnology((await params).slug);
   if (!t) return {};
-  return { title: `${t.h1} — Hicaso`, description: t.lead };
+  return { title: `${t.h1} — Hicaso`, description: t.lead, alternates: { canonical: `/technologies/${t.slug}` } };
 }
 
 export default async function TechnologyPage({ params }: PageProps<"/technologies/[slug]">) {
@@ -44,6 +44,7 @@ export default async function TechnologyPage({ params }: PageProps<"/technologie
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ld)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(breadcrumbLd([["Home", "/"], [t.name, `/technologies/${t.slug}`]]))} />
       <ServiceHero
         h1={t.h1}
         lead={t.lead}

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/legal/LegalPage";
 import { products } from "@/data/products";
+import { ANALYTICS } from "@/lib/analytics";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy" },
   title: "Privacy Policy — Hicaso",
-  description: "How Hicaso LLP handles personal data on hicaso.com.",
+  description: "How Hicaso LLP handles personal data on hicaso.com: what the enquiry form collects, how it is kept, and how to reach us.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -12,8 +14,8 @@ export default function PrivacyPolicyPage() {
     <LegalPage
       h1="Privacy policy of the Hicaso software studio"
       lead="How Hicaso LLP handles personal data on hicaso.com. Last updated: November 2026."
-      facts={[["The contact form sends nothing to our servers", "It opens your own email app"], ["Each product has its own privacy policy", "AppKavo and BillMinute"], ["Client work follows the client agreement", "It takes precedence over this policy"]]}
-      label="Three facts from this policy: the contact form sends nothing to our servers, each product has its own policy, and client work follows the client agreement"
+      facts={[["The contact form sends your enquiry to Hicaso", "Kept on our server and emailed to us"], ["Each product has its own privacy policy", "AppKavo and BillMinute"], ["Client work follows the client agreement", "It takes precedence over this policy"]]}
+      label="Three facts from this policy: the contact form sends your enquiry to Hicaso, each product has its own policy, and client work follows the client agreement"
       closeTitle="Questions about this policy"
       closeLine="If you have questions or concerns regarding this Privacy Policy, write to us."
       parts={[
@@ -44,9 +46,12 @@ export default function PrivacyPolicyPage() {
                 which takes precedence over this policy for that work.
               </p>
               <p>
-                The project enquiry form on our contact page does not send your details to our
-                servers. It opens your own email app with a message addressed to hello@hicaso.com,
-                and nothing is sent until you send that email.
+                The project enquiry form on our contact page sends what you write in it (name,
+                email, country, service, budget and message) to Hicaso&apos;s server, where it is kept
+                and emailed to hello@hicaso.com so we can reply. Your IP address is used only to
+                limit repeated sends and is not stored with the enquiry. With JavaScript turned off,
+                the form opens your own email app instead, and nothing is sent until you send that
+                email.
               </p>
             </>
           ),
@@ -84,8 +89,28 @@ export default function PrivacyPolicyPage() {
           ),
         },
         {
+          id: "cookies",
+          heading: "4. Cookies and Analytics",
+          // true either way: the banner and these tools exist only when their IDs are set (src/lib/analytics.ts)
+          body: ANALYTICS.tools.length ? (
+            <>
+              <p>
+                With your permission, hicaso.com uses analytics cookies from {ANALYTICS.tools.join(", ")} to see how
+                visitors use the site, such as which pages are read and where people leave. These tools load only after
+                you choose Accept in the cookie banner; if you choose Decline, none of them loads.
+              </p>
+              <p>
+                You can change your choice at any time with Cookie settings at the foot of every page. Your choice is
+                kept in your own browser.
+              </p>
+            </>
+          ) : (
+            <p>hicaso.com sets no analytics or advertising cookies for visitors.</p>
+          ),
+        },
+        {
           id: "security",
-          heading: "4. Data Security",
+          heading: "5. Data Security",
           body: (
             <p>
               We implement industry-standard administrative, physical, and technical security
@@ -96,11 +121,11 @@ export default function PrivacyPolicyPage() {
         },
         {
           id: "contact",
-          heading: "5. Contact Us",
+          heading: "6. Contact Us",
           body: (
             <p>
               If you have questions or concerns regarding this Privacy Policy, please contact us at{" "}
-              <a className="link" href="mailto:hello@hicaso.com">hello@hicaso.com</a>.
+              <a href="mailto:hello@hicaso.com">hello@hicaso.com</a>.
             </p>
           ),
         },
