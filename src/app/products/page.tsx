@@ -6,8 +6,8 @@ import { products } from "@/data/products";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/products" },
-  title: "Products — Hicaso",
-  description: "Software built and run by Hicaso: AppKavo audits mobile app builds for security issues and store rejections; BillMinute sends invoices in your client's currency.",
+  title: "AppKavo and BillMinute, Software Built by Hicaso",
+  description: "Built and run by Hicaso: AppKavo audits mobile app builds for security issues and store rejections; BillMinute sends invoices in your client's currency.",
 };
 
 // hero (the dealt collage: AppKavo's window, a BillMinute invoice in the card) > both products as cards,

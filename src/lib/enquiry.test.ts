@@ -8,6 +8,7 @@ const base: Enquiry = {
   country: "Spain",
   service: "Web Development",
   budget: "$5k–$15k",
+  source: "LinkedIn",
   message: "Hello there",
 };
 const parse = (e: Enquiry) => new URL(buildEnquiryMailto(e));
@@ -20,7 +21,7 @@ test("mailto goes to hello@hicaso.com with the service in the subject", () => {
 
 test("body lists every field", () => {
   const body = parse(base).searchParams.get("body") ?? "";
-  for (const s of ["Name: Ana", "Email: ana@x.com", "Country: Spain", "Service: Web Development", "Budget: $5k–$15k", "Hello there"]) {
+  for (const s of ["Name: Ana", "Email: ana@x.com", "Country: Spain", "Service: Web Development", "Budget: $5k–$15k", "Heard about us: LinkedIn", "Hello there"]) {
     assert.ok(body.includes(s), s);
   }
 });
@@ -65,4 +66,15 @@ test("parseEnquiry rejects missing name, bad email, empty or too-long message", 
   assert.equal(parseEnquiry(fd({ ...base, email: "ana.x.com" })), null);
   assert.equal(parseEnquiry(fd({ ...base, message: "" })), null);
   assert.equal(parseEnquiry(fd({ ...base, message: "x".repeat(1001) })), null);
+});
+
+test("the server reads where the visitor heard about us, and rejects an overlong answer", () => {
+  const fd = (source: string) => {
+    const f = new FormData();
+    for (const [k, v] of Object.entries({ ...base, source })) f.set(k, v);
+    return f;
+  };
+  assert.equal(parseEnquiry(fd("Google search"))?.source, "Google search");
+  assert.equal(parseEnquiry(fd(""))?.source, "");
+  assert.equal(parseEnquiry(fd("x".repeat(61))), null);
 });

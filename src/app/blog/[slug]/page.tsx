@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { orgRef } from "@/lib/schema";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import ServiceHero from "@/components/services/ServiceHero";
@@ -46,7 +47,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const post = await load(slug);
   if (!post) notFound();
   const url = `${SITE_URL}/blog/${post.slug}`;
-  const hicaso = { "@type": "Organization", name: "Hicaso", url: SITE_URL };
+  const hicaso = orgRef; // the Organization defined once in the layout
   const ld = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -82,7 +83,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const second = two ? parts.slice(k) : [];
   const row = (p: PostSection) => (
     <div key={p.id} className="grid">
-      <h3 id={p.id!} className="t-h3 span-5">{p.heading}</h3>
+      {/* each post section is an h2 under the post's h1 (search engines read the outline), set at the h3 size */}
+      <h2 id={p.id!} className="t-h3 span-5">{p.heading}</h2>
       <div className="span-6 start-7 stack-4 post-body" dangerouslySetInnerHTML={{ __html: p.html }} />
     </div>
   );

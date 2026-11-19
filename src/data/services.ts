@@ -3,6 +3,8 @@ export type ServiceGroup = "AI" | "Design and build" | "Test, run and grow";
 export type Service = {
   slug: string;
   name: string;
+  // the <title>, worded the way ranking pages for the query are (company / services); "India" only where buyers search for it (dedicated developers), since Hicaso serves clients worldwide, at most 60 characters
+  seoTitle: string;
   group: ServiceGroup;
   tagline: string;
   description: string;
@@ -36,6 +38,7 @@ export const services: Service[] = [
   {
     slug: "generative-ai",
     name: "Generative AI",
+    seoTitle: "Generative AI Development Services — Hicaso",
     group: "AI",
     tagline: "Language models built into products people already use.",
     description:
@@ -54,6 +57,7 @@ export const services: Service[] = [
   {
     slug: "agentic-ai",
     name: "Agentic AI",
+    seoTitle: "AI Agent Development Company — Hicaso",
     group: "AI",
     tagline: "Agents that use your tools and finish multi-step work.",
     description:
@@ -71,6 +75,7 @@ export const services: Service[] = [
   {
     slug: "mobile-app-development",
     name: "Mobile App Development",
+    seoTitle: "Mobile App Development Company — Hicaso",
     group: "Design and build",
     tagline: "Android and iOS apps, native or cross-platform.",
     description:
@@ -88,6 +93,7 @@ export const services: Service[] = [
   {
     slug: "web-development",
     name: "Web Development",
+    seoTitle: "Web Development Company — Hicaso",
     group: "Design and build",
     tagline: "Web apps, sites and backends, built and maintained.",
     description:
@@ -106,6 +112,7 @@ export const services: Service[] = [
   {
     slug: "ai-chatbot-development",
     name: "AI Chatbot Development",
+    seoTitle: "AI Chatbot Development Company — Hicaso",
     group: "AI",
     tagline: "Chat assistants that answer from your own documents and data.",
     description:
@@ -124,6 +131,7 @@ export const services: Service[] = [
   {
     slug: "ai-automation",
     name: "AI Automation",
+    seoTitle: "AI Automation Agency: n8n, Zapier, Make — Hicaso",
     group: "AI",
     tagline: "Workflows that move data and do routine work between your tools.",
     description:
@@ -142,6 +150,7 @@ export const services: Service[] = [
   {
     slug: "ai-consulting",
     name: "AI Consulting",
+    seoTitle: "AI Consulting Company — Hicaso",
     group: "AI",
     tagline: "Where AI fits in your business, and what it takes to build it.",
     description:
@@ -159,6 +168,7 @@ export const services: Service[] = [
   {
     slug: "mvp-development",
     name: "MVP Development",
+    seoTitle: "MVP Development Company for Startups — Hicaso",
     group: "Design and build",
     tagline: "A first version of your product, in front of real users.",
     description:
@@ -178,6 +188,7 @@ export const services: Service[] = [
   {
     slug: "saas-development",
     name: "SaaS Development",
+    seoTitle: "SaaS Development Company — Hicaso",
     group: "Design and build",
     tagline: "Subscription software, built by a team that runs its own.",
     description:
@@ -196,6 +207,7 @@ export const services: Service[] = [
   {
     slug: "ecommerce-development",
     name: "eCommerce Development",
+    seoTitle: "eCommerce Development: Shopify, WooCommerce — Hicaso",
     group: "Design and build",
     tagline: "Online stores on Shopify, WooCommerce or a custom stack.",
     description:
@@ -215,6 +227,7 @@ export const services: Service[] = [
   {
     slug: "ui-ux-design",
     name: "UI/UX Design",
+    seoTitle: "UI/UX Design Agency for Web and Mobile Apps — Hicaso",
     group: "Design and build",
     tagline: "App and web interfaces, designed and prototyped in Figma.",
     description:
@@ -229,6 +242,7 @@ export const services: Service[] = [
   {
     slug: "qa-testing",
     name: "QA & Testing",
+    seoTitle: "Software Testing and QA Services — Hicaso",
     group: "Test, run and grow",
     tagline: "Manual and mobile app testing, plus security and store-review audits.",
     description:
@@ -243,6 +257,7 @@ export const services: Service[] = [
   {
     slug: "maintenance-support",
     name: "Maintenance & Support",
+    seoTitle: "App Maintenance and Support Services — Hicaso",
     group: "Test, run and grow",
     tagline: "Bug fixes and updates for apps that are already live.",
     description:
@@ -260,6 +275,7 @@ export const services: Service[] = [
   {
     slug: "app-modernization",
     name: "App Modernization",
+    seoTitle: "Legacy Application Modernization Services — Hicaso",
     group: "Test, run and grow",
     tagline: "Older apps taken over, upgraded and moved to a current stack.",
     description:
@@ -278,6 +294,7 @@ export const services: Service[] = [
   {
     slug: "cloud-devops",
     name: "Cloud & DevOps",
+    seoTitle: "DevOps Services Company: AWS, Azure, GCP — Hicaso",
     group: "Test, run and grow",
     tagline: "Servers, deploys and backups on AWS, Azure, Google Cloud or a VPS.",
     description:
@@ -292,10 +309,11 @@ export const services: Service[] = [
   {
     slug: "dedicated-team",
     name: "Dedicated Team",
+    seoTitle: "Hire Dedicated Developers in India — Hicaso",
     group: "Test, run and grow",
     tagline: "Developers who work only on your product, billed monthly or by the hour.",
     description:
-      "Dedicated developers who work only on your product, billed monthly or hourly, in hours that overlap with Europe and the Middle East.",
+      "A dedicated development team in India: developers who work only on your product, billed monthly or hourly, in hours overlapping Europe and the Middle East.",
     stack: [
       { group: "AI", items: ["OpenAI", "Claude"] },
       { group: "Mobile", items: ["Flutter", "React Native", "Kotlin", "Swift"] },
@@ -305,6 +323,10 @@ export const services: Service[] = [
     faqs: [
       ownCode,
       { q: "How is a dedicated team billed?", a: "Monthly per developer, or by the hour. You choose." },
+      {
+        q: "Which developers can we hire?",
+        a: "Mobile developers (Flutter, React Native, Kotlin, Swift), web developers (React, Next.js), backend developers (Node.js, Laravel, Python) and AI developers (OpenAI, Claude), plus QA testers and designers when you need them.",
+      },
       { q: "Which hours does the team work?", a: "Monday to Friday, 9:00 AM to 6:00 PM IST, which overlaps with Europe and the Middle East." },
     ],
   },

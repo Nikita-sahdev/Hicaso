@@ -79,7 +79,7 @@ export const technologies: Technology[] = [
     name: "Next.js",
     service: "web-development",
     h1: "Next.js development for web apps and sites",
-    lead: "Our team in India builds web apps, SaaS products and marketing sites with React and Next.js, on Node.js or your own API. You see working software in weekly demos.",
+    lead: "Our team builds web apps, SaaS products and marketing sites with React and Next.js, on Node.js or your own API. You see working software in weekly demos.",
     usesTitle: "What we build with Next.js",
     uses: [
       { title: "Builds web apps and SaaS products", body: "React and Next.js front ends with a Node.js backend and PostgreSQL or MongoDB." },

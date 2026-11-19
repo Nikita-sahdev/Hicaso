@@ -58,3 +58,12 @@ test("no invented proof in copy", () => {
   const text = JSON.stringify(services);
   assert.doesNotMatch(text, INVENTED_PROOF);
 });
+
+test("every service has a search title of at most 60 characters, ending in the brand, with no invented claim", () => {
+  for (const s of services) {
+    assert.ok(s.seoTitle, s.slug);
+    assert.ok(s.seoTitle.length <= 60, `${s.slug}: ${s.seoTitle.length}`);
+    assert.ok(s.seoTitle.endsWith(" — Hicaso"), s.slug);
+    assert.doesNotMatch(s.seoTitle, INVENTED_PROOF, s.slug);
+  }
+});

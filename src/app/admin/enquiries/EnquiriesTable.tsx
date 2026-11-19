@@ -6,7 +6,7 @@ import type { Lead } from "@/lib/leads";
 import LocalTime from "../blog/LocalTime";
 
 // filter choices from the values actually present (a service renamed later still filters)
-const choices = (leads: Lead[], k: "service" | "budget") =>
+const choices = (leads: Lead[], k: "service" | "budget" | "source") =>
   [...new Set(leads.map((l) => l[k]).filter(Boolean))].sort().map((v) => ({ text: v, value: v }));
 
 export default function EnquiriesTable({ leads }: { leads: Lead[] }) {
@@ -51,6 +51,13 @@ export default function EnquiriesTable({ leads }: { leads: Lead[] }) {
       onFilter: (v, l) => l.budget === v,
     },
     {
+      title: "Heard via",
+      dataIndex: "source",
+      width: 170,
+      filters: choices(leads, "source"),
+      onFilter: (v, l) => l.source === v,
+    },
+    {
       title: "Message",
       dataIndex: "message",
       render: (m: string) => <Typography.Paragraph ellipsis={{ rows: 2 }} style={{ margin: 0 }}>{m}</Typography.Paragraph>,
@@ -64,7 +71,7 @@ export default function EnquiriesTable({ leads }: { leads: Lead[] }) {
         columns={columns}
         dataSource={shown}
         pagination={{ pageSize: 25, hideOnSinglePage: true }}
-        scroll={{ x: 1100 }}
+        scroll={{ x: 1270 }}
         // the whole message, opened under its row
         expandable={{ expandedRowRender: (l) => <p style={{ margin: 0, whiteSpace: "pre-wrap" }}>{l.message}</p>, rowExpandable: (l) => !!l.message }}
         locale={{ emptyText: <Empty description={needle ? "No enquiry matches." : "No enquiries yet."} /> }}

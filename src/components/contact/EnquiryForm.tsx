@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { animate, createDrawable, stagger } from "animejs";
-import { BUDGETS, ENQUIRY_TO, OTHER_SERVICE, buildEnquiryMailto } from "@/lib/enquiry";
+import { BUDGETS, ENQUIRY_TO, OTHER_SERVICE, SOURCES, buildEnquiryMailto } from "@/lib/enquiry";
 
 // compact: the home page's short version (name, email, message); the server needs only those three
 type Props = { services: { slug: string; name: string }[]; initialService: string; compact?: boolean };
@@ -49,6 +49,7 @@ export default function EnquiryForm({ services, initialService, compact = false 
       country: get("country"),
       service,
       budget: get("budget"),
+      source: get("source"),
       message: get("message"),
     });
     setOpened(true);
@@ -68,10 +69,10 @@ export default function EnquiryForm({ services, initialService, compact = false 
       data-sent="Sent. We'll reply by email."
       data-failed={`Not sent. Your words are still here; try again, or write to ${ENQUIRY_TO}.`}
     >
-      {/* honeypot: hidden from people, bots fill it and the route drops the lead */}
+      {/* honeypot: hidden from people and from the accessibility tree, with no label or meaningful name, so an AI agent
+          filling the visible fields never touches it; spam bots that fill every input do, and the route drops the lead */}
       <div hidden aria-hidden="true">
-        <label htmlFor="enq-website">Website</label>
-        <input id="enq-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+        <input name="hp_extra" type="text" tabIndex={-1} autoComplete="off" />
       </div>
       <div className="field">
         <label htmlFor="enq-name">Name</label>
@@ -101,13 +102,24 @@ export default function EnquiryForm({ services, initialService, compact = false 
           <option value={OTHER_SERVICE}>{OTHER_SERVICE}</option>
         </select>
       </div>
-      <div className="field field--full">
+      <div className="field">
         <label htmlFor="enq-budget">Budget</label>
         <select id="enq-budget" name="budget" defaultValue="">
           <option value="">Choose a range</option>
           {BUDGETS.map((b) => (
             <option key={b} value={b}>
               {b}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="field">
+        <label htmlFor="enq-source">How did you hear about us?</label>
+        <select id="enq-source" name="source" defaultValue="">
+          <option value="">Choose one</option>
+          {SOURCES.map((s) => (
+            <option key={s} value={s}>
+              {s}
             </option>
           ))}
         </select>

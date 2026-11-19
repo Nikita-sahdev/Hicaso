@@ -17,9 +17,9 @@ const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
-  title: "Contact — Hicaso",
+  title: "Contact Hicaso — Start Your Software Project",
   description:
-    "Tell Hicaso about your project: AI, mobile or web. Email and phone for our team in Chandigarh, India.",
+    "Tell Hicaso about your AI, mobile or web project: send an enquiry, plan it with the project planner, or email and call our team directly.",
 };
 
 // hero (the dealt split hero: words left, a stand-in photograph right) > enquiry (the starter's booking-form beside

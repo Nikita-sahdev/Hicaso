@@ -45,6 +45,22 @@ const FORMATS = [
   "PHP upgrades",
 ];
 
+// How a project runs, in the owner's facts only: NDA on request, a plan by email, project or dedicated developers billed
+// monthly or hourly, weekly demos, code and IP the client's once paid, maintenance after launch (src/data/faqs.ts,
+// why.ts, services.ts). No price model or timeline is promised here.
+const STEPS = [
+  { name: "Tell us what you need", text: "Send the enquiry form or plan the project with our planner. We sign your NDA first if you ask." },
+  { name: "Get our plan by email", text: "We reply by email with how we would build it." },
+  { name: "Choose how to work", text: "A project, or dedicated developers billed monthly or by the hour." },
+  { name: "Build with weekly demos", text: "You see working software every week, not just status updates." },
+  { name: "Launch", text: "We release to the web or the app stores. Once the project is paid for, the code and IP are yours." },
+  { name: "Support after launch", text: "Bug fixes, updates and support, Monday to Friday, 9:00 AM to 6:00 PM IST." },
+];
+
+const MODELS = [
+  { name: "A project", text: "Tell us what you need and we reply with how we would build it.", href: "/contact#enquiry", link: "Send an enquiry" },
+  { name: "Dedicated developers", text: "Developers who work only on your product, billed monthly or by the hour.", href: "/services/dedicated-team", link: "Hire a dedicated team" },
+];
 
 export default function ServicesPage() {
   return (
@@ -93,6 +109,37 @@ export default function ServicesPage() {
                 <li key={f}>{f}</li>
               ))}
             </ul>
+          </div>
+        </div>
+      </section>
+      <section className="section" id="how-we-work" style={{ "--h": 1 } as React.CSSProperties} aria-labelledby="how-h">
+        <div className="wrap">
+          <div className="grid">
+            <div className="span-6 stack-5">
+              <h2 id="how-h">How we work, from first message to launch</h2>
+              <ol className="rows">
+                {STEPS.map((st) => (
+                  <li key={st.name}>
+                    <span className="rows__name">{st.name}</span>
+                    <p>{st.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="span-5 start-8 stack-5">
+              <h3 className="t-h3">Two ways to work with us</h3>
+              <ul className="rows">
+                {MODELS.map((m) => (
+                  <li key={m.name}>
+                    <span className="rows__name">{m.name}</span>
+                    <p>{m.text}</p>
+                    <p>
+                      <a className="link" href={m.href}>{m.link}</a>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
