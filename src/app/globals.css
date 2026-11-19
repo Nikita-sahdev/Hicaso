@@ -17,6 +17,8 @@
 /* services cards: the title link covers the whole card, so the tap target passes 44px and the demo is clickable */
 #services .card { position: relative; }
 #services .card h3 a::after { content: ""; position: absolute; inset: 0; }
+/* the all-services line sits under the second pair of tiles, with room to breathe */
+#services .group > .rows { margin-top: var(--s-6); }
 
 /* ---- adapt + harden (impeccable, 2026-11-18) ---- */
 /* a phone held sideways (short viewport): the hero keeps its words and both buttons on screen; the art waits */
@@ -27,8 +29,27 @@
 }
 /* touch: toggle tabs (the BillMinute currency demo) reach a 44px target */
 @media (pointer: coarse) { .tab { min-height: 44px; } }
-/* review links stay on one line, so the underline never hangs below its word */
-.hero__proof a, .footer__lede + .t-small a { white-space: nowrap; }
+/* review links: plain inline underlines (the kit .link is inline-flex with an arrow, so its line hung ~20px below
+   the word on a phone); one line each */
+.hero__proof a, .footer__lede + .t-small a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px;
+  text-underline-offset: 3px; white-space: nowrap; transition: text-decoration-color var(--dur) var(--ease); }
+.hero__proof a:hover, .footer__lede + .t-small a:hover { text-decoration-color: var(--accent); }
+/* a run of .link items (technologies, service groups): wrapped with a gap, no commas between arrows */
+.link-list { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+
+/* ---- polish (second critique, 2026-11-18) ---- */
+/* a done step reads done, not cancelled: no drawn strike over the label (kit checklist) */
+:root .ui-check.is-done .ui-check__label::after { transform: scaleX(0); }
+/* a marked phrase reads as a highlighter pen, not a text selection (kit doc fragment keeps its sweep) */
+:root .ui-doc__mark { background-image: linear-gradient(transparent 58%, color-mix(in oklab, var(--u-accent) 24%, transparent) 0); }
+/* phone: How's step fragments set their own height (no 4:3 box, no 26svh cap), so none is cut mid-card */
+@media (max-width: 639px) {
+  #how:not(.is-live) .mo-pc__visual.mo-pc__visual--lit { aspect-ratio: auto; max-height: none; }
+  /* the band's week of notifications shows all three */
+  #why .panel { --p-h: 300px; }
+}
+/* GitHub's mark is black: light on the band's dark notification cards */
+#why .ui-note__ico img[data-icon="github"] { filter: invert(1); }
 /* admin-written headlines: a long word or URL wraps instead of running off a phone */
 #faq .rows__name, #posts .rows__name, #latest-posts .rows__name { overflow-wrap: anywhere; text-wrap: pretty; }
 

@@ -56,11 +56,11 @@ export const Footer: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
             <p className="footer__lede">Hicaso builds AI, mobile and web software for companies.</p>
             {profiles.length ? (
               <p className="t-small">
-                Reviews on{" "}
+                Hicaso on{" "}
                 {profiles.map((p, i) => (
                   <React.Fragment key={p.url}>
                     {i ? (i === profiles.length - 1 ? " and " : ", ") : ""}
-                    <a className="link" href={p.url} target="_blank" rel="noopener noreferrer">{p.label}</a>
+                    <a href={p.url} target="_blank" rel="noopener noreferrer">{p.label}</a>
                   </React.Fragment>
                 ))}
               </p>

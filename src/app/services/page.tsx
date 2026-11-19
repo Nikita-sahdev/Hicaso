@@ -1,8 +1,7 @@
-import { Fragment } from "react";
 import type { Metadata } from "next";
 import ServiceHero from "@/components/services/ServiceHero";
 import { chat } from "@/components/services/fragments";
-import { SERVICE_GROUPS, services } from "@/data/services";
+import { SERVICE_GROUPS, groupId, services } from "@/data/services";
 import { technologies } from "@/data/technologies";
 import TechLinks from "@/components/services/TechLinks";
 
@@ -66,16 +65,13 @@ export default function ServicesPage() {
               {/* one row per group (src/data/services.ts SERVICE_GROUPS): every service, each with its own page */}
               <ul className="rows">
                 {SERVICE_GROUPS.map((g) => (
-                  <li key={g}>
+                  <li key={g} id={groupId(g)}>
                     <span className="rows__name">{g}</span>
-                    <p>
+                    <p className="link-list">
                       {services
                         .filter((s) => s.group === g)
-                        .map((s, i) => (
-                          <Fragment key={s.slug}>
-                            {i ? ", " : ""}
-                            <a className="link" href={`/services/${s.slug}`}>{s.name}</a>
-                          </Fragment>
+                        .map((s) => (
+                          <a key={s.slug} className="link" href={`/services/${s.slug}`}>{s.name}</a>
                         ))}
                     </p>
                   </li>

@@ -65,8 +65,8 @@ export default function Hero() {
             </div>
             <p className="hero__proof">
               Hicaso on{" "}
-              <a className="link" href={PROFILES[0].url} target="_blank" rel="noopener noreferrer">{PROFILES[0].label}</a> and{" "}
-              <a className="link" href={PROFILES[1].url} target="_blank" rel="noopener noreferrer">{PROFILES[1].label}</a>.
+              <a href={PROFILES[0].url} target="_blank" rel="noopener noreferrer">{PROFILES[0].label}</a> and{" "}
+              <a href={PROFILES[1].url} target="_blank" rel="noopener noreferrer">{PROFILES[1].label}</a>.
             </p>
           </div>
 

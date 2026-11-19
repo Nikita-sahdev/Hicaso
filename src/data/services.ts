@@ -11,6 +11,8 @@ export type Service = {
 };
 
 export const SERVICE_GROUPS: ServiceGroup[] = ["AI", "Design and build", "Test, run and grow"];
+// a group's anchor on /services ("Test, run and grow" -> "test-run-and-grow")
+export const groupId = (g: ServiceGroup) => g.toLowerCase().replace(/[^a-z]+/g, "-");
 
 export const STACK_GROUPS = ["AI", "Automation", "Design", "Mobile", "Frontend", "Backend", "Commerce", "Databases", "Cloud"] as const;
 

@@ -13,6 +13,22 @@ import { BOOKING_URL, WHATSAPP, httpsLinks, whatsappUrl } from "@/lib/site";
 const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 const WA = whatsappUrl(WHATSAPP);
 
+// the band's headline promise, and the three it backs up as rows
+const [TEAM] = WHY.filter((p) => p.title === "Our product team builds yours");
+const REST = WHY.filter((p) => p !== TEAM);
+
+// a week on a client project as the kit's notify fragment (assets/ui/notify), drawn still (no data-ui):
+// the weekly demo, work ready for review, last demo's notes
+const ICON = (id: string) => `<img data-icon="${id}" src="/assets/icons/${id}.svg" alt="">`;
+const note = (icon: string, title: string, time: string, body: string) =>
+  `<li class="ui-note"><span class="ui-note__ico">${ICON(icon)}</span><span class="ui-note__text"><span class="ui-note__title">${title}<time>${time}</time></span><span class="ui-note__body">${body}</span></span></li>`;
+const WEEK = `<div class="stage"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:calc(50% - 130px);--ay-sm:32px">
+<div class="ui ui-notify"><ul class="ui-notify__list">
+  ${note("google-meet", "Weekly demo with your team", "Thu", "This week's build, shown by the people who built it")}
+  ${note("github", "Pull request ready for your review", "2h", "Sign-in and payments screens, with their tests")}
+  ${note("slack", "Notes from last week's demo", "1d", "Two changes agreed, both in this build")}
+</ul></div></div></div>`;
+
 export default async function Home() {
   const posts = await listLivePostsSafe();
   return (
@@ -20,25 +36,32 @@ export default async function Home() {
       <Hero />
       <ServicesGrid />
       <Products />
-      {/* the page's one dark band (backgrounds.md: middle of the page, one screen) as the mid-page decision point: the
-          four promises across one row, then both actions (plain buttons: the hero's SpecularButton stays the page's one
-          pointer effect). No moment of its own: every second moment dealt on 2026-11-18 clashed with pinned-chapters
-          or the hero button, and counter-rolls needs proof figures the page does not have yet. */}
-      <section className="section ground-inverse" id="why" aria-labelledby="why-h">
+      {/* the page's one dark band (backgrounds.md: middle of the page, one screen) as the mid-page decision point: one
+          promise as the headline (on the container's left, SR-6), a week on a client project beside it, the other three promises as rows, then both
+          actions (plain buttons: the hero's SpecularButton stays the page's one pointer effect). Picture left, so the
+          band doesn't repeat the text-left splits. No moment of its own: every second moment dealt on 2026-11-18
+          clashed with pinned-chapters or the hero button. */}
+      <section className="section ground-inverse" id="why" style={{ "--hm": 2 } as React.CSSProperties} aria-labelledby="why-h">
         <div className="wrap stack-6">
-          <div className="section-head">
-            <h2 id="why-h">Built by a product team</h2>
-            <p className="t-lead">AppKavo and BillMinute, our own products, run on the stack we use for clients.</p>
-          </div>
+          <h2 id="why-h">{TEAM.title}</h2>
           <div className="grid">
-            {WHY.map((p) => (
-              <div key={p.title} className="span-3 stack-2">
-                <p className="t-card">{p.title}</p>
-                <p>{p.text}</p>
-              </div>
-            ))}
-          </div>
-          <div className="btn-row">
+            <div
+              className="panel span-5"
+              role="img"
+              aria-label="A week on a client project: the weekly demo, a pull request ready for review, and notes from last week's demo"
+              dangerouslySetInnerHTML={{ __html: WEEK }}
+            />
+            <div className="span-6 start-7 stack-5">
+              <p className="t-lead">{TEAM.text}</p>
+              <ul className="rows">
+                {REST.map((p) => (
+                  <li key={p.title}>
+                    <span className="rows__name">{p.title}</span>
+                    <p>{p.text}</p>
+                  </li>
+                ))}
+              </ul>
+              <div className="btn-row">
             <a className="btn btn--primary" href="/contact">Start a project</a>
             {BOOKING ? (
               <a className="btn btn--secondary" href={BOOKING} target="_blank" rel="noopener noreferrer">Book a free 30-minute call</a>
@@ -46,6 +69,8 @@ export default async function Home() {
             {WA ? (
               <a className="link" href={WA} target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
             ) : null}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -66,7 +91,7 @@ export default async function Home() {
                   </li>
                 ))}
               </ul>
-              <p>
+              <p className="t-small">
                 <a className="link" href="/blog">See every post</a>
               </p>
             </div>
