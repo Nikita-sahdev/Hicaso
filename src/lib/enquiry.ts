@@ -1,4 +1,6 @@
 export const BUDGETS = ["Under $5k", "$5k–$15k", "$15k–$50k", "$50k+", "Not sure"] as const;
+// "How did you hear about us?": tells the owner which channel brings enquiries (optional on the form)
+export const SOURCES = ["Google search", "ChatGPT, Claude or another AI assistant", "LinkedIn", "Clutch or GoodFirms", "A referral", "Other"] as const;
 export const OTHER_SERVICE = "Something else";
 export const ENQUIRY_TO = "hello@hicaso.com";
 
@@ -8,6 +10,7 @@ export type Enquiry = {
   country: string;
   service: string;
   budget: string;
+  source: string;
   message: string;
 };
 
@@ -21,6 +24,7 @@ export function enquiryText(e: Enquiry): string {
     `Country: ${or(e.country)}`,
     `Service: ${or(e.service)}`,
     `Budget: ${or(e.budget)}`,
+    `Heard about us: ${or(e.source)}`,
     "",
     "Message:",
     e.message,
@@ -31,12 +35,12 @@ export function buildEnquiryMailto(e: Enquiry): string {
   return `mailto:${ENQUIRY_TO}?subject=${encodeURIComponent(enquirySubject(e))}&body=${encodeURIComponent(enquiryText(e))}`;
 }
 
-const MAX: Record<keyof Enquiry, number> = { name: 100, email: 200, country: 100, service: 100, budget: 50, message: 1000 };
+const MAX: Record<keyof Enquiry, number> = { name: 100, email: 200, country: 100, service: 100, budget: 50, source: 60, message: 1000 };
 
 // Server-side check of a posted enquiry (the browser's checks can be skipped). null = reject.
 export function parseEnquiry(fd: FormData): Enquiry | null {
   const get = (k: keyof Enquiry) => String(fd.get(k) ?? "").trim();
-  const e: Enquiry = { name: get("name"), email: get("email"), country: get("country"), service: get("service"), budget: get("budget"), message: get("message") };
+  const e: Enquiry = { name: get("name"), email: get("email"), country: get("country"), service: get("service"), budget: get("budget"), source: get("source"), message: get("message") };
   if ((Object.keys(MAX) as (keyof Enquiry)[]).some((k) => e[k].length > MAX[k])) return null;
   if (!e.name || !e.message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.email)) return null;
   return e;

@@ -31,6 +31,7 @@ export function parseLeads(text: string): Lead[] {
       country: str(o.country),
       service: str(o.service),
       budget: str(o.budget),
+      source: str(o.source),
       message: str(o.message),
     });
   }
