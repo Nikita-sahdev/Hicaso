@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { httpsLinks, PROFILES, SOCIAL, whatsappUrl, WHATSAPP, BOOKING_URL } from "./site.ts";
+import { breadcrumbLd, httpsLinks, PROFILES, SITE_URL, SOCIAL, whatsappUrl, WHATSAPP, BOOKING_URL } from "./site.ts";
 
 test("httpsLinks drops empty and non-https URLs", () => {
   const out = httpsLinks([{ url: "" }, { url: "http://x.com" }, { url: "javascript:alert(1)" }, { url: "https://linkedin.com/company/hicaso" }]);
@@ -32,4 +32,14 @@ test("configured WhatsApp number is valid; booking URL is empty or https", () =>
 test("every social link has an icon file in the kit icons folder", async () => {
   const { existsSync } = await import("node:fs");
   for (const s of SOCIAL) assert.ok(s.icon && existsSync(`public/assets/icons/${s.icon}.svg`), s.label);
+});
+
+test("breadcrumbLd lists the trail in order with absolute URLs", () => {
+  const ld = breadcrumbLd([["Home", "/"], ["Services", "/services"], ["Web Development", "/services/web-development"]]);
+  assert.equal(ld["@type"], "BreadcrumbList");
+  assert.deepEqual(ld.itemListElement.map((i) => [i.position, i.name, i.item]), [
+    [1, "Home", `${SITE_URL}/`],
+    [2, "Services", `${SITE_URL}/services`],
+    [3, "Web Development", `${SITE_URL}/services/web-development`],
+  ]);
 });

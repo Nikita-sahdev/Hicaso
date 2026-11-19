@@ -74,7 +74,7 @@ export default function TermsConditionsPage() {
             <p>
               These terms are governed by and construed in accordance with the laws of India. For
               legal inquiries regarding these terms, please contact us at{" "}
-              <a className="link" href="mailto:hello@hicaso.com">hello@hicaso.com</a>.
+              <a href="mailto:hello@hicaso.com">hello@hicaso.com</a>.
             </p>
           ),
         },

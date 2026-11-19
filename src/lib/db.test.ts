@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { getPool } from "./db.ts";
+import { getPool, withTimeout } from "./db.ts";
 import { listLivePostsSafe } from "./blog/store.ts";
 import { migrate } from "./migrate.ts";
 import { freshDb } from "./testDb.ts";
@@ -67,4 +67,14 @@ test("a hung Postgres connection rejects within 5 s and the layout list falls ba
     if (saved === undefined) delete process.env.DATABASE_URL;
     else process.env.DATABASE_URL = saved;
   }
+});
+
+test("withTimeout passes a fast answer through", async () => {
+  assert.equal(await withTimeout(Promise.resolve(7), 200), 7);
+});
+
+test("withTimeout rejects a call that never settles, so a page never hangs on the database", async () => {
+  const t0 = Date.now();
+  await assert.rejects(withTimeout(new Promise(() => {}), 100), /no answer in 100ms/);
+  assert.ok(Date.now() - t0 < 1000);
 });

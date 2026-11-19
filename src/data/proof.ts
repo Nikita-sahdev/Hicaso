@@ -5,7 +5,13 @@
 
 export type Stat = { value: string; label: string };
 export type CaseStudy = {
+  slug: string; // its page: /case-studies/<slug>
   client: string;
+  title: string; // the page's h1 after the client name
+  challenge: string;
+  built: string[];
+  results: Stat[];
+  duration: string;
   industry: string;
   summary: string;
   service: string; // slug from services.ts
@@ -25,7 +31,20 @@ export const proof = {
   ] as Stat[],
   caseStudies: [
     {
+      slug: "patient-intake-assistant",
       client: "Contoso Health",
+      title: "a patient intake assistant for a clinic group",
+      challenge: "Front-desk staff retyped every referral letter into the intake form, and new patients waited days for a first appointment.",
+      built: [
+        "An assistant that reads each referral letter and drafts the intake form, with the source line beside every field",
+        "A review screen where staff approve, correct or reject each draft before it is saved",
+        "Retrieval over the clinic's own forms and policies, with an audit log of every change",
+      ],
+      results: [
+        { value: "3 min", label: "per intake, down from 15" },
+        { value: "70%", label: "of drafts approved without edits" },
+      ],
+      duration: "12 weeks",
       industry: "Healthcare",
       summary: "A patient intake assistant that reads referral letters and drafts the clinic's intake form for staff to approve.",
       service: "generative-ai",
@@ -33,7 +52,20 @@ export const proof = {
       stack: ["Claude", "pgvector", "Next.js", "Python"],
     },
     {
+      slug: "driver-and-dispatcher-apps",
       client: "Fabrikam Logistics",
+      title: "driver and dispatcher apps for live deliveries",
+      challenge: "Dispatchers phoned drivers for every update, and proof of delivery lived on paper slips that went missing.",
+      built: [
+        "Android and iOS driver apps from one Flutter codebase, with offline proof of delivery (photo and signature)",
+        "A dispatcher web view with live positions, route changes pushed to the driver's phone",
+        "Notifications to customers when a parcel is out for delivery and when it arrives",
+      ],
+      results: [
+        { value: "40%", label: "fewer calls between dispatch and drivers" },
+        { value: "0", label: "lost delivery slips since launch" },
+      ],
+      duration: "16 weeks",
       industry: "Logistics",
       summary: "Driver and dispatcher apps for live delivery tracking, proof of delivery and route changes on the road.",
       service: "mobile-app-development",
@@ -41,7 +73,20 @@ export const proof = {
       stack: ["Flutter", "Firebase", "Node.js"],
     },
     {
+      slug: "storefront-rebuild-with-support-agent",
       client: "Wingtip Retail",
+      title: "a rebuilt storefront with an order support agent",
+      challenge: "An ageing PHP shop was slow at checkout, and the support team spent most of the day answering \"where is my order?\"",
+      built: [
+        "A Laravel storefront and admin rebuilt inside the old app, page by page, without a shutdown",
+        "A React checkout with saved addresses and card payments",
+        "A support agent that answers order questions from the shop's own data and hands over to a person",
+      ],
+      results: [
+        { value: "2x", label: "faster checkout" },
+        { value: "55%", label: "of order questions answered without staff" },
+      ],
+      duration: "20 weeks",
       industry: "E-commerce",
       summary: "A rebuilt Laravel storefront and admin with a support agent that answers order questions from the shop's own data.",
       service: "web-development",
@@ -70,6 +115,8 @@ export const proof = {
     },
   ] as Testimonial[],
 };
+
+export const getCaseStudy = (slug: string) => proof.caseStudies.find((c) => c.slug === slug);
 
 // Demo proof never reaches a production build; real proof (demo: false) always shows.
 export const showProof = (demo: boolean, env: string | undefined = process.env.NODE_ENV) =>

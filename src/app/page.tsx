@@ -6,6 +6,8 @@ import HowWeWork from "@/components/common/HowWeWork";
 import StackSection from "@/components/home/StackSection";
 import Proof from "@/components/home/Proof";
 import FAQ from "@/components/common/FAQ";
+import EnquiryForm from "@/components/contact/EnquiryForm";
+import { services } from "@/data/services";
 import { homeFaqs } from "@/data/faqs";
 import { WHY } from "@/data/why";
 import { listLivePostsSafe } from "@/lib/blog/store";
@@ -24,7 +26,7 @@ const REST = WHY.filter((p) => p !== TEAM);
 // the weekly demo, work ready for review, last demo's notes
 const ICON = (id: string) => `<img data-icon="${id}" src="/assets/icons/${id}.svg" alt="">`;
 const note = (icon: string, title: string, time: string, body: string) =>
-  `<li class="ui-note"><span class="ui-note__ico">${ICON(icon)}</span><span class="ui-note__text"><span class="ui-note__title">${title}<span class="ui-note__time">${time}</span></span><span class="ui-note__body">${body}</span></span></li>`;
+  `<li class="ui-note"><span class="ui-note__ico">${ICON(icon)}</span><span class="ui-note__text"><span class="ui-note__title"><span class="ui-note__name">${title}</span><span class="ui-note__time">${time}</span></span><span class="ui-note__body">${body}</span></span></li>`;
 const WEEK = `<div class="stage"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:calc(50% - 130px);--ay-sm:32px">
 <div class="ui ui-notify"><ul class="ui-notify__list">
   ${note("google-meet", "Weekly demo with your team", "Thu", "This week's build, shown by the people who built it")}
@@ -101,6 +103,21 @@ export default async function Home() {
           ) : null
         }
       />
+      {/* the short enquiry (name, email, what to build) so nobody has to leave the page to start; the full form is on /contact */}
+      <section className="section" id="quick-enquiry" aria-labelledby="quick-h">
+        <div className="wrap grid">
+          <div className="span-5 stack-5">
+            <h2 id="quick-h">Tell us what you want to build</h2>
+            <p className="t-lead">Three fields. We reply by email, and we sign your NDA before you share the details.</p>
+            <p>
+              <a className="link" href="/contact">Use the full form, with service and budget</a>
+            </p>
+          </div>
+          <div className="card span-6 start-7">
+            <EnquiryForm services={services.map(({ slug, name }) => ({ slug, name }))} initialService="" compact />
+          </div>
+        </div>
+      </section>
       {/* R5: a text-only FAQ never closes <main>; the stack diagram does. */}
       <StackSection />
     </>

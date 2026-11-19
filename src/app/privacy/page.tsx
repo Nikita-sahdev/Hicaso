@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LegalPage from "@/components/legal/LegalPage";
 import { products } from "@/data/products";
+import { ANALYTICS } from "@/lib/analytics";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
@@ -88,8 +89,28 @@ export default function PrivacyPolicyPage() {
           ),
         },
         {
+          id: "cookies",
+          heading: "4. Cookies and Analytics",
+          // true either way: the banner and these tools exist only when their IDs are set (src/lib/analytics.ts)
+          body: ANALYTICS.tools.length ? (
+            <>
+              <p>
+                With your permission, hicaso.com uses analytics cookies from {ANALYTICS.tools.join(", ")} to see how
+                visitors use the site, such as which pages are read and where people leave. These tools load only after
+                you choose Accept in the cookie banner; if you choose Decline, none of them loads.
+              </p>
+              <p>
+                You can change your choice at any time with Cookie settings at the foot of every page. Your choice is
+                kept in your own browser.
+              </p>
+            </>
+          ) : (
+            <p>hicaso.com sets no analytics or advertising cookies for visitors.</p>
+          ),
+        },
+        {
           id: "security",
-          heading: "4. Data Security",
+          heading: "5. Data Security",
           body: (
             <p>
               We implement industry-standard administrative, physical, and technical security
@@ -100,11 +121,11 @@ export default function PrivacyPolicyPage() {
         },
         {
           id: "contact",
-          heading: "5. Contact Us",
+          heading: "6. Contact Us",
           body: (
             <p>
               If you have questions or concerns regarding this Privacy Policy, please contact us at{" "}
-              <a className="link" href="mailto:hello@hicaso.com">hello@hicaso.com</a>.
+              <a href="mailto:hello@hicaso.com">hello@hicaso.com</a>.
             </p>
           ),
         },

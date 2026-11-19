@@ -56,7 +56,7 @@ export default function AboutPage() {
                 <li>
                   <span className="rows__name">Services</span>
                   <span className="rows__value"><a className="link" href="/services">See our services</a></span>
-                  <p>Four services, from a first prototype to production.</p>
+                  <p>{services.length} services, from a first prototype to production.</p>
                 </li>
                 <li>
                   <span className="rows__name">Products</span>

@@ -272,9 +272,17 @@ const SpecularButton = ({
       depth: false,
       stencil: false
     });
+    // no WebGL (old GPU, blocklisted driver): the rim light can't draw, so its canvas leaves the button
+    if (canvas && !gl) canvas.style.display = 'none';
     if (!button || !canvas || !gl) return undefined;
     const program = link(gl);
-    if (!program) return undefined;
+    if (!program) {
+      canvas.style.display = 'none';
+      return undefined;
+    }
+    // a GPU reset or a lost context later: drop the rim light, keep the blue button and its label
+    const lost = () => { canvas.style.display = 'none'; };
+    canvas.addEventListener('webglcontextlost', lost);
     const uniforms: Record<string, WebGLUniformLocation | null> = {};
     for (const name of UNIFORMS) uniforms[name] = gl.getUniformLocation(program, name);
     const buffer = gl.createBuffer();
@@ -457,6 +465,7 @@ const SpecularButton = ({
     wakeRef.current = wake;
 
     return () => {
+      canvas.removeEventListener('webglcontextlost', lost);
       cancelAnimationFrame(raf);
       wakeRef.current = null;
       resizeObserver.disconnect();

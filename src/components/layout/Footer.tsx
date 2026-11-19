@@ -1,4 +1,7 @@
 import React from "react";
+import { proof, showProof } from "@/data/proof";
+import ConsentLink from "@/components/analytics/ConsentLink";
+import { ANALYTICS } from "@/lib/analytics";
 import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { services } from "@/data/services";
@@ -17,7 +20,7 @@ const FOOTER_SERVICES = ["generative-ai", "agentic-ai", "mobile-app-development"
 const cols = (blog: boolean) => [
   { title: "Services", links: [{ label: "All services", href: "/services" }, ...FOOTER_SERVICES.map((slug) => services.find((s) => s.slug === slug)!).map((s) => ({ label: s.name, href: `/services/${s.slug}` }))] },
   { title: "Products", links: [{ label: "All products", href: "/products" }, ...products.map((p) => ({ label: p.name, href: `/products/${p.slug}` }))] },
-  { title: "Company", links: [{ label: "Home", href: "/" }, { label: "About", href: "/about" }, { label: "Careers", href: "/careers" }, ...(blog ? [{ label: "Blog", href: "/blog" }] : []), { label: "Contact", href: "/contact" }] },
+  { title: "Company", links: [{ label: "Home", href: "/" }, ...(showProof(proof.demo) ? [{ label: "Case studies", href: "/case-studies" }] : []), { label: "About", href: "/about" }, { label: "Careers", href: "/careers" }, ...(blog ? [{ label: "Blog", href: "/blog" }] : []), { label: "Contact", href: "/contact" }] },
   { title: "Legal", links: [{ label: "Privacy", href: "/privacy" }, { label: "Terms", href: "/terms" }, { label: ENQUIRY_TO, href: `mailto:${ENQUIRY_TO}` }, { label: PHONE.display, href: `tel:${PHONE.tel}` }] },
 ];
 
@@ -39,9 +42,8 @@ export const Footer: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
             {booking ? (
               <a className="link" href={booking} target="_blank" rel="noopener noreferrer">Book a free 30-minute call</a>
             ) : (
-              "The first 30-minute call is free"
+              "The first 30-minute call is free."
             )}
-            .
           </p>
         </div>
         <a className="btn btn--primary btn--xl btn--wide" href="/contact">
@@ -79,6 +81,7 @@ export const Footer: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
         </div>
         <div className="footer__legal">
           <span>&copy; {new Date().getFullYear()} Hicaso LLP</span>
+          {ANALYTICS.tools.length ? <ConsentLink /> : null}
           {social.length ? (
             <div className="socials">
               {social.map((s) => (

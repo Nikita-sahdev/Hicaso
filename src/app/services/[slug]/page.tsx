@@ -7,7 +7,7 @@ import { content } from "@/components/services/content";
 import HowWeWork from "@/components/common/HowWeWork";
 import FAQ from "@/components/common/FAQ";
 import { services, getService } from "@/data/services";
-import { SITE_URL, ldJson } from "@/lib/site";
+import { SITE_URL, breadcrumbLd, ldJson } from "@/lib/site";
 import { siteFaqs } from "@/data/faqs";
 import { technologies } from "@/data/technologies";
 import TechLinks from "@/components/services/TechLinks";
@@ -65,6 +65,10 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ld)} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={ldJson(breadcrumbLd([["Home", "/"], ["Services", "/services"], [service.name, `/services/${service.slug}`]]))}
+      />
       <ServiceHero
         h1={c.h1}
         lead={c.lead}
@@ -76,7 +80,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       />
       <ServiceFeatures title={c.featuresTitle} cards={c.cards} />
       <HowWeWork />
-      <LatestPosts posts={posts.filter((p) => p.category === POST_CATEGORY[service.slug])} title={`${service.name} guides`} />
+      <LatestPosts posts={posts.filter((p) => p.category === POST_CATEGORY[service.slug])} title="Guides from our blog" />
       <FAQ items={[...service.faqs, ...siteFaqs]} />
       {/* R5: a text-only FAQ never closes <main>; the tools diagram does. */}
       <StackIcons title={c.stackTitle} lines={c.stackLines} spokes={c.spokes} alt={c.stackAlt}>

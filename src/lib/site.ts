@@ -1,6 +1,12 @@
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://hicaso.com").replace(/\/$/, "");
 
 // JSON-LD for a <script type="application/ld+json">; `<` escaped so a string can't close the tag (Next JSON-LD guide).
+// BreadcrumbList JSON-LD from [name, path] pairs, home first
+export const breadcrumbLd = (trail: [string, string][]) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: trail.map(([name, path], i) => ({ "@type": "ListItem", position: i + 1, name, item: `${SITE_URL}${path}` })),
+});
 export const ldJson = (data: object) => ({ __html: JSON.stringify(data).replace(/</g, "\\u003c") });
 
 // Owner's profiles (2026-11-13), share-tracking query strings dropped. Rendered in the footer (.socials, mono icons

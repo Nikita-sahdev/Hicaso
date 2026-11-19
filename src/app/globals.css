@@ -1,4 +1,20 @@
 /* Tokens and layout come from /assets (the kit) and the :root block in layout.tsx. Only utilities the kit lacks live here. */
+/* page tokens the kit lacks, so no colour sits outside a token block (Hallmark audit, gate 48) */
+:root {
+  --paper: #ffffff; /* a UI fragment's white sheet, whatever ground it sits on */
+  --bezel: #0a0a0a; /* the phone mockup's frame */
+  --danger: #b42318; /* an error line outside the kit's .form */
+  --hairline: rgb(0 0 0 / 0.06);
+  --shadow-pop: 0 12px 40px rgb(0 0 0 / 0.14);
+  --shadow-device: 0 24px 48px -28px rgb(0 0 0 / 0.5);
+  --shadow-card: 0 0 0 1px rgb(0 0 0 / 0.07), 0 18px 44px -20px rgb(0 0 0 / 0.45);
+}
+/* browser surfaces in the palette: the text caret and native checkboxes, radios and range controls */
+:root { caret-color: var(--accent); accent-color: var(--accent); }
+/* display heads break into even lines (Hallmark F3) */
+:root :is(h1, h2) { text-wrap: balance; }
+/* form fields: an edge at 3:1 against the card they sit on (Hallmark 40, WCAG 1.4.11); the kit's error border still wins */
+:root .field :is(input, select, textarea):not([aria-invalid="true"]), .ask__form input { border-color: var(--muted); }
 .sr-only {
   position: absolute;
   width: 1px;
@@ -51,18 +67,82 @@ main:focus { outline: none; }
 
 /* the notify fragments' relative times ("now", "2h", "Thu") are labels, not machine dates: a span styled as the
    kit's .ui-note__title time (a <time> would need a valid datetime) */
-.ui-note__title .ui-note__time { margin-left: auto; font-size: 13px; font-weight: 400; color: var(--u-soft); }
+.ui-note__title .ui-note__time { flex: none; margin-left: auto; padding-left: 8px; font-size: 13px; font-weight: 400; color: var(--u-soft); }
+/* a long notification title shortens with an ellipsis, so its time is never cut at the card's edge */
+.ui-note__text { grid-template-columns: minmax(0, 1fr); } /* its track no longer grows to the body's nowrap line */
+.ui-note__title .ui-note__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+/* brand marks sit inside the 32px disc like the tick icons, not edge to edge */
+.ui-note__ico img { width: 18px; height: 18px; object-fit: contain; }
+/* mockup documents keep their padding where ui.js re-links the kit's base reset after kit.css (same specificity) */
+.ui .ui-doc__page { padding: 28px 28px 32px; }
+.ui .ui-doc__note { padding: 12px 14px; }
+.ui .ui-note { padding: 0 14px 0 12px; } /* the notification card's own inset, lost to the same reset */
 
 /* "Ask Hicaso" on /contact: a narrow chat card on the kit's tokens */
 .ask { max-width: 46rem; display: grid; gap: var(--s-4); }
 .ask__log { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
 .ask__log:empty { display: none; }
 .ask__msg { max-width: 85%; padding: var(--s-3) var(--s-4); border-radius: 14px; background: var(--bg); overflow-wrap: anywhere; } /* white on the grey card */
-.ask__msg--user { justify-self: end; background: var(--accent); color: #fff; }
+.ask__msg--user { justify-self: end; background: var(--accent); color: var(--accent-ink); }
 .ask__starters { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 .ask__form { display: flex; gap: var(--s-2); }
 .ask__form input { flex: 1 1 auto; min-width: 0; min-height: 44px; padding: 0 var(--s-4); border: 1px solid var(--line); border-radius: 8px; font: inherit; background: var(--bg); color: var(--ink); }
-.ask__error { margin: 0; color: #b42318; }
+.ask__error { margin: 0; color: var(--danger); }
+
+/* the cookie banner (only when an analytics ID is set): a card at the foot of the screen until a choice */
+.consent { position: fixed; z-index: 60; left: var(--gut); right: var(--gut); bottom: var(--s-4); max-width: 40rem; margin: 0 auto;
+  display: grid; gap: var(--s-3); padding: var(--s-4) var(--s-5); background: var(--bg); color: var(--ink);
+  border-radius: 14px; box-shadow: var(--shadow-pop); } /* elevation only, no hairline too (Hallmark F24) */
+.consent p { margin: 0; font-size: var(--t-small); }
+.consent-link { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* the /contact project planner, folded above the enquiry form */
+.planner { margin: 0 0 var(--s-5); border: 1px solid var(--line); border-radius: 12px; padding: var(--s-3) var(--s-4) var(--s-4); }
+.planner summary { cursor: pointer; font-weight: 500; min-height: 44px; display: flex; align-items: center; }
+.planner__body { display: grid; gap: var(--s-3); padding-top: var(--s-2); }
+.planner__chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.planner__brief { margin: 0; white-space: pre-wrap; font: inherit; font-size: var(--t-small); background: var(--bg); padding: var(--s-3); border-radius: 8px; } /* white on the grey card */
+
+/* case studies: the sample notice (while proof.demo), result figures on the cards, the built list */
+.sample-note { margin: 0; padding: var(--s-3) var(--s-4); border-radius: 10px; background: color-mix(in oklab, var(--accent) 10%, var(--bg)); font-size: var(--t-small); }
+.case-card__results { display: flex; gap: var(--s-5); margin: var(--s-4) 0 0; }
+.case-card__results dd { margin: 0; font-size: var(--t-h3); font-weight: 500; }
+.case-built { padding-left: 1.2em; margin: 0; }
+.case-card h2 a::after { content: ""; position: absolute; inset: 0; }
+.case-card { position: relative; }
+
+/* ---- impeccable polish, whole site (2026-11-19) ---- */
+/* headings never hyphenate mid-word ("condi-tions"); the kit sets hyphens: auto */
+:root :is(h1, h2) { -webkit-hyphens: manual; hyphens: manual; }
+/* footer social icons centred in their 44px circles (a kit rule sets inline-flex without justify) */
+.footer__legal .socials a { justify-content: center; }
+/* legal text: plain inline links inside paragraphs, not the 44px .link tap box that breaks line spacing */
+#text p a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+/* BillMinute's #window: the "Format" note no longer covers the invoice text */
+@media (min-width: 640px) { #window .ui-doc__page { padding-right: 140px; } }
+@media (max-width: 639px) {
+  #window .ui-doc__note { display: none; }
+  /* product pages: the second feature group sits right under the first (the kit centres it) */
+  #features.g2 > .wrap > :last-child { margin-block: 0; }
+  #steps .rows > li { padding-block: var(--s-6); }
+  /* AppKavo's diff: code lines stay one line, clipped, instead of wrapping mid-token */
+  #window .ui-diff .ui-diff__code { white-space: pre; overflow: hidden; }
+  /* about: the two "See our ..." links stay on one line */
+  #studio .rows__value { max-width: none; }
+}
+/* a gap step the kit lacks (it has 2, 4, 5, 6) */
+.stack-3 > * + * { margin-top: var(--s-3); }
+/* case study cards: the figure first, its label under it, as on the detail page */
+.case-card__results > div { display: flex; flex-direction: column-reverse; }
+.case-built { list-style: disc; }
+.case-quote blockquote { max-width: 36ch; }
+/* the blog list: a wrapped title keeps its arrow at the end of the text */
+#posts .rows__name.link { display: inline; }
+#posts .rows__name.link::after { margin-left: 0.35em; }
+/* the planner's closed state shows it opens */
+.planner summary::after { content: "+"; margin-left: auto; padding-left: var(--s-3); font-size: 1.25em; line-height: 1; }
+.planner[open] summary::after { content: "\2212"; }
+.planner summary > span { text-wrap: pretty; }
 
 /* ---- polish (second critique, 2026-11-18) ---- */
 /* a done step reads done, not cancelled: no drawn strike over the label (kit checklist) */
@@ -101,14 +181,14 @@ main:focus { outline: none; }
 /* the phone: a .device built in page CSS (280 wide, 8px bezel, radius 32), its screen the app's settings */
 /* one box: the bezel is the border of the white screen, so the settings list sits on it without a panel of its own */
 .ui-toggles.device {
-  width: 280px; height: 570px; border: 8px solid #0a0a0a; border-radius: 32px; overflow: hidden;
-  background: #ffffff; box-shadow: 0 24px 48px -28px rgb(0 0 0 / 0.5);
+  width: 280px; height: 570px; border: 8px solid var(--bezel); border-radius: 32px; overflow: hidden;
+  background: var(--paper); box-shadow: var(--shadow-device);
 }
 .device__status {
   display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 18px;
-  color: #0a0a0a; font: 500 12px/1 var(--font-text);
+  color: var(--bezel); font: 500 12px/1 var(--font-text);
 }
-.device__notch { width: 72px; height: 18px; border-radius: 99px; background: #0a0a0a; }
+.device__notch { width: 72px; height: 18px; border-radius: 99px; background: var(--bezel); }
 
 /* products (app-frame): the recipe's CSS; the tab panel is the .fill and the window fills it */
 .app-tab { margin-top: var(--s-7); }
@@ -159,7 +239,7 @@ main:focus { outline: none; }
 /* the centred hero's window: kit fragments sit on white on the lit frame, each at its true width */
 .hero--centred .hero__window { --ui-font: var(--font-text); --ui-mono: var(--font-mono); --ui-radius: 12px; }
 .hero--centred .hero__window > .ly-piece {
-  --fx-bg: #ffffff; --fx-surface: var(--surface); --fx-ink: var(--ink); --fx-muted: var(--muted);
+  --fx-bg: var(--paper); --fx-surface: var(--surface); --fx-ink: var(--ink); --fx-muted: var(--muted);
   --fx-accent: var(--accent); --fx-accent-ink: var(--accent-ink);
 }
 @media (min-width: 640px) {
@@ -271,6 +351,6 @@ main:focus { outline: none; }
 /* the blog post list, a post text and the admin pages are the owner's, of any length: from 1280 they grow past one screen
    (as the kit lets every section do below 1280) instead of running under the footer */
 @media (min-width: 1280px) {
-  main > :is(#posts, #blog-text, #admin) { height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
-  main > :is(#posts, #blog-text, #admin) > .wrap { flex: 1 0 auto; height: auto; }
+  main > :is(#posts, #blog-text, #admin, #text, #case-hero) { height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh); display: flex; flex-direction: column; }
+  main > :is(#posts, #blog-text, #admin, #text, #case-hero) > .wrap { flex: 1 0 auto; height: auto; }
 }

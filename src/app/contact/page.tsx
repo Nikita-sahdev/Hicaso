@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import EnquiryForm from "@/components/contact/EnquiryForm";
 import AskHicaso from "@/components/contact/AskHicaso";
+import ProjectPlanner from "@/components/contact/ProjectPlanner";
 import Photo from "@/components/company/Photo";
 import HowWeWork from "@/components/common/HowWeWork";
 import { services } from "@/data/services";
@@ -80,11 +81,12 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
               </li>
               <li>
                 <span className="rows__name">Hours</span>
-                <p>Mon–Fri, 9:00 AM–6:00 PM IST</p>
+                <p>Monday to Friday, 9:00 AM to 6:00 PM IST</p>
               </li>
             </ul>
           </div>
           <div className="card span-6 start-7">
+            <ProjectPlanner />
             <EnquiryForm
               key={initialService}
               services={ALL}

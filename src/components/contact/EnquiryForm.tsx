@@ -4,13 +4,14 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { animate, createDrawable, stagger } from "animejs";
 import { BUDGETS, ENQUIRY_TO, OTHER_SERVICE, buildEnquiryMailto } from "@/lib/enquiry";
 
-type Props = { services: { slug: string; name: string }[]; initialService: string };
+// compact: the home page's short version (name, email, message); the server needs only those three
+type Props = { services: { slug: string; name: string }[]; initialService: string; compact?: boolean };
 
 // The starter's booking-form (system.md, Forms): kit .form/.field markup, a label above every field, each error under
 // its field. system.js checks the fields on submit (aria-invalid and the reason in .field__error, the focus on the first);
 // this handler then opens the visitor's mail app with the message ready. With scripts off the form still posts to its
 // mailto: action. The mailto stand-in shows no success line: the note under the button only says what opens.
-export default function EnquiryForm({ services, initialService }: Props) {
+export default function EnquiryForm({ services, initialService, compact = false }: Props) {
   const [opened, setOpened] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const tickRef = useRef<HTMLSpanElement>(null);
@@ -82,6 +83,8 @@ export default function EnquiryForm({ services, initialService }: Props) {
         <input id="enq-email" name="email" type="email" required maxLength={200} autoComplete="email" inputMode="email" aria-describedby="enq-email-err" />
         <p className="field__error" id="enq-email-err" hidden>Write an email address with an @, like name@example.com.</p>
       </div>
+      {compact ? null : (
+      <>
       <div className="field">
         <label htmlFor="enq-country">Country</label>
         <input id="enq-country" name="country" type="text" maxLength={100} autoComplete="country-name" />
@@ -109,9 +112,11 @@ export default function EnquiryForm({ services, initialService }: Props) {
           ))}
         </select>
       </div>
+      </>
+      )}
       <div className="field field--full">
-        <label htmlFor="enq-message">Message</label>
-        <textarea id="enq-message" name="message" required maxLength={1000} rows={5} aria-describedby="enq-message-err" />
+        <label htmlFor="enq-message">{compact ? "What do you want to build?" : "Message"}</label>
+        <textarea id="enq-message" name="message" required maxLength={1000} rows={compact ? 4 : 5} aria-describedby="enq-message-err" />
         <p className="field__error" id="enq-message-err" hidden>Write a message about the project.</p>
       </div>
       <div className="btn-row">

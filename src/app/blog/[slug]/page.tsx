@@ -5,10 +5,11 @@ import ServiceHero from "@/components/services/ServiceHero";
 import { notify } from "@/components/services/fragments";
 import { CONTACT } from "@/components/legal/LegalPage";
 import { getLivePost } from "@/lib/blog/store";
+import { withTimeout } from "@/lib/db";
 import { categoryLabel } from "@/lib/blog/post";
 import { renderSections, type PostSection } from "@/lib/blog/markdown";
 import { ENQUIRY_TO } from "@/lib/enquiry";
-import { OG, SITE_URL, ldJson } from "@/lib/site";
+import { OG, SITE_URL, breadcrumbLd, ldJson } from "@/lib/site";
 
 // One post on the site's document-page pattern (src/components/legal/LegalPage.tsx):
 // - the dealt centred hero: the headline, the description, and a window listing the category, the date and the post's h2s;
@@ -20,7 +21,8 @@ import { OG, SITE_URL, ldJson } from "@/lib/site";
 export const dynamic = "force-dynamic";
 
 // generateMetadata and the page share one query per request.
-const load = cache(getLivePost);
+// timed: with Postgres down the page errors in seconds instead of hanging (src/lib/db.ts)
+const load = cache((slug: string) => withTimeout(getLivePost(slug)));
 
 const day = (d: Date | null) =>
   d ? d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : "";
@@ -88,6 +90,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ld)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(breadcrumbLd([["Home", "/"], ["Blog", "/blog"], [post.headline, `/blog/${post.slug}`]]))} />
       <ServiceHero
         id="blog-hero"
         h1={post.headline}

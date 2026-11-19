@@ -3,6 +3,7 @@ import { services } from "@/data/services";
 import { products } from "@/data/products";
 import { technologies } from "@/data/technologies";
 import { SITE_URL } from "@/lib/site";
+import { proof } from "@/data/proof";
 import { listLivePostsSafe } from "@/lib/blog/store";
 
 export const revalidate = 60;
@@ -16,6 +17,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...technologies.map((t) => `/technologies/${t.slug}`),
     "/products",
     ...products.map((p) => `/products/${p.slug}`),
+    // sample case studies (proof.demo) stay out of the sitemap; real ones go in
+    ...(proof.demo ? [] : ["/case-studies", ...proof.caseStudies.map((c) => `/case-studies/${c.slug}`)]),
     "/about",
     "/careers",
     "/contact",

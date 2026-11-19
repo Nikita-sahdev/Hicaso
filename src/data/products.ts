@@ -68,7 +68,7 @@ export const products: Product[] = [
         ],
       },
       stepsTitle: "How AppKavo works",
-      stepsLead: "Three steps from a build to a store-ready app.",
+      stepsLead: "Three steps from a build to a store\u2011ready app.",
       steps: [
         { title: "Add your app", body: "Upload an APK, AAB or IPA, add the source code, or give a live URL." },
         { title: "Read the ranked findings", body: "You get a 0–100 security score, with a fix you can paste for each finding." },

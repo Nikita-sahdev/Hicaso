@@ -52,3 +52,6 @@ leads.jsonl
 
 # blog image uploads (development)
 /uploads
+
+# Hallmark audit screenshots and records
+/.hallmark/

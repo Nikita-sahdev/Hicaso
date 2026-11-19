@@ -5,6 +5,8 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import Analytics from "@/components/analytics/Analytics";
+import { ANALYTICS } from "@/lib/analytics";
 import { products } from "@/data/products";
 import { ENQUIRY_TO } from "@/lib/enquiry";
 import { OG, PHONE, PROFILES, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
@@ -48,9 +50,6 @@ const M_ENTER = "document.documentElement.classList.add('m-enter');setTimeout(()
 // Moments guard from the kit's starter.html / in-page-service.html, verbatim.
 const MO_JS = "document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-// GA4 page views, plus a generate_lead event when system.js reports a sent enquiry (form:sent).
-const GA_JS = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config',${JSON.stringify(GA_ID)});document.addEventListener('form:sent',function(){gtag('event','generate_lead')});`;
 
 const ORG_LD = {
   "@context": "https://schema.org",
@@ -99,6 +98,7 @@ export default async function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=DM+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
+        {/* eslint-disable-next-line @next/next/no-css-tags -- the kit is plain files in /public, joined by scripts/kit-css.mjs, never bundled */}
         <link rel="stylesheet" href="/kit.css" />
         {/* keep after the links: layout.css resets --ly-scale */}
         <style dangerouslySetInnerHTML={{ __html: ROOT_TOKENS }} />
@@ -117,12 +117,8 @@ export default async function RootLayout({
         {MODULES.map((src) => (
           <Script key={src} src={`/assets/${src}`} type="module" strategy="afterInteractive" />
         ))}
-        {GA_ID ? (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_ID)}`} strategy="afterInteractive" />
-            <Script id="ga" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: GA_JS }} />
-          </>
-        ) : null}
+        {/* GA4, Clarity and LinkedIn: each on when its ID is set, loaded only after the visitor accepts */}
+        {ANALYTICS.tools.length ? <Analytics ids={ANALYTICS.ids} tools={ANALYTICS.tools} /> : null}
       </body>
     </html>
   );

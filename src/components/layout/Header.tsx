@@ -3,6 +3,7 @@ import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { SERVICE_GROUPS, services } from "@/data/services";
 import { technologies } from "@/data/technologies";
+import { proof, showProof } from "@/data/proof";
 
 // Kit nav-mega markup. The menu opens on hover/focus and the phone sheet is wired by /assets/system.js.
 const blurb: Record<string, string> = {
@@ -58,6 +59,7 @@ export const Header: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
             </div>
           </div>
         </div>
+        {showProof(proof.demo) ? <div className="nav__item"><a className="nav__link" href="/case-studies">Case studies</a></div> : null}
         <div className="nav__item"><a className="nav__link" href="/about">About</a></div>
         <div className="nav__item"><a className="nav__link" href="/careers">Careers</a></div>
         {blog ? <div className="nav__item"><a className="nav__link" href="/blog">Blog</a></div> : null}
