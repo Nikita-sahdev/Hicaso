@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { orgRef } from "@/lib/schema";
 import { notFound } from "next/navigation";
 import ServiceHero from "@/components/services/ServiceHero";
 import ServiceFeatures from "@/components/services/ServiceFeatures";
@@ -42,7 +43,7 @@ export async function generateMetadata({
 }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const service = getService((await params).slug);
   if (!service) return {};
-  return { title: `${service.name} — Hicaso`, description: service.description, alternates: { canonical: `/services/${service.slug}` } };
+  return { title: service.seoTitle, description: service.description, alternates: { canonical: `/services/${service.slug}` } };
 }
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
@@ -59,7 +60,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
     description: service.description,
     url: `${SITE_URL}/services/${service.slug}`,
     areaServed: "Worldwide",
-    provider: { "@type": "Organization", name: "Hicaso", url: SITE_URL },
+    provider: orgRef,
   };
 
   return (

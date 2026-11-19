@@ -60,3 +60,9 @@ test("postState", () => {
   assert.equal(postState({ status: "published", publishAt: new Date(now.getTime() + 60_000) }, now), "scheduled");
   assert.equal(postState({ status: "published", publishAt: now }, now), "live");
 });
+
+test("an image without real alt text blocks publishing", () => {
+  one({ body: "## Hi\n\n![Describe the image](/blog-images/0123456789abcdef0123456789abcdef.png)" }, "body");
+  one({ body: "## Hi\n\n![](/blog-images/0123456789abcdef0123456789abcdef.png)" }, "body");
+  assert.deepEqual(publishProblems({ ...ok, body: "## Hi\n\n![A phone showing the sign-in screen](/blog-images/0123456789abcdef0123456789abcdef.png)" }), []);
+});

@@ -11,8 +11,14 @@ export const homeFaqs: Faq[] = [
   { q: "Can you work on existing apps?", a: "Yes. We take over, fix and extend web and mobile apps, including PHP and Laravel codebases." },
 ];
 
-// Site-wide answers that fill a service's or technology's FAQ out to five questions.
+// Site-wide answers added to every service's and technology's FAQ.
 export const siteFaqs: Faq[] = [
   { q: "Who works on my product?", a: "The team that builds and runs AppKavo and BillMinute." },
   { q: "How often will I see the software?", a: "Every week, in a demo of working software you can try." },
+  { q: "Will you sign an NDA before I share the details?", a: "Yes. We sign your NDA before you share the details of your project." },
+  // what buyers search for on every service page; answered from the billing facts, with no figures (pricing undecided)
+  {
+    q: "What does the price depend on?",
+    a: "On what the first release must do, the platforms it runs on and the systems it connects to, and on whether you hire developers monthly or by the hour. Send the enquiry form and we reply by email with how we would build it.",
+  },
 ];

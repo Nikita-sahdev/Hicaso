@@ -9,6 +9,7 @@ import { themeStyle } from "@/components/products/themeStyle";
 import { RISE } from "@/components/services/content";
 import { products, getProduct } from "@/data/products";
 import { breadcrumbLd, ldJson } from "@/lib/site";
+import { softwareLd } from "@/lib/schema";
 
 // Only slugs from the data file exist; anything else is a 404.
 export const dynamicParams = false;
@@ -37,6 +38,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(softwareLd(product))} />
       <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(breadcrumbLd([["Home", "/"], ["Products", "/products"], [product.name, `/products/${product.slug}`]]))} />
       <ProductHero
         h1={page.h1}

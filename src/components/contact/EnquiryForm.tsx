@@ -68,10 +68,10 @@ export default function EnquiryForm({ services, initialService, compact = false 
       data-sent="Sent. We'll reply by email."
       data-failed={`Not sent. Your words are still here; try again, or write to ${ENQUIRY_TO}.`}
     >
-      {/* honeypot: hidden from people, bots fill it and the route drops the lead */}
+      {/* honeypot: hidden from people and from the accessibility tree, with no label or meaningful name, so an AI agent
+          filling the visible fields never touches it; spam bots that fill every input do, and the route drops the lead */}
       <div hidden aria-hidden="true">
-        <label htmlFor="enq-website">Website</label>
-        <input id="enq-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+        <input name="hp_extra" type="text" tabIndex={-1} autoComplete="off" />
       </div>
       <div className="field">
         <label htmlFor="enq-name">Name</label>

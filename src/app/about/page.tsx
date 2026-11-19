@@ -5,7 +5,7 @@ import { services } from "@/data/services";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about" },
-  title: "About — Hicaso",
+  title: "About Hicaso, a Software Studio in Chandigarh, India",
   description: "Hicaso is a software development company and product studio in Chandigarh, India.",
 };
 

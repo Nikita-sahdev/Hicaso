@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { orgRef } from "@/lib/schema";
 import { notFound } from "next/navigation";
 import ServiceHero from "@/components/services/ServiceHero";
 import StackIcons from "@/components/services/StackIcons";
@@ -38,7 +39,7 @@ export default async function TechnologyPage({ params }: PageProps<"/technologie
     description: t.lead,
     url: `${SITE_URL}/technologies/${t.slug}`,
     areaServed: "Worldwide",
-    provider: { "@type": "Organization", name: "Hicaso", url: SITE_URL },
+    provider: orgRef,
   };
 
   return (

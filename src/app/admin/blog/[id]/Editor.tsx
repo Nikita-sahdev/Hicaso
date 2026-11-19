@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Alert, App, Button, DatePicker, Flex, Form, Input, Select, Space, Tag, Upload } from "antd";
 import type { TextAreaRef } from "antd/es/input/TextArea";
 import type { Dayjs } from "dayjs";
-import { CATEGORIES, publishProblems, type PostFields, type Problem } from "@/lib/blog/post";
+import { CATEGORIES, IMAGE_ALT_PLACEHOLDER, publishProblems, type PostFields, type Problem } from "@/lib/blog/post";
 import { renderMarkdown } from "@/lib/blog/markdown";
 import { deletePostAction, publishPostAction, savePostAction, unpublishPostAction, uploadImageAction } from "../actions";
 import type { SaveResult } from "@/lib/blog/store";
@@ -56,7 +56,7 @@ export default function Editor({ post }: { post: EditorPost }) {
       fd.set("file", file);
       const r = await uploadImageAction(fd);
       if (!r.ok) return setUploadError(r.error);
-      const md = `![Describe the image](${r.path})`;
+      const md = `![${IMAGE_ALT_PLACEHOLDER}](${r.path})`;
       const at = bodyRef.current?.resizableTextArea?.textArea.selectionStart;
       setF((s) => {
         const i = typeof at === "number" ? Math.min(at, s.body.length) : s.body.length;

@@ -64,6 +64,12 @@ function hasH1(body: string): boolean {
   return false;
 }
 
+// what the editor writes for an uploaded image until the author describes it
+export const IMAGE_ALT_PLACEHOLDER = "Describe the image";
+// every markdown image's alt text; an empty or placeholder one fails publishing (alt text is read by search and screen readers)
+const missingAlt = (body: string) =>
+  [...body.matchAll(/!\[([^\]]*)\]\(/g)].some(([, alt]) => !alt.trim() || alt.trim() === IMAGE_ALT_PLACEHOLDER);
+
 export function publishProblems(f: PostFields): Problem[] {
   const out = draftProblems(f);
   const add = (field: Problem["field"], message: string) => out.push({ field, message });
@@ -73,6 +79,7 @@ export function publishProblems(f: PostFields): Problem[] {
     add("category", `Pick a category: ${CATEGORIES.map((c) => c.id).join(", ")}.`);
   if (!f.body.trim()) add("body", "Write the post body.");
   else if (hasH1(f.body)) add("body", "Start headings at ##; the page already has the h1.");
+  else if (missingAlt(f.body)) add("body", `Describe every image in its alt text: replace "${IMAGE_ALT_PLACEHOLDER}" or fill the empty ![ ].`);
   return out;
 }
 

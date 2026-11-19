@@ -22,7 +22,8 @@ export async function POST(req: Request) {
   } catch {
     return fail(400);
   }
-  if (String(fd.get("website") ?? "")) return Response.json({ ok: true }); // honeypot filled: a bot, drop quietly
+  // honeypot filled: a bot, drop quietly ("website" was its name before 2026-11-19; cached pages may still send it)
+  if (String(fd.get("hp_extra") ?? fd.get("website") ?? "")) return Response.json({ ok: true });
 
   const e = parseEnquiry(fd);
   if (!e) return fail(400);

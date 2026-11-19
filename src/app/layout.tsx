@@ -5,11 +5,11 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { orgLd, websiteLd } from "@/lib/schema";
 import Analytics from "@/components/analytics/Analytics";
 import { ANALYTICS } from "@/lib/analytics";
 import { products } from "@/data/products";
-import { ENQUIRY_TO } from "@/lib/enquiry";
-import { OG, PHONE, PROFILES, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
+import { OG, PROFILES, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
 import { listLivePostsSafe } from "@/lib/blog/store";
 
 // The Blog link shows once a post is live; re-checked every minute and after admin writes. A DB outage only hides it.
@@ -51,21 +51,13 @@ const M_ENTER = "document.documentElement.classList.add('m-enter');setTimeout(()
 const MO_JS = "document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)";
 
 
-const ORG_LD = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Hicaso",
-  url: SITE_URL,
-  logo: `${SITE_URL}/apple-icon.png`,
-  email: ENQUIRY_TO,
-  telephone: PHONE.display,
-  address: { "@type": "PostalAddress", addressLocality: "Chandigarh", addressCountry: "IN" },
-  ...(SAME_AS.length ? { sameAs: SAME_AS } : {}),
-};
+// one Organization (with the @id every other entity points to) and the WebSite, from src/lib/schema.ts
+const ORG_LD = orgLd(SAME_AS);
+const SITE_LD = websiteLd();
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Hicaso — software development and product studio",
+  title: "Custom Software Development Company in India — Hicaso",
   description: `Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and ships its own products, including ${products.map((p) => p.name).join(" and ")}.`,
   openGraph: { type: "website", ...OG },
   twitter: { card: "summary_large_image" },
@@ -109,6 +101,7 @@ export default async function RootLayout({
         ))}
         <script dangerouslySetInnerHTML={{ __html: BACKGROUNDS_JS }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ORG_LD)} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(SITE_LD)} />
       </head>
       <body>
         <Header blog={blog} />
