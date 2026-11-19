@@ -14,6 +14,7 @@ const WA = whatsappUrl(WHATSAPP);
 const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact — Hicaso",
   description:
     "Tell Hicaso about your project: AI, mobile or web. Email and phone for our team in Chandigarh, India.",

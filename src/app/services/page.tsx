@@ -6,6 +6,7 @@ import { technologies } from "@/data/technologies";
 import TechLinks from "@/components/services/TechLinks";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/services" },
   title: "Custom Software Development Services — Hicaso",
   description:
     "Custom software development from India: generative and agentic AI, mobile and web apps, MVPs, SaaS, eCommerce, cloud and DevOps, and dedicated developers.",

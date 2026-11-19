@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import LegalPage from "@/components/legal/LegalPage";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/terms" },
   title: "Terms & Conditions — Hicaso",
-  description: "Terms for using the hicaso.com website.",
+  description: "Terms for using hicaso.com, the website of Hicaso LLP, a software studio in India that builds AI, mobile and web software.",
 };
 
 export default function TermsConditionsPage() {

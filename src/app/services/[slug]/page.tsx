@@ -42,7 +42,7 @@ export async function generateMetadata({
 }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const service = getService((await params).slug);
   if (!service) return {};
-  return { title: `${service.name} — Hicaso`, description: service.description };
+  return { title: `${service.name} — Hicaso`, description: service.description, alternates: { canonical: `/services/${service.slug}` } };
 }
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {

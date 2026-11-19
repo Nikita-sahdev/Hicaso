@@ -21,7 +21,7 @@ export async function generateMetadata({
 }: PageProps<"/products/[slug]">): Promise<Metadata> {
   const product = getProduct((await params).slug);
   if (!product) return {};
-  return { title: `${product.name} — a Hicaso product`, description: product.tagline };
+  return { title: `${product.name} — a Hicaso product`, description: product.page.lead, alternates: { canonical: `/products/${product.slug}` } };
 }
 
 // hero > features > steps (iris-opens, the dealt moment) > faq > the product's open item. Every section

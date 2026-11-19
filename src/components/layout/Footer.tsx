@@ -67,14 +67,14 @@ export const Footer: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
             ) : null}
           </div>
           {cols(blog).map((col) => (
-            <div key={col.title} className="span-2 footer__col">
+            <nav key={col.title} className="span-2 footer__col" aria-label={col.title}>
               <h3>{col.title}</h3>
               <ul>
                 {col.links.map((l) => (
                   <li key={l.href}><a href={l.href}>{l.label}</a></li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
         <div className="footer__legal">

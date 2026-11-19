@@ -39,7 +39,7 @@ export const services: Service[] = [
     group: "AI",
     tagline: "Language models built into products people already use.",
     description:
-      "We add generative AI to your product or build new ones around it. That covers retrieval over your own data, assistants, and the evaluation and guardrails that keep outputs useful. The team that builds our products builds yours.",
+      "We add generative AI to your product: retrieval over your own data, assistants, and the evaluation and guardrails that keep outputs useful.",
     stack: [
       { group: "AI", items: ["OpenAI", "Claude", "Gemini", "Open-source LLMs", "LangChain", "LlamaIndex"] },
       { group: "Databases", items: ["pgvector", "Pinecone"] },
@@ -57,7 +57,7 @@ export const services: Service[] = [
     group: "AI",
     tagline: "Agents that use your tools and finish multi-step work.",
     description:
-      "We build AI agents that call your APIs and tools and carry a task through several steps. People stay in the loop where it matters, and we add tracing so you can see what an agent did and why. The team that builds our products builds yours.",
+      "AI agents that call your APIs and tools through a task step by step, with people in the loop where it matters and tracing of what each agent did.",
     stack: [
       { group: "AI", items: ["Claude Agent SDK", "OpenAI Agents SDK", "LangGraph", "MCP"] },
       { group: "Backend", items: ["Python", "Node.js"] },
@@ -74,7 +74,7 @@ export const services: Service[] = [
     group: "Design and build",
     tagline: "Android and iOS apps, native or cross-platform.",
     description:
-      "We build mobile apps natively for Android and iOS, or across both with Flutter or React Native. We also handle the store release. You see working builds in weekly demos.",
+      "Native Android and iOS apps, or one Flutter or React Native codebase for both, released to the stores. You see working builds in weekly demos.",
     stack: [
       { group: "Mobile", items: ["Kotlin", "Swift", "SwiftUI", "Flutter", "Dart", "React Native"] },
       { group: "Backend", items: ["Firebase"] },
@@ -91,7 +91,7 @@ export const services: Service[] = [
     group: "Design and build",
     tagline: "Web apps, sites and backends, built and maintained.",
     description:
-      "We build web apps and SaaS products, marketing sites, APIs and online stores. We also maintain and upgrade existing PHP applications. You see working software in weekly demos.",
+      "Web apps, SaaS products, marketing sites, APIs and online stores, plus upgrades of older PHP apps. You see working software in weekly demos.",
     stack: [
       { group: "Frontend", items: ["React", "Next.js"] },
       { group: "Backend", items: ["Node.js", "PHP", "Laravel", "CodeIgniter"] },
@@ -109,7 +109,7 @@ export const services: Service[] = [
     group: "AI",
     tagline: "Chat assistants that answer from your own documents and data.",
     description:
-      "We build AI chatbots for your website, app or internal tools. They answer from your documents and data, show where each answer came from, and hand the conversation to a person when they should.",
+      "AI chatbots for your website, app or internal tools that answer from your documents, show their sources and hand over to a person when needed.",
     stack: [
       { group: "AI", items: ["OpenAI", "Claude", "Gemini", "LangChain"] },
       { group: "Databases", items: ["pgvector", "Pinecone"] },
@@ -127,7 +127,7 @@ export const services: Service[] = [
     group: "AI",
     tagline: "Workflows that move data and do routine work between your tools.",
     description:
-      "We automate routine work across your tools with n8n, Zapier, Make or our own code in Python and Node.js, with OpenAI or Claude where a step needs to read or write text. A person approves the steps you choose.",
+      "We automate routine work with n8n, Zapier, Make or Python and Node.js code, using OpenAI or Claude for text steps. A person approves what you choose.",
     stack: [
       { group: "Automation", items: ["n8n", "Zapier", "Make"] },
       { group: "AI", items: ["OpenAI", "Claude"] },
@@ -145,7 +145,7 @@ export const services: Service[] = [
     group: "AI",
     tagline: "Where AI fits in your business, and what it takes to build it.",
     description:
-      "We look at your workflows and data with you and find the tasks where AI is worth it. You get a written plan: the use cases, the data each one needs, the model, and what a first version would take.",
+      "We find the tasks where AI is worth it and write the plan: the use cases, the data each needs, the model, and what a first version would take.",
     stack: [
       { group: "AI", items: ["OpenAI", "Claude", "Gemini", "Open-source LLMs", "LangChain"] },
       { group: "Backend", items: ["Python"] },
@@ -162,7 +162,7 @@ export const services: Service[] = [
     group: "Design and build",
     tagline: "A first version of your product, in front of real users.",
     description:
-      "We build the first version of your product: the few features your first users need, as a web or mobile app. You see working software in weekly demos, and the rest of the list waits for real feedback.",
+      "The first version of your product as a web or mobile app: the few features your first users need, shown in weekly demos, the rest after feedback.",
     stack: [
       { group: "Design", items: ["Figma"] },
       { group: "Mobile", items: ["Flutter", "React Native"] },
@@ -181,7 +181,7 @@ export const services: Service[] = [
     group: "Design and build",
     tagline: "Subscription software, built by a team that runs its own.",
     description:
-      "We build SaaS products: accounts and teams, subscriptions and billing, admin panels and the APIs behind them. We run two SaaS products of our own, AppKavo and BillMinute, on the same stack.",
+      "SaaS products with accounts, teams, billing, admin panels and APIs, built by the team that runs AppKavo and BillMinute on the same stack.",
     stack: [
       { group: "Frontend", items: ["React", "Next.js"] },
       { group: "Backend", items: ["Node.js", "Laravel"] },
@@ -199,7 +199,7 @@ export const services: Service[] = [
     group: "Design and build",
     tagline: "Online stores on Shopify, WooCommerce or a custom stack.",
     description:
-      "We build online stores on Shopify or WooCommerce, or custom stores on Laravel or Next.js when a platform does not fit. That covers the catalogue, checkout, payments, order emails and the admin your team uses.",
+      "Online stores on Shopify or WooCommerce, or custom on Laravel or Next.js: catalogue, checkout, payments, order emails and your team's admin.",
     stack: [
       { group: "Commerce", items: ["Shopify", "WooCommerce"] },
       { group: "Frontend", items: ["React", "Next.js"] },
@@ -232,7 +232,7 @@ export const services: Service[] = [
     group: "Test, run and grow",
     tagline: "Manual and mobile app testing, plus security and store-review audits.",
     description:
-      "We test apps by hand on real phones and browsers, and audit Android and iOS builds for security issues and store-review rejections before release. The audits use AppKavo, the tool we build for that.",
+      "Manual testing on real phones and browsers, plus audits of Android and iOS builds for security issues and store rejections, using our AppKavo.",
     stack: [{ group: "Mobile", items: ["Android", "iOS"] }],
     faqs: [
       ownCode,
@@ -246,7 +246,7 @@ export const services: Service[] = [
     group: "Test, run and grow",
     tagline: "Bug fixes and updates for apps that are already live.",
     description:
-      "We keep live apps working: we fix bugs, update dependencies and OS versions, and make the small changes your users ask for. That covers apps we built and apps other teams built.",
+      "We keep live apps working: bug fixes, dependency and OS updates, and the small changes users ask for, on apps we built or other teams built.",
     stack: [
       { group: "Mobile", items: ["Kotlin", "Swift", "Flutter", "React Native"] },
       { group: "Backend", items: ["Node.js", "PHP", "Laravel"] },
@@ -263,7 +263,7 @@ export const services: Service[] = [
     group: "Test, run and grow",
     tagline: "Older apps taken over, upgraded and moved to a current stack.",
     description:
-      "We take over apps other teams built, read what is there and bring them up to date: current PHP and framework versions, updated packages, and a move to Laravel, Next.js or Flutter where that makes sense.",
+      "We take over apps other teams built and bring them up to date: current PHP and framework versions, new packages, or a move to Laravel, Next.js or Flutter.",
     stack: [
       { group: "Mobile", items: ["Flutter"] },
       { group: "Frontend", items: ["React", "Next.js"] },
@@ -281,7 +281,7 @@ export const services: Service[] = [
     group: "Test, run and grow",
     tagline: "Servers, deploys and backups on AWS, Azure, Google Cloud or a VPS.",
     description:
-      "We set up and run the servers your software lives on: AWS, Azure, Google Cloud, DigitalOcean or your own VPS. That covers deploy pipelines, backups, and the move from one host to another.",
+      "We set up and run your servers on AWS, Azure, Google Cloud, DigitalOcean or a VPS, with deploy pipelines, backups and moves between hosts.",
     stack: [{ group: "Cloud", items: ["AWS", "Azure", "Google Cloud", "DigitalOcean"] }],
     faqs: [
       ownCode,
@@ -295,7 +295,7 @@ export const services: Service[] = [
     group: "Test, run and grow",
     tagline: "Developers who work only on your product, billed monthly or by the hour.",
     description:
-      "Hire dedicated developers from our team who work only on your product, in your tools and your process. You choose monthly billing per developer or billing by the hour, and our hours overlap with Europe and the Middle East.",
+      "Dedicated developers who work only on your product, billed monthly or hourly, in hours that overlap with Europe and the Middle East.",
     stack: [
       { group: "AI", items: ["OpenAI", "Claude"] },
       { group: "Mobile", items: ["Flutter", "React Native", "Kotlin", "Swift"] },

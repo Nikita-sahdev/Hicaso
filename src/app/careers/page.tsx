@@ -5,6 +5,7 @@ import Photo from "@/components/company/Photo";
 import { PHOTO, src } from "@/components/company/photos";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/careers" },
   title: "Careers — Hicaso",
   description: "Work at Hicaso, a small team that builds software for clients worldwide and runs its own products.",
 };

@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   return {
     title: post.seoTitle || post.headline,
     description: post.description,
-    alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
+    alternates: { canonical: `/blog/${post.slug}` },
     openGraph: { type: "article", ...OG },
   };
 }
@@ -51,7 +51,9 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     headline: post.headline,
     description: post.description,
     datePublished: post.publishAt?.toISOString(),
-    dateModified: post.updatedAt.toISOString(),
+    // an edit made before the post went live is not a modification after publishing
+    dateModified: new Date(Math.max(post.updatedAt.getTime(), post.publishAt?.getTime() ?? 0)).toISOString(),
+    image: `${SITE_URL}${OG.images[0].url}`,
     author: hicaso,
     publisher: hicaso,
     mainEntityOfPage: url,

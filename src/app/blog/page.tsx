@@ -11,6 +11,7 @@ import { categoryLabel } from "@/lib/blog/post";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog — Hicaso",
   description: "Guides from the Hicaso team in India on building AI, mobile and web software.",
 };

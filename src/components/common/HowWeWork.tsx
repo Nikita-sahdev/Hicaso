@@ -55,7 +55,7 @@ const build = `<div class="ui ui-panel ui-term">
 </div>`;
 
 const note = (icon: string, title: string, time: string, body: string) =>
-  `<li class="ui-note"><span class="ui-note__ico">${ICON(icon)}</span><span class="ui-note__text"><span class="ui-note__title">${title}<time>${time}</time></span><span class="ui-note__body">${body}</span></span></li>`;
+  `<li class="ui-note"><span class="ui-note__ico">${ICON(icon)}</span><span class="ui-note__text"><span class="ui-note__title">${title}<span class="ui-note__time">${time}</span></span><span class="ui-note__body">${body}</span></span></li>`;
 const launch = `<div class="ui ui-notify"><ul class="ui-notify__list">
   ${note("google-play", "Version 1.0 is live on Google Play", "now", "Rolled out to every user")}
   ${note("app-store", "App Store review passed", "2h", "Version 1.0 is ready for sale")}

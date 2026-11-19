@@ -19,7 +19,7 @@ const Chev = () => (
 export const Header: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
   <header className="nav">
     <div className="wrap nav__bar">
-      <a className="skip-link" href="#top">Skip to content</a>
+      <a className="skip-link" href="#main">Skip to content</a>
       <Logo />
       <nav className="nav__links" aria-label="Main">
         <div className="nav__item">

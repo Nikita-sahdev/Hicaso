@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
 import ServicesGrid from "@/components/home/ServicesGrid";
 import Products from "@/components/home/Products";
@@ -10,6 +11,8 @@ import { WHY } from "@/data/why";
 import { listLivePostsSafe } from "@/lib/blog/store";
 import { BOOKING_URL, WHATSAPP, httpsLinks, whatsappUrl } from "@/lib/site";
 
+export const metadata: Metadata = { alternates: { canonical: "/" } };
+
 const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 const WA = whatsappUrl(WHATSAPP);
 
@@ -21,7 +24,7 @@ const REST = WHY.filter((p) => p !== TEAM);
 // the weekly demo, work ready for review, last demo's notes
 const ICON = (id: string) => `<img data-icon="${id}" src="/assets/icons/${id}.svg" alt="">`;
 const note = (icon: string, title: string, time: string, body: string) =>
-  `<li class="ui-note"><span class="ui-note__ico">${ICON(icon)}</span><span class="ui-note__text"><span class="ui-note__title">${title}<time>${time}</time></span><span class="ui-note__body">${body}</span></span></li>`;
+  `<li class="ui-note"><span class="ui-note__ico">${ICON(icon)}</span><span class="ui-note__text"><span class="ui-note__title">${title}<span class="ui-note__time">${time}</span></span><span class="ui-note__body">${body}</span></span></li>`;
 const WEEK = `<div class="stage"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:calc(50% - 130px);--ay-sm:32px">
 <div class="ui ui-notify"><ul class="ui-notify__list">
   ${note("google-meet", "Weekly demo with your team", "Thu", "This week's build, shown by the people who built it")}

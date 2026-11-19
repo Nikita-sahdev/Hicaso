@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/layout/Header";
@@ -13,35 +15,11 @@ export const revalidate = 60;
 
 const SAME_AS = httpsLinks([...SOCIAL, ...PROFILES]).map((l) => l.url);
 
-const STYLESHEETS = [
-  "system.css",
-  "ui/cards.css",
-  "motion/motion.css",
-  "backgrounds/backgrounds.css",
-  "layout/layout.css",
-  "icons/icon.css",
-  "ui/base.css",
-  "ui/window/fragment.css",
-  "ui/chat/fragment.css",
-  "ui/checklist/fragment.css",
-  "ui/toggles/fragment.css",
-  "ui/pipeline-board/fragment.css",
-  "ui/diff-review/fragment.css",
-  "ui/doc/fragment.css",
-  "ui/files/fragment.css",
-  "ui/terminal-run/fragment.css",
-  "ui/notify/fragment.css",
-  "diagrams/diagram.css",
-  // the loader links it too; here so the steps stand styled with scripts off
-  "moments/pinned-chapters/moment.css",
-  // the services index's marquee-row, so its words stand as a wrapped row with scripts off
-  "moments/marquee-row/moment.css",
-  // the product pages' iris-opens
-  "moments/iris-opens/moment.css",
-  // the company pages' moments: about counter-rolls, careers giant-type-pass
-  "moments/counter-rolls/moment.css",
-  "moments/giant-type-pass/moment.css",
-];
+// The kit stylesheets, joined in cascade order into one file by scripts/kit-css.mjs (predev, prebuild): the list
+// lives there. One render-blocking request instead of 23.
+// backgrounds.js sets page tokens before first paint, so it stays a blocking script, but inline: no request
+// queued behind the stylesheets.
+const BACKGROUNDS_JS = readFileSync(join(process.cwd(), "public/assets/backgrounds/backgrounds.js"), "utf8");
 // the dealt moment's loader, its lib and the moment, preloaded as SK/assets/moments/_demo/in-page-service.html does
 const MOMENT_PRELOADS = ["moments/moments.js", "moments/lib.js", "moments/pinned-chapters/moment.js"];
 const MODULES = ["system.js", "motion/motion.js", "layout/layout.js", "diagrams/mount.js"];
@@ -121,9 +99,7 @@ export default async function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=DM+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
-        {STYLESHEETS.map((href) => (
-          <link key={href} rel="stylesheet" href={`/assets/${href}`} />
-        ))}
+        <link rel="stylesheet" href="/kit.css" />
         {/* keep after the links: layout.css resets --ly-scale */}
         <style dangerouslySetInnerHTML={{ __html: ROOT_TOKENS }} />
         <script dangerouslySetInnerHTML={{ __html: M_ENTER }} />
@@ -131,13 +107,12 @@ export default async function RootLayout({
         {MOMENT_PRELOADS.map((href) => (
           <link key={href} rel="modulepreload" href={`/assets/${href}`} />
         ))}
-        {/* eslint-disable-next-line @next/next/no-sync-scripts -- kit grounds set page tokens before first paint */}
-        <script src="/assets/backgrounds/backgrounds.js" />
+        <script dangerouslySetInnerHTML={{ __html: BACKGROUNDS_JS }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={ldJson(ORG_LD)} />
       </head>
       <body>
         <Header blog={blog} />
-        <main>{children}</main>
+        <main id="main" tabIndex={-1}>{children}</main>
         <Footer blog={blog} />
         {MODULES.map((src) => (
           <Script key={src} src={`/assets/${src}`} type="module" strategy="afterInteractive" />

@@ -37,6 +37,18 @@
 /* a run of .link items (technologies, service groups): wrapped with a gap, no commas between arrows */
 .link-list { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
 
+/* ---- Front-End Checklist fixes (2026-11-18) ---- */
+/* a focused link or anchor target never lands under the fixed 72px nav (kit sets 0 on html) */
+:root { scroll-padding-top: calc(var(--nav) + 8px); }
+/* the skip link's target takes focus without a ring around the whole page */
+main:focus { outline: none; }
+/* small grey text inside UI fragments: the kit's --u-soft is 3.6:1 on white; --u-muted passes 4.5:1 (base.css sets it in :where(.ui)) */
+.ui { --u-soft: var(--u-muted); }
+
+/* the notify fragments' relative times ("now", "2h", "Thu") are labels, not machine dates: a span styled as the
+   kit's .ui-note__title time (a <time> would need a valid datetime) */
+.ui-note__title .ui-note__time { margin-left: auto; font-size: 13px; font-weight: 400; color: var(--u-soft); }
+
 /* ---- polish (second critique, 2026-11-18) ---- */
 /* a done step reads done, not cancelled: no drawn strike over the label (kit checklist) */
 :root .ui-check.is-done .ui-check__label::after { transform: scaleX(0); }

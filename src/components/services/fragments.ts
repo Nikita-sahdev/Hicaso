@@ -50,7 +50,7 @@ export const toggles = (title: string, rows: [string, string, boolean][], extra 
 // Rows with a real app icon are static markup (no data-ui): the kit's notify script, given <img> marks, never settles.
 export const notify = (rows: { ico: string; title: string; time: string; body: string }[]) =>
   `<div class="ui ui-notify"${rows.every((r) => r.ico === "tick") ? ' data-ui="notify"' : ""}><ul class="ui-notify__list" data-notify-list>
-  ${rows.map((r) => `<li class="ui-note"><span class="ui-note__ico">${r.ico === "tick" ? TICK.replace("<svg ", '<svg class="ui-icon" ') : ICON(r.ico)}</span><span class="ui-note__text"><span class="ui-note__title">${r.title}<time>${r.time}</time></span><span class="ui-note__body">${r.body}</span></span></li>`).join("\n  ")}
+  ${rows.map((r) => `<li class="ui-note"><span class="ui-note__ico">${r.ico === "tick" ? TICK.replace("<svg ", '<svg class="ui-icon" ') : ICON(r.ico)}</span><span class="ui-note__text"><span class="ui-note__title">${r.title}<span class="ui-note__time">${r.time}</span></span><span class="ui-note__body">${r.body}</span></span></li>`).join("\n  ")}
 </ul></div>`;
 
 export const terminal = (o: { title: string; branch: string; cmd: string; files: [string, string, string][]; passed: string; total: string; time: string }) => {
