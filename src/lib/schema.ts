@@ -7,6 +7,8 @@ import type { Product } from "../data/products.ts";
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const orgRef = { "@id": ORG_ID };
+// Article author/publisher: Google requires a name on the author itself, not only an @id
+export const orgNamed = { "@type": "Organization", "@id": ORG_ID, name: "Hicaso", url: SITE_URL };
 
 export const orgLd = (sameAs: string[]) => ({
   "@context": "https://schema.org",
@@ -20,6 +22,7 @@ export const orgLd = (sameAs: string[]) => ({
     "Hicaso builds generative AI, agentic AI, mobile and web software for clients worldwide, and runs two products of its own: AppKavo and BillMinute.",
   email: ENQUIRY_TO,
   telephone: PHONE.display,
+  contactPoint: { "@type": "ContactPoint", contactType: "sales", telephone: PHONE.display, email: ENQUIRY_TO, availableLanguage: "English" },
   address: { "@type": "PostalAddress", addressLocality: "Chandigarh", addressCountry: "IN" } as Record<string, string>,
   areaServed: "Worldwide",
   ...(sameAs.length ? { sameAs } : {}),
@@ -45,6 +48,7 @@ export const softwareLd = (p: Product) => ({
   url: p.url,
   description: p.description,
   applicationCategory: CATEGORY[p.slug] ?? "BusinessApplication",
+  operatingSystem: "Web", // both run in the browser at p.url
   mainEntityOfPage: `${SITE_URL}/products/${p.slug}`,
   creator: orgRef,
 });

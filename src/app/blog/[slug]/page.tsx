@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { orgRef } from "@/lib/schema";
+import { orgNamed } from "@/lib/schema";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import ServiceHero from "@/components/services/ServiceHero";
@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const post = await load(slug);
   if (!post) notFound();
   const url = `${SITE_URL}/blog/${post.slug}`;
-  const hicaso = orgRef; // the Organization defined once in the layout
+  const hicaso = orgNamed; // the layout's Organization by @id, named here as Article requires
   const ld = {
     "@context": "https://schema.org",
     "@type": "Article",
