@@ -3,6 +3,7 @@ import { orgRef } from "@/lib/schema";
 import { notFound } from "next/navigation";
 import ServiceHero from "@/components/services/ServiceHero";
 import StackIcons from "@/components/services/StackIcons";
+import { LinkRow } from "@/components/services/TechLinks";
 import { content } from "@/components/services/content";
 import HowWeWork from "@/components/common/HowWeWork";
 import FAQ from "@/components/common/FAQ";
@@ -66,6 +67,11 @@ export default async function TechnologyPage({ params }: PageProps<"/technologie
               <p>{u.body}</p>
             </li>
           ))}
+          {/* the other technologies of the same service (Flutter / React Native; Laravel / Next.js / Node.js) */}
+          <LinkRow
+            label="Related technologies"
+            links={technologies.filter((x) => x.service === t.service && x.slug !== t.slug).map((x) => ({ href: `/technologies/${x.slug}`, name: x.name }))}
+          />
         </ul>
       </StackIcons>
     </>

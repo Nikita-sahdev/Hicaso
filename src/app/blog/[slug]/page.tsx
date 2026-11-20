@@ -10,6 +10,8 @@ import { withTimeout } from "@/lib/db";
 import { categoryLabel } from "@/lib/blog/post";
 import { renderSections, type PostSection } from "@/lib/blog/markdown";
 import { ENQUIRY_TO } from "@/lib/enquiry";
+import { services, serviceLink, POST_CATEGORY } from "@/data/services";
+import { LinkRow } from "@/components/services/TechLinks";
 import { OG, SITE_URL, breadcrumbLd, ldJson } from "@/lib/site";
 
 // One post on the site's document-page pattern (src/components/legal/LegalPage.tsx):
@@ -62,6 +64,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
     mainEntityOfPage: url,
   };
   const date = day(post.publishAt);
+  // the services whose pages list this post's category (none for cost guides)
+  const related = services.filter((s) => POST_CATEGORY[s.slug] === post.category).map(serviceLink);
   const category = categoryLabel(post.category);
   const [intro, ...parts] = renderSections(post.body);
   const shown = parts.slice(0, 3);
@@ -145,6 +149,11 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
               <h2 id="blog-close-h">Questions about this post</h2>
               <p className="t-lead">Write to us about it, or about the software you want built.</p>
               <a className="link" href={`mailto:${ENQUIRY_TO}`}>Email {ENQUIRY_TO}</a>
+              {related.length ? (
+                <ul className="rows">
+                  <LinkRow label="Related services" links={related} />
+                </ul>
+              ) : null}
             </div>
             <div className="panel frame--fill span-6 start-7" dangerouslySetInnerHTML={{ __html: CONTACT }} />
           </div>
