@@ -11,6 +11,7 @@ import { services, getService, serviceLink, POST_CATEGORY } from "@/data/service
 import { SITE_URL, breadcrumbLd, ldJson } from "@/lib/site";
 import { siteFaqs } from "@/data/faqs";
 import { technologies } from "@/data/technologies";
+import { industries } from "@/data/industries";
 import { LinkRow } from "@/components/services/TechLinks";
 import LatestPosts from "@/components/common/LatestPosts";
 import { listLivePostsSafe } from "@/lib/blog/store";
@@ -79,6 +80,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             links={technologies.filter((t) => t.service === service.slug).map((t) => ({ href: `/technologies/${t.slug}`, name: t.name }))}
           />
           <LinkRow label="Related services" links={services.filter((s) => s.group === service.group && s.slug !== service.slug).map(serviceLink)} />
+          <LinkRow label="Industries" links={industries.filter((i) => i.services.includes(service.slug)).map((i) => ({ href: `/industries/${i.slug}`, name: i.name }))} />
         </ul>
       </StackIcons>
     </>

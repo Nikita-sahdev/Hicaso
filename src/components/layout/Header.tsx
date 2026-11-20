@@ -3,6 +3,7 @@ import Logo from "../ui/Logo";
 import { products } from "@/data/products";
 import { SERVICE_GROUPS, services } from "@/data/services";
 import { technologies } from "@/data/technologies";
+import { industries } from "@/data/industries";
 import { proof, showProof } from "@/data/proof";
 
 // Kit nav-mega markup. The menu opens on hover/focus and the phone sheet is wired by /assets/system.js.
@@ -34,6 +35,15 @@ export const Header: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
                     <a key={s.slug} href={`/services/${s.slug}`}>{s.name}</a>
                   ))}
                   {g === SERVICE_GROUPS[SERVICE_GROUPS.length - 1] ? <a href="/services">All services</a> : null}
+                  {/* industries sit under the shortest column (AI), so the four columns stay even */}
+                  {g === SERVICE_GROUPS[0] ? (
+                    <>
+                      <p className="t-label">Industries</p>
+                      {industries.map((i) => (
+                        <a key={i.slug} href={`/industries/${i.slug}`}>{i.name}</a>
+                      ))}
+                    </>
+                  ) : null}
                 </div>
               ))}
               <div className="menu-col span-3">

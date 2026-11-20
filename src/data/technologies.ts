@@ -110,6 +110,98 @@ export const technologies: Technology[] = [
       ownCode,
     ],
   },
+  // added 2026-11-20 (programmatic SEO): each is already in a service's stack, and every line restates that service
+  {
+    slug: "react",
+    name: "React",
+    service: "web-development",
+    h1: "React development for web apps and SaaS",
+    lead: "Our team in India builds React front ends for web apps, SaaS products and stores, on Node.js, Laravel or your API. You see working software in weekly demos.",
+    usesTitle: "What we build with React",
+    uses: [
+      { title: "Builds web app and SaaS front ends", body: "React, often with Next.js, in front of a Node.js or Laravel backend and MySQL, PostgreSQL or MongoDB." },
+      { title: "Builds custom storefronts", body: "React and Next.js shop fronts for stores built on Laravel, when Shopify or WooCommerce do not fit." },
+      { title: "Adds AI features to your web app", body: "Assistants and search over your own data, built with the team behind our generative AI work." },
+      takeOver("React app"),
+    ],
+    faqs: [
+      { q: "React on its own or with Next.js?", a: "Next.js is built on React and renders pages on the server. We pick with you, based on the app and where it runs." },
+      { q: "Can you work on our existing React app?", a: "Yes. We can pick up an existing web codebase, read what is there and extend or fix it." },
+      ownCode,
+    ],
+  },
+  {
+    slug: "python",
+    name: "Python",
+    service: "generative-ai",
+    h1: "Python development for AI and automation",
+    lead: "Our team in India builds the Python behind generative AI, chatbots, agents and automation: code that calls OpenAI, Claude or Gemini and searches your data.",
+    usesTitle: "What we build with Python",
+    uses: [
+      { title: "Builds retrieval over your data", body: "Python services that search your documents with LangChain or LlamaIndex and pgvector or Pinecone, then pass what they find to the model." },
+      { title: "Builds AI agents", body: "Agents on LangGraph, the OpenAI Agents SDK or the Claude Agent SDK that call your APIs step by step, with tracing of what each did." },
+      { title: "Automates routine work in code", body: "Python where n8n, Zapier or Make are not enough, with a person approving the steps you choose." },
+    ],
+    faqs: [
+      { q: "Python or Node.js for the AI backend?", a: "Both work with the main AI models. We build in both and pick with you to fit your team and what you already run." },
+      { q: "Which AI model will you use?", a: "We pick the model that fits your task, data and constraints. That can be a hosted model or an open-source one." },
+      ownCode,
+    ],
+  },
+  {
+    slug: "openai",
+    name: "OpenAI",
+    service: "generative-ai",
+    h1: "OpenAI and ChatGPT integration",
+    lead: "Our team in India builds OpenAI's GPT models into your product or internal tools: assistants that answer from your data, AI agents and automation steps.",
+    usesTitle: "What we build with OpenAI",
+    uses: [
+      { title: "Builds assistants over your data", body: "GPT answering from your own documents and databases and showing its sources, with evaluation and guardrails that keep answers useful." },
+      { title: "Builds agents with the OpenAI Agents SDK", body: "Agents that call your APIs and tools through a task step by step, with people in the loop where it matters." },
+      { title: "Adds GPT to your automations", body: "OpenAI for the text steps in n8n, Zapier, Make or code workflows, with a person approving what you choose." },
+    ],
+    faqs: [
+      { q: "Do we have to use OpenAI?", a: "No. We pick the model that fits your task, data and constraints: OpenAI, Claude, Gemini or an open-source model." },
+      { q: "Can GPT work with our private data?", a: "Yes. Retrieval can run over your own documents and databases, and we agree on how that data is handled before we start." },
+      ownCode,
+    ],
+  },
+  {
+    slug: "shopify",
+    name: "Shopify",
+    service: "ecommerce-development",
+    h1: "Shopify store development",
+    lead: "Our team in India builds and extends Shopify stores: catalogue, checkout, payments, order emails and the admin your team works in, for the way you sell.",
+    usesTitle: "What we build with Shopify",
+    uses: [
+      { title: "Builds new Shopify stores", body: "Catalogue, checkout, payments and order emails, set up for your products and your team." },
+      { title: "Recommends the platform first", body: "Shopify, WooCommerce or a custom Laravel or Next.js store: we recommend one for your products before we start." },
+      takeOver("Shopify store"),
+    ],
+    faqs: [
+      { q: "Shopify or WooCommerce?", a: "It depends on your products, your team and what the store has to connect to. We recommend one before we start." },
+      { q: "Can you work on my existing Shopify store?", a: "Yes. We can pick up an existing online store, read what is there and extend or fix it." },
+      ownCode,
+    ],
+  },
+  {
+    slug: "woocommerce",
+    name: "WooCommerce",
+    service: "ecommerce-development",
+    h1: "WooCommerce store development in PHP",
+    lead: "Our team in India builds WooCommerce stores and extends them in PHP: catalogue, checkout, payments, order emails and the admin your team works in.",
+    usesTitle: "What we build with WooCommerce",
+    uses: [
+      { title: "Builds new WooCommerce stores", body: "Catalogue, checkout, payments and order emails on WordPress, with MySQL behind them." },
+      { title: "Extends the store in PHP", body: "Custom PHP for what your store needs and the plugins you run do not cover, from the team that maintains older PHP apps." },
+      takeOver("WooCommerce store"),
+    ],
+    faqs: [
+      { q: "WooCommerce or Shopify?", a: "It depends on your products, your team and what the store has to connect to. We recommend one before we start." },
+      { q: "Can you work on my existing WooCommerce store?", a: "Yes. We can pick up an existing online store, read what is there and extend or fix it." },
+      ownCode,
+    ],
+  },
 ];
 
 export const getTechnology = (slug: string): Technology | undefined => technologies.find((t) => t.slug === slug);

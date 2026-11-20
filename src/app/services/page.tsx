@@ -3,7 +3,8 @@ import ServiceHero from "@/components/services/ServiceHero";
 import { chat } from "@/components/services/fragments";
 import { SERVICE_GROUPS, groupId, services } from "@/data/services";
 import { technologies } from "@/data/technologies";
-import TechLinks from "@/components/services/TechLinks";
+import TechLinks, { LinkRow } from "@/components/services/TechLinks";
+import { industries } from "@/data/industries";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/services" },
@@ -95,6 +96,9 @@ export default function ServicesPage() {
                 ))}
               </ul>
               <TechLinks items={technologies} />
+              <ul className="rows">
+                <LinkRow label="Industries" links={industries.map((i) => ({ href: `/industries/${i.slug}`, name: i.name }))} />
+              </ul>
             </div>
             <div className="panel frame--fill span-6 start-7" data-icon-base="/assets/icons/">
               <div className="dg" data-diagram="">
