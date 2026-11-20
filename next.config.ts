@@ -60,6 +60,10 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/work", destination: "/products", permanent: true },
+      // /technologies/* and /industries/* have no parent page: /services lists both. Temporary (307), so browsers
+      // don't cache it and a real hub page can replace it later.
+      { source: "/technologies", destination: "/services", permanent: false },
+      { source: "/industries", destination: "/services", permanent: false },
     ];
   },
   async headers() {
