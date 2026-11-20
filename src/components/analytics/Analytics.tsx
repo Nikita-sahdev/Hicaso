@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { AnalyticsIds } from "@/lib/analytics";
+import { clickEvent, type AnalyticsIds } from "@/lib/analytics";
 
 const KEY = "hicaso-consent"; // "granted" | "denied"; absent = not asked yet
 export const OPEN_EVENT = "hicaso:consent"; // the footer's "Cookie settings" reopens the banner
@@ -22,7 +22,24 @@ function load(ids: AnalyticsIds) {
     w.gtag = function gtag() { w.dataLayer!.push(arguments); };
     w.gtag("js", new Date());
     w.gtag("config", ids.ga);
-    document.addEventListener("form:sent", () => w.gtag!("event", "generate_lead")); // a real enquiry (system.js)
+    const send = (name: string, params: Record<string, unknown>) => w.gtag!("event", name, params);
+    // a real enquiry (system.js passes the sent FormData); only the form's choices go, never name, email or message
+    document.addEventListener("form:sent", (e) => {
+      const d = (e as CustomEvent<FormData | undefined>).detail;
+      const pick = (k: string) => String(d?.get(k) ?? "") || undefined;
+      send("generate_lead", { service: pick("service"), budget: pick("budget"), lead_source: pick("source") });
+    });
+    // contact links and "Start a project" links, with the section they sit in
+    document.addEventListener("click", (e) => {
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      const ev = a && clickEvent(a.getAttribute("href")!, location.pathname);
+      if (!ev) return;
+      const { name, ...params } = ev;
+      const s = a.closest("section"); // a section's id, "hero" for the page heroes (no id), else header/footer
+      const where = s?.id || (s?.classList.contains("hero") ? "hero" : "") || a.closest("header, footer")?.localName || "page";
+      send(name, { ...params, location: where });
+    });
+    document.addEventListener("ask:sent", (e) => send("assistant_question", { starter: (e as CustomEvent<{ starter: boolean }>).detail.starter }));
     script(`https://www.googletagmanager.com/gtag/js?id=${ids.ga}`);
   }
   if (ids.clarity && !w.clarity) {

@@ -13,3 +13,16 @@ test("analyticsConfig drops missing or malformed IDs, so nothing odd reaches a s
   assert.deepEqual(c.ids, {});
   assert.deepEqual(c.tools, []);
 });
+
+test("clickEvent names contact links by method and counts links to the enquiry page from other pages", async () => {
+  const { clickEvent } = await import("./analytics.ts");
+  assert.deepEqual(clickEvent("mailto:hello@hicaso.com", "/"), { name: "contact_click", method: "email" });
+  assert.deepEqual(clickEvent("tel:+917009137936", "/contact"), { name: "contact_click", method: "phone" });
+  assert.deepEqual(clickEvent("https://wa.me/917009137936", "/"), { name: "contact_click", method: "whatsapp" });
+  assert.deepEqual(clickEvent("https://cal.com/hicaso/free-30-minute-call-with-hicaso", "/"), { name: "contact_click", method: "booking" });
+  assert.deepEqual(clickEvent("/contact?service=agentic-ai", "/services/agentic-ai"), { name: "cta_click" });
+  assert.deepEqual(clickEvent("/contact", "/"), { name: "cta_click" });
+  assert.equal(clickEvent("/contact", "/contact"), null); // the page linking to itself
+  assert.equal(clickEvent("/contacts", "/"), null);
+  assert.equal(clickEvent("/services", "/"), null);
+});

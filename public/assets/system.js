@@ -294,10 +294,11 @@ function forms() {
       const wait = setTimeout(() => say(form.dataset.sending || 'Sending'), 300);
       if (button) { button.disabled = true; button.setAttribute('aria-busy', 'true'); }
       try {
-        const res = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const body = new FormData(form); // read before reset(), so form:sent can carry what was sent
+        const res = await fetch(endpoint, { method: 'POST', body, headers: { Accept: 'application/json' } });
         if (!res.ok) throw new Error(String(res.status));
         clearTimeout(wait); form.reset(); say(form.dataset.sent || 'Sent.');
-        form.dispatchEvent(new CustomEvent('form:sent', { bubbles: true })); // analytics hook (layout.tsx GA)
+        form.dispatchEvent(new CustomEvent('form:sent', { bubbles: true, detail: body })); // analytics hook (Analytics.tsx)
       } catch {
         clearTimeout(wait); say(form.dataset.failed || 'Not sent: the connection failed. Your words are still here; try again.');
       } finally {
