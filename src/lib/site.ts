@@ -26,7 +26,9 @@ export const PROFILES: { label: string; url: string }[] = [
 
 // Link previews (WhatsApp, LinkedIn, X): one shared card. Pages that set their own openGraph spread this in, since
 // Next replaces a parent's openGraph whole; og:title/description come from each page's own title and description.
+// url "./" resolves against each page's own pathname (Next resolve-url.js), so og:url matches the canonical.
 export const OG = {
+  url: "./",
   siteName: "Hicaso",
   locale: "en_US",
   images: [{ url: "/og.png", width: 1200, height: 630, alt: "Hicaso: AI, mobile and web software, built to order" }],

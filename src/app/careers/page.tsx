@@ -7,7 +7,7 @@ import { PHOTO, src } from "@/components/company/photos";
 export const metadata: Metadata = {
   alternates: { canonical: "/careers" },
   title: "Careers at Hicaso, Software Studio in Chandigarh",
-  description: "Work at Hicaso, a small team that builds software for clients worldwide and runs its own products.",
+  description: "Work at Hicaso, a small Chandigarh team that builds AI, mobile and web software for clients worldwide and runs its own products, AppKavo and BillMinute.",
 };
 
 const MAIL = "mailto:hello@hicaso.com?subject=Working%20at%20Hicaso";
