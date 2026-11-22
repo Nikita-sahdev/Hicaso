@@ -15,7 +15,7 @@
     "smoke": "node scripts/smoke.mjs",
     "db:migrate": "node --env-file-if-exists=.env.local scripts/migrate.ts",
     "admin:create": "node --env-file-if-exists=.env.local scripts/create-admin.ts",
-    "test": "node --test --test-concurrency=1 src/data/technologies.test.ts src/components/layout/socialIcons.test.ts src/lib/llms.test.ts src/lib/robots.test.ts src/data/faqs.test.ts src/lib/site.test.ts src/data/products.test.ts src/data/services.test.ts src/lib/enquiry.test.ts src/lib/leads.test.ts src/lib/assistant.test.ts src/lib/analytics.test.ts src/lib/planner.test.ts src/lib/schema.test.ts src/data/proof.test.ts src/components/products/themeStyle.test.ts src/lib/db.test.ts src/lib/blog/post.test.ts src/lib/blog/markdown.test.ts src/lib/blog/images.test.ts src/lib/blog/store.test.ts src/lib/admin/admin.test.ts src/app/admin/blog/actions.test.ts 'src/app/admin/blog/?id?/draftBackup.test.ts'"
+    "test": "node --test --test-concurrency=1 src/data/technologies.test.ts src/data/industries.test.ts src/components/layout/socialIcons.test.ts src/lib/llms.test.ts src/lib/robots.test.ts src/data/faqs.test.ts src/lib/site.test.ts src/data/products.test.ts src/data/services.test.ts src/lib/enquiry.test.ts src/lib/leads.test.ts src/lib/assistant.test.ts src/lib/analytics.test.ts src/lib/planner.test.ts src/lib/schema.test.ts src/data/proof.test.ts src/components/products/themeStyle.test.ts src/lib/db.test.ts src/lib/blog/post.test.ts src/lib/blog/markdown.test.ts src/lib/blog/images.test.ts src/lib/blog/store.test.ts src/lib/admin/admin.test.ts src/app/admin/blog/actions.test.ts 'src/app/admin/blog/?id?/draftBackup.test.ts'"
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.3.0",

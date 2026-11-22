@@ -27,3 +27,15 @@ export const ANALYTICS = analyticsConfig({
   NEXT_PUBLIC_CLARITY_ID: process.env.NEXT_PUBLIC_CLARITY_ID,
   NEXT_PUBLIC_LINKEDIN_PARTNER_ID: process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID,
 });
+
+// The clicks worth a GA event: a contact link (a lead that skips the form) or a link to the enquiry page.
+// Hrefs as written in the markup: mailto:/tel:, the wa.me and cal.com links (site.ts), "/contact?service=…".
+export function clickEvent(href: string, path: string): { name: "contact_click"; method: string } | { name: "cta_click" } | null {
+  const method = href.startsWith("mailto:") ? "email"
+    : href.startsWith("tel:") ? "phone"
+    : href.startsWith("https://wa.me/") ? "whatsapp"
+    : href.startsWith("https://cal.com/") ? "booking"
+    : "";
+  if (method) return { name: "contact_click", method };
+  return /^\/contact([?#]|$)/.test(href) && path !== "/contact" ? { name: "cta_click" } : null;
+}

@@ -4,8 +4,8 @@ import { technologies, getTechnology } from "./technologies.ts";
 import { allStackGroups, getService } from "./services.ts";
 import { INVENTED_PROOF } from "./copyRules.ts";
 
-test("technologies are exactly the five, in order", () => {
-  assert.deepEqual(technologies.map((t) => t.slug), ["flutter", "react-native", "laravel", "nextjs", "nodejs"]);
+test("technologies are exactly these ten, in order", () => {
+  assert.deepEqual(technologies.map((t) => t.slug), ["flutter", "react-native", "laravel", "nextjs", "nodejs", "react", "python", "openai", "shopify", "woocommerce"]);
   assert.equal(getTechnology("laravel")?.name, "Laravel");
   assert.equal(getTechnology("nope"), undefined);
 });
@@ -37,4 +37,8 @@ test("technology copy promises nothing services.ts does not state (final review,
     JSON.stringify(technologies),
     /TypeScript|push notifications|admin (panels|screens)|dashboards|upgrade plan|keep the pages|types can be shared/i,
   );
+});
+
+test("each lead fits a search result's description (it is the page's meta description)", () => {
+  for (const t of technologies) assert.ok(t.lead.length <= 160, `${t.slug} lead ${t.lead.length}`);
 });

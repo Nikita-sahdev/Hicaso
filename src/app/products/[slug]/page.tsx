@@ -8,6 +8,15 @@ import { FRAMES, PANELS } from "@/components/products/fragments";
 import { themeStyle } from "@/components/products/themeStyle";
 import { RISE } from "@/components/services/content";
 import { products, getProduct } from "@/data/products";
+import { getService, serviceLink } from "@/data/services";
+import { LinkRow } from "@/components/services/TechLinks";
+
+// the client services each product shows we can do: AppKavo checks mobile apps before release; BillMinute is a SaaS
+// we run ourselves
+const RELATED: Record<string, string[]> = {
+  appkavo: ["mobile-app-development", "qa-testing"],
+  billminute: ["saas-development", "web-development"],
+};
 import { breadcrumbLd, ldJson } from "@/lib/site";
 import { softwareLd } from "@/lib/schema";
 
@@ -85,6 +94,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
               <h2 id="window-h">{page.closeTitle}</h2>
               <p className="t-lead">{page.closeLine}</p>
               <ProductDemo slug={product.slug} />
+              <ul className="rows">
+                <LinkRow label="Related services" links={(RELATED[product.slug] ?? []).map((s) => serviceLink(getService(s)!))} />
+              </ul>
             </div>
             <div className="panel frame--fill span-6 start-7" role="img" aria-label={frame.openLabel}>
               <div aria-hidden="true" dangerouslySetInnerHTML={{ __html: RISE(frame.open, 600, "40px") }} />

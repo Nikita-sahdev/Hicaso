@@ -24,6 +24,7 @@ test("each product is a SoftwareApplication made by Hicaso, with nothing the sit
     assert.equal(s.name, p.name);
     assert.equal(s.url, p.url);
     assert.deepEqual(s.creator, { "@id": ORG_ID });
-    for (const k of ["offers", "aggregateRating", "review", "operatingSystem"]) assert.equal(s[k], undefined, `${p.slug}: ${k}`);
+    assert.equal(s.operatingSystem, "Web"); // the site links each product to the web app it runs as
+    for (const k of ["offers", "aggregateRating", "review"]) assert.equal(s[k], undefined, `${p.slug}: ${k}`);
   }
 });

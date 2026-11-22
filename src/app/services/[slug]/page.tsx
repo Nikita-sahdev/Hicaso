@@ -7,29 +7,17 @@ import StackIcons from "@/components/services/StackIcons";
 import { content } from "@/components/services/content";
 import HowWeWork from "@/components/common/HowWeWork";
 import FAQ from "@/components/common/FAQ";
-import { services, getService } from "@/data/services";
+import { services, getService, serviceLink, POST_CATEGORY } from "@/data/services";
 import { SITE_URL, breadcrumbLd, ldJson } from "@/lib/site";
 import { siteFaqs } from "@/data/faqs";
 import { technologies } from "@/data/technologies";
-import TechLinks from "@/components/services/TechLinks";
+import { industries } from "@/data/industries";
+import { LinkRow } from "@/components/services/TechLinks";
 import LatestPosts from "@/components/common/LatestPosts";
 import { listLivePostsSafe } from "@/lib/blog/store";
 import { BOOKING_URL, httpsLinks } from "@/lib/site";
 
 const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
-// which blog category (src/lib/blog/post.ts CATEGORIES) holds each service's guides
-const POST_CATEGORY: Record<string, string> = {
-  "generative-ai": "ai",
-  "agentic-ai": "ai",
-  "ai-chatbot-development": "ai",
-  "ai-automation": "ai",
-  "ai-consulting": "ai",
-  "mobile-app-development": "mobile",
-  "web-development": "web",
-  "mvp-development": "web",
-  "saas-development": "web",
-  "ecommerce-development": "web",
-};
 
 // Only slugs from the data file exist; anything else is a 404.
 export const dynamicParams = false;
@@ -85,7 +73,15 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <FAQ items={[...service.faqs, ...siteFaqs]} />
       {/* R5: a text-only FAQ never closes <main>; the tools diagram does. */}
       <StackIcons title={c.stackTitle} lines={c.stackLines} spokes={c.spokes} alt={c.stackAlt}>
-        <TechLinks items={technologies.filter((t) => t.service === service.slug)} />
+        {/* its technology pages, then the other services in its group (every group has 5 or 6) */}
+        <ul className="rows">
+          <LinkRow
+            label="Technologies"
+            links={technologies.filter((t) => t.service === service.slug).map((t) => ({ href: `/technologies/${t.slug}`, name: t.name }))}
+          />
+          <LinkRow label="Related services" links={services.filter((s) => s.group === service.group && s.slug !== service.slug).map(serviceLink)} />
+          <LinkRow label="Industries" links={industries.filter((i) => i.services.includes(service.slug)).map((i) => ({ href: `/industries/${i.slug}`, name: i.name }))} />
+        </ul>
       </StackIcons>
     </>
   );

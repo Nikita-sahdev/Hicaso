@@ -335,6 +335,24 @@ export const services: Service[] = [
 export const getService = (slug: string): Service | undefined =>
   services.find((s) => s.slug === slug);
 
+// a service as a link (LinkRow in src/components/services/TechLinks.tsx)
+export const serviceLink = (s: Service) => ({ href: `/services/${s.slug}`, name: s.name });
+
+// which blog category (src/lib/blog/post.ts CATEGORIES) holds each service's guides; read both ways: a service page
+// shows that category's posts, and a post links to the services of its category
+export const POST_CATEGORY: Record<string, string> = {
+  "generative-ai": "ai",
+  "agentic-ai": "ai",
+  "ai-chatbot-development": "ai",
+  "ai-automation": "ai",
+  "ai-consulting": "ai",
+  "mobile-app-development": "mobile",
+  "web-development": "web",
+  "mvp-development": "web",
+  "saas-development": "web",
+  "ecommerce-development": "web",
+};
+
 export const allStackGroups = (): { group: string; items: string[] }[] => {
   const merged = new Map<string, string[]>();
   for (const s of services)

@@ -22,6 +22,7 @@ export default function AskHicaso() {
     setText("");
     setError("");
     setPending(true);
+    document.dispatchEvent(new CustomEvent("ask:sent", { detail: { starter: STARTERS.includes(q) } })); // analytics hook (Analytics.tsx)
     try {
       const res = await fetch("/api/assistant", {
         method: "POST",

@@ -5,6 +5,7 @@ import { ENQUIRY_TO } from "./enquiry.ts";
 import { services } from "../data/services.ts";
 import { products } from "../data/products.ts";
 import { technologies } from "../data/technologies.ts";
+import { industries } from "../data/industries.ts";
 import type { PostSummary } from "./blog/store.ts";
 
 export function llmsText(posts: PostSummary[] = []): string {
@@ -21,6 +22,10 @@ export function llmsText(posts: PostSummary[] = []): string {
     "## Technologies",
     "",
     ...technologies.map((t) => link(t.h1, `/technologies/${t.slug}`, t.uses.map((u) => u.title).join("; "))),
+    "",
+    "## Industries",
+    "",
+    ...industries.map((i) => link(i.h1, `/industries/${i.slug}`, i.needs.map((n) => n.title).join("; "))),
     "",
     "## Products",
     "",

@@ -346,6 +346,8 @@ main:focus { outline: none; }
 /* the post's "In this post" panel: each link a full tap target tall */
 .post-toc ul { padding: var(--s-2) var(--s-4); }
 .post-toc a { display: flex; align-items: center; min-height: 44px; }
+/* a second label in a menu column (Industries under the AI services) starts its own group */
+.menu-col > .t-label:not(:first-child) { margin-top: var(--s-5); }
 .post-toc__meta { padding: 0 var(--s-4) var(--s-4); }
 .post-toc__meta:first-child { padding-top: var(--s-4); }
 /* from 1280, every section but the hero (and the closing footer) is at least its screens and grows past them when its
@@ -357,4 +359,7 @@ main:focus { outline: none; }
   main > :is(section, .section):not(.hero, .section--hero, [data-moment="pinned-chapters"]), footer.footer.closing { height: auto; min-height: calc(var(--h, 1) * 100vh); min-height: calc(var(--h, 1) * 100svh); }
   :where(main > :is(section, .section):not(.hero, .section--hero, [data-moment="pinned-chapters"]), footer.footer.closing) { display: flex; flex-direction: column; }
   main > :is(section, .section):not(.hero, .section--hero, [data-moment="pinned-chapters"]) > :is(.wrap, .container), footer.footer.closing > .wrap { flex: 1 0 auto; height: auto; min-height: 0; }
+  /* the kit's .fill row (a grid beside a full-height panel) is flex 1 1 0 with no minimum, so it held one screen and its
+     extra rows spilled into the footer (an industry page's closing rows); it grows with its content too. .g2 keeps its rows */
+  main > :is(section, .section):not(.hero, .section--hero, .g2, [data-moment="pinned-chapters"]) > .wrap > .fill { flex: 1 0 auto; min-height: auto; }
 }
