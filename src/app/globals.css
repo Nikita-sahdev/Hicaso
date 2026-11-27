@@ -41,7 +41,7 @@
 @media (orientation: landscape) and (max-height: 500px) {
   :root .hero h1 { font-size: clamp(30px, 5.2vw, 44px); }
   :root .hero .hero__lead { font-size: 16px; }
-  :root .hero .hero__art { display: none; }
+  :root .hero :is(.hero__art, [data-enter-media]) { display: none; }
 }
 /* touch: toggle tabs (the BillMinute currency demo) reach a 44px target */
 @media (pointer: coarse) { .tab { min-height: 44px; } }
@@ -97,11 +97,21 @@ main:focus { outline: none; }
 .consent-link { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
 /* the /contact project planner, folded above the enquiry form */
-.planner { margin: 0 0 var(--s-5); border: 1px solid var(--line); border-radius: 12px; padding: var(--s-3) var(--s-4) var(--s-4); }
-.planner summary { cursor: pointer; font-weight: 500; min-height: 44px; display: flex; align-items: center; }
-.planner__body { display: grid; gap: var(--s-3); padding-top: var(--s-2); }
+/* a soft accent callout: an icon, a two-line head, the open/close mark in a round button (2026-11-25 redesign) */
+.planner {
+  margin: 0 0 var(--s-6); border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent); border-radius: 14px;
+  background: color-mix(in oklab, var(--accent) 5%, var(--bg)); padding: 0 var(--s-4);
+}
+.planner summary { cursor: pointer; display: flex; align-items: center; gap: var(--s-3); min-height: 72px; padding-block: var(--s-3); list-style: none; }
+.planner summary::-webkit-details-marker { display: none; }
+.planner__ico { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: var(--accent); }
+.planner__ico svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; }
+.planner__head { display: grid; gap: 2px; min-width: 0; }
+.planner__head b { font-weight: 600; font-size: 15px; color: var(--ink); }
+.planner__head span { font-size: 14px; color: var(--muted); text-wrap: pretty; }
+.planner__body { display: grid; gap: var(--s-3); padding: var(--s-2) 0 var(--s-4); border-top: 1px solid color-mix(in oklab, var(--accent) 16%, transparent); padding-top: var(--s-4); }
 .planner__chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
-.planner__brief { margin: 0; white-space: pre-wrap; font: inherit; font-size: var(--t-small); background: var(--bg); padding: var(--s-3); border-radius: 8px; } /* white on the grey card */
+.planner__brief { margin: 0; white-space: pre-wrap; font: inherit; font-size: var(--t-small); background: var(--bg); padding: var(--s-3); border-radius: 8px; }
 
 /* case studies: the sample notice (while proof.demo), result figures on the cards, the built list */
 .sample-note { margin: 0; padding: var(--s-3) var(--s-4); border-radius: 10px; background: color-mix(in oklab, var(--accent) 10%, var(--bg)); font-size: var(--t-small); }
@@ -140,9 +150,11 @@ main:focus { outline: none; }
 #posts .rows__name.link { display: inline; }
 #posts .rows__name.link::after { margin-left: 0.35em; }
 /* the planner's closed state shows it opens */
-.planner summary::after { content: "+"; margin-left: auto; padding-left: var(--s-3); font-size: 1.25em; line-height: 1; }
+.planner summary::after {
+  content: "+"; flex: none; margin-left: auto; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--bg); border: 1px solid var(--line); font-size: 18px; line-height: 1; color: var(--ink);
+}
 .planner[open] summary::after { content: "\2212"; }
-.planner summary > span { text-wrap: pretty; }
 
 /* ---- polish (second critique, 2026-11-18) ---- */
 /* a done step reads done, not cancelled: no drawn strike over the label (kit checklist) */
@@ -362,4 +374,254 @@ main:focus { outline: none; }
   /* the kit's .fill row (a grid beside a full-height panel) is flex 1 1 0 with no minimum, so it held one screen and its
      extra rows spilled into the footer (an industry page's closing rows); it grows with its content too. .g2 keeps its rows */
   main > :is(section, .section):not(.hero, .section--hero, .g2, [data-moment="pinned-chapters"]) > .wrap > .fill { flex: 1 0 auto; min-height: auto; }
+}
+
+/* The hero's audit (HeroAudit.tsx, GSAP): the findings' statuses wait hidden under html.m-audit until the audit
+   takes them over (as "Checking"), and the band that marks the finding under check steps down the rows. */
+html.m-audit .hero--showcase .ui-win__rows .ui-win__st { opacity: 0; }
+.hero--showcase .ui-win__main { position: relative; }
+.hero--showcase .audit-band {
+  position: absolute; left: 0; right: 0; top: 0; z-index: 1; pointer-events: none;
+  background: color-mix(in oklab, var(--u-accent) 6%, transparent);
+  box-shadow: inset 0 -1.5px 0 var(--u-accent);
+}
+
+/* ---------------------------------------------------------------- header: the floating menu card
+   (Header.tsx .nav--card, owner's reference 2026-11-24). The words take a soft grey pill (NavMotion slides it),
+   each menu is a rounded card under the bar with a grey side panel, and the bar keeps the kit buttons. CSS opens
+   and closes the card (90ms of hover intent, 140ms to leave); NavMotion animates it. .nav.nav--card raises
+   these past the kit's system.css and motion.css rules. */
+.nav__pill { display: none; }
+.nav.nav--card .nav__tech { grid-template-columns: 1fr 1fr; column-gap: var(--s-2); }
+.nav.nav--card .nav__tech > .t-label { grid-column: 1 / -1; }
+@media (min-width: 1024px) {
+  /* the bar holds the pill and the big card (the card spans the page's wrap, logo line to button line) */
+  .nav.nav--card .nav__bar { position: relative; }
+  .nav.nav--card .nav__menu > .wrap { width: auto; }
+  .nav.nav--card .nav__link { z-index: 1; border-radius: 8px; }
+  .nav.nav--card .nav__link::before { display: none; }
+  .nav.nav--card .nav__item:is(:hover, :focus-within) > .nav__link { background: color-mix(in oklab, var(--ink) 5%, transparent); }
+  .nav.nav--card.has-pill .nav__item > .nav__link { background: none; }
+  .nav.nav--card .nav__pill {
+    display: block; position: absolute; left: 0; top: 50%; width: 0; height: 36px; margin-top: -18px;
+    border-radius: 8px; background: color-mix(in oklab, var(--ink) 5%, transparent); opacity: 0; pointer-events: none;
+  }
+  .nav.nav--card .nav__actions { gap: var(--s-3); }
+
+  /* the menu: a clear holder under the bar (its 8px top keeps the hover across the gap), the card inside it */
+  .nav.nav--card .nav__menu {
+    border: 0; background: none; padding: 8px 0 0; opacity: 1; transform: none; transition: visibility 0s linear 140ms;
+  }
+  .nav.nav--card .nav__item:is(:hover, :focus-within) > .nav__menu { opacity: 1; transform: none; transition: visibility 0s linear 90ms; }
+  /* a small menu hangs from its own word */
+  .nav.nav--card .nav__item--sm { position: relative; }
+  .nav.nav--card .nav__item--sm > .nav__menu { left: -12px; right: auto; width: max-content; }
+  .nav.nav--card .nav__item--sm > .nav__menu > .wrap { width: auto; margin: 0; }
+
+  .nav.nav--card .nav__card {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 0.95fr); gap: 0 var(--s-2);
+    padding: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 24px 56px -20px rgb(16 24 40 / 0.24);
+    transform-origin: 50% 0;
+  }
+  .nav.nav--card .nav__item--sm .nav__card { grid-template-columns: 300px 220px; }
+  .nav.nav--card .nav__card .menu-col { gap: 2px; padding: 12px 4px; }
+  .nav.nav--card .nav__card .menu-col > .t-label { margin: 0 0 6px; padding-inline: 12px; font-size: 13px; font-weight: 400; color: var(--muted); }
+  .nav.nav--card .nav__card .menu-col a {
+    gap: 2px; padding: 8px 12px; border-radius: 10px; font-size: 15px; font-weight: 500; color: var(--ink);
+    transition: background-color 150ms var(--ease);
+  }
+  .nav.nav--card .nav__card .menu-col a span { font-size: 14px; font-weight: 400; color: var(--muted); }
+  .nav.nav--card .nav__card .menu-col a:hover { background: color-mix(in oklab, var(--ink) 4%, transparent); color: var(--ink); }
+  .nav.nav--card .nav__aside {
+    display: grid; align-content: start; padding: 4px; border-radius: 12px; background: color-mix(in oklab, var(--ink) 3%, var(--bg));
+  }
+  .nav.nav--card .nav__aside .menu-col a:hover { background: color-mix(in oklab, var(--ink) 6%, transparent); }
+  .nav.nav--card .nav__card .nav__tech a { padding-block: 6px; font-weight: 400; }
+}
+/* the phone sheet: the card's columns stack as plain rows */
+@media (max-width: 1023px) {
+  .nav.nav--card .nav__card, .nav.nav--card .nav__aside { display: grid; gap: var(--s-4); }
+}
+
+/* The hero's screens row (HeroDeal.tsx, GSAP): the three screens wait hidden under html.m-deal (the same head line as
+   the audit sets it, and lets go after 4 s) until the deal takes them over; the middle window sits above the two it
+   deals out from behind. */
+html.m-deal .hero--showcase [data-deal] { opacity: 0; }
+.hero--showcase [data-deal="main"] { position: relative; z-index: 2; }
+
+/* The enquiry form (EnquiryForm.tsx .form--pro, 2026-11-25 redesign) on a white card: two groups with a heading each
+   (one on the home page's short form), every control 48px tall with 16px text, the selects with one drawn arrow, the
+   optional fields marked (not the required ones), and a footer row with the button and its note. */
+.card.enquiry-card {
+  background: var(--bg); border: 1px solid var(--line); border-radius: 20px; padding: clamp(20px, 3vw, 36px);
+  box-shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 20px 48px -28px rgb(16 24 40 / 0.22);
+}
+.form.form--pro { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+.form--pro .form__group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.form--pro .form__legend { padding: 0 0 var(--s-3); font: 600 16px/1.3 var(--font-text); color: var(--ink); }
+.form--pro .form__group > .field--full { grid-column: 1 / -1; }
+.form--pro .field { gap: 8px; font-size: 14px; font-weight: 500; color: var(--ink); }
+.form--pro .field__opt { margin-left: 4px; font-weight: 400; color: var(--muted); }
+.form--pro .field :is(input, select, textarea) { height: 48px; padding: 0 14px; border-radius: 10px; font-size: 16px; line-height: 1.4; }
+.form--pro .field textarea { height: auto; min-height: 148px; padding: 12px 14px; line-height: 1.55; }
+.form--pro .field :is(input, textarea)::placeholder { color: var(--muted); opacity: 0.8; }
+.form--pro .field select {
+  appearance: none; -webkit-appearance: none; padding-right: 42px; cursor: pointer;
+  background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23737373' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center / 16px;
+}
+.form--pro .field select:has(option[value=""]:checked) { color: var(--muted); }
+.form--pro .field select option { color: var(--ink); }
+.form--pro .form__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
+.form--pro .form__foot .btn { min-width: 180px; height: 48px; }
+.form--pro .form__foot p { margin: 0; flex: 1 1 200px; }
+/* the sent line takes no room until it has something to say */
+.form--pro .form__sent:has(.form__status:empty):has(.form__tick[hidden]) { display: none; }
+@media (max-width: 639px) {
+  .form--pro .form__group { grid-template-columns: minmax(0, 1fr); }
+  .form--pro .form__foot .btn { width: 100%; }
+}
+
+/* The enquiry form's dropdowns (2026-11-25): Chrome's customizable select (appearance: base-select) draws the list
+   as a white card under the field, with a check on the chosen row; it drops in 6px and settles from 0.98 in 180ms,
+   its rows following 12ms apart, and leaves in 120ms. Still a real <select>: the keyboard, the form value, system.js
+   and the planner's fill all work as before. Browsers without it (Safari, Firefox today) keep their own list. */
+@supports (appearance: base-select) {
+  .form--pro .field select,
+  .form--pro .field select::picker(select) { appearance: base-select; }
+  .form--pro .field select { display: flex; align-items: center; background-image: none; padding-right: 14px; }
+  .form--pro .field select::picker-icon {
+    content: ""; width: 16px; height: 16px; margin-left: auto;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23737373' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
+    transition: rotate 180ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .form--pro .field select:open::picker-icon { rotate: 180deg; }
+  .form--pro .field select:open { border-color: var(--action); box-shadow: 0 0 0 1px var(--action), 0 0 0 4px color-mix(in oklab, var(--action) 20%, transparent); }
+
+  /* the list: a card under the field, as wide as it */
+  .form--pro .field select::picker(select) {
+    margin-top: 6px; padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--ink);
+    box-shadow: 0 2px 4px rgb(16 24 40 / 0.04), 0 18px 40px -12px rgb(16 24 40 / 0.22);
+    width: anchor-size(width); transform-origin: top center;
+    opacity: 0; translate: 0 -6px; scale: 0.98;
+    transition: opacity 120ms cubic-bezier(0.55, 0, 1, 0.45), translate 120ms cubic-bezier(0.55, 0, 1, 0.45), scale 120ms cubic-bezier(0.55, 0, 1, 0.45),
+      display 120ms allow-discrete, overlay 120ms allow-discrete;
+  }
+  .form--pro .field select:open::picker(select) {
+    opacity: 1; translate: 0 0; scale: 1;
+    transition-duration: 180ms; transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  @starting-style { .form--pro .field select:open::picker(select) { opacity: 0; translate: 0 -6px; scale: 0.98; } }
+
+  /* the rows: 40px, a soft hover, the chosen one in ink with a blue check */
+  .form--pro .field select option {
+    display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 8px 12px; border-radius: 8px;
+    font-size: 15px; font-weight: 400; color: var(--ink); cursor: pointer; white-space: normal; text-wrap: pretty;
+    transition: background-color 120ms ease, opacity 200ms cubic-bezier(0.32, 0.72, 0, 1), translate 200ms cubic-bezier(0.32, 0.72, 0, 1);
+    transition-delay: 0ms, calc((sibling-index() - 1) * 12ms), calc((sibling-index() - 1) * 12ms);
+  }
+  @starting-style { .form--pro .field select:open option { opacity: 0; translate: 0 -4px; } }
+  .form--pro .field select option:is(:hover, :focus-visible) { background: color-mix(in oklab, var(--ink) 5%, transparent); outline: none; }
+  .form--pro .field select option:checked { font-weight: 500; }
+  .form--pro .field select option[value=""] { color: var(--muted); }
+  .form--pro .field select option[value=""]::checkmark { visibility: hidden; }
+  .form--pro .field select option::checkmark {
+    order: 1; margin-left: auto; content: ""; width: 16px; height: 16px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l3 3 6-6.4' fill='none' stroke='%232456d6' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .form--pro .field select::picker(select), .form--pro .field select option, .form--pro .field select::picker-icon { transition: none; }
+}
+
+/* ================================================================ landing-page-design (elayadesign/ai-design-skills)
+   Applied 2026-11-25 at the owner's request, with their choices: General Sans and the Attio-style nav stay; the hero
+   heading takes the skill's gradient; the type scale and text styles, spacing and radius tokens, copy rules and states
+   apply. html:root raises these past the kit's :root tokens (kit.css loads after this file).
+   Type: every size is a step of the scale (12 14 16 18 20 24 30 36 48 60 72 96 128) with its paired line height, a
+   fixed step per screen size instead of the kit's fluid clamp(). Headings are semibold (the skill's Heading styles).
+   Spacing: the kit's section paddings snap to the skill's steps (0 2 4 8 12 16 24 32 40 48 64 80 96). */
+html:root {
+  --t-label: 12px; --t-small: 14px; --t-body: 16px; --t-lead: 18px; --t-card: 18px; --t-h3: 24px;
+  --t-h2: 30px; --t-h1: 36px; --t-stat: 24px; --display-weight: 600;
+  --padb: 48px; --section: 40px; --section-band: 48px; --r-lg: 16px;
+}
+@media (min-width: 640px) {
+  html:root { --t-h2: 36px; --t-h1: 48px; --t-stat: 30px; --padb: 64px; --section: 48px; --section-band: 64px; }
+}
+@media (min-width: 1024px) {
+  html:root { --t-lead: 20px; --t-card: 20px; --t-h3: 24px; --t-h2: 48px; --t-h1: 60px; --t-stat: 36px; --padt: 96px; --section: 48px; --section-band: 96px; }
+}
+/* Heading 1-3 and the figure, with the step's own line height */
+html:root :is(h1, .t-h1) { line-height: 40px; }
+html:root :is(h2, .t-h2) { line-height: 36px; }
+html:root :is(h3, .t-h3) { line-height: 32px; }
+html:root .t-stat { line-height: 32px; }
+@media (min-width: 640px) {
+  html:root :is(h1, .t-h1) { line-height: 1; }
+  html:root :is(h2, .t-h2), html:root .t-stat { line-height: 40px; }
+  html:root .t-stat { line-height: 36px; }
+}
+@media (min-width: 1024px) {
+  html:root :is(h2, .t-h2) { line-height: 1; }
+  html:root .t-stat { line-height: 40px; }
+}
+/* Body 7 (text-lg / text-xl regular, the lead), Body 6 (small), Caption 5 (label) */
+html:root .t-lead { line-height: 28px; }
+html:root .t-small { line-height: 20px; }
+html:root .t-label { line-height: 16px; letter-spacing: 0; }
+/* running text never leaves one word on its last line */
+html:root :is(p, li, dd, figcaption, blockquote) { text-wrap: pretty; }
+
+/* Buttons: Button-md (16/24 semibold) with the skill's 8px by 12px padding; 40px with a pointer, 44px on touch.
+   The header's are Button-sm (14/20). The closing band's big button is Button-xl (24/32; 30/36 wide, desktop). */
+html:root .btn { height: auto; min-height: 40px; padding: 8px 12px; font-weight: 600; line-height: 24px; }
+html:root .nav__actions .btn { font-size: 14px; line-height: 20px; padding: 8px 12px; }
+@media (pointer: coarse), (max-width: 1023px) { html:root .btn { min-height: 44px; } }
+/* pressed: the skill's scale(0.98) with a 1px drop */
+html:root .btn:active { transform: translateY(1px) scale(0.98); }
+html:root .btn--xl { min-height: 64px; font-size: 24px; line-height: 32px; font-weight: 600; }
+html:root .btn--xl.btn--wide { min-height: 64px; font-size: 24px; padding-inline: var(--s-7); }
+@media (min-width: 1024px) { html:root .btn--xl.btn--wide { min-height: 80px; font-size: 30px; line-height: 36px; } }
+/* the closing word: 60 / 96 / 128, the scale's top steps */
+html:root .close__word { font-size: 60px; line-height: 1; }
+@media (min-width: 640px) { html:root .close__word { font-size: 96px; } }
+@media (min-width: 1024px) { html:root .close__word { font-size: 128px; } }
+/* the two-screen groups (services, the closing band): 96px between their halves from a tablet up (the kit's sum of
+   paddings is off the steps); a phone keeps the kit's own 32px */
+@media (min-width: 640px) {
+  html:root :is(main > section.g2, footer.closing.g2) > .wrap { row-gap: var(--s-9); }
+}
+/* the kit's own fluid sizes that outrank the tokens: the hero lead and the figures */
+html:root main > section.hero .hero__lead { font-size: var(--t-lead); line-height: 28px; }
+html:root .stats .t-stat { font-size: var(--t-stat); }
+/* phone leftovers: the logo's 6px gap, the menu button's default padding, card padding 16 / 24 */
+html:root .nav__logo { gap: var(--s-2); }
+html:root .nav__toggle { padding: 0; }
+html:root footer.closing.g2m > .wrap { row-gap: var(--s-9); }
+html:root .proof-cases .card { padding: var(--card-pad); }
+html:root { --card-pad: 16px; }
+@media (min-width: 640px) { html:root { --card-pad: 24px; } }
+
+/* the header's words and menus: Title 4 (14/20 medium), its lines Body 6, its labels Caption 5 */
+html:root .nav.nav--card .nav__link { font-size: 14px; line-height: 20px; }
+html:root .nav.nav--card .nav__card .menu-col a { font-size: 14px; line-height: 20px; padding: 8px 12px; border-radius: 8px; }
+html:root .nav.nav--card .nav__card .menu-col a span { font-size: 14px; line-height: 20px; }
+html:root .nav.nav--card .nav__card .menu-col > .t-label { margin: 0 0 8px; font-size: 12px; line-height: 16px; }
+html:root .nav.nav--card .nav__card .nav__tech a { padding-block: 8px; }
+/* nested corners: card 16 with 12 + 4 to the side panel and rows → panel 16 − 12 = 4; rows sit 16 in → left at 8 */
+html:root .nav.nav--card .nav__aside { border-radius: 4px; }
+
+/* the enquiry card and its fields: radius 24 (3xl) with 24 / 32 inside, fields 8 (lg) at 12px, rows 24 apart */
+html:root .card.enquiry-card { border-radius: 24px; padding: 24px; }
+@media (min-width: 1024px) { html:root .card.enquiry-card { padding: 32px; } }
+html:root .form--pro .form__group { gap: 24px 16px; }
+html:root .form--pro .field :is(input, select, textarea) { padding-inline: 12px; border-radius: 8px; }
+html:root .form--pro .field textarea { padding-block: 12px; }
+html:root .planner { border-radius: 12px; }
+html:root .planner__ico { border-radius: 8px; }
+@supports (appearance: base-select) {
+  /* list card 12 with 8 inside → rows 12 − 8 = 4 */
+  html:root .form--pro .field select::picker(select) { padding: 8px; }
+  html:root .form--pro .field select option { border-radius: 4px; padding: 8px 12px; }
 }

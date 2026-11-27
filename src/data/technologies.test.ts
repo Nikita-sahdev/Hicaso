@@ -42,3 +42,11 @@ test("technology copy promises nothing services.ts does not state (final review,
 test("each lead fits a search result's description (it is the page's meta description)", () => {
   for (const t of technologies) assert.ok(t.lead.length <= 160, `${t.slug} lead ${t.lead.length}`);
 });
+
+test("a technology's search title, when set, is at most 60 characters and ends in the brand", () => {
+  for (const t of technologies) {
+    if (!t.seoTitle) continue;
+    assert.ok(t.seoTitle.length <= 60, `${t.slug}: ${t.seoTitle.length}`);
+    assert.ok(t.seoTitle.endsWith(" — Hicaso"), t.slug);
+  }
+});

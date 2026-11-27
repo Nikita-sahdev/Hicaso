@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import Script from "next/script";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { orgLd, websiteLd } from "@/lib/schema";
 import Analytics from "@/components/analytics/Analytics";
+import SmoothScroll from "@/components/motion/SmoothScroll";
 import { ANALYTICS } from "@/lib/analytics";
 import { products } from "@/data/products";
 import { OG, PROFILES, SITE_URL, SOCIAL, httpsLinks, ldJson } from "@/lib/site";
@@ -27,20 +29,22 @@ const MOMENT_PRELOADS = ["moments/moments.js", "moments/lib.js", "moments/pinned
 const MODULES = ["system.js", "motion/motion.js", "layout/layout.js", "diagrams/mount.js"];
 
 // Palette lines as `start.mjs brand --page software --bg #ffffff --ink #0a0a0a --accent #2456d6` prints them
-// (owner's choice: white + blueprint blue); type instrument, radius soft from the original deal.
+// (owner's choice: white + blueprint blue); type General Sans, radius soft from the original deal.
 const ROOT_TOKENS = `
+@font-face { font-family: "General Sans"; src: url("/fonts/GeneralSans-Variable.woff2") format("woff2"); font-weight: 200 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "General Sans"; src: url("/fonts/GeneralSans-VariableItalic.woff2") format("woff2"); font-weight: 200 700; font-style: italic; font-display: swap; }
 :root {
   --p-bg: #ffffff; --p-surface: #f1f1f1; --p-ink: #0a0a0a; --p-muted: #6c6c6c;
   --p-accent: #2456d6; --p-accent-ink: #ffffff; --p-action: #2456d6; --p-action-ink: #ffffff;
   --p-inv-bg: #0a0a0a; --p-inv-surface: #171717; --p-inv-ink: #ffffff; --p-inv-muted: #979797;
   --p-inv-accent: #2456d6; --p-inv-accent-ink: #ffffff; --p-inv-action: #2456d6; --p-inv-action-ink: #ffffff;
-  --font-display: "Instrument Sans", system-ui, sans-serif;
-  --font-text: "Instrument Sans", system-ui, sans-serif;
+  --font-display: "General Sans", system-ui, sans-serif;
+  --font-text: "General Sans", system-ui, sans-serif;
   --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --display-weight: 500;
   --display-tracking: -0.028em;
   --display-tracking-xl: -0.036em;
-  --display-stretch: 96%;
+  --display-stretch: 100%;
   --ly-scale: 1.04;
 }
 `;
@@ -49,6 +53,12 @@ const ROOT_TOKENS = `
 const M_ENTER = "document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)";
 // Moments guard from the kit's starter.html / in-page-service.html, verbatim.
 const MO_JS = "document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)";
+// The hero's audit (HeroAudit.tsx) holds the findings' statuses hidden until it takes them over: set before the first
+// paint when the audit will run (motion on, not reduced, not a headless shot unless data-motion="live"), let go
+// by itself after 4 s so a failed script never leaves them hidden. data-audit="1" is the lasting yes (React's
+// development double effect clears the class before its second run). It holds the screens row the same way (m-deal,
+// HeroDeal.tsx deals the three screens out).
+const M_AUDIT = "(function(h){if(h.dataset.motion==='off'||!matchMedia('(prefers-reduced-motion: no-preference)').matches||(/HeadlessChrome/.test(navigator.userAgent)&&h.dataset.motion!=='live'))return;h.dataset.audit='1';h.classList.add('m-audit','m-deal');setTimeout(function(){h.classList.remove('m-audit','m-deal')},4000)})(document.documentElement)";
 
 
 // one Organization (with the @id every other entity points to) and the WebSite, from src/lib/schema.ts
@@ -83,11 +93,12 @@ export default async function RootLayout({
         <meta name="page-type" content="software" />
         <meta name="site-kind" content="software" />
         <meta name="theme-color" content="#ffffff" />
+        <link rel="preload" href="/fonts/GeneralSans-Variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* eslint-disable-next-line @next/next/no-page-custom-font -- root layout, loads on every page */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=DM+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
         {/* eslint-disable-next-line @next/next/no-css-tags -- the kit is plain files in /public, joined by scripts/kit-css.mjs, never bundled */}
@@ -96,6 +107,7 @@ export default async function RootLayout({
         <style dangerouslySetInnerHTML={{ __html: ROOT_TOKENS }} />
         <script dangerouslySetInnerHTML={{ __html: M_ENTER }} />
         <script dangerouslySetInnerHTML={{ __html: MO_JS }} />
+        <script dangerouslySetInnerHTML={{ __html: M_AUDIT }} />
         {MOMENT_PRELOADS.map((href) => (
           <link key={href} rel="modulepreload" href={`/assets/${href}`} />
         ))}
@@ -110,6 +122,8 @@ export default async function RootLayout({
         {MODULES.map((src) => (
           <Script key={src} src={`/assets/${src}`} type="module" crossOrigin="anonymous" strategy="afterInteractive" />
         ))}
+        {/* Lenis smooth scrolling for the wheel and trackpad (off under reduced motion and on /admin) */}
+        <SmoothScroll />
         {/* GA4, Clarity and LinkedIn: each on when its ID is set, loaded only after the visitor accepts */}
         {ANALYTICS.tools.length ? <Analytics ids={ANALYTICS.ids} tools={ANALYTICS.tools} /> : null}
       </body>

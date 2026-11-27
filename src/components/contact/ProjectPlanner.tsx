@@ -29,7 +29,15 @@ export default function ProjectPlanner() {
 
   return (
     <details className="planner" ref={box}>
-      <summary><span>Not sure what to write? Plan it in four steps</span></summary>
+      <summary>
+        <span className="planner__ico" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M4 5.5h12M4 10h8M4 14.5h5" /></svg>
+        </span>
+        <span className="planner__head">
+          <b>Not sure what to write?</b>
+          <span>Plan it in four steps and we write the brief for you</span>
+        </span>
+      </summary>
       <div className="planner__body">
         <p className="t-small muted" aria-live="polite">{step < 4 ? `Step ${step + 1} of 4: ` : ""}{STEPS[step]}</p>
         {step === 0 ? <div className="planner__chips">{PLANNER.what.map((o) => chip(o.label, c.what === o.id, () => setC((x) => ({ ...x, what: o.id }))))}</div> : null}

@@ -10,14 +10,14 @@ const scope = `<div class="ui ui-doc">
   <article class="ui-doc__page">
     <div class="ui-doc__label">Scope, first release</div>
     <div class="ui-doc__title">What ships in version 1</div>
-    <div class="ui-doc__text">Android and iOS from one Flutter codebase, with sign-in, profile and payments.</div>
+    <div class="ui-doc__text">Android and iOS from one Flutter codebase, with login, profile and payments.</div>
     <div class="ui-doc__text">Payments by card in the app. <mark class="ui-doc__mark is-on">Offline mode waits for version 2.</mark></div>
     <div class="ui-doc__text">An admin page on the web for the support team, built in Next.js.</div>
   </article>
   <aside class="ui-doc__note ui-panel is-on">
     <div class="ui-doc__kind"><span class="ui-doc__dot"></span><span>Agreed</span></div>
     <div class="ui-doc__msg">Moved to version 2 so payments ship first.</div>
-    <div class="ui-doc__where">Kick-off call</div>
+    <div class="ui-doc__where">Kickoff call</div>
   </aside>
 </div>`;
 
@@ -27,7 +27,7 @@ const PDF = `<svg class="ui-file__glyph" viewBox="0 0 24 24" aria-hidden="true">
 const designs = `<div class="ui ui-files">
   <div class="ui-files__status"><span class="ui-dot"></span><span>6 files agreed</span></div>
   <ul class="ui-files__grid">
-    ${file("Sign-in screens", "Figma", ICON("figma"))}
+    ${file("Login screens", "Figma", ICON("figma"))}
     ${file("Home and profile", "Figma", ICON("figma"))}
     ${file("Payments flow", "Figma", ICON("figma"))}
     ${file("Design system", "Figma", ICON("figma"))}
@@ -59,7 +59,7 @@ const note = (icon: string, title: string, time: string, body: string) =>
 const launch = `<div class="ui ui-notify"><ul class="ui-notify__list">
   ${note("google-play", "Version 1.0 is live on Google Play", "now", "Rolled out to every user")}
   ${note("app-store", "App Store review passed", "2h", "Version 1.0 is ready for sale")}
-  ${note("apple", "Version 1.0.1 is in TestFlight", "1d", "Fixes a crash on the sign-in screen")}
+  ${note("apple", "Version 1.0.1 is in TestFlight", "1d", "Fixes a crash on the login screen")}
 </ul></div>`;
 
 const STEPS = [

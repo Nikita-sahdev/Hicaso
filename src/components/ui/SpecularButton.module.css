@@ -55,8 +55,11 @@
 }
 
 .md {
-  padding: 14px 28px;
+  /* Button-md from the landing-page-design skill: 16/24 semibold, 8px by 12px (2026-11-25) */
+  padding: 8px 12px;
   font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
 }
 
 .lg {

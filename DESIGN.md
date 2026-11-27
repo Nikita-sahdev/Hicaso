@@ -42,5 +42,7 @@ Never violet or lavender. Grounds: `--g-main` white, `.ground-surface` grey, `.g
 
 ## Motion
 - Kit motion layer: hero entrance, hover lift 2px, button step/press, card loops 2.5–4 s with pause.
-- Moments are **dealt** (`moments.mjs pick`), 1–2 per page; home has `pinned-chapters` (How a project runs). No scroll fade-ins, no parallax on text.
+- Moments are **dealt** (`moments.mjs pick`), 1–2 per page; home has `pinned-chapters` (How a project runs). Home page scroll motion (owner's choice 2026-11-25, replacing the 2026-11-23 ban): `HomeMotion.tsx` reveals each section once (headline lines, copy, cards, panels, counting figures), drifts panel screens and opens the dark band; off under reduced motion.
 - anime.js 4.5 only for click-run demos (product pages) and the enquiry form's sent tick; never on scroll; reduced motion shows end states.
+- GSAP 3.15 (owner's choice 2026-11-23) for the home page's one authored sequence and one state change: the hero's AppKavo window audits the build once after the entrance (`HeroAudit.tsx`), and the product tabs bring the opening window into focus (`ProductTabsMotion.tsx`); the hero screens are dealt on load (`HeroDeal.tsx`) and the nav animates (`NavMotion.tsx`). The written page is always the end state.
+- Lenis 1.3 smooth scrolling site-wide except /admin (`SmoothScroll.tsx`, owner's choice 2026-11-23, knowingly against the kit's no-steering rule): wheel and trackpad only, native touch, off under reduced motion, native anchor jumps.

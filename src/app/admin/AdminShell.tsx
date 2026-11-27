@@ -11,7 +11,7 @@ const THEME = {
     colorPrimary: "#2456d6",
     colorLink: "#2456d6",
     borderRadius: 8,
-    fontFamily: '"Instrument Sans", system-ui, sans-serif',
+    fontFamily: '"General Sans", system-ui, sans-serif',
     fontSize: 15,
   },
 };

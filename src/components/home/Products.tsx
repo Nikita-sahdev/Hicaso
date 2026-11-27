@@ -1,5 +1,6 @@
 import { products } from "@/data/products";
 import { FRAMES } from "../products/fragments";
+import ProductTabsMotion from "./ProductTabsMotion";
 
 // app-frame (sections-library.md): each product as one app window across the .wrap, its list beside the
 // open item, kit fragments (window, diff-review, doc) rewritten to the product's own subject. Two click
@@ -55,6 +56,8 @@ export default function Products() {
           );
         })}
       </div>
+      {/* the opening app window comes into focus on a tab switch (GSAP) */}
+      <ProductTabsMotion />
     </section>
   );
 }

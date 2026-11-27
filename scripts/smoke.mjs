@@ -15,7 +15,7 @@ const VIEWPORTS = [
   { name: "desktop", width: 1440, height: 900, mobile: false },
   { name: "mobile", width: 390, height: 844, mobile: true },
 ];
-const FONT_READY = `document.fonts.ready.then(() => [...document.fonts].some(f => f.family.replace(/["']/g, "") === "Instrument Sans" && f.status === "loaded"))`;
+const FONT_READY = `document.fonts.ready.then(() => [...document.fonts].some(f => f.family.replace(/["']/g, "") === "General Sans" && f.status === "loaded"))`;
 
 // Every CDP call and every page load has a timeout that names the route and step; the whole run has one too.
 const STEP_MS = 30000;
@@ -98,7 +98,7 @@ async function checkRoute(c, route, vp, errors) {
   if (type !== "software") fail(t, vp.name, `data-type is ${type}`);
   const bg = await c.evaluate(`getComputedStyle(document.body).backgroundColor`);
   if (bg !== "rgb(255, 255, 255)") fail(t, vp.name, `body background ${bg}`);
-  if (!(await c.evaluate(FONT_READY))) fail(t, vp.name, "Instrument Sans not loaded");
+  if (!(await c.evaluate(FONT_READY))) fail(t, vp.name, "General Sans not loaded");
   const h1 = await c.evaluate(`document.querySelectorAll("h1").length`);
   if (h1 !== 1) fail(t, vp.name, `${h1} h1 elements`);
   const overflow = await c.evaluate(`document.documentElement.scrollWidth - innerWidth`);

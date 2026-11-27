@@ -60,7 +60,7 @@ export default function EnquiryForm({ services, initialService, compact = false 
     // only run if system.js hasn't loaded or scripts are off.
     <form
       ref={formRef}
-      className="form"
+      className="form form--pro"
       onSubmit={onSubmit}
       action={`mailto:${ENQUIRY_TO}`}
       method="post"
@@ -74,65 +74,74 @@ export default function EnquiryForm({ services, initialService, compact = false 
       <div hidden aria-hidden="true">
         <input name="hp_extra" type="text" tabIndex={-1} autoComplete="off" />
       </div>
-      <div className="field">
-        <label htmlFor="enq-name">Name</label>
-        <input id="enq-name" name="name" type="text" required maxLength={100} autoComplete="name" aria-describedby="enq-name-err" />
-        <p className="field__error" id="enq-name-err" hidden>Write your name.</p>
-      </div>
-      <div className="field">
-        <label htmlFor="enq-email">Email</label>
-        <input id="enq-email" name="email" type="email" required maxLength={200} autoComplete="email" inputMode="email" aria-describedby="enq-email-err" />
-        <p className="field__error" id="enq-email-err" hidden>Write an email address with an @, like name@example.com.</p>
-      </div>
+      {/* two groups on the full form (who you are, then the project); the home page's short form is one group */}
+      <fieldset className="form__group">
+        {compact ? null : <legend className="form__legend">About you</legend>}
+        <div className="field">
+          <label htmlFor="enq-name">Name</label>
+          <input id="enq-name" name="name" type="text" required maxLength={100} autoComplete="name" placeholder="Your full name" aria-describedby="enq-name-err" />
+          <p className="field__error" id="enq-name-err" hidden>Write your name.</p>
+        </div>
+        <div className="field">
+          <label htmlFor="enq-email">Email</label>
+          <input id="enq-email" name="email" type="email" required maxLength={200} autoComplete="email" inputMode="email" placeholder="you@company.com" aria-describedby="enq-email-err" />
+          <p className="field__error" id="enq-email-err" hidden>Write an email address with an @, like name@example.com.</p>
+        </div>
+        {compact ? null : (
+          <>
+            <div className="field">
+              <label htmlFor="enq-country">Country <span className="field__opt">Optional</span></label>
+              <input id="enq-country" name="country" type="text" maxLength={100} autoComplete="country-name" placeholder="Where your company is" />
+            </div>
+            <div className="field">
+              <label htmlFor="enq-source">How did you hear about us? <span className="field__opt">Optional</span></label>
+              <select id="enq-source" name="source" defaultValue="">
+                <option value="">Choose one</option>
+                {SOURCES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        )}
+        {compact ? <Message compact /> : null}
+      </fieldset>
       {compact ? null : (
-      <>
-      <div className="field">
-        <label htmlFor="enq-country">Country</label>
-        <input id="enq-country" name="country" type="text" maxLength={100} autoComplete="country-name" />
-      </div>
-      <div className="field">
-        <label htmlFor="enq-service">Service</label>
-        <select id="enq-service" name="service" defaultValue={initialService}>
-          <option value="">Choose a service</option>
-          {services.map((s) => (
-            <option key={s.slug} value={s.slug}>
-              {s.name}
-            </option>
-          ))}
-          <option value={OTHER_SERVICE}>{OTHER_SERVICE}</option>
-        </select>
-      </div>
-      <div className="field">
-        <label htmlFor="enq-budget">Budget</label>
-        <select id="enq-budget" name="budget" defaultValue="">
-          <option value="">Choose a range</option>
-          {BUDGETS.map((b) => (
-            <option key={b} value={b}>
-              {b}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="field">
-        <label htmlFor="enq-source">How did you hear about us?</label>
-        <select id="enq-source" name="source" defaultValue="">
-          <option value="">Choose one</option>
-          {SOURCES.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
-      </div>
-      </>
+        <fieldset className="form__group">
+          <legend className="form__legend">Your project</legend>
+          <div className="field">
+            <label htmlFor="enq-service">Service <span className="field__opt">Optional</span></label>
+            <select id="enq-service" name="service" defaultValue={initialService}>
+              <option value="">Choose a service</option>
+              {services.map((s) => (
+                <option key={s.slug} value={s.slug}>
+                  {s.name}
+                </option>
+              ))}
+              <option value={OTHER_SERVICE}>{OTHER_SERVICE}</option>
+            </select>
+          </div>
+          <div className="field">
+            <label htmlFor="enq-budget">Budget <span className="field__opt">Optional</span></label>
+            <select id="enq-budget" name="budget" defaultValue="">
+              <option value="">Choose a range</option>
+              {BUDGETS.map((b) => (
+                <option key={b} value={b}>
+                  {b}
+                </option>
+              ))}
+            </select>
+          </div>
+          <Message />
+        </fieldset>
       )}
-      <div className="field field--full">
-        <label htmlFor="enq-message">{compact ? "What do you want to build?" : "Message"}</label>
-        <textarea id="enq-message" name="message" required maxLength={1000} rows={compact ? 4 : 5} aria-describedby="enq-message-err" />
-        <p className="field__error" id="enq-message-err" hidden>Write a message about the project.</p>
-      </div>
-      <div className="btn-row">
+      <div className="form__foot">
         <button type="submit" className="btn btn--primary">Send enquiry</button>
+        <p className="t-small muted" aria-live="polite">
+          {opened ? `Opening your email app with the message ready. If nothing opens, write to ${ENQUIRY_TO}.` : "We reply by email, and sign your NDA first if you need one."}
+        </p>
       </div>
       <div className="form__sent">
         <span ref={tickRef} className="form__tick" aria-hidden="true" hidden>
@@ -143,9 +152,25 @@ export default function EnquiryForm({ services, initialService, compact = false 
         </span>
         <p className="form__status" role="status" data-form-status></p>
       </div>
-      <p className="t-small muted" aria-live="polite">
-        {opened ? `Opening your email app with the message ready. If nothing opens, write to ${ENQUIRY_TO}.` : "We reply by email."}
-      </p>
     </form>
+  );
+}
+
+// the message, the one field both forms share (its label and size follow the form)
+function Message({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className="field field--full">
+      <label htmlFor="enq-message">{compact ? "What do you want to build?" : "Message"}</label>
+      <textarea
+        id="enq-message"
+        name="message"
+        required
+        maxLength={1000}
+        rows={compact ? 4 : 6}
+        placeholder="What you want to build, who it is for, and any deadline"
+        aria-describedby="enq-message-err"
+      />
+      <p className="field__error" id="enq-message-err" hidden>Write a message about the project.</p>
+    </div>
   );
 }

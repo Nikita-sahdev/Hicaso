@@ -70,6 +70,7 @@ export const services: Service[] = [
       ownCode,
       { q: "Can an AI agent act without approval?", a: "Only where you decide it can. We add approval steps for actions that need a person." },
       { q: "How do we know what the AI agent did?", a: "We can log each step and tool call so runs can be reviewed and evaluated." },
+      { q: "What does an AI agent development company build?", a: "AI agents that call your APIs and tools step by step to finish a task, such as chasing overdue invoices, with a person approving the actions you choose." },
     ],
   },
   {
@@ -88,6 +89,7 @@ export const services: Service[] = [
       ownCode,
       existing("mobile app"),
       { q: "Native or cross-platform mobile apps?", a: "It depends on the product. We will talk through the trade-offs with you before choosing." },
+      { q: "How much does it cost to have a mobile app developed?", a: "It depends on the platforms (Android, iOS or both), whether the app is native or one Flutter or React Native codebase, its features such as login and payments, and the backend it needs. Send the enquiry form and we reply by email with how we would build it." },
     ],
   },
   {
@@ -112,7 +114,7 @@ export const services: Service[] = [
   {
     slug: "ai-chatbot-development",
     name: "AI Chatbot Development",
-    seoTitle: "AI Chatbot Development Company — Hicaso",
+    seoTitle: "AI Chatbot Development Services — Hicaso",
     group: "AI",
     tagline: "Chat assistants that answer from your own documents and data.",
     description:
@@ -126,6 +128,7 @@ export const services: Service[] = [
       ownCode,
       { q: "Where can the AI chatbot run?", a: "On your website, inside your web or mobile app, or in an internal tool your team uses." },
       { q: "What happens when the chatbot does not know the answer?", a: "It says so and hands the conversation to a person, instead of guessing." },
+      { q: "How much does an AI chatbot cost to build?", a: "It depends on where the chatbot runs, which of your documents and data it answers from, and the tools it connects to. Send the enquiry form and we reply by email with how we would build it." },
     ],
   },
   {
@@ -145,12 +148,13 @@ export const services: Service[] = [
       ownCode,
       { q: "n8n, Zapier, Make or custom code?", a: "We pick by the workflow: a no-code tool where it covers the steps, our own code where it does not." },
       { q: "Can a person check the work before it goes out?", a: "Yes. We add an approval step wherever you want one." },
+      { q: "What does an AI automation agency do?", a: "It builds workflows that move data and do routine work between your tools, in n8n, Zapier, Make or custom code, with models such as OpenAI or Claude reading and writing the content. A person can check the work before it goes out." },
     ],
   },
   {
     slug: "ai-consulting",
     name: "AI Consulting",
-    seoTitle: "AI Consulting Company — Hicaso",
+    seoTitle: "AI Consulting Company and Services — Hicaso",
     group: "AI",
     tagline: "Where AI fits in your business, and what it takes to build it.",
     description:
@@ -183,6 +187,7 @@ export const services: Service[] = [
       ownCode,
       { q: "What goes into the first version?", a: "The few features your first users need to try the product. We agree on that list with you before we build." },
       { q: "Can the MVP grow into the full product?", a: "Yes. We build it on the same stack we would use for the full product, so it is extended, not thrown away." },
+      { q: "What is MVP development?", a: "Building the first version of your product with only the features people need to try it, so it reaches real users early. Hicaso builds it so it can grow into the full product." },
     ],
   },
   {
@@ -207,7 +212,7 @@ export const services: Service[] = [
   {
     slug: "ecommerce-development",
     name: "eCommerce Development",
-    seoTitle: "eCommerce Development: Shopify, WooCommerce — Hicaso",
+    seoTitle: "eCommerce Development Company: Shopify, WooCommerce — Hicaso",
     group: "Design and build",
     tagline: "Online stores on Shopify, WooCommerce or a custom stack.",
     description:
@@ -257,7 +262,7 @@ export const services: Service[] = [
   {
     slug: "maintenance-support",
     name: "Maintenance & Support",
-    seoTitle: "App Maintenance and Support Services — Hicaso",
+    seoTitle: "Software and App Maintenance Services — Hicaso",
     group: "Test, run and grow",
     tagline: "Bug fixes and updates for apps that are already live.",
     description:
@@ -289,12 +294,13 @@ export const services: Service[] = [
       ownCode,
       { q: "Can you take over an app another team built?", a: "Yes. We read the code first, tell you what we found, and then plan the work with you." },
       { q: "Do we have to rebuild the app from scratch?", a: "Usually not. Most apps can be upgraded step by step while they stay live." },
+      { q: "What is legacy application modernization?", a: "Taking over an older app, upgrading it and moving it to a current stack, for example an old PHP or CodeIgniter app to Laravel, React or Next.js, without rebuilding what still works." },
     ],
   },
   {
     slug: "cloud-devops",
     name: "Cloud & DevOps",
-    seoTitle: "DevOps Services Company: AWS, Azure, GCP — Hicaso",
+    seoTitle: "DevOps Consulting Services: AWS, Azure, GCP — Hicaso",
     group: "Test, run and grow",
     tagline: "Servers, deploys and backups on AWS, Azure, Google Cloud or a VPS.",
     description:
@@ -322,7 +328,7 @@ export const services: Service[] = [
     ],
     faqs: [
       ownCode,
-      { q: "How is a dedicated team billed?", a: "Monthly per developer, or by the hour. You choose." },
+      { q: "How much does it cost to hire dedicated developers in India?", a: "Developers are billed monthly per developer, or by the hour; you choose. The cost depends on the skills you need and how many developers join your team. Send the enquiry form and we reply by email with the options." },
       {
         q: "Which developers can we hire?",
         a: "Mobile developers (Flutter, React Native, Kotlin, Swift), web developers (React, Next.js), backend developers (Node.js, Laravel, Python) and AI developers (OpenAI, Claude), plus QA testers and designers when you need them.",

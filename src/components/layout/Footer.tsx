@@ -40,9 +40,9 @@ export const Footer: React.FC<{ blog?: boolean }> = ({ blog = false }) => (
           <p>
             Tell us what you need built.{" "}
             {booking ? (
-              <a className="link" href={booking} target="_blank" rel="noopener noreferrer">Book a free 30-minute call</a>
+              <a className="link" href={booking} target="_blank" rel="noopener noreferrer">Book a free call</a>
             ) : (
-              "The first 30-minute call is free."
+              "Your first call is free and takes 30 minutes."
             )}
           </p>
         </div>
