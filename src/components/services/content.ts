@@ -23,7 +23,7 @@ export const RIGHT = (inner: string) =>
 
 export const content: Record<string, Content> = {
   "generative-ai": {
-    h1: "Generative AI for product teams",
+    h1: "Generative AI development for product teams",
     lead:
       "Our team in India adds generative AI to your product or builds new ones around it: assistants, retrieval over your own data, and the checks that keep outputs useful.",
     hero: {
@@ -169,7 +169,7 @@ export const content: Record<string, Content> = {
   },
 
   "mobile-app-development": {
-    h1: "Android and iOS app development",
+    h1: "Mobile app development for Android and iOS",
     lead:
       "We build mobile apps natively for Android and iOS, or across both with Flutter or React Native, and we handle the store release. You see working builds in weekly demos.",
     hero: {
@@ -1056,7 +1056,7 @@ export const content: Record<string, Content> = {
   },
 
   "cloud-devops": {
-    h1: "Cloud and DevOps services",
+    h1: "DevOps consulting and cloud services",
     lead:
       "We set up and run your servers on AWS, Azure, Google Cloud, DigitalOcean or your own VPS, with deploy pipelines and backups.",
     hero: {

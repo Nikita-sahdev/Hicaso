@@ -23,7 +23,7 @@ interface LogoMarqueeProps {
   className?: string;
 }
 
-export function LogoMarquee({ items, duration = 32, gap = "56px", label = "logos", className = "" }: LogoMarqueeProps) {
+export function LogoMarquee({ items, duration = 32, gap = "48px", label = "logos", className = "" }: LogoMarqueeProps) {
   const [playing, setPlaying] = useState(true);
 
   const renderSet = (copy: boolean) => (

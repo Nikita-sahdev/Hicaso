@@ -72,7 +72,7 @@ const deploy = `<div class="stage"><div class="at-rise fit" style="--fit-max:420
     <span class="ui-agent" aria-hidden="true"></span>
     <span class="ui-pipe__msg">Home page sections</span>
     <code class="ui-pipe__sha">6e7670f</code>
-    <button class="ui-btn ui-btn--ghost ui-btn--sm ui-pipe__btn" type="button" tabindex="-1" data-pipe-btn data-done="Re-run">Re-run</button>
+    <button class="ui-btn ui-btn--ghost ui-btn--sm ui-pipe__btn" type="button" tabindex="-1" data-pipe-btn data-done="Rerun">Rerun</button>
   </div>
   <ol class="ui-pipe__steps">
     ${step("checkout", "git", "Checkout", "git fetch --depth 1", "3s")}

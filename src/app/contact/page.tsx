@@ -85,7 +85,7 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
               </li>
             </ul>
           </div>
-          <div className="card span-6 start-7">
+          <div className="card enquiry-card span-6 start-7">
             <ProjectPlanner />
             <EnquiryForm
               key={initialService}

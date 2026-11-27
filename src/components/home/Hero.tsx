@@ -1,14 +1,18 @@
-import styles from "./HeroArt.module.css";
+import styles from "./Hero.module.css";
 import SpecularButton from "../ui/SpecularButton";
+import HeroAudit from "./HeroAudit";
+import HeroDeal from "./HeroDeal";
+import LightRays from "../ui/LightRays";
 import { BOOKING_URL, PROFILES, httpsLinks } from "@/lib/site";
 
 // the second button books the free call once a booking link is set (src/lib/site.ts)
 const BOOKING = httpsLinks([{ url: BOOKING_URL }])[0]?.url;
 
-// The dealt collage hero (kit layout/hero-collage.html). motion.js runs the entrance from data-enter,
-// so the h1 stays plain text for its word masks.
-// The art frame's ground is the kit effect gradient-mesh (owner's choice, quiet ground for a UI frame,
-// effects-usage.md): system.js mounts it, keeps it moving in the hero and gives the frame its pause disc.
+// The home hero (owner's reference, 2026-11-24): the kit's centred hero for the words (layout.css, hero--centred,
+// as the service pages use it), then a row of three real screens with the middle one raised: BillMinute's invoice
+// editor, AppKavo's findings window (live: HeroAudit runs its audit once), AppKavo's site. No faces and no client
+// logos (none are real yet): the proof is the review profiles and the stack we build with.
+// motion.js runs the entrance from data-enter; the h1's accent span keeps its words (the word masks walk into it).
 
 // AppKavo's findings for one build, ranked (the product's own subject: src/data/products.ts).
 const FINDINGS = [
@@ -21,14 +25,45 @@ const FINDINGS = [
   { tone: 4, finding: "MD5 used for hashing", file: "CryptoUtil.kt", status: "Fixed", cls: "is-done" },
 ];
 
+// what we build with (icons in public/assets/icons)
+const STACK = [
+  ["flutter", "Flutter"],
+  ["nextjs", "Next.js"],
+  ["openai", "OpenAI"],
+  ["claude", "Claude"],
+  ["python", "Python"],
+  ["nodejs", "Node.js"],
+  ["firebase", "Firebase"],
+  ["aws", "AWS"],
+] as const;
+
 export default function Hero() {
   return (
-    <section className="hero hero--collage" data-enter aria-labelledby="hero-h">
+    <section className={`hero hero--centred hero--showcase ${styles.hero}`} data-enter aria-labelledby="hero-h">
+      {/* React Bits LightRays as the hero's ground (owner's request, 2026-11-24): blueprint-blue rays from the top
+          centre, printed as soft ink on the white page (lightMode); no click pulse, so pressing a button doesn't
+          flash the light. The component sets pointer-events: none and listens on window. */}
+      <div className={styles.ground} aria-hidden="true">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#2456d6"
+          lightMode
+          atmosphere={0}
+          lightSpread={0.6}
+          rayLength={2}
+          glow={0.5}
+          haze={0.25}
+          mouseInfluence={0.1}
+          clickPulse={false}
+        />
+      </div>
       <div className="wrap">
-        <div className="hero-text grid hero__grid">
-          <div className="hero__text span-5">
-            <h1 id="hero-h">AI, mobile and web software for global companies</h1>
-            <p className="hero__lead">
+        <div className="hero-text">
+          <div className={`hero__c ${styles.c}`}>
+            <h1 id="hero-h" className={styles.h1}>
+              AI, mobile and web software <span className={styles.accent}>for global companies</span>
+            </h1>
+            <p className={`hero__lead ${styles.lead}`}>
               Hicaso is a custom software development company in India. The team that builds and runs our own products,
               AppKavo and BillMinute, builds your AI, mobile and web software.
             </p>
@@ -55,7 +90,7 @@ export default function Hero() {
               </SpecularButton>
               {BOOKING ? (
                 <a className="btn btn--secondary" href={BOOKING} target="_blank" rel="noopener noreferrer">
-                  Book a free 30-minute call
+                  Book a free call
                 </a>
               ) : (
                 <a className="btn btn--secondary" href="/products">
@@ -68,19 +103,37 @@ export default function Hero() {
               <a href={PROFILES[0].url} target="_blank" rel="noopener noreferrer">{PROFILES[0].label}</a> and{" "}
               <a href={PROFILES[1].url} target="_blank" rel="noopener noreferrer">{PROFILES[1].label}</a>.
             </p>
+            <div className={styles.stack}>
+              <p className={styles.stackLabel}>Built with</p>
+              <ul className={styles.logos}>
+                {STACK.map(([id, name]) => (
+                  <li key={id}>
+                    <img src={`/assets/icons/${id}.svg`} alt="" width={22} height={22} />
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div
-            className={`hero__art span-6 start-7 ${styles.art}`}
-            role="img"
-            data-ui-pause-host
-            data-fx="gradient-mesh"
-            data-fx-seed="11"
-            data-fx-palette='{"bg":"#c6d3df","surface":"#d6e0e9","ink":"#25303a","muted":"#4d5964","accent":"#2456d6","accentInk":"#ffffff"}'
-            aria-label="AppKavo's ranked security findings for an Android build, with two blockers for Google Play review"
-          >
-            <div className="ly-piece ly-piece--main" aria-hidden="true">
-              <div className="ui ui-panel ui-win ui-win--compact">
+          <div className={styles.showcase} data-enter-media>
+            <figure className={`${styles.screen} ${styles.side}`} data-deal="side">
+              <img
+                src="/images/products/billminute.png"
+                alt="BillMinute's invoice editor: a USD invoice to a US client, with the tax invoice preview beside it"
+                width={1080}
+                height={810}
+              />
+            </figure>
+
+            <div
+              className={`${styles.screen} ${styles.main} ${styles.art}`}
+              data-deal="main"
+              role="img"
+              data-ui-pause-host
+              aria-label="AppKavo's ranked security findings for an Android build, with two blockers for Google Play review"
+            >
+              <div className="ui ui-panel ui-win ui-win--compact" aria-hidden="true">
                 <div className="ui-win__bar">
                   <span className="ui-dots"><i></i><i></i><i></i></span>
                   <span className="ui-win__crumb">
@@ -131,18 +184,21 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className={`ly-piece ly-piece--note ${styles.card}`} aria-hidden="true" data-ly-steps="700">
-              <div className={styles.cardHead}>
-                <b>Audit of app-release.aab</b>
-                <span className={styles.chip} data-step data-step-at="4">Done</span>
-              </div>
-              <div className={styles.line} data-step><i>✓</i><span><b>{FINDINGS.length} findings</b> ranked, with fixes to paste</span></div>
-              <div className={styles.line} data-step><i>!</i><span><b>2 blockers</b> for Google Play review</span></div>
-              <div className={styles.line} data-step><i>✓</i><span><b>Data Safety</b> form drafted</span></div>
-            </div>
+            <figure className={`${styles.screen} ${styles.side}`} data-deal="side">
+              <img
+                src="/images/products/appkavo.jpg"
+                alt="AppKavo's home page: find your app's security holes before attackers do"
+                width={1080}
+                height={810}
+              />
+            </figure>
           </div>
         </div>
       </div>
+      {/* AppKavo audits the build in the findings window once, after the entrance (GSAP) */}
+      <HeroAudit />
+      {/* the three screens deal out on load, then lean with the pointer (GSAP) */}
+      <HeroDeal />
     </section>
   );
 }

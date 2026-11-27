@@ -23,7 +23,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/technologies/[slug]">): Promise<Metadata> {
   const t = getTechnology((await params).slug);
   if (!t) return {};
-  return { title: `${t.h1} — Hicaso`, description: t.lead, alternates: { canonical: `/technologies/${t.slug}` } };
+  return { title: t.seoTitle ?? `${t.h1} — Hicaso`, description: t.lead, alternates: { canonical: `/technologies/${t.slug}` } };
 }
 
 export default async function TechnologyPage({ params }: PageProps<"/technologies/[slug]">) {

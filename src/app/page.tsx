@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Hero from "@/components/home/Hero";
+import HomeMotion from "@/components/home/HomeMotion";
 import ServicesGrid from "@/components/home/ServicesGrid";
 import Products from "@/components/home/Products";
 import HowWeWork from "@/components/common/HowWeWork";
@@ -30,7 +31,7 @@ const note = (icon: string, title: string, time: string, body: string) =>
 const WEEK = `<div class="stage"><div class="at-rise fit" style="--fit-max:400px;--ax:max(24px, 50% - 200px);--ay:calc(50% - 130px);--ay-sm:32px">
 <div class="ui ui-notify"><ul class="ui-notify__list">
   ${note("google-meet", "Weekly demo with your team", "Thu", "This week's build, shown by the people who built it")}
-  ${note("github", "Pull request ready for your review", "2h", "Sign-in and payments screens, with their tests")}
+  ${note("github", "Pull request ready for your review", "2h", "Login and payment screens, with their tests")}
   ${note("slack", "Notes from last week's demo", "1d", "Two changes agreed, both in this build")}
 </ul></div></div></div>`;
 
@@ -38,6 +39,8 @@ export default async function Home() {
   const posts = await listLivePostsSafe();
   return (
     <>
+      {/* the sections' scroll motion below the hero (GSAP ScrollTrigger) */}
+      <HomeMotion />
       <Hero />
       <ServicesGrid />
       <Products />
@@ -69,7 +72,7 @@ export default async function Home() {
               <div className="btn-row">
             <a className="btn btn--primary" href="/contact">Start a project</a>
             {BOOKING ? (
-              <a className="btn btn--secondary" href={BOOKING} target="_blank" rel="noopener noreferrer">Book a free 30-minute call</a>
+              <a className="btn btn--secondary" href={BOOKING} target="_blank" rel="noopener noreferrer">Book a free call</a>
             ) : null}
             {WA ? (
               <a className="link" href={WA} target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
@@ -113,7 +116,7 @@ export default async function Home() {
               <a className="link" href="/contact">Use the full form, with service and budget</a>
             </p>
           </div>
-          <div className="card span-6 start-7">
+          <div className="card enquiry-card span-6 start-7">
             <EnquiryForm services={services.map(({ slug, name }) => ({ slug, name }))} initialService="" compact />
           </div>
         </div>

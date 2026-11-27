@@ -8,6 +8,9 @@ export type Technology = {
   name: string;
   service: string;
   h1: string;
+  // the search title, from US keyword volume (DataForSEO via treg, 2026-11-25): "<name> development company" is what
+  // buyers type; the H1 stays the readable line on the page. Unset: the H1 is the title.
+  seoTitle?: string;
   lead: string;
   usesTitle: string;
   uses: { title: string; body: string }[];
@@ -25,6 +28,7 @@ export const technologies: Technology[] = [
     name: "Flutter",
     service: "mobile-app-development",
     h1: "Flutter app development for Android and iOS",
+    seoTitle: "Flutter App Development Company — Hicaso",
     lead: "Our team in India builds Flutter apps for Android and iOS from one Dart codebase and handles the store release. You see working builds in weekly demos.",
     usesTitle: "What we build with Flutter",
     uses: [
@@ -43,6 +47,7 @@ export const technologies: Technology[] = [
     name: "React Native",
     service: "mobile-app-development",
     h1: "React Native mobile app development",
+    seoTitle: "React Native App Development Company — Hicaso",
     lead: "Our team in India builds React Native apps for Android and iOS from one codebase and handles the store release. You see working builds in weekly demos.",
     usesTitle: "What we build with React Native",
     uses: [
@@ -61,6 +66,7 @@ export const technologies: Technology[] = [
     name: "Laravel",
     service: "web-development",
     h1: "Laravel development for web apps and stores",
+    seoTitle: "Laravel Development Company — Hicaso",
     lead: "Our team in India builds Laravel web apps, APIs and online stores, and maintains and upgrades older PHP apps. You see working software in weekly demos.",
     usesTitle: "What we build with Laravel",
     uses: [
@@ -79,6 +85,7 @@ export const technologies: Technology[] = [
     name: "Next.js",
     service: "web-development",
     h1: "Next.js development for web apps and sites",
+    seoTitle: "Next.js Development Company — Hicaso",
     lead: "Our team builds web apps, SaaS products and marketing sites with React and Next.js, on Node.js or your own API. You see working software in weekly demos.",
     usesTitle: "What we build with Next.js",
     uses: [
@@ -97,6 +104,7 @@ export const technologies: Technology[] = [
     name: "Node.js",
     service: "web-development",
     h1: "Node.js backend and API development",
+    seoTitle: "Node.js Development Company: Backend and APIs — Hicaso",
     lead: "Our team in India builds Node.js APIs and backends for web and mobile apps, and the services behind our AI work. You see working software in weekly demos.",
     usesTitle: "What we build with Node.js",
     uses: [
@@ -116,6 +124,7 @@ export const technologies: Technology[] = [
     name: "React",
     service: "web-development",
     h1: "React development for web apps and SaaS",
+    seoTitle: "React Development Company for Web Apps — Hicaso",
     lead: "Our team in India builds React front ends for web apps, SaaS products and stores, on Node.js, Laravel or your API. You see working software in weekly demos.",
     usesTitle: "What we build with React",
     uses: [
@@ -135,6 +144,7 @@ export const technologies: Technology[] = [
     name: "Python",
     service: "generative-ai",
     h1: "Python development for AI and automation",
+    seoTitle: "Python Development Company for AI — Hicaso",
     lead: "Our team in India builds the Python behind generative AI, chatbots, agents and automation: code that calls OpenAI, Claude or Gemini and searches your data.",
     usesTitle: "What we build with Python",
     uses: [
@@ -171,6 +181,7 @@ export const technologies: Technology[] = [
     name: "Shopify",
     service: "ecommerce-development",
     h1: "Shopify store development",
+    seoTitle: "Shopify Development Company — Hicaso",
     lead: "Our team in India builds and extends Shopify stores: catalogue, checkout, payments, order emails and the admin your team works in, for the way you sell.",
     usesTitle: "What we build with Shopify",
     uses: [
@@ -189,6 +200,7 @@ export const technologies: Technology[] = [
     name: "WooCommerce",
     service: "ecommerce-development",
     h1: "WooCommerce store development in PHP",
+    seoTitle: "WooCommerce Development Company — Hicaso",
     lead: "Our team in India builds WooCommerce stores and extends them in PHP: catalogue, checkout, payments, order emails and the admin your team works in.",
     usesTitle: "What we build with WooCommerce",
     uses: [

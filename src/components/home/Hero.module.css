@@ -1,0 +1,151 @@
+/* Page CSS of the home hero (Hero.tsx): the words are the kit's hero--centred; this file sets the headline's
+   accent, the "Built with" row and the row of three screens under the words. (Product pages keep HeroArt.module.css.) */
+
+/* the hero grows past its one screen to hold the screens row (the kit sizes a hero to the screen) */
+main > section.hero {
+  height: auto;
+  min-height: 0;
+}
+
+/* the LightRays ground: the whole hero, behind everything (the hero is isolation: isolate) */
+.ground {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Heading 1 (the kit's --t-h1: 36 / 48 / 60, semibold) in the landing-page-design skill's light hero gradient,
+   black to #666 left to right, the one gradient the skill allows (owner's choice 2026-11-25; it replaces the blue
+   accent). Two lines on a desktop, broken where the thought breaks: the second line starts at "for global
+   companies". The lead is Body 7 (18/28, 20/28 on a desktop) at most 680px wide. (section + element raise these
+   past the kit's later rules.) */
+section div.c {
+  max-width: 1040px;
+}
+section h1.h1 {
+  max-width: 24ch;
+  font-size: var(--t-h1);
+  background: linear-gradient(90deg, #000000, #666666);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+@media (min-width: 1024px) {
+  .accent {
+    display: block;
+  }
+}
+section .hero__lead.lead {
+  max-width: 680px;
+  font-size: var(--t-lead);
+  line-height: 28px;
+}
+
+/* the stack we build with, as a quiet logo row */
+.stack {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+.stackLabel {
+  font-size: var(--t-small);
+  color: var(--muted);
+}
+.logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3) var(--s-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.logos li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: color-mix(in oklab, var(--ink) 70%, var(--paper));
+}
+.logos img {
+  width: 22px;
+  height: 22px;
+  filter: grayscale(1);
+  opacity: 0.75;
+}
+
+/* three screens, the middle one raised; the row runs off the hero's foot and fades there */
+.showcase {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 1fr;
+  align-items: start;
+  gap: var(--s-5);
+  flex: none;
+  height: clamp(340px, 34vw, 460px);
+  margin-top: var(--s-7, 48px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent);
+  mask-image: linear-gradient(to bottom, #000 78%, transparent);
+}
+.screen {
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+.screen > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.side {
+  margin-top: 64px;
+}
+
+/* the findings window: the kit's ui fragment on white inside its frame */
+.art {
+  --ui-font: var(--font-text);
+  --ui-mono: var(--font-mono);
+  --ui-radius: 10px;
+  --fx-bg: var(--paper);
+  --fx-surface: var(--surface);
+  --fx-ink: var(--ink);
+  --fx-muted: var(--muted);
+  --fx-accent: var(--accent);
+  --fx-accent-ink: var(--accent-ink);
+}
+.art :global(.ui-win) {
+  width: 100%;
+}
+.art :global(.ui-win__body) {
+  min-height: 452px;
+}
+
+/* below a laptop the middle screen stands alone */
+@media (max-width: 1023px) {
+  .showcase {
+    grid-template-columns: minmax(0, 620px);
+    justify-content: center;
+    height: clamp(300px, 60vw, 420px);
+  }
+  .side {
+    display: none;
+  }
+}
+@media (max-width: 639px) {
+  .showcase {
+    margin-top: var(--s-6);
+  }
+  .logos {
+    gap: var(--s-3) var(--s-5);
+  }
+
+}
